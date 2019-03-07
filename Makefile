@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/07 18:44:48 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/08 00:21:07 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ FRAMES		=	-framework OpenGL \
 				-framework SDL2_image \
 				-framework SDL2_ttf
 
+FLAG		:=	0
+
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -O3
 
@@ -67,10 +69,15 @@ $(NAME):
 	@make -C $(UI_DIR) all
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
 	@make $(OBJ_DIR)
-	@make build
+	@make compile
 	@echo "$(TEXT_CG)$(TEXT_BL)$(TEXT_B)↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ success$(TEXT_R)"
 
-build: $(OBJ)
+compile: $(OBJ)
+	@if [ $(FLAG) != 0 ]; then\
+		make build;\
+	fi
+
+build:
 	$(CC) $(CFLAGS) $(INCS) $(LIBS) $(FRAMES) $(OBJ) -o $(NAME)
 
 $(OBJ_DIR):
@@ -78,6 +85,7 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	$(eval FLAG := 1)
 
 clean:
 	@echo "$(TEXT_CC)$(TEXT_B)↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ clean$(TEXT_R)"

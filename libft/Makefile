@@ -6,13 +6,13 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/07 18:09:38 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/10 19:24:07 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	=	libft.a
 
-INC_DIR	=	./inc
+INC_DIR	=	./includes
 OBJ_DIR	=	./obj
 SRC_DIR	=	./src
 

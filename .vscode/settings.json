@@ -1,0 +1,12 @@
+{
+	"files.associations": {
+		"guimp.h": "c",
+		"__config": "c",
+		"__nullptr": "c",
+		"cstdarg": "c",
+		"cstddef": "c",
+		"limits": "c",
+		"type_traits": "c",
+		"libui.h": "c"
+	}
+}

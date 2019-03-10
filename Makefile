@@ -3,14 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/08 00:21:07 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/10 20:55:00 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	guimp
+AUTHOR		=	$(shell whoami)
 
 TEXT_R		=	\033[0m
 TEXT_B		=	\033[1m
@@ -26,31 +27,33 @@ FT_DIR		=	./libft
 UI_DIR		=	./libui
 MLX_DIR		=	./minilibx
 
-FT_INC		=	$(FT_DIR)/inc
-UI_INC		=	$(UI_DIR)/inc
+FT_INC		=	$(FT_DIR)/includes
+UI_INC		=	$(UI_DIR)/includes
 
-INC_DIR		=	./inc
+INC_DIR		=	./includes
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
-# DEP_DIR		=	./dep
 
 SRC			=	main.c
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
-# OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.o=.d))
+
+SDL_NUM		=	$(shell ls /Users/$(AUTHOR)/.brew/Cellar/sdl2/ | tail -1)
+TTF_NUM		=	$(shell ls /Users/$(AUTHOR)/.brew/Cellar/sdl2_ttf/ | tail -1)
+IMG_NUM		=	$(shell ls /Users/$(AUTHOR)/.brew/Cellar/sdl2_image/ | tail -1)
 
 INCS		=	-I$(INC_DIR) \
 				-I$(FT_INC) \
 				-I$(MLX_DIR) \
-				#-I$(UI_INC)
+				-I$(UI_INC) \
+				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2/$(SDL_NUM)/include/ \
+				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2/$(SDL_NUM)/include/SDL2/ \
+				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2_ttf/$(TTF_NUM)/include/ \
+				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2_image/$(IMG_NUM)/include/
+
 LIBS		=	-L$(FT_DIR) -lft \
 				-L$(MLX_DIR) -lmlx \
-				#-L$(UI_DIR) -lui
-FRAMES		=	-framework OpenGL \
-				-framework AppKit \
-				#-framework OpenCL \
-				-framework SDL2 \
-				-framework SDL2_image \
-				-framework SDL2_ttf
+				-L$(UI_DIR) -lui \
+				-L/Users/$(AUTHOR)/.brew/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image
 
 FLAG		:=	0
 
@@ -78,14 +81,14 @@ compile: $(OBJ)
 	fi
 
 build:
-	$(CC) $(CFLAGS) $(INCS) $(LIBS) $(FRAMES) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(INCS) $(LIBS) $(OBJ) -o $(NAME)
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
-	$(eval FLAG := 1)
+	@$(eval FLAG := 1)
 
 clean:
 	@echo "$(TEXT_CC)$(TEXT_B)↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ clean$(TEXT_R)"

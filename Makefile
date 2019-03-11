@@ -6,9 +6,11 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/10 20:55:00 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/12 02:42:56 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+include			Makefile.inc
 
 NAME		=	guimp
 AUTHOR		=	$(shell whoami)
@@ -25,7 +27,6 @@ TEXT_CC		=	\033[36m
 
 FT_DIR		=	./libft
 UI_DIR		=	./libui
-MLX_DIR		=	./minilibx
 
 FT_INC		=	$(FT_DIR)/includes
 UI_INC		=	$(UI_DIR)/includes
@@ -43,7 +44,6 @@ IMG_NUM		=	$(shell ls /Users/$(AUTHOR)/.brew/Cellar/sdl2_image/ | tail -1)
 
 INCS		=	-I$(INC_DIR) \
 				-I$(FT_INC) \
-				-I$(MLX_DIR) \
 				-I$(UI_INC) \
 				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2/$(SDL_NUM)/include/ \
 				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2/$(SDL_NUM)/include/SDL2/ \
@@ -51,11 +51,8 @@ INCS		=	-I$(INC_DIR) \
 				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2_image/$(IMG_NUM)/include/
 
 LIBS		=	-L$(FT_DIR) -lft \
-				-L$(MLX_DIR) -lmlx \
 				-L$(UI_DIR) -lui \
 				-L/Users/$(AUTHOR)/.brew/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image
-
-FLAG		:=	0
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -O3
@@ -64,38 +61,38 @@ all: $(NAME)
 
 $(NAME):
 	@echo "$(TEXT_CC)$(TEXT_B)↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ all$(TEXT_R)"
+	@touch $(TEMP)
 	@echo "$(TEXT_CR)$(TEXT_B)LIBFT:$(TEXT_R)"
 	@make -C $(FT_DIR) all
-	@echo "$(TEXT_CR)$(TEXT_B)LIBMLX:$(TEXT_R)"
-	@make -C $(MLX_DIR) all
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) all
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
 	@make $(OBJ_DIR)
 	@make compile
+	@rm -f $(TEMP)
 	@echo "$(TEXT_CG)$(TEXT_BL)$(TEXT_B)↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ success$(TEXT_R)"
 
 compile: $(OBJ)
-	@if [ $(FLAG) != 0 ]; then\
+	@if [ $(CAT_TEMP) ] ; \
+	then \
 		make build;\
-	fi
+	fi;
 
 build:
-	$(CC) $(CFLAGS) $(INCS) $(LIBS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBS) $(INCS) $(OBJ) -o $(NAME)
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
-	@$(eval FLAG := 1)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCS) Makefile
+	$(CC) $(CFLAGS) -o $@ -c $<
+	@echo "1" > $(TEMP)
 
 clean:
 	@echo "$(TEXT_CC)$(TEXT_B)↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ clean$(TEXT_R)"
+	@rm -f $(TEMP)
 	@echo "$(TEXT_CR)$(TEXT_B)LIBFT:$(TEXT_R)"
 	@make -C $(FT_DIR) clean
-	@echo "$(TEXT_CR)$(TEXT_B)LIBMLX:$(TEXT_R)"
-	@make -C $(MLX_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
@@ -104,10 +101,9 @@ clean:
 
 fclean:
 	@echo "$(TEXT_CC)$(TEXT_B)↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ fclean$(TEXT_R)"
+	@rm -f $(TEMP)
 	@echo "$(TEXT_CR)$(TEXT_B)LIBFT:$(TEXT_R)"
 	@make -C $(FT_DIR) fclean
-	@echo "$(TEXT_CR)$(TEXT_B)LIBMLX:$(TEXT_R)"
-	@make -C $(MLX_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) fclean
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"

@@ -6,9 +6,11 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/10 19:24:07 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/12 02:12:31 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+include		../Makefile.inc
 
 NAME 	=	libft.a
 
@@ -103,6 +105,7 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(INC_DIR) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
 
 clean:
 	rm -rf $(OBJ_DIR)
@@ -112,4 +115,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all temp clean fclean re

@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ui_create_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 15:47:50 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/12 01:47:16 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/12 01:08:48 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/12 02:33:08 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libui.h"
 
-int	ft_isalnum(int c)
+void	ui_env_create(t_env *e)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	ft_bzero(e, sizeof(t_env));
+	ft_bzero(&(e->sdl), sizeof(t_sdl));
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+		ui_exit_with_msg("libui: unable to initialize SDL2", e);
+	if (TTF_Init() < 0)
+		ui_exit_with_msg("libui: unable to initialize SDL2 TTF", e);
 }

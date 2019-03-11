@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ui_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 15:47:50 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/12 01:47:16 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/12 00:59:30 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/12 02:25:22 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libui.h"
 
-int	ft_isalnum(int c)
+void	ui_exit(t_env *e)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	SDL_DestroyWindow(e->sdl.win);
+	SDL_DestroyRenderer(e->sdl.ren);
+	SDL_FreeSurface(e->sur);
+	TTF_Quit();
+	SDL_Quit();
+	exit(EXIT_SUCCESS);
 }

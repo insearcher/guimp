@@ -6,14 +6,13 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/12 02:42:56 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/12 05:27:58 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include			Makefile.inc
 
 NAME		=	guimp
-AUTHOR		=	$(shell whoami)
 
 TEXT_R		=	\033[0m
 TEXT_B		=	\033[1m
@@ -28,31 +27,24 @@ TEXT_CC		=	\033[36m
 FT_DIR		=	./libft
 UI_DIR		=	./libui
 
-FT_INC		=	$(FT_DIR)/includes
-UI_INC		=	$(UI_DIR)/includes
+INC_FT		=	$(FT_DIR)/include
+INC_UI		=	$(UI_DIR)/include
 
-INC_DIR		=	./includes
+INC_DIR		=	./include
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
+LIB_DIR		=	./lib
 
 SRC			=	main.c
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-SDL_NUM		=	$(shell ls /Users/$(AUTHOR)/.brew/Cellar/sdl2/ | tail -1)
-TTF_NUM		=	$(shell ls /Users/$(AUTHOR)/.brew/Cellar/sdl2_ttf/ | tail -1)
-IMG_NUM		=	$(shell ls /Users/$(AUTHOR)/.brew/Cellar/sdl2_image/ | tail -1)
-
 INCS		=	-I$(INC_DIR) \
-				-I$(FT_INC) \
-				-I$(UI_INC) \
-				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2/$(SDL_NUM)/include/ \
-				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2/$(SDL_NUM)/include/SDL2/ \
-				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2_ttf/$(TTF_NUM)/include/ \
-				-I/Users/$(AUTHOR)/.brew/Cellar/sdl2_image/$(IMG_NUM)/include/
-
+				-I$(INC_DIR)/SDL2 \
+				-I$(INC_FT) \
+				-I$(INC_UI)
 LIBS		=	-L$(FT_DIR) -lft \
-				-L$(UI_DIR) -lui \
-				-L/Users/$(AUTHOR)/.brew/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image
+				-L$(LIB_DIR) -lSDL2 -lSDL2_image -lSDL2_ttf \
+				-L$(UI_DIR) -lui
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -O3
@@ -79,34 +71,34 @@ compile: $(OBJ)
 	fi;
 
 build:
-	$(CC) $(CFLAGS) $(LIBS) $(INCS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(INCS) $(LIBS) -o $(NAME)
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCS) Makefile
-	$(CC) $(CFLAGS) -o $@ -c $<
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > $(TEMP)
 
 clean:
 	@echo "$(TEXT_CC)$(TEXT_B)↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ clean$(TEXT_R)"
-	@rm -f $(TEMP)
 	@echo "$(TEXT_CR)$(TEXT_B)LIBFT:$(TEXT_R)"
 	@make -C $(FT_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
+	@rm -f $(TEMP)
 	rm -rf $(OBJ_DIR)
 	@echo "$(TEXT_CG)$(TEXT_BL)$(TEXT_B)↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ success$(TEXT_R)"
 
 fclean:
 	@echo "$(TEXT_CC)$(TEXT_B)↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ fclean$(TEXT_R)"
-	@rm -f $(TEMP)
 	@echo "$(TEXT_CR)$(TEXT_B)LIBFT:$(TEXT_R)"
 	@make -C $(FT_DIR) fclean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) fclean
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
+	@rm -f $(TEMP)
 	rm -rf $(OBJ_DIR)
 	rm -f $(NAME)
 	@echo "$(TEXT_CG)$(TEXT_BL)$(TEXT_B)↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ success$(TEXT_R)"

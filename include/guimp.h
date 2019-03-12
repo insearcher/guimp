@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   guimp.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/12 04:56:04 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/12 05:16:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "guimp.h"
+#ifndef GUIMP_H
+# define GUIMP_H
 
-int	main(void)
-{
-	t_env	e;
+# include "libft.h"
+# include "libui.h"
+# include <SDL2/SDL.h>
+# include <SDL2/SDL_ttf.h>
+# include <SDL2/SDL_image.h>
 
-	(void)e;
-	ft_putchar('a');
-	ui_create_env(&e);
-	// ui_create_win("kek", &e);
-	exit(EXIT_SUCCESS);
-}
+void				ui_create_env(t_env *e);
+void				ui_create_win(const char *name, t_env *e);
+SDL_Surface			*ui_create_sur(const int h, const int w);
+
+void				ui_exit_with_msg(const char *msg, t_env *e);
+void				ui_exit(t_env *e);
+
+#endif

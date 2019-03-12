@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/12 02:12:31 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/12 05:22:36 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ include		../Makefile.inc
 
 NAME 	=	libft.a
 
-INC_DIR	=	./includes
+INC_DIR	=	./include
 OBJ_DIR	=	./obj
 SRC_DIR	=	./src
 

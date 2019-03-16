@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 02:16:36 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/12 02:34:41 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/16 22:17:50 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_win_create(const char *name, t_env *e)
+void	ui_create_win(const char *name, t_env *e)
 {
 	if (!(e->sdl.win = SDL_CreateWindow(name,
 	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIN_W, WIN_H, 0)))

@@ -6,13 +6,18 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/12 05:27:58 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/16 22:31:57 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include			Makefile.inc
 
 NAME		=	guimp
+WHOAMI		=	$(shell whoami)
+
+SDL_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2/ | tail -1)
+TTF_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/ | tail -1)
+IMG_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_image/ | tail -1)
 
 TEXT_R		=	\033[0m
 TEXT_B		=	\033[1m
@@ -39,12 +44,16 @@ SRC			=	main.c
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 INCS		=	-I$(INC_DIR) \
-				-I$(INC_DIR)/SDL2 \
 				-I$(INC_FT) \
-				-I$(INC_UI)
+				-I$(INC_UI) \
+				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/ \
+				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/SDL2/ \
+				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/$(TTF_VER)/include/ \
+				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
+
 LIBS		=	-L$(FT_DIR) -lft \
-				-L$(LIB_DIR) -lSDL2 -lSDL2_image -lSDL2_ttf \
-				-L$(UI_DIR) -lui
+				-L$(UI_DIR) -lui \
+				-L/Users/$(WHOAMI)/.brew/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -O3

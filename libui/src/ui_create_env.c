@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 01:08:48 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/12 02:33:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/16 22:18:18 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_env_create(t_env *e)
+void	ui_create_env(t_env *e)
 {
 	ft_bzero(e, sizeof(t_env));
 	ft_bzero(&(e->sdl), sizeof(t_sdl));

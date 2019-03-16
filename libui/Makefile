@@ -6,14 +6,18 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/12 05:28:49 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/16 22:30:32 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include			../Makefile.inc
 
 NAME 		=	libui.a
-AUTHOR		=	$(shell whoami)
+WHOAMI		=	$(shell whoami)
+
+SDL_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2/ | tail -1)
+TTF_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/ | tail -1)
+IMG_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_image/ | tail -1)
 
 INC_FT		=	../libft/include
 
@@ -30,7 +34,10 @@ OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 INCS		=	-I$(INC_DIR) \
 				-I$(INC_FT) \
-				-I../include
+				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/ \
+				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/SDL2/ \
+				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/$(TTF_VER)/include/ \
+				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
 
 CC 			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -O3

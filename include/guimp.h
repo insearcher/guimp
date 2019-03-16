@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/12 05:16:27 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/16 22:30:50 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "libft.h"
 # include "libui.h"
-# include <SDL2/SDL.h>
-# include <SDL2/SDL_ttf.h>
-# include <SDL2/SDL_image.h>
 
 void				ui_create_env(t_env *e);
 void				ui_create_win(const char *name, t_env *e);

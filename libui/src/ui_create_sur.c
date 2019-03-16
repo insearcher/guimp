@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 02:20:33 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/16 22:18:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/16 22:57:05 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-SDL_Surface	*ui_create_sur(const int h, const int w)
+SDL_Surface	*ui_create_sur(const int w, const int h)
 {
 	SDL_Surface	*res;
 

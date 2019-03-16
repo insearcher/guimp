@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_create_env.c                                    :+:      :+:    :+:   */
+/*   ui_get_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 01:08:48 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/16 23:07:49 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/16 23:35:01 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/16 23:46:07 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_create_env(t_env *e, const int w, const int h)
+int	ui_get_events(int (*event)(t_env *e), t_env *e)
 {
-	ft_bzero(e, sizeof(t_env));
-	ft_bzero(&(e->sdl), sizeof(t_sdl));
-	e->w = w;
-	e->h = h;
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-		ui_exit_with_msg(e, "libui: unable to initialize SDL2");
-	if (TTF_Init() < 0)
-		ui_exit_with_msg(e, "libui: unable to initialize SDL2 TTF");
+	SDL_PollEvent(&(e->sdl.evt));
+	e->state = SDL_GetKeyboardState(0);
+	SDL_GetMouseState(&(e.m_pos[0]), &(e.m_pos[1]));
+	event(e);
+	SDL_FlushEvent(SDL_KEYDOWN);
+	return (0);
 }

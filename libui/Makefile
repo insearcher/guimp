@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/16 22:30:32 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/16 22:59:56 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC			=	ui_create_env.c \
 				ui_create_win.c \
 				ui_create_sur.c \
 				ui_exit_with_msg.c \
-				ui_exit.c
+				ui_exit.c \
+				ui_set_pixel.c
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 INCS		=	-I$(INC_DIR) \

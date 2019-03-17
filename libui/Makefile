@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/16 22:59:56 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/17 05:10:09 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,12 @@ INC_DIR		=	./include
 SRC			=	ui_create_env.c \
 				ui_create_win.c \
 				ui_create_sur.c \
+				ui_create_frame.c \
 				ui_exit_with_msg.c \
 				ui_exit.c \
-				ui_set_pixel.c
+				ui_set_pixel.c \
+				ui_loop.c \
+				ui_get_events.c
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 INCS		=	-I$(INC_DIR) \
@@ -41,7 +44,7 @@ INCS		=	-I$(INC_DIR) \
 				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -O3
+CFLAGS		=	-Wall -Werror -Wextra -g -O3
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/16 23:54:59 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/17 05:52:48 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef struct		s_sdl
 {
-	SDL_Event		*evt;
+	SDL_Event		evt;
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
 }					t_sdl;
@@ -36,18 +36,22 @@ typedef struct		s_env
 	t_sdl			sdl;
 	SDL_Surface		*sur;
 	SDL_Texture		*tex;
-	Uint8			*state;
+	void 			(*frame)(struct s_env *e);
+	int 			(*event)(struct s_env *e);
+	const Uint8		*state;
 }					t_env;
 
 void				ui_create_env(t_env *e, const int w, const int h);
 void				ui_create_win(t_env *e, const char *name);
 SDL_Surface			*ui_create_sur(const int w, const int h);
-void				ui_create_frame(void (*frame)(t_env *e), t_env *e);
+void				ui_create_frame(t_env *e);
 
-int					ui_get_events(int (*event)(t_env *e), t_env *e);
+int					ui_get_events(t_env *e);
 
 void				ui_set_pixel(t_env *e, const int x, const int y,
 const Uint32 c);
+
+int					ui_loop(void *ev);
 
 void				ui_exit_with_msg(t_env *e, const char *msg);
 void				ui_exit(t_env *e);

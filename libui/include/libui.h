@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/17 05:52:48 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/25 21:21:54 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_env
 	void 			(*frame)(struct s_env *e);
 	int 			(*event)(struct s_env *e);
 	const Uint8		*state;
+	int				events;
 }					t_env;
 
 void				ui_create_env(t_env *e, const int w, const int h);

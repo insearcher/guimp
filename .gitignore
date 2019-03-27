@@ -41,6 +41,7 @@
 *.idb
 *.pdb
 .vscode/
+.idea/
 
 # Kernel Module Compile Results
 *.mod*

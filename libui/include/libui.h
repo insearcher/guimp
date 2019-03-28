@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/27 18:45:47 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/28 15:58:40 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@
 # include <SDL2/SDL_ttf.h>
 # include <SDL2/SDL_image.h>
 # include "libft.h"
+# include <math.h>
 
 # define WIN_W		640
 # define WIN_H		480
 
 # define WIN_IS_RESIZABLE	(1 << 0)
+# define CAST_X_TO_Y(x, y)	((y)x)
+# define QUEUE				t_list
 
 /*
 ** Smart things:
@@ -97,11 +100,12 @@ typedef struct		s_ui_el_events
 
 typedef struct		s_ui_el
 {
-	struct t_ui_el	*parent;
+	struct s_ui_el	*parent;
 	t_list			*children;
 	t_ui_size		size;
 	t_ui_pos		pos;
 	t_ui_el_events	events;
+	int				test; //for bfs test
 	// TODO: t_ui_graphics
 }					t_ui_el;
 
@@ -168,11 +172,29 @@ void				ui_create_frame(t_env *e);
 int					ui_get_events(t_env *e);
 
 void				ui_set_pixel(t_env *e, const int x, const int y,
-const Uint32 c);
+						const Uint32 c);
 
 int					ui_loop(void *ev);
 
 void				ui_exit_with_msg(t_env *e, const char *msg);
 void				ui_exit(t_env *e);
+
+# pragma region		BFS_func
+
+void				q_push(QUEUE **q, t_list *el);
+void				*q_pull(QUEUE **q);
+void				bfs_iter(const t_list *root, void(*f)(const void *arg)); //need to be tested
+
+# pragma endregion
+# pragma region		t_ui_el_func
+
+t_ui_el				*ui_el_init(t_ui_el *paren, t_list *children);
+void				ui_el_set_abs_size(t_ui_el *el, int x, int y);//need to be tested
+void				ui_el_set_rel_size(t_ui_el *el, float x, float y); //need to be tested
+void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
+void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
+void				ui_el_add_child(t_ui_el *el, t_ui_el *child);
+
+# pragma endregion
 
 #endif

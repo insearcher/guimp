@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_event_add.c                                     :+:      :+:    :+:   */
+/*   bfs_iter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/27 17:16:15 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/28 14:02:26 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/03/28 12:15:05 by edraugr-          #+#    #+#             */
+/*   Updated: 2019/03/28 13:50:20 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_event_add(t_ui_event *e, void(*f)(const void *i))
+static void	draw_placeholder(void *el)
 {
-	t_list	*node;
+	char	*tmp;
 
-	if (e->events == NULL)
+	tmp = ft_itoa(CAST_X_TO_Y(tmp, t_ui_el *)->test);
+	ft_putendl(tmp);
+	free(tmp);
+}
+
+void		bfs_iter(const t_list *root, void(*f)(const void *arg))
+{
+	QUEUE	*q;
+	void	*tmp;
+
+	q = NULL;
+	q_push(&q, root);
+	while (*q)
 	{
-		if ((e->events = ft_lstnew(f, sizeof(*f))) == NULL)
-			return (1);
-		return (0);
-	}
-	else
-	{
-		if ((node = ft_lstnew(f, sizeof(*f))) == NULL)
-			return (1);
-		ft_lstadd_back(&(e->events), node);
-		return (0);
+		tmp = q_pull(&q);
+		q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
+		f(tmp);
 	}
 }

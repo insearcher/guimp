@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ui_event_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:13:44 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/27 17:15:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/28 14:16:25 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_event_init(t_event *e)
+void	ui_event_init(t_ui_event *e)	//??????????????????????????? WAT?
 {
-	ft_bzero(e, sizeof(t_event));
-	e->root = NULL;
+	ft_bzero(e, sizeof(t_ui_event)); //ZOCHEM???
+	e->events = NULL;
 }

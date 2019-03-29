@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_set_pos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:48:34 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/03/28 14:54:17 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/03/29 20:48:24 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ void	ui_el_set_rel_pos(t_ui_el *el, float x, float y)
 	el->pos->abs->y = p->size->abs->y * y;
 }
 
-void	ui_el_set_abs_pos(t_ui_el *el, float x, float y)
+void	ui_el_set_abs_pos(t_ui_el *el, int x, int y)
 {
 	t_ui_el	*p;
 
-	if (!el || !*el || !(p = el->parent))
-		return ;
 	if (x > p->pos->abs->x || x < 0)
 		x > 0 ? x = p->pos->abs->x : x = 0;
 	if (y > p->pos->abs->y || y < 0)

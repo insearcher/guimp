@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_add_child.c                                  :+:      :+:    :+:   */
+/*   ui_win_close.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/28 14:55:52 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/03/28 14:58:06 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/03/29 21:10:21 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/29 21:20:07 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_add_child(t_ui_el *el, t_ui_el *child)
+void	ui_win_close(t_ui_win *w)
 {
-	//TODO
+	SDL_FreeSurface(w->sdl_surface);
+	SDL_DestroyWindow(w->sdl_window);
+	// ui_el_free(w->canvas);
+	ft_memdel((void **)&(w->title));
 }

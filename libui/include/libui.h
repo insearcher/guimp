@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/29 19:51:58 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/29 22:49:49 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define WIN_IS_RESIZABLE	(1 << 0)
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
+
+# define FUNCTION_SUCCESS	0
+# define FUNCTION_FAILURE	1
 
 typedef void		(*func_ptr)(void *);
 
@@ -103,9 +106,10 @@ typedef struct		s_ui_el_events
 
 typedef struct		s_ui_el
 {
+	t_ui_size		size;
 	struct s_ui_el	*parent;
 	t_list			*children;
-	t_ui_size		size;
+	SDL_Rect		rect;
 	t_ui_pos		pos;
 	t_ui_el_events	events;
 	int				test; //for bfs test
@@ -128,17 +132,31 @@ typedef struct		s_ui_win_events
 
 typedef struct		s_ui_win
 {
+	SDL_Window		*sdl_window;
+	SDL_Renderer	*sdl_renderer;
+	SDL_Surface		*sdl_surface;
+	SDL_Event		*sdl_event;
+	char			*title;
+	t_ui_el			canvas;
 	t_ui_size		size;
-	t_ui_el			*root;
 	t_ui_win_events	events;
 	int				properties;
 }					t_ui_win;
+
+# pragma endregion
+# pragma region		t_ui_raycaster
+
+typedef struct		s_ui_raycaster
+{
+	t_ui_el			*selected;
+}					t_ui_raycaster;
 
 # pragma endregion
 # pragma region		t_ui_main
 
 typedef struct		s_ui_main
 {
+	t_ui_raycaster	raycaster;
 	t_list			*windows;
 }					t_ui_main;
 
@@ -197,6 +215,13 @@ void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
 void				ui_el_add_child(t_ui_el *el, t_ui_el *child);
 
 # pragma endregion
+
+void	ui_win_create(t_ui_win *w);
+void	ui_win_init(t_ui_win *w);
+void	ui_win_close(t_ui_win *w);
+
+int		ui_init_enviroment(void);
+void	ui_deinit_enviroment(void);
 
 # pragma GCC diagnostic pop
 

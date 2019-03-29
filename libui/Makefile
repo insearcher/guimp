@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/29 20:02:41 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/29 22:51:24 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,12 @@ SRC			=	ui_create_env.c \
 				ui_event_init.c \
 				ui_event_add_listener.c \
 				ui_event_clear.c \
-				ui_event_invoke.c
+				ui_event_invoke.c \
+				ui_win_init.c \
+				ui_win_create.c \
+				ui_win_close.c \
+				ui_init_enviroment.c \
+				ui_deinit_enviroment.c
 
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

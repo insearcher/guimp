@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_event_add_listener.c                            :+:      :+:    :+:   */
+/*   ui_init_enviroment.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/27 17:16:15 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/29 20:56:37 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/29 22:39:47 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/29 22:46:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_event_add_listener(t_ui_event *e, func_ptr f)
+int	ui_init_enviroment(void)
 {
-	t_list	*node;
-	long	ptr;
-
-	ptr = (long)f;
-	if ((node = ft_lstnew((void *)&ptr, sizeof(ptr))) == NULL)
+	if (SDL_Init(SDL_INIT_VIDEO) < 0 ||
+		IMG_Init(IMG_INIT_JPG) < 0 ||
+		TTF_Init() < 0)
+	{
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+			"Couldn't initialize enviroment: %s", SDL_GetError());
 		return (FUNCTION_FAILURE);
-	if (e->events == NULL)
-	{
-		e->events = node;
-		e->last = node;
-	}
-	else
-	{
-		e->last->next = node;
-		e->last = node;
 	}
 	return (FUNCTION_SUCCESS);
 }

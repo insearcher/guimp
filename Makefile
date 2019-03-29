@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/27 15:59:33 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/03/29 20:02:45 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ LIBS		=	-L$(FT_DIR) -lft \
 				-L/Users/$(WHOAMI)/.brew/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image
 
 CC			=	gcc
-CFLAGS		=	#-Wall -Wextra -Werror -g -O3
+CFLAGS		=	-Wall -Wextra -Werror -g
 
 all: $(NAME)
 

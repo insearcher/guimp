@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_event_add_listener.c                            :+:      :+:    :+:   */
+/*   ui_el_add_child.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/27 17:16:15 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/29 20:56:37 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/28 14:55:52 by edraugr-          #+#    #+#             */
+/*   Updated: 2019/03/29 20:56:18 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_event_add_listener(t_ui_event *e, func_ptr f)
+int	ui_el_add_child(t_ui_el *el, t_ui_el *child)
 {
 	t_list	*node;
-	long	ptr;
 
-	ptr = (long)f;
-	if ((node = ft_lstnew((void *)&ptr, sizeof(ptr))) == NULL)
+	if ((node = ft_lstnew((void *)child, sizeof(t_ui_el)) == NULL)
 		return (FUNCTION_FAILURE);
-	if (e->events == NULL)
-	{
-		e->events = node;
-		e->last = node;
-	}
-	else
-	{
-		e->last->next = node;
-		e->last = node;
-	}
+	ft_lstadd(t_ui_el->children, node);
 	return (FUNCTION_SUCCESS);
 }

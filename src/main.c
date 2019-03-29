@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/28 10:45:13 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/03/29 22:51:02 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,49 @@ int	ui_perframe(void *ev)
 	return (0);
 }
 
+// void	f1(void *a)
+// {
+// 	(void)a;
+// 	printf("1\n");
+// }
+
+// void	f3(void *a)
+// {(void)a;
+// 	printf("3\n");
+// }
+
+// void	f2(void *a)
+// {(void)a;
+// 	printf("2\n");
+// }
+
 int		main(int argc, char *argv[])
 {
-	// (void)argc;
-	// (void)argv;
+	(void)argc;
+	(void)argv;
 	// t_env	e1;
 	// t_env	e2;
 
-
+	ui_init_enviroment();
+	t_ui_win w;
+	ui_win_init(&w);
+	w.title = ft_strdup("TEST");
+	w.canvas.rect.w = 640;
+	w.canvas.rect.h = 480;
+	ui_win_create(&w);
+	SDL_FreeSurface(w.sdl_surface);
+	SDL_Surface *helloWorld = IMG_Load("test2.jpg");
+	SDL_Rect r1;
+	r1.w = 600;
+	r1.h = 200;
+	r1.x = 0;
+	r1.y = 0;
+	SDL_BlitScaled(helloWorld, NULL, w.sdl_surface, &r1);
+	SDL_UpdateWindowSurface(w.sdl_window);
+	SDL_Delay( 6000 );
+	ui_win_close(&w);
+	SDL_Delay( 2000 );
+	ui_deinit_enviroment();
     // SDL_Thread *thread1;
 	// SDL_Thread *thread2;
     // int         threadReturnValue1;
@@ -109,6 +144,23 @@ int		main(int argc, char *argv[])
 	// 	SDL_WaitThread(thread2, &threadReturnValue2);
 	// }
 	// exit(EXIT_SUCCESS);
+
+	// t_ui_event ev;
+	// ui_event_init(&ev);
+	// ui_event_add_listener(&ev, &f1);
+	// ui_event_add_listener(&ev, &f3);
+	// ui_event_add_listener(&ev, &f2);
+	// ui_event_add_listener(&ev, &f3);
+	// ui_event_add_listener(&ev, &f2);
+	// ui_event_add_listener(&ev, &f3);
+	// ui_event_add_listener(&ev, &f2);
+	// ui_event_add_listener(&ev, &f3);
+	// ui_event_add_listener(&ev, &f2);
+	// ui_event_add_listener(&ev, &f3);
+	// ui_event_add_listener(&ev, &f2);
+	// ui_event_add_listener(&ev, &f3);
+	// ui_event_add_listener(&ev, &f2);
+	// ui_event_invoke(&ev, NULL);
 
 	return (0);
 }

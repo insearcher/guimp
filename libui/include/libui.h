@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/28 15:58:40 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:51:58 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
 
+typedef void		(*func_ptr)(void *);
+
 /*
 ** Smart things:
 ** 1) It's possible to replace t_name_init just by ft_bzero in code;
 ** ...To be continued...
 */
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-pragmas"
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wunknown-pragmas"
 
-#pragma region		t_vec2
+# pragma region		t_vec2
 
 typedef struct		s_vec2
 {
@@ -43,8 +45,8 @@ typedef struct		s_vec2
 	int				y;
 }					t_vec2;
 
-#pragma endregion
-#pragma region		t_fvec2
+# pragma endregion
+# pragma region		t_fvec2
 
 typedef struct		s_fvec2
 {
@@ -52,8 +54,8 @@ typedef struct		s_fvec2
 	float			y;
 }					t_fvec2;
 
-#pragma endregion
-#pragma region		s_ui_ar
+# pragma endregion
+# pragma region		s_ui_ar
 
 struct				s_ui_ar
 {
@@ -64,21 +66,22 @@ struct				s_ui_ar
 typedef struct		s_ui_ar t_ui_size;
 typedef struct		s_ui_ar t_ui_pos;
 
-#pragma endregion
-#pragma region		t_ui_event
+# pragma endregion
+# pragma region		t_ui_event
 
 typedef struct		s_ui_event
 {
 	t_list			*events;
+	t_list			*last;
 }					t_ui_event;
 
 void				ui_event_init(t_ui_event *e);
-int					ui_event_add(t_ui_event *e, void(*f)(const void *i));
-void				ui_event_invoke(t_ui_event *e);
-void				ui_event_free(t_ui_event *e);
+int					ui_event_add_listener(t_ui_event *e, void(*f)(void *d));
+void				ui_event_invoke(t_ui_event *e, void *d);
+void				ui_event_clear(t_ui_event *e);
 
-#pragma endregion
-#pragma region		t_ui_el_events
+# pragma endregion
+# pragma region		t_ui_el_events
 
 typedef struct		s_ui_el_events
 {
@@ -95,8 +98,8 @@ typedef struct		s_ui_el_events
 	t_ui_event		onScrollDown;
 }					t_ui_el_events;
 
-#pragma endregion
-#pragma region		t_ui_el
+# pragma endregion
+# pragma region		t_ui_el
 
 typedef struct		s_ui_el
 {
@@ -109,8 +112,8 @@ typedef struct		s_ui_el
 	// TODO: t_ui_graphics
 }					t_ui_el;
 
-#pragma endregion
-#pragma region		t_ui_win_events
+# pragma endregion
+# pragma region		t_ui_win_events
 
 typedef struct		s_ui_win_events
 {
@@ -120,8 +123,8 @@ typedef struct		s_ui_win_events
 	t_ui_event		onClose;
 }					t_ui_win_events;
 
-#pragma endregion
-#pragma region		t_ui_win
+# pragma endregion
+# pragma region		t_ui_win
 
 typedef struct		s_ui_win
 {
@@ -131,17 +134,15 @@ typedef struct		s_ui_win
 	int				properties;
 }					t_ui_win;
 
-#pragma endregion
-#pragma region		t_ui_main
+# pragma endregion
+# pragma region		t_ui_main
 
 typedef struct		s_ui_main
 {
 	t_list			*windows;
 }					t_ui_main;
 
-#pragma endregion
-
-#pragma GCC diagnostic pop
+# pragma endregion
 
 typedef struct		s_sdl
 {
@@ -196,5 +197,7 @@ void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
 void				ui_el_add_child(t_ui_el *el, t_ui_el *child);
 
 # pragma endregion
+
+# pragma GCC diagnostic pop
 
 #endif

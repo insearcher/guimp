@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/17 05:10:09 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/29 20:02:41 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRC_DIR		=	./src
 OBJ_DIR		=	./obj
 INC_DIR		=	./include
 
+SRC			=	$(shell ls $(SRC_DIR))
+
 SRC			=	ui_create_env.c \
 				ui_create_win.c \
 				ui_create_sur.c \
@@ -33,7 +35,12 @@ SRC			=	ui_create_env.c \
 				ui_exit.c \
 				ui_set_pixel.c \
 				ui_loop.c \
-				ui_get_events.c
+				ui_get_events.c \
+				ui_event_init.c \
+				ui_event_add_listener.c \
+				ui_event_clear.c \
+				ui_event_invoke.c
+
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 INCS		=	-I$(INC_DIR) \
@@ -44,7 +51,7 @@ INCS		=	-I$(INC_DIR) \
 				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g -O3
+CFLAGS		=	-Wall -Werror -Wextra -g
 
 all: $(NAME)
 
@@ -55,6 +62,10 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_el/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/31 00:00:20 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/31 02:29:52 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ typedef struct		s_ui_el
 
 typedef struct		s_ui_win_events
 {
-	t_ui_event		onSwitchOn;
-	t_ui_event		onSwitchOff;
+	t_ui_event		onFocusGained;
+	t_ui_event		onFocusLost;
 	t_ui_event		onResize;
 	t_ui_event		onClose;
 }					t_ui_win_events;
@@ -167,6 +167,7 @@ t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_handle_event(t_ui_main *m);
+void				ui_main_handle_window_event(t_ui_main *m);
 void				ui_main_handle_key_down(t_ui_main *m);
 void				ui_main_handle_key_up(t_ui_main *m);
 void				ui_main_handle_mouse_motion(t_ui_main *m);

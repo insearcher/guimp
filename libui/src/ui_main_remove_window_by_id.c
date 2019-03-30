@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_remove_window_by_id.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 23:34:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/30 23:46:54 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/31 02:46:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID)
 				prev->next = cur->next;
 			ui_win_close(win);
 			ft_lstdelones(&cur);
+			return ;
 		}
 		prev = cur;
 		cur = cur->next;

@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_deinit_enviroment.c                             :+:      :+:    :+:   */
+/*   ui_main_handle_key_down.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/29 22:46:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/29 22:51:35 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/30 22:14:40 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/30 22:25:21 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_deinit_enviroment(void)
+void	ui_main_handle_key_down(t_ui_main *m)
 {
-	SDL_Quit();
-	IMG_Quit();
-	TTF_Quit();
-	exit(EXIT_SUCCESS);
+	printf("Key down: %d\n", m->sdl_event.key.keysym.scancode);
 }

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/30 21:05:31 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/31 00:00:20 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # define WIN_W		640
 # define WIN_H		480
 
-# define WIN_IS_RESIZABLE	(1 << 0)
+# define WIN_RESIZABLE		(1 << 0)
+# define WIN_MAIN			(1 << 1)
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
 
@@ -30,6 +31,7 @@
 # define FUNCTION_FAILURE	1
 
 typedef void		(*func_ptr)(void *, void *);
+typedef	SDL_Rect	t_rect;
 
 /*
 ** Smart things:
@@ -58,16 +60,15 @@ typedef struct		s_fvec2
 }					t_fvec2;
 
 # pragma endregion
-# pragma region		s_ui_ar
+# pragma region		t_fvec2
 
-struct				s_ui_ar
+typedef struct		s_frect
 {
-	t_vec2			abs;
-	t_fvec2			rel;
-};
-
-typedef struct		s_ui_ar t_ui_size;
-typedef struct		s_ui_ar t_ui_pos;
+	float			x;
+	float			y;
+	float			w;
+	float			h;
+}					t_frect;
 
 # pragma endregion
 # pragma region		t_ui_event
@@ -106,11 +107,10 @@ typedef struct		s_ui_el_events
 
 typedef struct		s_ui_el
 {
-	t_ui_size		size;
 	struct s_ui_el	*parent;
 	t_list			*children;
-	SDL_Rect		rect;
-	t_ui_pos		pos;
+	t_rect			rect;
+	t_frect			frect;
 	t_ui_el_events	events;
 	int				test; //for bfs test
 	// TODO: t_ui_graphics
@@ -134,11 +134,9 @@ typedef struct		s_ui_win
 {
 	SDL_Window		*sdl_window;
 	SDL_Renderer	*sdl_renderer;
-	SDL_Surface		*sdl_surface;
-	SDL_Event		*sdl_event;
+	Uint32			sdl_windowID;
 	char			*title;
 	t_ui_el			canvas;
-	t_ui_size		size;
 	t_ui_win_events	events;
 	int				properties;
 }					t_ui_win;
@@ -156,9 +154,25 @@ typedef struct		s_ui_raycaster
 
 typedef struct		s_ui_main
 {
-	t_ui_raycaster	raycaster;
 	t_list			*windows;
+	SDL_Event		sdl_event;
+	t_ui_raycaster	raycaster;
 }					t_ui_main;
+
+void				ui_main_init(t_ui_main *m);
+void				ui_main_loop(t_ui_main *m);
+int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
+
+t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
+void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
+
+void				ui_main_handle_event(t_ui_main *m);
+void				ui_main_handle_key_down(t_ui_main *m);
+void				ui_main_handle_key_up(t_ui_main *m);
+void				ui_main_handle_mouse_motion(t_ui_main *m);
+void				ui_main_handle_mouse_button_down(t_ui_main *m);
+void				ui_main_handle_mouse_button_up(t_ui_main *m);
+void				ui_main_handle_quit(t_ui_main *m);
 
 # pragma endregion
 
@@ -220,8 +234,8 @@ void	ui_win_create(t_ui_win *w);
 void	ui_win_init(t_ui_win *w);
 void	ui_win_close(t_ui_win *w);
 
-int		ui_init_enviroment(void);
-void	ui_deinit_enviroment(void);
+int		ui_sdl_init(void);
+void	ui_sdl_deinit(void);
 
 # pragma GCC diagnostic pop
 

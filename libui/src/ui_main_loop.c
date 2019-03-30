@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_init_enviroment.c                               :+:      :+:    :+:   */
+/*   ui_main_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/29 22:39:47 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/29 22:46:27 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/30 21:26:26 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/31 00:07:39 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_init_enviroment(void)
+void		ui_main_loop(t_ui_main *m)
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0 ||
-		IMG_Init(IMG_INIT_JPG) < 0 ||
-		TTF_Init() < 0)
+	SDL_Event	temp;
+
+	while (1)
 	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
-			"Couldn't initialize enviroment: %s", SDL_GetError());
-		return (FUNCTION_FAILURE);
+		if (SDL_PollEvent(&temp))
+		{
+			m->sdl_event = temp;
+			ui_main_handle_event(m);
+		}
 	}
-	return (FUNCTION_SUCCESS);
 }

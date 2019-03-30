@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 21:00:14 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/29 21:49:13 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/30 22:00:30 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ui_win_create(t_ui_win *w)
 		) == NULL)
 		// ui_exit_with_msg(w, "libui: unable to create window");
 		;
+	w->sdl_renderer = SDL_CreateRenderer(w->sdl_window, -1, 0);
+	w->sdl_windowID = SDL_GetWindowID(w->sdl_window);
 	SDL_RaiseWindow(w->sdl_window);
-	w->sdl_surface = SDL_GetWindowSurface(w->sdl_window);
 }

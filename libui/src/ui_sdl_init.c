@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_win_close.c                                     :+:      :+:    :+:   */
+/*   ui_sdl_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/29 21:10:21 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/30 23:42:30 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/29 22:39:47 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/31 00:00:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_win_close(t_ui_win *w)
+int	ui_sdl_init(void)
 {
-	// SDL_FreeSurface(w->sdl_surface);
-	SDL_DestroyWindow(w->sdl_window);
-	// ui_el_free(w->canvas);
-	ft_memdel((void **)&(w->title));
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER) < 0 ||
+		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) < 0 ||
+		TTF_Init() < 0)
+	{
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+			"Couldn't initialize enviroment: %s", SDL_GetError());
+		return (FUNCTION_FAILURE);
+	}
+	return (FUNCTION_SUCCESS);
 }

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_win_close.c                                     :+:      :+:    :+:   */
+/*   ui_sdl_deinit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/29 21:10:21 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/30 23:42:30 by sbednar          ###   ########.fr       */
+/*   Created: 2019/03/29 22:46:42 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/31 00:00:32 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_win_close(t_ui_win *w)
+void	ui_sdl_deinit(void)
 {
-	// SDL_FreeSurface(w->sdl_surface);
-	SDL_DestroyWindow(w->sdl_window);
-	// ui_el_free(w->canvas);
-	ft_memdel((void **)&(w->title));
+	SDL_Quit();
+	IMG_Quit();
+	TTF_Quit();
+	exit(EXIT_SUCCESS);
 }

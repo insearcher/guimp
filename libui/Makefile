@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/29 22:51:24 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/31 00:00:59 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,20 @@ SRC			=	ui_create_env.c \
 				ui_win_init.c \
 				ui_win_create.c \
 				ui_win_close.c \
-				ui_init_enviroment.c \
-				ui_deinit_enviroment.c
+				ui_sdl_init.c \
+				ui_sdl_deinit.c \
+				ui_main_loop.c \
+				ui_main_init.c \
+				ui_main_add_window.c \
+				ui_main_handle_event.c \
+				ui_main_handle_key_down.c \
+				ui_main_handle_key_up.c \
+				ui_main_handle_mouse_motion.c \
+				ui_main_handle_mouse_button_down.c \
+				ui_main_handle_mouse_button_up.c \
+				ui_main_handle_quit.c \
+				ui_main_find_window_by_id.c \
+				ui_main_remove_window_by_id.c
 
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

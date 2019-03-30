@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/29 22:49:49 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/30 21:05:31 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define FUNCTION_SUCCESS	0
 # define FUNCTION_FAILURE	1
 
-typedef void		(*func_ptr)(void *);
+typedef void		(*func_ptr)(void *, void *);
 
 /*
 ** Smart things:
@@ -79,8 +79,8 @@ typedef struct		s_ui_event
 }					t_ui_event;
 
 void				ui_event_init(t_ui_event *e);
-int					ui_event_add_listener(t_ui_event *e, void(*f)(void *d));
-void				ui_event_invoke(t_ui_event *e, void *d);
+int					ui_event_add_listener(t_ui_event *e, func_ptr f);
+void				ui_event_invoke(t_ui_event *e, void *a1, void *a2);
 void				ui_event_clear(t_ui_event *e);
 
 # pragma endregion

@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 19:38:40 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/29 20:14:42 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/30 21:05:04 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_event_invoke(t_ui_event *e, void *d)
+void	ui_event_invoke(t_ui_event *e, void *a1, void *a2)
 {
 	t_list		*node;
 	func_ptr	f;
@@ -21,7 +21,7 @@ void	ui_event_invoke(t_ui_event *e, void *d)
 	while (node)
 	{
 		f = (func_ptr)(*((long *)node->content));
-		(*f)(d);
+		(*f)(a1, a2);
 		node = node->next;
 	}
 }

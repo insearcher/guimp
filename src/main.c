@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/31 02:50:01 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/31 14:49:06 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,13 @@ static void	test_for_main(void *a1, void *a2)
 	ui_sdl_deinit();
 }
 
+static void	test_for_one(void *a1, void *a2)
+{
+	(void)a1;
+	Uint32 t = *((Uint32 *)a2);
+	SDL_Log("Focus gained on window %d\n", t);
+}
+
 int		main(int argc, char *argv[])
 {
 	(void)argc;
@@ -116,6 +123,7 @@ int		main(int argc, char *argv[])
 	w.canvas.rect.w = 640;
 	w.canvas.rect.h = 480;
 	ui_event_add_listener(&(w.events.onClose), &test_for_main);
+	ui_event_add_listener(&(w.events.onFocusGained), &test_for_one);
 	// w.properties = WIN_RESIZABLE;
 	ui_win_create(&w);
 
@@ -125,6 +133,7 @@ int		main(int argc, char *argv[])
 	w1.canvas.rect.w = 200;
 	w1.canvas.rect.h = 100;
 	ui_event_add_listener(&(w1.events.onClose), &test_for_notmain);
+	ui_event_add_listener(&(w1.events.onFocusGained), &test_for_one);
 	// w1.properties = WIN_RESIZABLE;
 	ui_win_create(&w1);
 

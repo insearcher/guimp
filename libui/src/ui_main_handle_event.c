@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 22:13:11 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/31 02:19:58 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/31 15:00:13 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ void	ui_main_handle_event(t_ui_main *m)
 		ui_main_handle_mouse_button_up(m);
 	else if (m->sdl_event.type == SDL_WINDOWEVENT)
 		ui_main_handle_window_event(m);
-		// ui_main_handle_quit(m);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_handle_key_down.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 22:14:40 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/30 22:25:21 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/31 14:55:03 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ui_main_handle_key_down(t_ui_main *m)
 {
-	printf("Key down: %d\n", m->sdl_event.key.keysym.scancode);
+	SDL_Log("Key down: %d\n", m->sdl_event.key.keysym.scancode);
 }

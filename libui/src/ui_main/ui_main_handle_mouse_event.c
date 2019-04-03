@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_main_handle_window_event.c                      :+:      :+:    :+:   */
+/*   ui_main_handle_mouse_event.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/31 02:19:12 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 01:09:17 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/04 01:40:42 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_main_handle_window_event(t_ui_main *m)
+void	ui_main_handle_mouse_event(t_ui_main *m)
 {
 	Uint32		windowID;
 	t_ui_win	*win;
@@ -27,14 +27,12 @@ void	ui_main_handle_window_event(t_ui_main *m)
 		return ; // TODO: FIX
 	}
 	event = NULL;
-	if (m->sdl_event.window.event == SDL_WINDOWEVENT_CLOSE)
-		event = &(win->events.onClose);
-	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_RESIZED)
-		event = &(win->events.onResize);
-	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
-		event = &(win->events.onFocusGained);
-	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
-		event = &(win->events.onFocusLost);
+	if (m->sdl_event.type == SDL_MOUSEMOTION)
+		event = &(win->events.onMouseMoved);
+	else if (m->sdl_event.type == SDL_MOUSEBUTTONDOWN)
+		event = &(win->events.onMouseButtonDown);
+	else if (m->sdl_event.type == SDL_MOUSEBUTTONUP)
+		event = &(win->events.onMouseButtonUp);
 	if (event != NULL)
 		ui_event_invoke(event, m, &windowID);
 }

@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_event_invoke.c                                  :+:      :+:    :+:   */
+/*   ui_log_window_focus_lost.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/29 19:38:40 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 01:22:05 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/04 00:44:23 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/04 00:45:54 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_event_invoke(t_ui_event *e, void *a1, void *a2)
+void	ui_log_window_focus_lost(void *a1, void *a2)
 {
-	t_list		*node;
-	func_ptr	f;
+	t_ui_main	*m;
+	t_ui_win	*w;
+	Uint32		windowID;
 
-	node = e->events;
-	while (node)
+	m = (t_ui_main *)a1;
+	windowID = *((Uint32 *)a2);
+	w = ui_main_find_window_by_id(m, windowID);
+	if (w == NULL)
 	{
-		f = (func_ptr)(*((long *)node->content));
-		(*f)(a1, a2);
-		node = node->next;
+		SDL_Log("Window with ID=%d doesn't exists in main!!!\n", windowID);
+	}
+	else
+	{
+		SDL_Log("Window with ID=%d lost focus\n", windowID);
 	}
 }

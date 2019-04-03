@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 00:08:27 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 01:37:04 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
+
+# define WIN_MAIN			(1 << 0)
+# define WIN_RESIZABLE		(1 << 1)
 
 # define FUNCTION_SUCCESS	0
 # define FUNCTION_FAILURE	1
@@ -74,7 +77,6 @@ typedef struct		s_frect
 typedef struct		s_ui_event
 {
 	t_list			*events;
-	t_list			*last;
 }					t_ui_event;
 
 void				ui_event_init(t_ui_event *e);
@@ -119,6 +121,9 @@ typedef struct		s_ui_el
 
 typedef struct		s_ui_win_events
 {
+	t_ui_event		onMouseMoved;
+	t_ui_event		onMouseButtonDown;
+	t_ui_event		onMouseButtonUp;
 	t_ui_event		onFocusGained;
 	t_ui_event		onFocusLost;
 	t_ui_event		onResize;
@@ -136,6 +141,7 @@ typedef struct		s_ui_win
 	char			*title;
 	t_ui_el			canvas;
 	t_ui_win_events	events;
+	Uint32			params;
 }					t_ui_win;
 
 # pragma endregion
@@ -165,17 +171,26 @@ void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_handle_event(t_ui_main *m);
 void				ui_main_handle_window_event(t_ui_main *m);
+void				ui_main_handle_mouse_event(t_ui_main *m);
 void				ui_main_handle_key_down(t_ui_main *m);
 void				ui_main_handle_key_up(t_ui_main *m);
-void				ui_main_handle_mouse_motion(t_ui_main *m);
-void				ui_main_handle_mouse_button_down(t_ui_main *m);
-void				ui_main_handle_mouse_button_up(t_ui_main *m);
-void				ui_main_handle_quit(t_ui_main *m);
+
+// void				ui_main_handle_mouse_motion(t_ui_main *m);
+// void				ui_main_handle_mouse_button_down(t_ui_main *m);
+// void				ui_main_handle_mouse_button_up(t_ui_main *m);
+// void				ui_main_handle_quit(t_ui_main *m);
 
 # pragma endregion
 # pragma region log functions
 
 void				ui_log_mouse_motion(void *a1, void *a2);
+void				ui_log_mouse_button_up(void *a1, void *a2);
+void				ui_log_mouse_button_down(void *a1, void *a2);
+
+void				ui_log_window_focus_gained(void *a1, void *a2);
+void				ui_log_window_focus_lost(void *a1, void *a2);
+void				ui_log_window_closed(void *a1, void *a2);
+void				ui_log_window_resized(void *a1, void *a2);
 
 # pragma endregion
 

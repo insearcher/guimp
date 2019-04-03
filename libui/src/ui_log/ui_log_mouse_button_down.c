@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_event_add_listener.c                            :+:      :+:    :+:   */
+/*   ui_log_mouse_button_down.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/27 17:16:15 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 01:22:59 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/04 00:39:31 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/04 00:41:52 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_event_add_listener(t_ui_event *e, func_ptr f)
+void	ui_log_mouse_button_down(void *a1, void *a2)
 {
-	t_list	*node;
-	long	ptr;
+	t_ui_main	*m;
+	t_ui_win	*w;
+	Uint32		windowID;
 
-	ptr = (long)f;
-	if ((node = ft_lstnew((void *)&ptr, sizeof(ptr))) == NULL)
-		return (FUNCTION_FAILURE);
-	if (e->events == NULL)
+	m = (t_ui_main *)a1;
+	windowID = *((Uint32 *)a2);
+	w = ui_main_find_window_by_id(m, windowID);
+	if (w == NULL)
 	{
-		e->events = node;
+		SDL_Log("Window with ID=%d doesn't exists in main!!!\n", windowID);
 	}
 	else
 	{
-		ft_lstadd_back(&(e->events), node);
+		SDL_Log("Mouse button %d DOWN on pixel (%d,%d) in win with ID=%d\n", m->sdl_event.button.button, m->sdl_event.motion.x, m->sdl_event.motion.y, windowID);
 	}
-	return (FUNCTION_SUCCESS);
 }

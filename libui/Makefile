@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/04 00:12:02 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/04 01:34:23 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,20 +34,27 @@ SRC_EL_EVENT	=	ui_event_init.c \
 					ui_event_clear.c \
 					ui_event_invoke.c
 
-SRC_UI_LOG		=	ui_log_mouse_motion.c
+SRC_UI_LOG		=	ui_log_mouse_motion.c \
+					ui_log_mouse_button_down.c \
+					ui_log_mouse_button_up.c \
+					ui_log_window_focus_gained.c \
+					ui_log_window_focus_lost.c \
+					ui_log_window_closed.c \
+					ui_log_window_resized.c
 
 SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_init.c \
 					ui_main_add_window.c \
 					ui_main_handle_event.c \
-					ui_main_handle_key_down.c \
-					ui_main_handle_key_up.c \
-					ui_main_handle_mouse_motion.c \
-					ui_main_handle_mouse_button_down.c \
-					ui_main_handle_mouse_button_up.c \
+					ui_main_handle_mouse_event.c \
 					ui_main_handle_window_event.c \
 					ui_main_find_window_by_id.c \
-					ui_main_remove_window_by_id.c
+					ui_main_remove_window_by_id.c \
+					ui_main_handle_key_down.c \
+					ui_main_handle_key_up.c
+					# ui_main_handle_mouse_motion.c \
+					ui_main_handle_mouse_button_down.c \
+					ui_main_handle_mouse_button_up.c \
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c
@@ -71,7 +78,7 @@ INCS		=		-I$(INC_DIR) \
 					-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
 
 CC 			=		gcc
-CFLAGS		=		-Wall -Werror -Wextra -g -O3
+CFLAGS		=		-Wall -Werror -Wextra -g
 
 all: $(NAME)
 

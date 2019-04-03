@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 00:12:41 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 01:38:44 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,15 @@ static void	test_for_main(void *a1, void *a2)
 	ui_sdl_deinit(EXIT_SUCCESS);
 }
 
-static void	test_for_one(void *a1, void *a2)
+void	log_setup(t_ui_win *w)
 {
-	(void)a1;
-	Uint32 t = *((Uint32 *)a2);
-	SDL_Log("Focus gained on window %d\n", t);
+	ui_event_add_listener(&(w->events.onMouseMoved), &ui_log_mouse_motion);
+	ui_event_add_listener(&(w->events.onMouseButtonDown), &ui_log_mouse_button_down);
+	ui_event_add_listener(&(w->events.onMouseButtonUp), &ui_log_mouse_button_up);
+	ui_event_add_listener(&(w->events.onFocusGained), &ui_log_window_focus_gained);
+	ui_event_add_listener(&(w->events.onFocusLost), &ui_log_window_focus_lost);
+	ui_event_add_listener(&(w->events.onResize), &ui_log_window_resized);
+	ui_event_add_listener(&(w->events.onClose), &ui_log_window_closed);
 }
 
 int		main(int argc, char *argv[])
@@ -81,8 +85,9 @@ int		main(int argc, char *argv[])
 	w.title = ft_strdup("TEST1");
 	w.canvas.rect.w = 640;
 	w.canvas.rect.h = 480;
+	w.params = WIN_MAIN | WIN_RESIZABLE;
+	log_setup(&w);
 	ui_event_add_listener(&(w.events.onClose), &test_for_main);
-	ui_event_add_listener(&(w.events.onFocusGained), &test_for_one);
 	// w.properties = WIN_RESIZABLE;
 	ui_win_create(&w);
 
@@ -91,8 +96,9 @@ int		main(int argc, char *argv[])
 	w1.title = ft_strdup("TEST2");
 	w1.canvas.rect.w = 200;
 	w1.canvas.rect.h = 100;
+	w1.params = WIN_RESIZABLE;
+	log_setup(&w1);
 	ui_event_add_listener(&(w1.events.onClose), &test_for_notmain);
-	ui_event_add_listener(&(w1.events.onFocusGained), &test_for_one);
 	// w1.properties = WIN_RESIZABLE;
 	ui_win_create(&w1);
 
@@ -101,6 +107,8 @@ int		main(int argc, char *argv[])
 	w2.title = ft_strdup("TEST3");
 	w2.canvas.rect.w = 200;
 	w2.canvas.rect.h = 100;
+	w2.params = WIN_RESIZABLE;
+	log_setup(&w2);
 	ui_event_add_listener(&(w2.events.onClose), &test_for_notmain);
 	// w1.properties = WIN_RESIZABLE;
 	ui_win_create(&w2);

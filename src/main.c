@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/31 00:04:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/03/31 14:49:06 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,30 @@ int	ui_perframe(void *ev)
 // 	printf("2\n");
 // }
 
+static void	test_for_notmain(void *a1, void *a2)
+{
+	Uint32		windowID;
+	t_ui_main	*m;
+
+	m = (t_ui_main *)a1;
+	windowID = *((Uint32 *)a2);
+	ui_main_remove_window_by_id(m, windowID);
+}
+
+static void	test_for_main(void *a1, void *a2)
+{
+	(void)a1;
+	(void)a2;
+	ui_sdl_deinit();
+}
+
+static void	test_for_one(void *a1, void *a2)
+{
+	(void)a1;
+	Uint32 t = *((Uint32 *)a2);
+	SDL_Log("Focus gained on window %d\n", t);
+}
+
 int		main(int argc, char *argv[])
 {
 	(void)argc;
@@ -95,17 +119,48 @@ int		main(int argc, char *argv[])
 
 	t_ui_win w;
 	ui_win_init(&w);
-	w.title = ft_strdup("TEST");
+	w.title = ft_strdup("TEST1");
 	w.canvas.rect.w = 640;
 	w.canvas.rect.h = 480;
-	w.properties = WIN_RESIZABLE | WIN_MAIN;
+	ui_event_add_listener(&(w.events.onClose), &test_for_main);
+	ui_event_add_listener(&(w.events.onFocusGained), &test_for_one);
+	// w.properties = WIN_RESIZABLE;
 	ui_win_create(&w);
-	printf("win %d\n", SDL_GetWindowID(w.sdl_window));
+
+	t_ui_win w1;
+	ui_win_init(&w1);
+	w1.title = ft_strdup("TEST2");
+	w1.canvas.rect.w = 200;
+	w1.canvas.rect.h = 100;
+	ui_event_add_listener(&(w1.events.onClose), &test_for_notmain);
+	ui_event_add_listener(&(w1.events.onFocusGained), &test_for_one);
+	// w1.properties = WIN_RESIZABLE;
+	ui_win_create(&w1);
+
+	t_ui_win w2;
+	ui_win_init(&w2);
+	w2.title = ft_strdup("TEST3");
+	w2.canvas.rect.w = 200;
+	w2.canvas.rect.h = 100;
+	ui_event_add_listener(&(w2.events.onClose), &test_for_notmain);
+	// w1.properties = WIN_RESIZABLE;
+	ui_win_create(&w2);
 
 	ui_main_add_window(&m, &w);
+	ui_main_add_window(&m, &w1);
+	ui_main_add_window(&m, &w2);
+
 	SDL_SetRenderDrawColor(w.sdl_renderer, 255, 0, 0, 255);
 	SDL_RenderClear(w.sdl_renderer);
 	SDL_RenderPresent(w.sdl_renderer);
+
+	SDL_SetRenderDrawColor(w1.sdl_renderer, 0, 255, 0, 255);
+	SDL_RenderClear(w1.sdl_renderer);
+	SDL_RenderPresent(w1.sdl_renderer);
+
+	SDL_SetRenderDrawColor(w2.sdl_renderer, 0, 0, 255, 255);
+	SDL_RenderClear(w2.sdl_renderer);
+	SDL_RenderPresent(w2.sdl_renderer);
 	// SDL_Surface *helloWorld = IMG_Load("test2.jpg");
 	// SDL_Rect r1;
 	// r1.w = 600;

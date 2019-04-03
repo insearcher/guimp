@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/29 20:02:45 by sbednar          ###   ########.fr        #
+#    Updated: 2019/03/31 01:59:44 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,14 +46,21 @@ OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 INCS		=	-I$(INC_DIR) \
 				-I$(INC_FT) \
 				-I$(INC_UI) \
-				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/ \
-				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/SDL2/ \
-				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/$(TTF_VER)/include/ \
-				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
+				-I/usr/local/Cellar/sdl2/2.0.9_1/include/ \
+-I/usr/local/Cellar/sdl2/2.0.9_1/include/SDL2/ \
+-I/usr/local/Cellar/sdl2_ttf/2.0.14/include/ \
+-I/usr/local/Cellar/sdl2_image/2.0.4/include/
+				# -I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/ \
+				# -I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/SDL2/ \
+				# -I/Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/$(TTF_VER)/include/ \
+				# -I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
 
 LIBS		=	-L$(FT_DIR) -lft \
 				-L$(UI_DIR) -lui \
-				-L/Users/$(WHOAMI)/.brew/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image
+-L/usr/local/Cellar/sdl2/2.0.9_1/lib -lSDL2 \
+-L/usr/local/Cellar/sdl2_image/2.0.4/lib -lSDL2_image \
+-L/usr/local/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
+				# -L/Users/$(WHOAMI)/.brew/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -g

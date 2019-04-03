@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/31 02:30:12 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/03 23:42:24 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRC			=	ui_create_env.c \
 				ui_main_handle_quit.c \
 				ui_main_handle_window_event.c \
 				ui_main_find_window_by_id.c \
-				ui_main_remove_window_by_id.c
+				ui_main_remove_window_by_id.c \
+				ui_log_mouse_motion.c
 
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

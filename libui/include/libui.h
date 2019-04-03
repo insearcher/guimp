@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/31 02:29:52 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/03 23:42:09 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,11 @@ void				ui_main_handle_mouse_motion(t_ui_main *m);
 void				ui_main_handle_mouse_button_down(t_ui_main *m);
 void				ui_main_handle_mouse_button_up(t_ui_main *m);
 void				ui_main_handle_quit(t_ui_main *m);
+
+# pragma endregion
+# pragma region log functions
+
+void				ui_log_mouse_motion(void *a1, void *a2);
 
 # pragma endregion
 

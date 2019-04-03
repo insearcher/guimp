@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/31 14:49:06 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/03 23:55:07 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	test_for_main(void *a1, void *a2)
 {
 	(void)a1;
 	(void)a2;
-	ui_sdl_deinit();
+	ui_sdl_deinit(EXIT_SUCCESS);
 }
 
 static void	test_for_one(void *a1, void *a2)

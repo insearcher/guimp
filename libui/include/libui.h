@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/03 23:42:09 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 00:08:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # define WIN_W		640
 # define WIN_H		480
 
-# define WIN_RESIZABLE		(1 << 0)
-# define WIN_MAIN			(1 << 1)
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
 
@@ -138,7 +136,6 @@ typedef struct		s_ui_win
 	char			*title;
 	t_ui_el			canvas;
 	t_ui_win_events	events;
-	int				properties;
 }					t_ui_win;
 
 # pragma endregion
@@ -182,41 +179,20 @@ void				ui_log_mouse_motion(void *a1, void *a2);
 
 # pragma endregion
 
-typedef struct		s_sdl
-{
-	SDL_Event		evt;
-	SDL_Window		*win;
-	SDL_Renderer	*ren;
-}					t_sdl;
+// void				ui_create_env(t_env *e, const int w, const int h);
+// void				ui_create_win(t_env *e, const char *name);
+// SDL_Surface			*ui_create_sur(const int w, const int h);
+// void				ui_create_frame(t_env *e);
 
-typedef struct		s_env
-{
-	int				w;
-	int				h;
-	int				m_pos[2];
-	t_sdl			sdl;
-	SDL_Surface		*sur;
-	SDL_Texture		*tex;
-	void 			(*frame)(struct s_env *e);
-	int 			(*event)(struct s_env *e);
-	const Uint8		*state;
-	int				events;
-}					t_env;
+// int					ui_get_events(t_env *e);
 
-void				ui_create_env(t_env *e, const int w, const int h);
-void				ui_create_win(t_env *e, const char *name);
-SDL_Surface			*ui_create_sur(const int w, const int h);
-void				ui_create_frame(t_env *e);
+// void				ui_set_pixel(t_env *e, const int x, const int y,
+						// const Uint32 c);
 
-int					ui_get_events(t_env *e);
+// int					ui_loop(void *ev);
 
-void				ui_set_pixel(t_env *e, const int x, const int y,
-						const Uint32 c);
-
-int					ui_loop(void *ev);
-
-void				ui_exit_with_msg(t_env *e, const char *msg);
-void				ui_exit(t_env *e);
+// void				ui_exit_with_msg(t_env *e, const char *msg);
+// void				ui_exit(t_env *e);
 
 # pragma region		BFS_func
 
@@ -227,12 +203,12 @@ void				bfs_iter(const t_list *root, void(*f)(const void *arg)); //need to be te
 # pragma endregion
 # pragma region		t_ui_el_func
 
-t_ui_el				*ui_el_init(t_ui_el *paren, t_list *children);
-void				ui_el_set_abs_size(t_ui_el *el, int x, int y);//need to be tested
-void				ui_el_set_rel_size(t_ui_el *el, float x, float y); //need to be tested
-void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
-void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
-void				ui_el_add_child(t_ui_el *el, t_ui_el *child);
+// t_ui_el				*ui_el_init(t_ui_el *paren, t_list *children);
+// void				ui_el_set_abs_size(t_ui_el *el, int x, int y);//need to be tested
+// void				ui_el_set_rel_size(t_ui_el *el, float x, float y); //need to be tested
+// void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
+// void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
+// void				ui_el_add_child(t_ui_el *el, t_ui_el *child);
 
 # pragma endregion
 
@@ -241,7 +217,7 @@ void	ui_win_init(t_ui_win *w);
 void	ui_win_close(t_ui_win *w);
 
 int		ui_sdl_init(void);
-void	ui_sdl_deinit(void);
+void	ui_sdl_deinit(int exit_status);
 
 # pragma GCC diagnostic pop
 

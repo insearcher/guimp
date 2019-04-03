@@ -1,0 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ui_create_frame.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/16 23:51:29 by sbednar           #+#    #+#             */
+/*   Updated: 2019/03/17 05:09:55 by sbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libui.h"
+
+void	ui_create_frame(t_env *e)
+{
+	if ((SDL_RenderClear(e->sdl.ren)) != 0)
+		ui_exit_with_msg(e, "libui: error while clearing the renderer");
+	e->frame(e);
+	if (!(e->tex = SDL_CreateTextureFromSurface(
+	e->sdl.ren, e->sur)))
+		ui_exit_with_msg(e, "libui: error while creating the texture");
+	if ((SDL_RenderCopy(e->sdl.ren, e->tex, 0, 0)) != 0)
+		ui_exit_with_msg(e, "libui: error while RenderCopy");
+	SDL_DestroyTexture(e->tex);
+	SDL_RenderPresent(e->sdl.ren);
+}

@@ -6,55 +6,24 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/04 00:06:59 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/04 00:12:02 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-include			../Makefile.inc
+include				../Makefile.inc
 
-NAME 		=	libui.a
-WHOAMI		=	$(shell whoami)
+NAME 			=	libui.a
+WHOAMI			=	$(shell whoami)
 
-SDL_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2/ | tail -1)
-TTF_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/ | tail -1)
-IMG_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_image/ | tail -1)
+SDL_VER			= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2/ | tail -1)
+TTF_VER			= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/ | tail -1)
+IMG_VER			= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_image/ | tail -1)
 
-INC_FT		=	../libft/include
+INC_FT			=	../libft/include
 
-SRC_DIR		=	./src
-OBJ_DIR		=	./obj
-INC_DIR		=	./include
-
-#SRC			=	ui_create_env.c \
-				ui_create_win.c \
-				ui_create_sur.c \
-				ui_create_frame.c \
-				ui_exit_with_msg.c \
-				ui_exit.c \
-				ui_set_pixel.c \
-				ui_loop.c \
-				ui_get_events.c \
-				ui_event_init.c \
-				ui_event_add_listener.c \
-				ui_event_clear.c \
-				ui_event_invoke.c \
-				ui_win_init.c \
-				ui_win_create.c \
-				ui_win_close.c \
-				ui_sdl_init.c \
-				ui_sdl_deinit.c \
-				ui_main_loop.c \
-				ui_main_init.c \
-				ui_main_add_window.c \
-				ui_main_handle_event.c \
-				ui_main_handle_key_down.c \
-				ui_main_handle_key_up.c \
-				ui_main_handle_mouse_motion.c \
-				ui_main_handle_mouse_button_down.c \
-				ui_main_handle_mouse_button_up.c \
-				ui_main_handle_window_event.c \
-				ui_main_find_window_by_id.c \
-				ui_main_remove_window_by_id.c
+SRC_DIR			=	./src
+OBJ_DIR			=	./obj
+INC_DIR			=	./include
 
 SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_free.c \

@@ -6,41 +6,11 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/03 23:55:07 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 00:12:41 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
-
-void	test(t_env *e)
-{
-	for (int i = 0; i < e->w; i += 6)
-	{
-		for (int j = 0; j < e->h; j += 6)
-		{
-			ui_set_pixel(e, i, j, 0xFF00FFFE);
-		}
-	}
-}
-void	test2(t_env *e)
-{
-	for (int i = 0; i < e->w; i += 6)
-	{
-		for (int j = 0; j < e->h; j += 6)
-		{
-			ui_set_pixel(e, i, j, 0xFFFF00FF);
-		}
-	}
-}
-
-int		events(t_env *e)
-{
-	if (e->state[SDL_SCANCODE_ESCAPE])
-		ui_exit(e);
-	else if (e->sdl.evt.type == SDL_QUIT)
-		ui_exit(e);
-	return (1);
-}
 
 // void	ui_loop22(t_env *e1, t_env *e2)
 // {
@@ -53,17 +23,6 @@ int		events(t_env *e)
 // 			ui_create_frame(e1);
 // 	}
 // }
-
-int	ui_perframe(void *ev)
-{
-	t_env	*e;
-
-	e = (t_env *)ev;
-	ui_create_frame(e);
-	if (e->events)
-		ui_create_frame(e);
-	return (0);
-}
 
 // void	f1(void *a)
 // {

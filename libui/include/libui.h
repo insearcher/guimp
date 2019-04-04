@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 02:18:09 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 03:30:42 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,8 +213,9 @@ void				ui_log_window_resized(void *a1, void *a2);
 
 # pragma region		BFS_func
 
+
 void				q_push(QUEUE **q, t_list *el);
-void				*q_pull(QUEUE **q);
+void				*q_pop(QUEUE **q);
 void				bfs_iter(const t_list *root, void(*f)(const void *arg)); //need to be tested
 
 # pragma endregion

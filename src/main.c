@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 04:08:48 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 06:31:18 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,46 @@ int		main(int argc, char *argv[])
 	w.params = WIN_MAIN | WIN_RESIZABLE;
 	log_setup(&w);
 	ui_event_add_listener(&(w.events.onClose), &test_for_main);
+	w.canvas.id = 0;
+	t_ui_el el1;
+	ui_el_init(&el1);
+	ui_event_add_listener(&(el1.events.onPointerEnter), &ui_log_el_pointer_enter);
+	ui_event_add_listener(&(el1.events.onPointerExit), &ui_log_el_pointer_exit);
+	ui_event_add_listener(&(el1.events.onPointerStay), &ui_log_el_pointer_stay);
+	el1.rect.x = 100;
+	el1.rect.y = 100;
+	el1.rect.w = 200;
+	el1.rect.h = 100;
+	el1.id = 10;
+	ui_el_add_child(&(w.canvas), &el1);
+	t_ui_el el2;
+	ui_el_init(&el2);
+	ui_event_add_listener(&(el2.events.onPointerEnter), &ui_log_el_pointer_enter);
+	ui_event_add_listener(&(el2.events.onPointerExit), &ui_log_el_pointer_exit);
+	ui_event_add_listener(&(el2.events.onPointerStay), &ui_log_el_pointer_stay);
+	el2.rect.x = 400;
+	el2.rect.y = 400;
+	el2.rect.w = 100;
+	el2.rect.h = 100;
+	el2.id = 20;
+	ui_el_add_child(&(w.canvas), &el2);
+	t_ui_el el11;
+	ui_el_init(&el11);
+	ui_event_add_listener(&(el11.events.onPointerEnter), &ui_log_el_pointer_enter);
+	ui_event_add_listener(&(el11.events.onPointerExit), &ui_log_el_pointer_exit);
+	ui_event_add_listener(&(el11.events.onPointerStay), &ui_log_el_pointer_stay);
+	el11.rect.x = 100;
+	el11.rect.y = 100;
+	el11.rect.w = 100;
+	el11.rect.h = 100;
+	el11.id = 2220;
+	ui_el_add_child(&el1, &el11);
 	ui_win_create(&w);
 
 	t_ui_win w1;
 	ui_win_init(&w1);
 	w1.title = ft_strdup("TEST2");
+	w1.canvas.id = 0;
 	w1.canvas.rect.w = 200;
 	w1.canvas.rect.h = 100;
 	w1.params = 0;
@@ -150,6 +185,7 @@ int		main(int argc, char *argv[])
 
 	t_ui_win w2;
 	ui_win_init(&w2);
+	w2.canvas.id = 0;
 	w2.title = ft_strdup("TEST3");
 	w2.canvas.rect.w = 200;
 	w2.canvas.rect.h = 100;

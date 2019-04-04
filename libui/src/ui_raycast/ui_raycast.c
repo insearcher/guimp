@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_add_child.c                                  :+:      :+:    :+:   */
+/*   ui_raycast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/28 14:55:52 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/04 05:25:29 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/04 04:30:10 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/04 06:01:29 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_el_add_child(t_ui_el *el, t_ui_el *child)
+t_ui_el	*ui_raycast(t_ui_main *m, Uint32 windowID)
 {
-	t_list	*node;
+	t_ui_el		*res;
+	t_ui_win	*w;
 
-	if ((node = ft_lstnew(NULL, 0)) == NULL)
-		return (FUNCTION_FAILURE);
-	node->content = (void *)child;
-	ft_lstadd_back(&(el->children), node);
-	return (FUNCTION_SUCCESS);
+	w = ui_main_find_window_by_id(m, windowID);
+	if (w == NULL)
+	{
+		SDL_Log("Window with ID=%d doesn't exists in main!!!\n", windowID);
+		return (NULL);
+	}
+	else
+	{
+		res = bfs_root(m, &(w->canvas), &ui_el_is_pointer_inside);
+		return (res);
+	}
 }

@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_add_child.c                                  :+:      :+:    :+:   */
+/*   ui_el_is_pointer_inside.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/28 14:55:52 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/04 05:25:29 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/04 04:37:32 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/04 05:07:37 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_el_add_child(t_ui_el *el, t_ui_el *child)
+int	ui_el_is_pointer_inside(void *a1, void *a2)
 {
-	t_list	*node;
+	t_ui_main	*m;
+	t_ui_el		*el;
+	Sint32		x;
+	Sint32		y;
 
-	if ((node = ft_lstnew(NULL, 0)) == NULL)
-		return (FUNCTION_FAILURE);
-	node->content = (void *)child;
-	ft_lstadd_back(&(el->children), node);
-	return (FUNCTION_SUCCESS);
+	m = (t_ui_main *)a1;
+	el = (t_ui_el *)a2;
+	x = m->sdl_event.motion.x;
+	y = m->sdl_event.motion.y;
+	return ((el->rect.x <= x && el->rect.y <= y) &&
+		(x <= (el->rect.x + el->rect.w) && y <= (el->rect.y + el->rect.h)));
 }

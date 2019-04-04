@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_add_child.c                                  :+:      :+:    :+:   */
+/*   ui_log_el_pointer_exit.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/28 14:55:52 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/04 05:25:29 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/04 04:14:00 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/04 06:10:17 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_el_add_child(t_ui_el *el, t_ui_el *child)
+void	ui_log_el_pointer_exit(void *a1, void *a2)
 {
-	t_list	*node;
+	t_ui_main	*m;
+	t_ui_el		*el;
 
-	if ((node = ft_lstnew(NULL, 0)) == NULL)
-		return (FUNCTION_FAILURE);
-	node->content = (void *)child;
-	ft_lstadd_back(&(el->children), node);
-	return (FUNCTION_SUCCESS);
+	m = (t_ui_main *)a1;
+	el = (t_ui_el *)a2;
+	SDL_Log("Pointer exit from element ID=%d in window ID=%d\n", el->id, m->sdl_event.window.windowID);
 }

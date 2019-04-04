@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/04 03:28:48 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/04 06:14:51 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,10 @@ SRC_UI_LOG		=	ui_log_mouse_motion.c \
 					ui_log_window_focus_gained.c \
 					ui_log_window_focus_lost.c \
 					ui_log_window_closed.c \
-					ui_log_window_resized.c
+					ui_log_window_resized.c \
+					ui_log_el_pointer_stay.c \
+					ui_log_el_pointer_enter.c \
+					ui_log_el_pointer_exit.c
 
 SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_init.c \
@@ -66,13 +69,17 @@ SRC_UI_WIN		=	ui_win_init.c \
 SRC_BFS			=	bfs_iter.c \
 					queue.c
 
+SRC_RAYCAST		=	ui_raycast.c \
+					ui_el_is_pointer_inside.c
+
 OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_EL_EVENT:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_LOG:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_MAIN:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_SDL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_WIN:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o))
+					$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_RAYCAST:.c=.o))
 
 INCS		=		-I$(INC_DIR) \
 					-I$(INC_FT) \
@@ -93,6 +100,10 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/bfs/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_raycast/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

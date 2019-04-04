@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 04:08:06 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 06:14:46 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define FUNCTION_FAILURE	1
 
 typedef void		(*func_ptr)(void *, void *);
+typedef int			(*pred_ptr)(void *, void *);
 typedef	SDL_Rect	t_rect;
 
 /*
@@ -114,7 +115,7 @@ typedef struct		s_ui_el
 	t_rect			rect;
 	t_frect			frect;
 	t_ui_el_events	events;
-	int				test; //for bfs test
+	int				id; //for bfs test
 	// TODO: t_ui_graphics
 }					t_ui_el;
 
@@ -154,6 +155,8 @@ typedef struct		s_ui_raycaster
 	t_ui_el			*selected;
 }					t_ui_raycaster;
 
+int					ui_el_is_pointer_inside(void *a1, void *a2);
+
 # pragma endregion
 # pragma region		t_ui_main
 
@@ -163,6 +166,8 @@ typedef struct		s_ui_main
 	SDL_Event		sdl_event;
 	t_ui_raycaster	raycaster;
 }					t_ui_main;
+
+t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_init(t_ui_main *m);
 void				ui_main_loop(t_ui_main *m);
@@ -183,7 +188,7 @@ void				ui_main_handle_key_up(t_ui_main *m);
 // void				ui_main_handle_quit(t_ui_main *m);
 
 # pragma endregion
-# pragma region log functions
+# pragma region		log_functions
 
 void				ui_log_mouse_motion(void *a1, void *a2);
 void				ui_log_mouse_button_up(void *a1, void *a2);
@@ -193,6 +198,10 @@ void				ui_log_window_focus_gained(void *a1, void *a2);
 void				ui_log_window_focus_lost(void *a1, void *a2);
 void				ui_log_window_closed(void *a1, void *a2);
 void				ui_log_window_resized(void *a1, void *a2);
+
+void				ui_log_el_pointer_enter(void *a1, void *a2);
+void				ui_log_el_pointer_stay(void *a1, void *a2);
+void				ui_log_el_pointer_exit(void *a1, void *a2);
 
 # pragma endregion
 
@@ -216,8 +225,10 @@ void				ui_log_window_resized(void *a1, void *a2);
 
 void				q_push(QUEUE **q, t_list *el);
 void				*q_pop(QUEUE **q);
-void				bfs_iter_root(const t_ui_el *root, void(*f)(const void *arg)); //need to be tested
-t_ui_el				*bfs_root(const t_ui_el *root, int(*f)(const void *arg));
+// void				bfs_iter_root(const t_ui_el *root, void(*f)(const void *arg)); //need to be tested
+// t_ui_el				*bfs_root(const t_ui_el *root, int(*f)(const void *arg));
+
+t_ui_el				*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p);
 
 # pragma endregion
 # pragma region		t_ui_el_func

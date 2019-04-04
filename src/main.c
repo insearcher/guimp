@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 03:32:00 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 04:08:48 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,71 +29,80 @@ static void	test_for_main(void *a1, void *a2)
 	ui_sdl_deinit(EXIT_SUCCESS);
 }
 
+// static void	draw_placeholder(const void *el)
+// {
+// 	char	*tmp;
+
+// 	tmp = ft_itoa(CAST_X_TO_Y(el, t_ui_el *)->test);
+// 	ft_putendl(tmp);
+// 	free(tmp);
+// }
+
 static void test()
 {
-	t_ui_el *root = ui_el_init(NULL, NULL);
-	t_list *lst = ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	int i = 1;
-	t_list *tmp = lst;
-	while(tmp)
-	{
-		CAST_X_TO_Y(tmp->content, t_ui_el *)->test = i;
-		tmp = tmp->next;
-		++i;
-	}
-	root->children = lst;
+// 	t_ui_el *root = ui_el_init(NULL, NULL);
+// 	t_list *lst = ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	int i = 1;
+// 	t_list *tmp = lst;
+// 	while(tmp)
+// 	{
+// 		CAST_X_TO_Y(tmp->content, t_ui_el *)->test = i;
+// 		tmp = tmp->next;
+// 		++i;
+// 	}
+// 	root->children = lst;
 
-	root->test = 0;
-	lst = ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	tmp = lst;
-	i = 1;
-	while(tmp)
-	{
-		CAST_X_TO_Y(tmp->content, t_ui_el *)->test = i * 10;
-		tmp = tmp->next;
-		++i;
-	}
-	CAST_X_TO_Y(root->children->next->next->content, t_ui_el *)->children = lst;
+// 	root->test = 0;
+// 	lst = ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	tmp = lst;
+// 	i = 1;
+// 	while(tmp)
+// 	{
+// 		CAST_X_TO_Y(tmp->content, t_ui_el *)->test = i * 10;
+// 		tmp = tmp->next;
+// 		++i;
+// 	}
+// 	CAST_X_TO_Y(root->children->next->next->content, t_ui_el *)->children = lst;
 
-	lst = ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	tmp = lst;
-	i = 1;
-	while(tmp)
-	{
-		CAST_X_TO_Y(tmp->content, t_ui_el *)->test = i * 100;
-		tmp = tmp->next;
-		++i;
-	}
-	CAST_X_TO_Y(root->children->next->content, t_ui_el *)->children = lst;
+// 	lst = ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	tmp = lst;
+// 	i = 1;
+// 	while(tmp)
+// 	{
+// 		CAST_X_TO_Y(tmp->content, t_ui_el *)->test = i * 100;
+// 		tmp = tmp->next;
+// 		++i;
+// 	}
+// 	CAST_X_TO_Y(root->children->next->content, t_ui_el *)->children = lst;
 
-	lst = ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
-	tmp = lst;
-	i = 1;
-	while(tmp)
-	{
-		CAST_X_TO_Y(tmp->content, t_ui_el *)->test = i * 1000;
-		tmp = tmp->next;
-		++i;
-	}
-	CAST_X_TO_Y((CAST_X_TO_Y(root->children->next->content, t_ui_el *)->children->next->content), t_ui_el *)->children = lst;
+// 	lst = ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	ft_lstadd_back(&lst, ft_lstnew(CAST_X_TO_Y(ui_el_init(root, NULL), const void *), sizeof(t_ui_el)));
+// 	tmp = lst;
+// 	i = 1;
+// 	while(tmp)
+// 	{
+// 		CAST_X_TO_Y(tmp->content, t_ui_el *)->test = i * 1000;
+// 		tmp = tmp->next;
+// 		++i;
+// 	}
+// 	CAST_X_TO_Y((CAST_X_TO_Y(root->children->next->content, t_ui_el *)->children->next->content), t_ui_el *)->children = lst;
 
-	// t_list *lst = ft_lstnew(NULL, 0);
-	// lst->content = CAST_X_TO_Y(root, void *);
-	bfs_iter_root(root, draw_placeholder);
+// 	// t_list *lst = ft_lstnew(NULL, 0);
+// 	// lst->content = CAST_X_TO_Y(root, void *);
+// 	bfs_iter_root(root, draw_placeholder);
 }
 
 void	log_setup(t_ui_win *w)

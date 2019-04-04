@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 02:19:12 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 06:18:22 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 08:09:58 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	ui_main_handle_window_event(t_ui_main *m)
 	if ((win = ui_main_find_window_by_id(m, windowID)) == NULL)
 	{
 		// SDL_Log("Window with id %d is not presented in main\n", windowID);
-		// ui_sdl_deinit();
-		// exit(EXIT_FAILURE);
+		// ui_sdl_deinit(EXIT_FAILURE);
 		return ; // TODO: FIX
 	}
 	event = NULL;

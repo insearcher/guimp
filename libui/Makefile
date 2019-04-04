@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/04 06:14:51 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/04 08:02:02 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,9 @@ SRC_UI_LOG		=	ui_log_mouse_motion.c \
 					ui_log_window_resized.c \
 					ui_log_el_pointer_stay.c \
 					ui_log_el_pointer_enter.c \
-					ui_log_el_pointer_exit.c
+					ui_log_el_pointer_exit.c \
+					ui_log_key_pressed.c \
+					ui_log_key_released.c
 
 SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_init.c \
@@ -53,7 +55,8 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_handle_window_event.c \
 					ui_main_find_window_by_id.c \
 					ui_main_remove_window_by_id.c \
-					ui_main_handle_key_down.c \
+					ui_main_handle_keyboard_event.c
+					#ui_main_handle_key_down.c \
 					ui_main_handle_key_up.c
 					# ui_main_handle_mouse_motion.c \
 					ui_main_handle_mouse_button_down.c \

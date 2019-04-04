@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 06:31:18 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 08:04:14 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ int		main(int argc, char *argv[])
 	el11.rect.w = 100;
 	el11.rect.h = 100;
 	el11.id = 2220;
+	ui_event_add_listener(&(w.events.onKeyDown[SDL_SCANCODE_C]), &ui_log_key_pressed);
+	ui_event_add_listener(&(w.events.onKeyUp[SDL_SCANCODE_C]), &ui_log_key_released);
 	ui_el_add_child(&el1, &el11);
 	ui_win_create(&w);
 

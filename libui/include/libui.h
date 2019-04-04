@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 06:14:46 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/04 08:01:31 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define WIN_W		640
 # define WIN_H		480
+
+# define KEYS_COUNT	285
 
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
@@ -131,6 +133,8 @@ typedef struct		s_ui_win_events
 	t_ui_event		onFocusLost;
 	t_ui_event		onResize;
 	t_ui_event		onClose;
+	t_ui_event		onKeyDown[KEYS_COUNT];
+	t_ui_event		onKeyUp[KEYS_COUNT];
 }					t_ui_win_events;
 
 # pragma endregion
@@ -179,8 +183,9 @@ void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
 void				ui_main_handle_event(t_ui_main *m);
 void				ui_main_handle_window_event(t_ui_main *m);
 void				ui_main_handle_mouse_event(t_ui_main *m);
-void				ui_main_handle_key_down(t_ui_main *m);
-void				ui_main_handle_key_up(t_ui_main *m);
+void				ui_main_handle_keyboard_event(t_ui_main *m);
+// void				ui_main_handle_key_down(t_ui_main *m);
+// void				ui_main_handle_key_up(t_ui_main *m);
 
 // void				ui_main_handle_mouse_motion(t_ui_main *m);
 // void				ui_main_handle_mouse_button_down(t_ui_main *m);
@@ -202,6 +207,9 @@ void				ui_log_window_resized(void *a1, void *a2);
 void				ui_log_el_pointer_enter(void *a1, void *a2);
 void				ui_log_el_pointer_stay(void *a1, void *a2);
 void				ui_log_el_pointer_exit(void *a1, void *a2);
+
+void				ui_log_key_pressed(void *a1, void *a2);
+void				ui_log_key_released(void *a1, void *a2);
 
 # pragma endregion
 

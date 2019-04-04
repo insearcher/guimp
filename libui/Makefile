@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/04 01:34:23 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/04 03:28:48 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,12 +63,16 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_create.c \
 					ui_win_close.c
 
+SRC_BFS			=	bfs_iter.c \
+					queue.c
+
 OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_EL_EVENT:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_LOG:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_MAIN:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_SDL:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_UI_WIN:.c=.o))
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_WIN:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o))
 
 INCS		=		-I$(INC_DIR) \
 					-I$(INC_FT) \
@@ -87,6 +91,10 @@ $(NAME): $(OBJ_DIR) $(OBJ)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/bfs/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_el/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<

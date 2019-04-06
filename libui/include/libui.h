@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:50:19 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 20:17:03 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
+
+# define EL_DYNAMIC_SIZE	(1 << 0)
 
 # define WIN_MAIN			(1 << 0)
 # define WIN_RESIZABLE		(1 << 1)
@@ -149,6 +151,7 @@ typedef struct		s_ui_win
 	SDL_Renderer	*sdl_renderer;
 	Uint32			sdl_windowID;
 	char			*title;
+	t_vec2			size;
 	t_ui_el			canvas;
 	t_ui_win_events	events;
 	Uint32			params;
@@ -187,13 +190,6 @@ void				ui_main_handle_event(t_ui_main *m);
 void				ui_main_handle_window_event(t_ui_main *m);
 void				ui_main_handle_mouse_event(t_ui_main *m);
 void				ui_main_handle_keyboard_event(t_ui_main *m);
-// void				ui_main_handle_key_down(t_ui_main *m);
-// void				ui_main_handle_key_up(t_ui_main *m);
-
-// void				ui_main_handle_mouse_motion(t_ui_main *m);
-// void				ui_main_handle_mouse_button_down(t_ui_main *m);
-// void				ui_main_handle_mouse_button_up(t_ui_main *m);
-// void				ui_main_handle_quit(t_ui_main *m);
 
 # pragma endregion
 # pragma region		log_functions
@@ -215,21 +211,6 @@ void				ui_log_key_pressed(void *a1, void *a2);
 void				ui_log_key_released(void *a1, void *a2);
 
 # pragma endregion
-
-// void				ui_create_env(t_env *e, const int w, const int h);
-// void				ui_create_win(t_env *e, const char *name);
-// SDL_Surface			*ui_create_sur(const int w, const int h);
-// void				ui_create_frame(t_env *e);
-
-// int					ui_get_events(t_env *e);
-
-// void				ui_set_pixel(t_env *e, const int x, const int y,
-						// const Uint32 c);
-
-// int					ui_loop(void *ev);
-
-// void				ui_exit_with_msg(t_env *e, const char *msg);
-// void				ui_exit(t_env *e);
 
 # pragma region		BFS_func
 
@@ -269,12 +250,12 @@ int					ui_el_create_texture(t_ui_el *el);
 
 # pragma endregion
 
-void	ui_win_create(t_ui_win *w);
-void	ui_win_init(t_ui_win *w);
-void	ui_win_close(t_ui_win *w);
+void				ui_win_create(t_ui_win *w);
+void				ui_win_init(t_ui_win *w);
+void				ui_win_close(t_ui_win *w);
 
-int		ui_sdl_init(void);
-void	ui_sdl_deinit(int exit_status);
+int					ui_sdl_init(void);
+void				ui_sdl_deinit(int exit_status);
 
 # pragma GCC diagnostic pop
 

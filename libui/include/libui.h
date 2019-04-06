@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:36:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 18:50:19 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ typedef struct		s_ui_el
 	t_rect			rect;
 	t_frect			frect;
 	t_ui_el_events	events;
-	int				id; //for bfs test
+	Uint32			id;
+	Uint32			params;
 	// TODO: t_ui_graphics
 }					t_ui_el;
 
@@ -244,12 +245,16 @@ t_ui_el				*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p);
 # pragma endregion
 
 # pragma region draw
+
 void				ui_draw(t_ui_main *m);
 void				ui_draw_window(t_ui_win *w);
 void				ui_draw_windows(t_ui_main *m);
 void				ui_clear_windows(t_ui_main *m);
 void				ui_show_window(t_ui_win *w);
 void				ui_show_windows(t_ui_main *m);
+
+void				ui_el_draw_event(void *el_v, void *arg);
+
 # pragma region		t_ui_el_func
 
 void				ui_el_init(t_ui_el *el);

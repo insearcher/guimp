@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 08:04:14 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 18:51:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,44 +135,62 @@ int		main(int argc, char *argv[])
 	w.canvas.rect.h = 480;
 	w.params = WIN_MAIN | WIN_RESIZABLE;
 	log_setup(&w);
-	ui_event_add_listener(&(w.events.onClose), &test_for_main);
 	w.canvas.id = 0;
+	ui_event_add_listener(&(w.events.onClose), &test_for_main);
+	ui_win_create(&w);
+
+	w.canvas.sdl_renderer = w.sdl_renderer;
+	ui_el_load_surface_from(&(w.canvas), "test.bmp");
+	ui_el_create_texture(&(w.canvas));
+	ui_event_add_listener(&(w.canvas.events.onRender), &ui_el_draw_event);
+
 	t_ui_el el1;
 	ui_el_init(&el1);
 	ui_event_add_listener(&(el1.events.onPointerEnter), &ui_log_el_pointer_enter);
 	ui_event_add_listener(&(el1.events.onPointerExit), &ui_log_el_pointer_exit);
 	ui_event_add_listener(&(el1.events.onPointerStay), &ui_log_el_pointer_stay);
+	ui_event_add_listener(&(el1.events.onRender), &ui_el_draw_event);
 	el1.rect.x = 100;
 	el1.rect.y = 100;
 	el1.rect.w = 200;
 	el1.rect.h = 100;
 	el1.id = 10;
+	el1.sdl_renderer = w.sdl_renderer;
+	ui_el_load_surface_from(&el1, "test2.jpg");
+	ui_el_create_texture(&el1);
 	ui_el_add_child(&(w.canvas), &el1);
 	t_ui_el el2;
 	ui_el_init(&el2);
 	ui_event_add_listener(&(el2.events.onPointerEnter), &ui_log_el_pointer_enter);
 	ui_event_add_listener(&(el2.events.onPointerExit), &ui_log_el_pointer_exit);
 	ui_event_add_listener(&(el2.events.onPointerStay), &ui_log_el_pointer_stay);
+	ui_event_add_listener(&(el2.events.onRender), &ui_el_draw_event);
 	el2.rect.x = 400;
 	el2.rect.y = 400;
 	el2.rect.w = 100;
 	el2.rect.h = 100;
 	el2.id = 20;
+	el2.sdl_renderer = w.sdl_renderer;
+	ui_el_load_surface_from(&el2, "test3.jpg");
+	ui_el_create_texture(&el2);
 	ui_el_add_child(&(w.canvas), &el2);
 	t_ui_el el11;
 	ui_el_init(&el11);
+
 	ui_event_add_listener(&(el11.events.onPointerEnter), &ui_log_el_pointer_enter);
 	ui_event_add_listener(&(el11.events.onPointerExit), &ui_log_el_pointer_exit);
 	ui_event_add_listener(&(el11.events.onPointerStay), &ui_log_el_pointer_stay);
+	ui_event_add_listener(&(el11.events.onRender), &ui_el_draw_event);
 	el11.rect.x = 100;
 	el11.rect.y = 100;
 	el11.rect.w = 100;
 	el11.rect.h = 100;
 	el11.id = 2220;
-	ui_event_add_listener(&(w.events.onKeyDown[SDL_SCANCODE_C]), &ui_log_key_pressed);
-	ui_event_add_listener(&(w.events.onKeyUp[SDL_SCANCODE_C]), &ui_log_key_released);
+	el11.sdl_renderer = w.sdl_renderer;
+	ui_el_load_surface_from(&el11, "test4.jpeg");
+	ui_el_create_texture(&el11);
 	ui_el_add_child(&el1, &el11);
-	ui_win_create(&w);
+
 
 	t_ui_win w1;
 	ui_win_init(&w1);
@@ -181,9 +199,15 @@ int		main(int argc, char *argv[])
 	w1.canvas.rect.w = 200;
 	w1.canvas.rect.h = 100;
 	w1.params = 0;
+	ui_win_create(&w1);
+	w1.canvas.sdl_renderer = (w1.sdl_renderer);
+	ui_el_load_surface_from(&w1.canvas, "test2.jpg");
+	ui_el_create_texture(&w1.canvas);
+	ui_event_add_listener(&(w1.canvas.events.onRender), &ui_el_draw_event);
+
 	log_setup(&w1);
 	ui_event_add_listener(&(w1.events.onClose), &test_for_notmain);
-	ui_win_create(&w1);
+
 
 	t_ui_win w2;
 	ui_win_init(&w2);
@@ -192,25 +216,31 @@ int		main(int argc, char *argv[])
 	w2.canvas.rect.w = 200;
 	w2.canvas.rect.h = 100;
 	w2.params = WIN_RESIZABLE;
+	ui_win_create(&w2);
+	w2.canvas.sdl_renderer = (w2.sdl_renderer);
+	ui_el_load_surface_from(&w2.canvas, "test2.jpg");
+	ui_el_create_texture(&w2.canvas);
+	ui_event_add_listener(&(w2.canvas.events.onRender), &ui_el_draw_event);
+
 	log_setup(&w2);
 	ui_event_add_listener(&(w2.events.onClose), &test_for_notmain);
-	ui_win_create(&w2);
+
 
 	ui_main_add_window(&m, &w);
 	ui_main_add_window(&m, &w1);
 	ui_main_add_window(&m, &w2);
 
-	SDL_SetRenderDrawColor(w.sdl_renderer, 255, 0, 0, 255);
-	SDL_RenderClear(w.sdl_renderer);
-	SDL_RenderPresent(w.sdl_renderer);
+	// SDL_SetRenderDrawColor(w.sdl_renderer, 255, 0, 0, 255);
+	// SDL_RenderClear(w.sdl_renderer);
+	// SDL_RenderPresent(w.sdl_renderer);
 
-	SDL_SetRenderDrawColor(w1.sdl_renderer, 0, 255, 0, 255);
-	SDL_RenderClear(w1.sdl_renderer);
-	SDL_RenderPresent(w1.sdl_renderer);
+	// SDL_SetRenderDrawColor(w1.sdl_renderer, 0, 255, 0, 255);
+	// SDL_RenderClear(w1.sdl_renderer);
+	// SDL_RenderPresent(w1.sdl_renderer);
 
-	SDL_SetRenderDrawColor(w2.sdl_renderer, 0, 0, 255, 255);
-	SDL_RenderClear(w2.sdl_renderer);
-	SDL_RenderPresent(w2.sdl_renderer);
+	// SDL_SetRenderDrawColor(w2.sdl_renderer, 0, 0, 255, 255);
+	// SDL_RenderClear(w2.sdl_renderer);
+	// SDL_RenderPresent(w2.sdl_renderer);
 
 	ui_main_loop(&m);
 	return (0);

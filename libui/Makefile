@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/04 08:02:02 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/06 18:31:36 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,20 @@ INC_DIR			=	./include
 
 SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_free.c \
-					ui_el_init.c
+					ui_el_init.c \
+					ui_el_create_texture.c \
+					ui_el_load_surface_from.c
 
-SRC_EL_EVENT	=	ui_event_init.c \
+SRC_UI_DRAW_EV	=	ui_draw_events.c
+
+SRC_UI_DRAW		=	ui_draw.c \
+					ui_draw_window.c \
+					ui_draw_windows.c \
+					ui_clear_windows.c \
+					ui_show_window.c \
+					ui_show_windows.c
+
+SRC_UI_EVENT	=	ui_event_init.c \
 					ui_event_add_listener.c \
 					ui_event_clear.c \
 					ui_event_invoke.c
@@ -56,11 +67,6 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_find_window_by_id.c \
 					ui_main_remove_window_by_id.c \
 					ui_main_handle_keyboard_event.c
-					#ui_main_handle_key_down.c \
-					ui_main_handle_key_up.c
-					# ui_main_handle_mouse_motion.c \
-					ui_main_handle_mouse_button_down.c \
-					ui_main_handle_mouse_button_up.c \
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c
@@ -76,7 +82,9 @@ SRC_RAYCAST		=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
 
 OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_EL_EVENT:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EVENT:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_LOG:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_MAIN:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_SDL:.c=.o)) \

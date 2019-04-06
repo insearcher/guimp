@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:29:52 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 18:32:51 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct		s_ui_el
 {
 	SDL_Surface		*sdl_surface;
 	SDL_Texture		*sdl_texture;
+	SDL_Renderer	*sdl_renderer;
 	struct s_ui_el	*parent;
 	t_list			*children;
 	t_rect			rect;

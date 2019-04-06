@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:35:02 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 18:36:03 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct		s_ui_el_events
 	t_ui_event		onPointerRightButtonReleased;
 	t_ui_event		onScrollUp;
 	t_ui_event		onScrollDown;
+	t_ui_event		onRender;
 }					t_ui_el_events;
 
 # pragma endregion

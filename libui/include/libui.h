@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:21:10 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 18:26:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,9 @@ void				ui_el_set_rel_size(t_ui_el *el, float x, float y); //need to be tested
 void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
 void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
+
+int					ui_el_load_surface_from(t_ui_el *el, const char *path);//, const int img_flag)
+int					ui_el_create_texture(t_ui_el *el);
 
 # pragma endregion
 

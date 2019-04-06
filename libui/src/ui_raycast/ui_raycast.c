@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:30:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 06:01:29 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 18:43:17 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_ui_el	*ui_raycast(t_ui_main *m, Uint32 windowID)
 	w = ui_main_find_window_by_id(m, windowID);
 	if (w == NULL)
 	{
-		SDL_Log("Window with ID=%d doesn't exists in main!!!\n", windowID);
 		return (NULL);
 	}
 	else

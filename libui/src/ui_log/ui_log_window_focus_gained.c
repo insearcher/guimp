@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:44:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 00:46:04 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 18:44:25 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@ void	ui_log_window_focus_gained(void *a1, void *a2)
 	m = (t_ui_main *)a1;
 	windowID = *((Uint32 *)a2);
 	w = ui_main_find_window_by_id(m, windowID);
-	if (w == NULL)
-	{
-		SDL_Log("Window with ID=%d doesn't exists in main!!!\n", windowID);
-	}
-	else
+	if (w != NULL)
 	{
 		SDL_Log("Window with ID=%d gained focus\n", windowID);
 	}

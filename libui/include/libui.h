@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:32:51 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/06 18:35:02 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,8 +234,9 @@ void				ui_log_key_released(void *a1, void *a2);
 
 void				q_push(QUEUE **q, t_list *el);
 void				*q_pop(QUEUE **q);
-// void				bfs_iter_root(const t_ui_el *root, void(*f)(const void *arg)); //need to be tested
-// t_ui_el				*bfs_root(const t_ui_el *root, int(*f)(const void *arg));
+
+void				bfs_iter_root(const t_ui_el *root, const func_ptr f,
+						const void *arg);
 
 t_ui_el				*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p);
 

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_draw_event.c                                 :+:      :+:    :+:   */
+/*   ui_el_get_current_texture.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/06 18:23:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/10 14:06:48 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/04/10 05:05:14 by edraugr-          #+#    #+#             */
+/*   Updated: 2019/04/10 06:38:19 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_draw_event(void *el_v, void *arg)
+SDL_Texture	*ui_el_get_current_texture(t_ui_el *el)
 {
-	t_ui_el	*el;
+	t_list_texture	*tmp;
 
-	el = (t_ui_el *)el_v;
-	arg = NULL;
-	if (arg == NULL)
+	tmp = el->sdl_textures;
+	if (tmp == NULL)
+		return (NULL);
+	while (tmp)
 	{
-		// SDL_RenderCopy(el->sdl_renderer, el->sdl_texture, NULL, &el->rect);  //legacy
-		SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
+		if (tmp->content_size == el->current_texture)
+			return(CAST_X_TO_Y(tmp->content, SDL_Texture *));
+		tmp = tmp->next;
 	}
+	return (NULL);
 }

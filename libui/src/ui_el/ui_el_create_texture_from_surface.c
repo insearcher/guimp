@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_draw_event.c                                 :+:      :+:    :+:   */
+/*   ui_el_create_texture_from_surface.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/06 18:23:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/10 14:06:48 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/04/10 04:57:39 by edraugr-          #+#    #+#             */
+/*   Updated: 2019/04/10 04:59:14 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_draw_event(void *el_v, void *arg)
+SDL_Texture	*ui_el_create_texture_from_surface(t_ui_el *el)
 {
-	t_ui_el	*el;
+	SDL_Texture	*tmp;
 
-	el = (t_ui_el *)el_v;
-	arg = NULL;
-	if (arg == NULL)
-	{
-		// SDL_RenderCopy(el->sdl_renderer, el->sdl_texture, NULL, &el->rect);  //legacy
-		SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
-	}
+	if (!el->sdl_surface || !el->sdl_renderer ||
+		!(tmp = SDL_CreateTextureFromSurface(el->sdl_renderer, el->sdl_surface)))
+		return (NULL);
+	return (tmp);
 }

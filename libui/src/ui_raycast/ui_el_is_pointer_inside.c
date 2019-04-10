@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_is_pointer_inside.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:37:32 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 05:07:37 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/10 07:42:42 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ui_el_is_pointer_inside(void *a1, void *a2)
 
 	m = (t_ui_main *)a1;
 	el = (t_ui_el *)a2;
+	if (el->params & EL_IGNOR_RAYCAST)
+		return (0);
 	x = m->sdl_event.motion.x;
 	y = m->sdl_event.motion.y;
 	return ((el->rect.x <= x && el->rect.y <= y) &&

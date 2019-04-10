@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_handle_mouse_event.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:39:14 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/10 13:27:08 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 	t_ui_event	*event;
 
 	windowID = m->sdl_event.window.windowID;
+	if (windowID == 0)
+		return ;
 	if ((win = ui_main_find_window_by_id(m, windowID)) == NULL)
 	{
 		SDL_Log("Window with id %d is not presented in main\n", windowID);
@@ -28,9 +30,9 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 	event = NULL;
 	if (m->sdl_event.type == SDL_MOUSEMOTION)
 		event = &(win->events.onMouseMoved);
-	else if (m->sdl_event.type == SDL_MOUSEBUTTONDOWN)
+	if (m->sdl_event.type == SDL_MOUSEBUTTONDOWN)
 		event = &(win->events.onMouseButtonDown);
-	else if (m->sdl_event.type == SDL_MOUSEBUTTONUP)
+	if (m->sdl_event.type == SDL_MOUSEBUTTONUP)
 		event = &(win->events.onMouseButtonUp);
 	if (event != NULL)
 		ui_event_invoke(event, m, &windowID);

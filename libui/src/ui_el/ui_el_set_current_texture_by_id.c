@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_draw_event.c                                 :+:      :+:    :+:   */
+/*   ui_el_set_current_texture_by_id.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/06 18:23:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/10 14:06:48 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/04/10 05:06:00 by edraugr-          #+#    #+#             */
+/*   Updated: 2019/04/10 06:36:38 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_draw_event(void *el_v, void *arg)
+int	ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id)
 {
-	t_ui_el	*el;
+	t_list_texture	*tmp;
 
-	el = (t_ui_el *)el_v;
-	arg = NULL;
-	if (arg == NULL)
+	tmp = el->sdl_textures;
+	if (tmp == NULL)
+		return (FUNCTION_FAILURE);
+	while (tmp)
 	{
-		// SDL_RenderCopy(el->sdl_renderer, el->sdl_texture, NULL, &el->rect);  //legacy
-		SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
+		if (tmp->content_size == (size_t)texture_id)
+		{
+			el->current_texture = texture_id;
+			return(FUNCTION_SUCCESS);
+		}
+		tmp = tmp->next;
 	}
+	return (FUNCTION_FAILURE);
 }

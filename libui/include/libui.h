@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 20:17:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/10 13:45:10 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,40 @@
 # include "libft.h"
 # include <math.h>
 
-# define WIN_W		640
-# define WIN_H		480
+# define WIN_W		640 //??????
+# define WIN_H		480 //??????
 
 # define KEYS_COUNT	285
 
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
 
+//el params
 # define EL_DYNAMIC_SIZE	(1 << 0)
+# define EL_IGNOR_RAYCAST	(1 << 1)
+# define EL_IS_HIDDEN		(1 << 2) //TODO. usefull for hidden elems, like popap menu. Do not forget to change bfs for this.
 
+//win params
 # define WIN_MAIN			(1 << 0)
 # define WIN_RESIZABLE		(1 << 1)
 
+//func status
 # define FUNCTION_SUCCESS	0
 # define FUNCTION_FAILURE	1
 
-typedef void		(*func_ptr)(void *, void *);
-typedef int			(*pred_ptr)(void *, void *);
+//texture id`s
+# define TID_DEFAULT		0
+# define TID_ONFOCUSED		1
+# define TID_ONACTIVE		2
+
+//button status
+# define BUTTON_OFF			0
+# define BUTTON_ON			1
+
+typedef	void		(*func_ptr)(void *, void *);
+typedef	int			(*pred_ptr)(void *, void *);
 typedef	SDL_Rect	t_rect;
+typedef	t_list		t_list_texture;
 
 /*
 ** Smart things:
@@ -114,7 +129,9 @@ typedef struct		s_ui_el_events
 typedef struct		s_ui_el
 {
 	SDL_Surface		*sdl_surface;
-	SDL_Texture		*sdl_texture;
+	SDL_Texture		*sdl_texture; //legacy. use t_list_texture sdl_textures. can be delited
+	t_list_texture	*sdl_textures;
+	size_t			current_texture;
 	SDL_Renderer	*sdl_renderer;
 	struct s_ui_el	*parent;
 	t_list			*children;
@@ -123,7 +140,8 @@ typedef struct		s_ui_el
 	t_ui_el_events	events;
 	Uint32			id;
 	Uint32			params;
-	// TODO: t_ui_graphics
+	int				l_butt_status;
+	int				r_butt_status;
 }					t_ui_el;
 
 # pragma endregion
@@ -245,8 +263,13 @@ void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
 void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 
-int					ui_el_load_surface_from(t_ui_el *el, const char *path);//, const int img_flag)
-int					ui_el_create_texture(t_ui_el *el);
+int					ui_el_load_surface_from(t_ui_el *el, const char *path);
+int					ui_el_create_texture(t_ui_el *el); //legacy. can be delited
+int					ui_el_add_texture_from_file(t_ui_el *el,
+						const char *path, int texture_id);
+SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el);
+SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
+int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
 
 # pragma endregion
 

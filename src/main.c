@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/10 14:13:27 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/15 00:53:10 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,15 @@ void	log_setup(t_ui_win *w)
 	ui_event_add_listener(&(w->events.onClose), &ui_log_window_closed);
 }
 
+static void ui_el_setup_default_events(t_ui_el *el)
+{
+	ui_event_add_listener(&(el->events.onPointerEnter), &ui_log_el_pointer_enter);
+	ui_event_add_listener(&(el->events.onPointerEnter), &ui_el_default_pointer_enter);
+	ui_event_add_listener(&(el->events.onPointerExit), &ui_log_el_pointer_exit);
+	ui_event_add_listener(&(el->events.onPointerExit), &ui_el_default_pointer_exit);
+	ui_event_add_listener(&(el->events.onPointerStay), &ui_log_el_pointer_stay);
+}
+
 static void	testOnPtrEnter(void *main, void *el)
 {
 	main = NULL;
@@ -268,9 +277,7 @@ int		main(int argc, char *argv[])
 
 	t_ui_el el1;
 	ui_el_init(&el1);
-	ui_event_add_listener(&(el1.events.onPointerEnter), &ui_log_el_pointer_enter);
-	ui_event_add_listener(&(el1.events.onPointerExit), &ui_log_el_pointer_exit);
-	ui_event_add_listener(&(el1.events.onPointerStay), &ui_log_el_pointer_stay);
+	ui_el_setup_default_events(&el1);
 	ui_event_add_listener(&(el1.events.onRender), &ui_el_draw_event);
 	el1.rect.x = 100;
 	el1.rect.y = 100;
@@ -287,11 +294,10 @@ int		main(int argc, char *argv[])
 	// ui_el_create_texture(&el1);
 	ui_el_add_texture_from_file(&el1, "test2.jpg", TID_DEFAULT);
 	ui_el_add_child(&(w.canvas), &el1);
+
 	t_ui_el el2;
 	ui_el_init(&el2);
-	ui_event_add_listener(&(el2.events.onPointerEnter), &ui_log_el_pointer_enter);
-	ui_event_add_listener(&(el2.events.onPointerExit), &ui_log_el_pointer_exit);
-	ui_event_add_listener(&(el2.events.onPointerStay), &ui_log_el_pointer_stay);
+	ui_el_setup_default_events(&el2);
 	ui_event_add_listener(&(el2.events.onRender), &ui_el_draw_event);
 	el2.rect.x = 300;
 	el2.rect.y = 300;
@@ -303,14 +309,13 @@ int		main(int argc, char *argv[])
 	// ui_el_create_texture(&el2);
 	ui_el_add_texture_from_file(&el2, "test6.jpeg", TID_DEFAULT);
 	ui_el_add_child(&(w.canvas), &el2);
-	ui_event_add_listener(&(el2.events.onPointerStay), &testOnPtrStay);
+	ui_el_setup_default_events(&el2);
+	ui_event_add_listener(&(el2.events.onPointerStay), testOnPtrStay);
 	//ui_event_add_listener(&(el2.events.onPointerLeftButtonHold), &testOnPtrLBHold);
 
 	t_ui_el el11;
 	ui_el_init(&el11);
-	ui_event_add_listener(&(el11.events.onPointerEnter), &ui_log_el_pointer_enter);
-	ui_event_add_listener(&(el11.events.onPointerExit), &ui_log_el_pointer_exit);
-	ui_event_add_listener(&(el11.events.onPointerStay), &ui_log_el_pointer_stay);
+	ui_el_setup_default_events(&el1);
 	ui_event_add_listener(&(el11.events.onRender), &ui_el_draw_event);
 	el11.rect.x = 100;
 	el11.rect.y = 100;
@@ -323,6 +328,7 @@ int		main(int argc, char *argv[])
 	ui_el_add_texture_from_file(&el11, "test4.jpeg", TID_DEFAULT);
 	ui_el_add_texture_from_file(&el11, "test.bmp", TID_ONFOCUSED);
 	ui_el_add_texture_from_file(&el11, "test5.png", TID_ONACTIVE);
+	ui_el_setup_default_events(&el11);
 	ui_event_add_listener(&(el11.events.onPointerEnter), testOnPtrEnter);
 	ui_event_add_listener(&(el11.events.onPointerExit), testOnPtrExit);
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonPressed), testOnPtrLBDown);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/10 13:45:10 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/15 02:53:00 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
 
+# define FPS				60
+
 //el params
 # define EL_DYNAMIC_SIZE	(1 << 0)
 # define EL_IGNOR_RAYCAST	(1 << 1)
 # define EL_IS_HIDDEN		(1 << 2) //TODO. usefull for hidden elems, like popap menu. Do not forget to change bfs for this.
+# define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & _ON)
+# define EL_IS_LMB_PRESSED	(1 << 4)
+# define EL_IS_RMB_PRESSED	(1 << 5)
 
 //win params
 # define WIN_MAIN			(1 << 0)
@@ -46,8 +51,8 @@
 # define TID_ONACTIVE		2
 
 //button status
-# define BUTTON_OFF			0
-# define BUTTON_ON			1
+# define BUTTON_OFF			0 // TODO: remove
+# define BUTTON_ON			1 // TODO: remove
 
 typedef	void		(*func_ptr)(void *, void *);
 typedef	int			(*pred_ptr)(void *, void *);
@@ -139,9 +144,9 @@ typedef struct		s_ui_el
 	t_frect			frect;
 	t_ui_el_events	events;
 	Uint32			id;
-	Uint32			params;
-	int				l_butt_status;
-	int				r_butt_status;
+	Uint32			params; // <- put there next parameters
+	int				l_butt_status; // TODO: remove
+	int				r_butt_status; // TODO: remove
 }					t_ui_el;
 
 # pragma endregion
@@ -193,6 +198,8 @@ typedef struct		s_ui_main
 	t_list			*windows;
 	SDL_Event		sdl_event;
 	t_ui_raycaster	raycaster;
+	Uint32			cur_tick;
+	Uint32			target_tick;
 }					t_ui_main;
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
@@ -205,9 +212,11 @@ t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_handle_event(t_ui_main *m);
+void				ui_main_handle_raycast(t_ui_main *m);
 void				ui_main_handle_window_event(t_ui_main *m);
 void				ui_main_handle_mouse_event(t_ui_main *m);
 void				ui_main_handle_keyboard_event(t_ui_main *m);
+void				ui_main_handle_continious_event(t_ui_main *m, t_ui_el *el);
 
 # pragma endregion
 # pragma region		log_functions
@@ -270,6 +279,9 @@ int					ui_el_add_texture_from_file(t_ui_el *el,
 SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
 int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
+
+void				ui_el_default_pointer_enter(void *a1, void *a2);
+void				ui_el_default_pointer_exit(void *a1, void *a2);
 
 # pragma endregion
 

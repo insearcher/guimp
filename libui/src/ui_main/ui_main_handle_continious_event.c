@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_main_handle_event.c                             :+:      :+:    :+:   */
+/*   ui_main_handle_continious_event.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/30 22:13:11 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 03:03:04 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/15 00:45:47 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/15 03:23:18 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_main_handle_event(t_ui_main *m)
+void	ui_main_handle_continious_event(t_ui_main *m, t_ui_el *el)
 {
-	if (m->sdl_event.type == SDL_MOUSEMOTION ||
-		m->sdl_event.type == SDL_MOUSEBUTTONDOWN ||
-		m->sdl_event.type ==  SDL_MOUSEBUTTONUP)
-		ui_main_handle_mouse_event(m);
-	if (m->sdl_event.type == SDL_KEYDOWN || //else
-		m->sdl_event.type == SDL_KEYUP)
-		ui_main_handle_keyboard_event(m);
-	if (m->sdl_event.type == SDL_WINDOWEVENT) //else
-		ui_main_handle_window_event(m);
+	if (el == NULL)
+		return ;
+	if (el->params & EL_IS_PTR_INSIDE)
+		ui_event_invoke(&(el->events.onPointerStay), m, el);
+	if (el->params & EL_IS_LMB_PRESSED)
+		ui_event_invoke(&(el->events.onPointerLeftButtonHold), m, el);
+	if (el->params & EL_IS_RMB_PRESSED)
+		ui_event_invoke(&(el->events.onPointerRightButtonHold), m, el);
 }

@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/11 23:34:48 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/04/15 10:24:19 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,10 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_set_abs_size.c \
 					ui_el_set_rel_size.c \
 					ui_el_set_abs_pos.c \
-					ui_el_set_rel_pos.c
+					ui_el_set_rel_pos.c \
+					ui_el_default_pointer_enter.c \
+					ui_el_default_pointer_exit.c \
+					ui_el_setup_default.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -74,12 +77,15 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_handle_window_event.c \
 					ui_main_find_window_by_id.c \
 					ui_main_remove_window_by_id.c \
-					ui_main_handle_keyboard_event.c
+					ui_main_handle_keyboard_event.c \
+					ui_main_handle_raycast.c \
+					ui_main_handle_continious_event.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c
 
 SRC_UI_WIN		=	ui_win_init.c \
+					ui_win_setup_default.c \
 					ui_win_create.c \
 					ui_win_close.c
 

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/15 00:46:53 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/15 05:51:18 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_create_texture_from_surface.c \
 					ui_el_get_current_texture.c \
 					ui_el_default_pointer_enter.c \
-					ui_el_default_pointer_exit.c
+					ui_el_default_pointer_exit.c \
+					ui_el_setup_default.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -80,6 +81,7 @@ SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c
 
 SRC_UI_WIN		=	ui_win_init.c \
+					ui_win_setup_default.c \
 					ui_win_create.c \
 					ui_win_close.c
 

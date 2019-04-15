@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 00:53:10 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/15 05:52:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,26 +149,6 @@ static void test()
 // 	bfs_iter_root(root, draw_placeholder);
 }
 
-void	log_setup(t_ui_win *w)
-{
-	ui_event_add_listener(&(w->events.onMouseMoved), &ui_log_mouse_motion);
-	ui_event_add_listener(&(w->events.onMouseButtonDown), &ui_log_mouse_button_down);
-	ui_event_add_listener(&(w->events.onMouseButtonUp), &ui_log_mouse_button_up);
-	ui_event_add_listener(&(w->events.onFocusGained), &ui_log_window_focus_gained);
-	ui_event_add_listener(&(w->events.onFocusLost), &ui_log_window_focus_lost);
-	ui_event_add_listener(&(w->events.onResize), &ui_log_window_resized);
-	ui_event_add_listener(&(w->events.onClose), &ui_log_window_closed);
-}
-
-static void ui_el_setup_default_events(t_ui_el *el)
-{
-	ui_event_add_listener(&(el->events.onPointerEnter), &ui_log_el_pointer_enter);
-	ui_event_add_listener(&(el->events.onPointerEnter), &ui_el_default_pointer_enter);
-	ui_event_add_listener(&(el->events.onPointerExit), &ui_log_el_pointer_exit);
-	ui_event_add_listener(&(el->events.onPointerExit), &ui_el_default_pointer_exit);
-	ui_event_add_listener(&(el->events.onPointerStay), &ui_log_el_pointer_stay);
-}
-
 static void	testOnPtrEnter(void *main, void *el)
 {
 	main = NULL;
@@ -253,20 +233,19 @@ int		main(int argc, char *argv[])
 	ui_win_init(&w);
 	w.title = ft_strdup("TEST1");
 	w.params = WIN_MAIN | WIN_RESIZABLE;
-	w.size.x = 640;
-	w.size.y = 480;
-	log_setup(&w);
-	w.canvas.frect.x = 0;
-	w.canvas.frect.y = 0;
-	w.canvas.frect.w = 1;
-	w.canvas.frect.h = 1;
-	w.canvas.rect.w = w.size.x;
-	w.canvas.rect.h = w.size.y;
-	w.canvas.params = EL_DYNAMIC_SIZE;
+	w.size = (t_vec2){640, 480};
 	w.canvas.id = 0;
+	// w.canvas.frect.x = 0;
+	// w.canvas.frect.y = 0;
+	// w.canvas.frect.w = 1;
+	// w.canvas.frect.h = 1;
+	// w.canvas.rect.w = w.size.x;
+	// w.canvas.rect.h = w.size.y;
+	// w.canvas.params = EL_DYNAMIC_SIZE;
 	ui_event_add_listener(&(w.events.onResize), &update_window_size);
 	ui_event_add_listener(&(w.events.onResize), &find_dynamic_elements);
 	ui_event_add_listener(&(w.events.onClose), &test_for_main);
+	ui_win_setup_default(&w);
 	ui_win_create(&w);
 
 	w.canvas.sdl_renderer = w.sdl_renderer;
@@ -277,7 +256,7 @@ int		main(int argc, char *argv[])
 
 	t_ui_el el1;
 	ui_el_init(&el1);
-	ui_el_setup_default_events(&el1);
+	ui_el_setup_default(&el1);
 	ui_event_add_listener(&(el1.events.onRender), &ui_el_draw_event);
 	el1.rect.x = 100;
 	el1.rect.y = 100;
@@ -297,7 +276,7 @@ int		main(int argc, char *argv[])
 
 	t_ui_el el2;
 	ui_el_init(&el2);
-	ui_el_setup_default_events(&el2);
+	ui_el_setup_default(&el2);
 	ui_event_add_listener(&(el2.events.onRender), &ui_el_draw_event);
 	el2.rect.x = 300;
 	el2.rect.y = 300;
@@ -309,13 +288,13 @@ int		main(int argc, char *argv[])
 	// ui_el_create_texture(&el2);
 	ui_el_add_texture_from_file(&el2, "test6.jpeg", TID_DEFAULT);
 	ui_el_add_child(&(w.canvas), &el2);
-	ui_el_setup_default_events(&el2);
+	ui_el_setup_default(&el2);
 	ui_event_add_listener(&(el2.events.onPointerStay), testOnPtrStay);
 	//ui_event_add_listener(&(el2.events.onPointerLeftButtonHold), &testOnPtrLBHold);
 
 	t_ui_el el11;
 	ui_el_init(&el11);
-	ui_el_setup_default_events(&el1);
+	ui_el_setup_default(&el1);
 	ui_event_add_listener(&(el11.events.onRender), &ui_el_draw_event);
 	el11.rect.x = 100;
 	el11.rect.y = 100;
@@ -328,7 +307,7 @@ int		main(int argc, char *argv[])
 	ui_el_add_texture_from_file(&el11, "test4.jpeg", TID_DEFAULT);
 	ui_el_add_texture_from_file(&el11, "test.bmp", TID_ONFOCUSED);
 	ui_el_add_texture_from_file(&el11, "test5.png", TID_ONACTIVE);
-	ui_el_setup_default_events(&el11);
+	ui_el_setup_default(&el11);
 	ui_event_add_listener(&(el11.events.onPointerEnter), testOnPtrEnter);
 	ui_event_add_listener(&(el11.events.onPointerExit), testOnPtrExit);
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonPressed), testOnPtrLBDown);
@@ -347,16 +326,14 @@ int		main(int argc, char *argv[])
 	w1.canvas.rect.w = w1.size.x;
 	w1.canvas.rect.h = w1.size.y;
 	w1.params = 0;
-	ui_win_create(&w1);
 	w1.canvas.sdl_renderer = (w1.sdl_renderer);
 	// ui_el_load_surface_from(&w1.canvas, "test2.jpg");
 	// ui_el_create_texture(&w1.canvas);
 	ui_el_add_texture_from_file(&(w1.canvas), "test2.jpg", TID_DEFAULT);
 	ui_event_add_listener(&(w1.canvas.events.onRender), &ui_el_draw_event);
-
-	log_setup(&w1);
 	ui_event_add_listener(&(w1.events.onClose), &test_for_notmain);
-
+	ui_win_setup_default(&w1);
+	ui_win_create(&w1);
 
 	t_ui_win w2;
 	ui_win_init(&w2);
@@ -367,15 +344,15 @@ int		main(int argc, char *argv[])
 	w2.canvas.rect.w = 200;
 	w2.canvas.rect.h = 100;
 	w2.params = WIN_RESIZABLE;
-	ui_win_create(&w2);
 	w2.canvas.sdl_renderer = (w2.sdl_renderer);
 	// ui_el_load_surface_from(&w2.canvas, "test2.jpg");
 	// ui_el_create_texture(&w2.canvas);
 	ui_el_add_texture_from_file(&(w2.canvas), "test2.jpg", TID_DEFAULT);
 	ui_event_add_listener(&(w2.canvas.events.onRender), &ui_el_draw_event);
 
-	log_setup(&w2);
 	ui_event_add_listener(&(w2.events.onClose), &test_for_notmain);
+	ui_win_setup_default(&w2);
+	ui_win_create(&w2);
 
 
 	ui_main_add_window(&m, &w);

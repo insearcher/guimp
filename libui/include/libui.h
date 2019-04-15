@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 02:53:00 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/15 05:51:11 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ void				ui_el_draw_event(void *el_v, void *arg);
 # pragma region		t_ui_el_func
 
 void				ui_el_init(t_ui_el *el);
+void				ui_el_setup_default(t_ui_el *el);
 void				ui_el_set_abs_size(t_ui_el *el, int x, int y);//need to be tested
 void				ui_el_set_rel_size(t_ui_el *el, float x, float y); //need to be tested
 void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
@@ -286,6 +287,7 @@ void				ui_el_default_pointer_exit(void *a1, void *a2);
 # pragma endregion
 
 void				ui_win_create(t_ui_win *w);
+void				ui_win_setup_default(t_ui_win *w);
 void				ui_win_init(t_ui_win *w);
 void				ui_win_close(t_ui_win *w);
 

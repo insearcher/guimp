@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 13:35:28 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/10 14:00:57 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/15 06:16:15 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	ui_el_set_abs_pos(t_ui_el *el, int x, int y)
 		return ;
 	el->rect.x = x;
 	el->rect.y = y;
-	el->frect.x = (float)((float)p->rect.x / (float)x);
-	el->frect.y = (float)((float)p->rect.y / (float)y);
+	el->frect.x = (float)((float)x / (float)p->rect.w);
+	el->frect.y = (float)((float)y / (float)p->rect.h);
 }

@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ui_log_window_closed.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:51:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:43:54 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/15 10:33:25 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_log_window_closed(void *a1, void *a2)
+static void	close_notmain(t_ui_main *m, Uint32 windowID)
+{
+	ui_main_remove_window_by_id(m, windowID);
+}
+
+static void	close_main()
+{
+	ui_sdl_deinit(EXIT_SUCCESS);
+}
+
+void		ui_log_window_closed(void *a1, void *a2)
 {
 	t_ui_main	*m;
 	t_ui_win	*w;
@@ -24,5 +34,9 @@ void	ui_log_window_closed(void *a1, void *a2)
 	if (w != NULL)
 	{
 		SDL_Log("Window with ID=%d closed\n", windowID);
+		if (w->params & WIN_MAIN)
+			close_main();
+		else
+			close_notmain(m, windowID);
 	}
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/15 05:51:18 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/15 10:24:19 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,10 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_add_texture.c \
 					ui_el_create_texture_from_surface.c \
 					ui_el_get_current_texture.c \
+					ui_el_set_abs_size.c \
+					ui_el_set_rel_size.c \
+					ui_el_set_abs_pos.c \
+					ui_el_set_rel_pos.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
 					ui_el_setup_default.c

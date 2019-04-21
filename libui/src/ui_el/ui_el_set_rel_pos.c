@@ -6,13 +6,13 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 13:35:52 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/10 14:06:17 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/11 23:34:42 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_set_rel_size(t_ui_el *el, float x, float y)
+void	ui_el_set_rel_pos(t_ui_el *el, float x, float y)
 {
 	t_ui_el	*p;
 

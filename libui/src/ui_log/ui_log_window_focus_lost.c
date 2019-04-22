@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:44:23 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/06 18:40:45 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/22 07:45:29 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	ui_log_window_focus_lost(void *a1, void *a2)
 	w = ui_main_find_window_by_id(m, windowID);
 	if (w != NULL)
 	{
-		SDL_Log("Window with ID=%d lost focus\n", windowID);
+		SDL_Log("%sLOST FOCUS%s\twindowID=%d\n",
+			KYEL,
+			KNRM,
+			m->sdl_event.window.windowID
+		);
 	}
 }

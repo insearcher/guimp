@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/22 04:14:16 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/22 05:53:00 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,10 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
 					ui_el_setup_default.c \
-					ui_find_dynamic_elements.c
+					ui_find_dynamic_elements.c \
+					ui_log_el_scroll_up.c \
+					ui_log_el_scroll_down.c \
+					ui_el_begin_drag.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -71,7 +74,10 @@ SRC_UI_LOG		=	ui_log_mouse_motion.c \
 					ui_log_el_pointer_enter.c \
 					ui_log_el_pointer_exit.c \
 					ui_log_key_pressed.c \
-					ui_log_key_released.c
+					ui_log_key_released.c \
+					ui_log_el_left_button_hold.c \
+					ui_log_el_left_button_pressed.c \
+					ui_log_el_left_button_released.c
 
 SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_init.c \

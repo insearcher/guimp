@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_main_handle_event.c                             :+:      :+:    :+:   */
+/*   ui_el_begin_drag.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/30 22:13:11 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 05:59:17 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/22 05:47:59 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/22 05:51:49 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_main_handle_event(t_ui_main *m)
+void	ui_el_begin_drag(void *a1, void *a2)
 {
-	if (m->sdl_event.type == SDL_MOUSEMOTION ||
-		m->sdl_event.type == SDL_MOUSEBUTTONDOWN ||
-		m->sdl_event.type ==  SDL_MOUSEBUTTONUP)
-		ui_main_handle_mouse_event(m);
-	else if (m->sdl_event.type == SDL_KEYDOWN || //else
-		m->sdl_event.type == SDL_KEYUP)
-		ui_main_handle_keyboard_event(m);
-	else if (m->sdl_event.type == SDL_WINDOWEVENT) //else
-		ui_main_handle_window_event(m);
+	t_ui_main	*m;
+	t_ui_el		*el;
+
+	m = (t_ui_main *)a1;
+	el = (t_ui_el *)a2;
+	el->ptr_rel_pos.x = ui_get_mouse_el_pos_x(m);
+	el->ptr_rel_pos.y = ui_get_mouse_el_pos_y(m);
 }

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 04:17:45 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/22 05:52:20 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & _ON)
 # define EL_IS_LMB_PRESSED	(1 << 4)
 # define EL_IS_RMB_PRESSED	(1 << 5)
+# define EL_IS_SCROLLABLE	(1 << 6)
+# define EL_IS_DRAGGABLE	(1 << 7)
 
 //win params
 # define WIN_MAIN			(1 << 0)
@@ -145,8 +147,7 @@ typedef struct		s_ui_el
 	t_ui_el_events	events;
 	Uint32			id;
 	Uint32			params; // <- put there next parameters
-	int				l_butt_status; // TODO: remove
-	int				r_butt_status; // TODO: remove
+	t_vec2			ptr_rel_pos;
 }					t_ui_el;
 
 # pragma endregion
@@ -157,6 +158,8 @@ typedef struct		s_ui_win_events
 	t_ui_event		onMouseMoved;
 	t_ui_event		onMouseButtonDown;
 	t_ui_event		onMouseButtonUp;
+	t_ui_event		onScrollUp;
+	t_ui_event		onScrollDown;
 	t_ui_event		onFocusGained;
 	t_ui_event		onFocusLost;
 	t_ui_event		onResize;
@@ -234,6 +237,11 @@ void				ui_log_window_resized(void *a1, void *a2);
 void				ui_log_el_pointer_enter(void *a1, void *a2);
 void				ui_log_el_pointer_stay(void *a1, void *a2);
 void				ui_log_el_pointer_exit(void *a1, void *a2);
+void				ui_log_el_scroll_up(void *a1, void *a2);
+void				ui_log_el_scroll_down(void *a1, void *a2);
+void				ui_log_el_left_button_hold(void *a1, void *a2);
+void				ui_log_el_left_button_pressed(void *a1, void *a2);
+void				ui_log_el_left_button_released(void *a1, void *a2);
 
 void				ui_log_key_pressed(void *a1, void *a2);
 void				ui_log_key_released(void *a1, void *a2);
@@ -284,6 +292,8 @@ int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
 
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
+
+void				ui_el_begin_drag(void *a1, void *a2);
 
 void				ui_find_dynamic_elements(void *a1, void *a2);
 

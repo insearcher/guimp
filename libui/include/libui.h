@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 05:52:20 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/22 07:26:31 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 # define EL_IS_RMB_PRESSED	(1 << 5)
 # define EL_IS_SCROLLABLE	(1 << 6)
 # define EL_IS_DRAGGABLE	(1 << 7)
+
+// KOSTIL
+# define EL_NOT_RELEASED	(1 << 31)
 
 //win params
 # define WIN_MAIN			(1 << 0)

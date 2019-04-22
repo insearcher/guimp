@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/15 10:24:19 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/04/22 04:53:29 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ SRC_DIR			=	./src
 OBJ_DIR			=	./obj
 INC_DIR			=	./include
 
+SRC_BFS			=	bfs_iter.c \
+					queue.c
+
 SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_free.c \
 					ui_el_init.c \
@@ -40,7 +43,9 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_set_rel_pos.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
-					ui_el_setup_default.c
+					ui_el_setup_default.c \
+					ui_find_dynamic_elements.c \
+					ui_el_get_texture_by_id.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -87,15 +92,16 @@ SRC_UI_SDL		=	ui_sdl_init.c \
 SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_setup_default.c \
 					ui_win_create.c \
-					ui_win_close.c
+					ui_win_close.c \
+					ui_win_update_size.c
 
-SRC_BFS			=	bfs_iter.c \
-					queue.c
-
-SRC_RAYCAST		=	ui_raycast.c \
+SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
 
-OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
+SRC_UI_STUFF	=	ui_get_mouse_win_pos.c
+
+OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EVENT:.c=.o)) \
@@ -103,8 +109,8 @@ OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_MAIN:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_SDL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_WIN:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_RAYCAST:.c=.o))
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_RAYCAST:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_STUFF:.c=.o))
 
 INCS		=		-I$(INC_DIR) \
 					-I$(INC_FT) \
@@ -136,10 +142,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_render/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/bfs/%.c
-	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
-	@echo "1" > ../$(TEMP)
-
 $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_raycast/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
@@ -165,6 +167,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_sdl/%.c
 	@echo "1" > ../$(TEMP)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_win/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_stuff/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

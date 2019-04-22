@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/22 04:02:06 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/04/22 05:02:14 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ OBJ_DIR		=	./obj
 LIB_DIR		=	./lib
 
 SRC			=	main.c \
-				draw_func.c
+				draw_func.c \
+				draw_main_canvas_event.c
 
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

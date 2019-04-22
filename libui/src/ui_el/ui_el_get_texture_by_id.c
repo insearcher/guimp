@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   guimp.h                                            :+:      :+:    :+:   */
+/*   ui_el_get_texture_by_id.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 05:01:56 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/04/22 04:44:09 by edraugr-          #+#    #+#             */
+/*   Updated: 2019/04/22 04:54:18 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GUIMP_H
-# define GUIMP_H
+#include "libui.h"
 
-# include "libft.h"
-# include "libui.h"
+SDL_Texture	*ui_el_get_texture_by_id(t_ui_el *el, int id)
+{
+	SDL_Texture		*res;
+	t_list_texture	*tmp;
 
-# define TID_DRAW_TEXTURE		3
-
-void							draw_dot(void *ui_main, void *ui_el);
-void							draw_main_canvas_event(void *el_v, void *arg);
-
-#endif
+	res = NULL;
+	if (!el)
+		return (res);
+	tmp = el->sdl_textures;
+	while (tmp && !res)
+	{
+		if (tmp->content_size == (size_t)id)
+			res = (SDL_Texture *)tmp->content;
+		tmp = tmp->next;
+	}
+	return (res);
+}

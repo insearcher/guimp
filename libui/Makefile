@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/15 10:24:19 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/04/22 04:06:22 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_set_rel_pos.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
-					ui_el_setup_default.c
+					ui_el_setup_default.c \
+					ui_find_dynamic_elements.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -87,7 +88,8 @@ SRC_UI_SDL		=	ui_sdl_init.c \
 SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_setup_default.c \
 					ui_win_create.c \
-					ui_win_close.c
+					ui_win_close.c \
+					ui_win_update_size.c
 
 SRC_BFS			=	bfs_iter.c \
 					queue.c

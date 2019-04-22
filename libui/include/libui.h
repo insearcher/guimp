@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 10:19:18 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 04:06:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ typedef struct		s_ui_main
 	t_ui_raycaster	raycaster;
 	Uint32			cur_tick;
 	Uint32			target_tick;
+	void			*data;
 }					t_ui_main;
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
@@ -284,12 +285,16 @@ int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
 
+void				ui_find_dynamic_elements(void *a1, void *a2);
+
 # pragma endregion
 
 void				ui_win_create(t_ui_win *w);
 void				ui_win_setup_default(t_ui_win *w);
 void				ui_win_init(t_ui_win *w);
 void				ui_win_close(t_ui_win *w);
+
+void				ui_win_update_size(void *a1, void *a2);
 
 int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);

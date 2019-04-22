@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 10:58:27 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 04:05:25 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,47 +28,6 @@
 // 	(void)a2;
 // 	ui_sdl_deinit(EXIT_SUCCESS);
 // }
-
-static void find_new_size(void *a1, void *a2)
-{
-	t_ui_el	*el = (t_ui_el *)a1;
-	(void)a2;
-
-	if (!(el->params & EL_DYNAMIC_SIZE))
-		return ;
-	ui_el_set_rel_size(el, el->frect.w, el->frect.h);
-}
-
-static void find_dynamic_elements(void *a1, void *a2)
-{
-	t_ui_win	*w;
-
-	w = (t_ui_win *)a2;
-	(void)a1;
-	if (w != NULL)
-	{
-		bfs_iter_root(&(w->canvas), &find_new_size, NULL);//w);
-	}
-}
-
-static void update_window_size(void *a1, void *a2)
-{
-	t_ui_main	*m;
-	t_ui_win	*w;
-	Uint32		windowID;
-
-	m = (t_ui_main *)a1;
-	windowID = *((Uint32 *)a2);
-	w = ui_main_find_window_by_id(m, windowID);
-	if (w != NULL)
-	{
-		SDL_GetWindowSize(w->sdl_window, &(w->size.x), &(w->size.y));
-		w->canvas.rect.w = w->size.x;
-		w->canvas.rect.h = w->size.y;
-		find_dynamic_elements(a1, (void *)w);
-	}
-}
-
 
 static void	testOnPtrEnter(void *main, void *el)
 {
@@ -153,7 +112,7 @@ int		main(int argc, char *argv[])
 	w.params = WIN_MAIN | WIN_RESIZABLE;
 	w.size = (t_vec2){640, 480};
 	w.canvas.id = 0;
-	ui_event_add_listener(&(w.events.onResize), &update_window_size);
+	ui_event_add_listener(&(w.events.onResize), &ui_win_update_size);
 	ui_win_setup_default(&w);
 	ui_win_create(&w);
 	w.canvas.sdl_renderer = w.sdl_renderer;
@@ -226,7 +185,7 @@ int		main(int argc, char *argv[])
 	w2.params = WIN_RESIZABLE;
 	ui_win_create(&w2);
 	ui_win_setup_default(&w2);
-	ui_event_add_listener(&(w2.events.onResize), &update_window_size);
+	ui_event_add_listener(&(w2.events.onResize), &ui_win_update_size);
 	w2.canvas.sdl_renderer = (w2.sdl_renderer);
 	ui_el_add_texture_from_file(&(w2.canvas), "test2.jpg", TID_DEFAULT);
 	ui_event_add_listener(&(w2.canvas.events.onRender), &ui_el_draw_event);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:01:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/22 05:04:20 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 10:53:58 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	draw_dot(void *ui_main, void *ui_el)
 	SDL_SetRenderTarget(el->sdl_renderer, ui_el_get_texture_by_id(el, TID_DRAW_TEXTURE));
 	SDL_RenderDrawPoint(el->sdl_renderer, m->sdl_event.motion.x, m->sdl_event.motion.y);
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
-	printf("done\n");
+	// printf("done\n");
 }

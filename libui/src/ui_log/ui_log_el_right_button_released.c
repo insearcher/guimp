@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_main_handle_mouse_button_up.c                   :+:      :+:    :+:   */
+/*   ui_log_el_right_button_released.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/30 22:27:36 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/30 22:32:09 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/22 07:55:28 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/22 07:56:19 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_main_handle_mouse_button_up(t_ui_main *m)
+void	ui_log_el_right_button_released(void *a1, void *a2)
 {
-	printf("Mouse button up: %d\n", m->sdl_event.button.button);
+	t_ui_main	*m;
+	t_ui_el		*el;
+
+	m = (t_ui_main *)a1;
+	el = (t_ui_el *)a2;
+	SDL_Log("%sRMB RELEASED%s\tglobal=(%d;%d)\tlocal=(%d;%d)\telementID=%d\twindowID=%d\n",
+		KRED,
+		KNRM,
+		m->sdl_event.motion.x,
+		m->sdl_event.motion.y,
+		el->ptr_rel_pos.x,
+		el->ptr_rel_pos.y,
+		el->id,
+		m->sdl_event.window.windowID
+	);
 }

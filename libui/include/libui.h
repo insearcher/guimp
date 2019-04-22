@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 07:34:28 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/22 10:37:55 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@
 # define QUEUE				t_list
 
 # define FPS				150
+
+# define EL_POS_ABSOLUTE	0
+# define EL_POS_FLEXIBLE	1
+# define EL_POS_RELATIVE	2
 
 //el params
 # define EL_DYNAMIC_SIZE	(1 << 0)
@@ -121,6 +125,7 @@ typedef struct		s_ui_event
 
 void				ui_event_init(t_ui_event *e);
 int					ui_event_add_listener(t_ui_event *e, func_ptr f);
+int					ui_event_add_listener_front(t_ui_event *e, func_ptr f);
 void				ui_event_invoke(t_ui_event *e, void *a1, void *a2);
 void				ui_event_clear(t_ui_event *e);
 
@@ -156,6 +161,7 @@ typedef struct		s_ui_el
 	struct s_ui_el	*parent;
 	t_list			*children;
 	t_rect			rect;
+	t_rect			rrect;
 	t_frect			frect;
 	t_ui_el_events	events;
 	Uint32			id;
@@ -250,11 +256,17 @@ void				ui_log_window_resized(void *a1, void *a2);
 void				ui_log_el_pointer_enter(void *a1, void *a2);
 void				ui_log_el_pointer_stay(void *a1, void *a2);
 void				ui_log_el_pointer_exit(void *a1, void *a2);
+
 void				ui_log_el_scroll_up(void *a1, void *a2);
 void				ui_log_el_scroll_down(void *a1, void *a2);
+
 void				ui_log_el_left_button_hold(void *a1, void *a2);
 void				ui_log_el_left_button_pressed(void *a1, void *a2);
 void				ui_log_el_left_button_released(void *a1, void *a2);
+
+void				ui_log_el_right_button_pressed(void *a1, void *a2);
+void				ui_log_el_right_button_released(void *a1, void *a2);
+void				ui_log_el_right_button_hold(void *a1, void *a2);
 
 void				ui_log_key_pressed(void *a1, void *a2);
 void				ui_log_key_released(void *a1, void *a2);
@@ -307,6 +319,7 @@ void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
 
 void				ui_el_begin_drag(void *a1, void *a2);
+void				ui_el_end_drag(void *a1, void *a2);
 
 void				ui_find_dynamic_elements(void *a1, void *a2);
 

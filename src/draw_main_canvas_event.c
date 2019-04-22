@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_func.c                                        :+:      :+:    :+:   */
+/*   draw_main_canvas_event.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/22 04:01:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/22 05:04:20 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/04/22 04:59:41 by edraugr-          #+#    #+#             */
+/*   Updated: 2019/04/22 05:01:31 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	draw_dot(void *ui_main, void *ui_el)
+void	draw_main_canvas_event(void *el_v, void *arg)
 {
-	t_ui_main	*m;
-	t_ui_el		*el;
+	t_ui_el	*el;
 
-	m = (t_ui_main *)ui_main;
-	el = (t_ui_el *)ui_el;
-	//SDL_SetRenderDrawColor(el->sdl_renderer, 255, 0, 0, 255);
-	SDL_SetRenderTarget(el->sdl_renderer, ui_el_get_texture_by_id(el, TID_DRAW_TEXTURE));
-	SDL_RenderDrawPoint(el->sdl_renderer, m->sdl_event.motion.x, m->sdl_event.motion.y);
-	SDL_SetRenderTarget(el->sdl_renderer, NULL);
-	printf("done\n");
+	el = (t_ui_el *)el_v;
+	arg = NULL;
+	if (arg == NULL)
+	{
+		// SDL_RenderCopy(el->sdl_renderer, el->sdl_texture, NULL, &el->rect);  //legacy
+		SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
+		SDL_RenderCopy(el->sdl_renderer, ui_el_get_texture_by_id(el, TID_DRAW_TEXTURE), NULL, &el->rect);
+	}
 }

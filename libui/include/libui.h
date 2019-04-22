@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 10:19:18 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 04:52:29 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ typedef struct		s_ui_main
 	t_ui_raycaster	raycaster;
 	Uint32			cur_tick;
 	Uint32			target_tick;
+	void			*data;
 }					t_ui_main;
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
@@ -277,12 +278,17 @@ int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 int					ui_el_create_texture(t_ui_el *el); //legacy. can be delited
 int					ui_el_add_texture_from_file(t_ui_el *el,
 						const char *path, int texture_id);
+int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
+						int texture_id);
 SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
+SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, int id);
 int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
 
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
+
+void				ui_find_dynamic_elements(void *a1, void *a2);
 
 # pragma endregion
 
@@ -291,8 +297,15 @@ void				ui_win_setup_default(t_ui_win *w);
 void				ui_win_init(t_ui_win *w);
 void				ui_win_close(t_ui_win *w);
 
+void				ui_win_update_size(void *a1, void *a2);
+
 int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);
+
+int					ui_get_mouse_win_pos_x(t_ui_main *m);
+int					ui_get_mouse_win_pos_y(t_ui_main *m);
+int					ui_get_mouse_el_pos_x(t_ui_main *m);
+int					ui_get_mouse_el_pos_y(t_ui_main *m);
 
 # pragma GCC diagnostic pop
 

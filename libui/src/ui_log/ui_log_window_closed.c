@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_log_window_closed.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:51:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 10:33:25 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 07:46:20 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ void		ui_log_window_closed(void *a1, void *a2)
 	w = ui_main_find_window_by_id(m, windowID);
 	if (w != NULL)
 	{
-		SDL_Log("Window with ID=%d closed\n", windowID);
+		SDL_Log("%sWIN CLOSED%s\twindowID=%d\n",
+			KYEL,
+			KNRM,
+			m->sdl_event.window.windowID
+		);
 		if (w->params & WIN_MAIN)
 			close_main();
 		else

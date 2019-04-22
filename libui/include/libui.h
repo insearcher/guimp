@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 10:37:55 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/22 10:52:13 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
 
-# define FPS				150
+# define FPS				150 // NE TROGAY PLS
 
 # define EL_POS_ABSOLUTE	0
 # define EL_POS_FLEXIBLE	1
@@ -311,8 +311,11 @@ int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 int					ui_el_create_texture(t_ui_el *el); //legacy. can be delited
 int					ui_el_add_texture_from_file(t_ui_el *el,
 						const char *path, int texture_id);
+int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
+						int texture_id);
 SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
+SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, int id);
 int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
 
 void				ui_el_default_pointer_enter(void *a1, void *a2);

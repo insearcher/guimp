@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/22 08:15:28 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/22 10:52:25 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_default_pointer_exit.c \
 					ui_el_setup_default.c \
 					ui_find_dynamic_elements.c \
+					ui_el_get_texture_by_id.c \
 					ui_log_el_scroll_up.c \
 					ui_log_el_scroll_down.c \
 					ui_el_begin_drag.c \

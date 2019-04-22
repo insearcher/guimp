@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 06:19:22 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 07:49:06 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,19 @@
 # include "libft.h"
 # include <math.h>
 
-# define WIN_W		640 //??????
-# define WIN_H		480 //??????
+# define KNRM				"\x1B[0m"
+# define KRED				"\x1B[31m"
+# define KGRN				"\x1B[32m"
+# define KYEL				"\x1B[33m"
+# define KBLU				"\x1B[34m"
+# define KMAG				"\x1B[35m"
+# define KCYN				"\x1B[36m"
+# define KWHT				"\x1B[37m"
 
-# define KEYS_COUNT	285
+# define WIN_W				640
+# define WIN_H				480
+
+# define KEYS_COUNT			285
 
 # define CAST_X_TO_Y(x, y)	((y)x)
 # define QUEUE				t_list
@@ -38,6 +47,10 @@
 # define EL_IS_RMB_PRESSED	(1 << 5)
 # define EL_IS_SCROLLABLE	(1 << 6)
 # define EL_IS_DRAGGABLE	(1 << 7)
+# define EL_ON_DRAG			(1 << 8)
+
+// KOSTIL
+# define EL_NOT_RELEASED	(1 << 31)
 
 //win params
 # define WIN_MAIN			(1 << 0)

@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_exit_with_msg.c                                 :+:      :+:    :+:   */
+/*   ui_log_el_right_button_pressed.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/10 20:40:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/17 05:08:22 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/22 07:54:58 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/22 07:55:09 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_exit_with_msg(t_env *e, const char *msg)
+void	ui_log_el_right_button_pressed(void *a1, void *a2)
 {
-	if (e->sdl.win)
-		SDL_DestroyWindow(e->sdl.win);
-	if (e->sdl.ren)
-		SDL_DestroyRenderer(e->sdl.ren);
-	if (e->sur)
-		SDL_FreeSurface(e->sur);
-	TTF_Quit();
-	SDL_Quit();
-	perror(msg);
-	exit(EXIT_FAILURE);
+	t_ui_main	*m;
+	t_ui_el		*el;
+
+	m = (t_ui_main *)a1;
+	el = (t_ui_el *)a2;
+	SDL_Log("%sRMB PRESSED%s\tglobal=(%d;%d)\tlocal=(%d;%d)\telementID=%d\twindowID=%d\n",
+		KGRN,
+		KNRM,
+		m->sdl_event.motion.x,
+		m->sdl_event.motion.y,
+		el->ptr_rel_pos.x,
+		el->ptr_rel_pos.y,
+		el->id,
+		m->sdl_event.window.windowID
+	);
 }

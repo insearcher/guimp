@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 03:42:36 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/22 05:59:39 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,16 @@ void	ui_main_handle_raycast(t_ui_main *m)
 		ui_event_invoke(&(cur->events.onPointerEnter), m, cur);
 		m->raycaster.selected = cur;
 	}
-	if (prev == NULL && cur != NULL) //e
+	if (prev == NULL && cur != NULL)
 	{
 		ui_event_invoke(&(cur->events.onPointerEnter), m, cur);
 		m->raycaster.selected = cur;
 	}
-	if (cur == NULL && prev != NULL) //e
+	if (cur == NULL && prev != NULL)
 	{
 		ui_event_invoke(&(prev->events.onPointerExit), m, prev);
 		m->raycaster.selected = NULL;
 	}
-	// if (cur != NULL) //e
-	// {
-	// 	ui_event_invoke(&(cur->events.onPointerStay), m, cur);
-	// }
 
 	if (cur != NULL)
 	{
@@ -67,6 +63,13 @@ void	ui_main_handle_raycast(t_ui_main *m)
 				ui_event_invoke(&(cur->events.onPointerRightButtonReleased), m, cur);
 				cur->params &= ~EL_IS_RMB_PRESSED;
 			}
+		}
+		if (cur->params & EL_IS_SCROLLABLE && m->sdl_event.type == SDL_MOUSEWHEEL)
+		{
+			if (m->sdl_event.wheel.y > 0)
+				ui_event_invoke(&(cur->events.onScrollDown), m, cur);
+			if (m->sdl_event.wheel.y < 0)
+				ui_event_invoke(&(cur->events.onScrollUp), m, cur);
 		}
 	}
 	ui_main_handle_continious_event(m, cur);

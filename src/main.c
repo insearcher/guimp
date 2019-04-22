@@ -6,28 +6,11 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 05:02:47 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 06:12:47 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
-
-// static void	test_for_notmain(void *a1, void *a2)
-// {
-// 	Uint32		windowID;
-// 	t_ui_main	*m;
-
-// 	m = (t_ui_main *)a1;
-// 	windowID = *((Uint32 *)a2);
-// 	ui_main_remove_window_by_id(m, windowID);
-// }
-
-// static void	test_for_main(void *a1, void *a2)
-// {
-// 	(void)a1;
-// 	(void)a2;
-// 	ui_sdl_deinit(EXIT_SUCCESS);
-// }
 
 static void	testOnPtrEnter(void *main, void *el)
 {
@@ -120,6 +103,9 @@ int		main(int argc, char *argv[])
 	ui_el_add_empty_texture(&(w.canvas), w.canvas.rect.w, w.canvas.rect.h, TID_DRAW_TEXTURE);
 	ui_event_add_listener(&(w.canvas.events.onRender), &draw_main_canvas_event);
 	ui_event_add_listener(&(w.canvas.events.onPointerLeftButtonHold), &draw_dot);
+	w.canvas.params = EL_IS_SCROLLABLE;
+	ui_event_add_listener(&(w.canvas.events.onScrollUp), ui_log_el_scroll_up);
+	ui_event_add_listener(&(w.canvas.events.onScrollDown), ui_log_el_scroll_down);
 
 	t_ui_el el1;
 	ui_el_init(&el1);
@@ -143,12 +129,11 @@ int		main(int argc, char *argv[])
 	el2.id = 20;
 	el2.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el2, "test6.jpeg", TID_DEFAULT);
-	ui_el_setup_default(&el2);
 	ui_event_add_listener(&(el2.events.onPointerStay), testOnPtrStay);
 
 	t_ui_el el11;
 	ui_el_init(&el11);
-	ui_el_setup_default(&el1);
+	ui_el_setup_default(&el11);
 	ui_event_add_listener(&(el11.events.onRender), &ui_el_draw_event);
 	ui_el_add_child(&el1, &el11);
 	ui_el_set_abs_pos(&el11, 100, 100);
@@ -158,13 +143,11 @@ int		main(int argc, char *argv[])
 	ui_el_add_texture_from_file(&el11, "test4.jpeg", TID_DEFAULT);
 	ui_el_add_texture_from_file(&el11, "test.bmp", TID_ONFOCUSED);
 	ui_el_add_texture_from_file(&el11, "test5.png", TID_ONACTIVE);
-	ui_el_setup_default(&el11);
 	ui_event_add_listener(&(el11.events.onPointerEnter), testOnPtrEnter);
 	ui_event_add_listener(&(el11.events.onPointerExit), testOnPtrExit);
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonPressed), testOnPtrLBDown);
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonReleased), testOnPtrEnter);
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonHold), &testOnPtrLBHold);
-
 
 	t_ui_win w1;
 	ui_win_init(&w1);

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 04:27:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/22 06:05:37 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 07:47:14 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ int			ui_el_add_empty_texture(t_ui_el *el, int w, int h, int texture_id)
 	SDL_SetRenderTarget(el->sdl_renderer, tmp_texture);
 	SDL_SetRenderDrawBlendMode(el->sdl_renderer, SDL_BLENDMODE_NONE);
 	SDL_SetRenderDrawColor(el->sdl_renderer, 255, 255, 255, 0);
+	SDL_SetTextureBlendMode(tmp_texture, SDL_BLENDMODE_BLEND);
 	SDL_RenderFillRect(el->sdl_renderer, NULL);
 	SDL_SetRenderDrawBlendMode(el->sdl_renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
-	SDL_SetRenderDrawColor(el->sdl_renderer, 255, 0, 0, 255);
+	SDL_SetRenderDrawColor(el->sdl_renderer, 0, 0, 0, 255);
 	tmp_lst->content_size = texture_id;
 	tmp_lst->content = (void *)tmp_texture;
 	ft_lstadd(&(el->sdl_textures), tmp_lst);

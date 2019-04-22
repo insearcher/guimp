@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_handle_mouse_event.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/10 13:27:08 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 05:00:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 		event = &(win->events.onMouseButtonDown);
 	if (m->sdl_event.type == SDL_MOUSEBUTTONUP)
 		event = &(win->events.onMouseButtonUp);
+	if (m->sdl_event.type == SDL_MOUSEWHEEL)
+	{
+		if (m->sdl_event.wheel.y > 0)
+			event = &(win->events.onScrollUp);
+		else if (m->sdl_event.wheel.y < 0)
+			event = &(win->events.onScrollDown);
+	}
 	if (event != NULL)
 		ui_event_invoke(event, m, &windowID);
 }

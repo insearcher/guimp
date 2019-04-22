@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/22 04:06:22 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/22 04:14:16 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ INC_FT			=	../libft/include
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
 INC_DIR			=	./include
+
+SRC_BFS			=	bfs_iter.c \
+					queue.c
 
 SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_free.c \
@@ -91,13 +94,13 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_close.c \
 					ui_win_update_size.c
 
-SRC_BFS			=	bfs_iter.c \
-					queue.c
-
-SRC_RAYCAST		=	ui_raycast.c \
+SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
 
-OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
+SRC_UI_STUFF	=	ui_get_mouse_win_pos.c
+
+OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EVENT:.c=.o)) \
@@ -105,8 +108,8 @@ OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_MAIN:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_SDL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_WIN:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_RAYCAST:.c=.o))
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_RAYCAST:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_STUFF:.c=.o))
 
 INCS		=		-I$(INC_DIR) \
 					-I$(INC_FT) \
@@ -138,10 +141,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_render/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/bfs/%.c
-	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
-	@echo "1" > ../$(TEMP)
-
 $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_raycast/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
@@ -167,6 +166,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_sdl/%.c
 	@echo "1" > ../$(TEMP)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_win/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_stuff/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

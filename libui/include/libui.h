@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 04:06:01 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/22 04:17:45 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,11 @@ void				ui_win_update_size(void *a1, void *a2);
 
 int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);
+
+int					ui_get_mouse_win_pos_x(t_ui_main *m);
+int					ui_get_mouse_win_pos_y(t_ui_main *m);
+int					ui_get_mouse_el_pos_x(t_ui_main *m);
+int					ui_get_mouse_el_pos_y(t_ui_main *m);
 
 # pragma GCC diagnostic pop
 

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 10:58:27 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/04/22 04:14:37 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ int		main(int argc, char *argv[])
 	w.canvas.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&(w.canvas), "test3.jpg", TID_DEFAULT);
 	ui_event_add_listener(&(w.canvas.events.onRender), &ui_el_draw_event);
+
+	ui_event_add_listener(&(w.canvas.events.onPointerLeftButtonHold), &draw_dot);
 
 	t_ui_el el1;
 	ui_el_init(&el1);

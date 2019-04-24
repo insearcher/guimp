@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 07:54:58 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 07:55:09 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/24 13:52:12 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	ui_log_el_right_button_pressed(void *a1, void *a2)
 
 	m = (t_ui_main *)a1;
 	el = (t_ui_el *)a2;
-	SDL_Log("%sRMB PRESSED%s\tglobal=(%d;%d)\tlocal=(%d;%d)\telementID=%d\twindowID=%d\n",
+	SDL_Log("%s%-15s%sglobal = %3d;%-3d   local = %3d;%-3d   elementID = %-3d   windowID = %-3d\n",
 		KGRN,
+		"RMB PRESSED",
 		KNRM,
 		m->sdl_event.motion.x,
 		m->sdl_event.motion.y,

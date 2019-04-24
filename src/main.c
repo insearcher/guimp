@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 14:08:38 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:16:11 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,10 @@ int		main(int argc, char *argv[])
 	ui_event_add_listener(&(el1.events.onPointerLeftButtonPressed), &ui_el_begin_drag);
 	ui_event_add_listener(&(el1.events.onPointerLeftButtonReleased), &ui_el_end_drag);
 	ui_event_add_listener_front(&(el1.events.onPointerLeftButtonHold), &drag_test);
+
+	el1.params |= EL_IS_SCROLLABLE;
+	ui_event_add_listener(&(el1.events.onScrollUp), ui_log_el_scroll_up);
+	ui_event_add_listener(&(el1.events.onScrollDown), ui_log_el_scroll_down);
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	el1.id = 10;

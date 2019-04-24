@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/22 10:52:25 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/24 16:41:38 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,7 +95,13 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_remove_window_by_id.c \
 					ui_main_handle_keyboard_event.c \
 					ui_main_handle_raycast.c \
-					ui_main_handle_continious_event.c
+					ui_main_handle_continious_event.c \
+					ui_main_lmb_pressed.c \
+					ui_main_lmb_released.c \
+					ui_main_rmb_pressed.c \
+					ui_main_rmb_released.c \
+					ui_main_scroll_up.c \
+					ui_main_scroll_down.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c

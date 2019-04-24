@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 22:13:11 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 05:59:17 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:35:13 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	ui_main_handle_event(t_ui_main *m)
 {
 	if (m->sdl_event.type == SDL_MOUSEMOTION ||
 		m->sdl_event.type == SDL_MOUSEBUTTONDOWN ||
-		m->sdl_event.type ==  SDL_MOUSEBUTTONUP)
+		m->sdl_event.type ==  SDL_MOUSEBUTTONUP ||
+		m->sdl_event.type == SDL_MOUSEWHEEL)
 		ui_main_handle_mouse_event(m);
 	else if (m->sdl_event.type == SDL_KEYDOWN || //else
 		m->sdl_event.type == SDL_KEYUP)

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 17:16:11 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 20:19:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,36 +79,17 @@ static void	testOnPtrLBHold(void *main, void *el_v)
 	}
 }
 
-static void drag_test2(void *a1, void *a2)
-{
-	t_ui_el		*el;
+// static void drag_test2(void *a1, void *a2)
+// {
+// 	t_ui_el		*el;
 
-	(void)a2;
-	el = (t_ui_el *)a1;
-	ui_el_set_rel_pos(el, el->frect.x, el->frect.y);
-	// SDL_Log("%d %d\n", el->rect.x, el->rect.y);
-	// el->frect.x = ((float)(m->sdl_event.motion.x - el->ptr_rel_pos.x);
-	// el->frect.y = m->sdl_event.motion.y - el->ptr_rel_pos.y;
-}
-
-static void drag_test(void *a1, void *a2)
-{
-	t_ui_main	*m;
-	t_ui_el		*el;
-	int			x;
-	int			y;
-
-	m = (t_ui_main *)a1;
-	el = (t_ui_el *)a2;
-	x = m->sdl_event.motion.x - el->ptr_rel_pos.x;
-	y = m->sdl_event.motion.y - el->ptr_rel_pos.y;
-	if (x < el->parent->rect.x || y < el->parent->rect.y ||
-		x + el->rect.w > el->parent->rect.x + el->parent->rect.w ||
-		y + el->rect.h > el->parent->rect.y + el->parent->rect.h)
-		return ;
-	ui_el_set_abs_pos(el, x, y);
-	bfs_iter_root(el, &drag_test2, NULL);
-}
+// 	(void)a2;
+// 	el = (t_ui_el *)a1;
+// 	ui_el_set_rel_pos(el, el->frect.x, el->frect.y);
+// 	// SDL_Log("%d %d\n", el->rect.x, el->rect.y);
+// 	// el->frect.x = ((float)(m->sdl_event.motion.x - el->ptr_rel_pos.x);
+// 	// el->frect.y = m->sdl_event.motion.y - el->ptr_rel_pos.y;
+// }
 
 int		main(int argc, char *argv[])
 {
@@ -134,9 +115,6 @@ int		main(int argc, char *argv[])
 	ui_el_add_empty_texture(&(w.canvas), w.canvas.rect.w, w.canvas.rect.h, TID_DRAW_TEXTURE);
 	ui_event_add_listener(&(w.canvas.events.onRender), &draw_main_canvas_event);
 	ui_event_add_listener(&(w.canvas.events.onPointerLeftButtonHold), &draw_dot);
-	w.canvas.params = EL_IS_SCROLLABLE;
-	ui_event_add_listener(&(w.canvas.events.onScrollUp), ui_log_el_scroll_up);
-	ui_event_add_listener(&(w.canvas.events.onScrollDown), ui_log_el_scroll_down);
 
 	t_ui_el el1;
 	ui_el_init(&el1);
@@ -147,10 +125,6 @@ int		main(int argc, char *argv[])
 	ui_el_set_abs_size(&el1, 200, 200);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
-	el1.params |= EL_IS_DRAGGABLE;
-	ui_event_add_listener(&(el1.events.onPointerLeftButtonPressed), &ui_el_begin_drag);
-	ui_event_add_listener(&(el1.events.onPointerLeftButtonReleased), &ui_el_end_drag);
-	ui_event_add_listener_front(&(el1.events.onPointerLeftButtonHold), &drag_test);
 
 	el1.params |= EL_IS_SCROLLABLE;
 	ui_event_add_listener(&(el1.events.onScrollUp), ui_log_el_scroll_up);
@@ -160,6 +134,7 @@ int		main(int argc, char *argv[])
 	el1.id = 10;
 	el1.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el1, "test2.jpg", TID_DEFAULT);
+	ui_el_setup_default_draggable(&el1);
 
 	t_ui_el el2;
 	ui_el_init(&el2);
@@ -173,10 +148,7 @@ int		main(int argc, char *argv[])
 	ui_el_add_texture_from_file(&el2, "test6.jpeg", TID_DEFAULT);
 	ui_event_add_listener(&(el2.events.onPointerStay), testOnPtrStay);
 
-	el2.params |= EL_IS_DRAGGABLE;
-	ui_event_add_listener(&(el2.events.onPointerLeftButtonPressed), &ui_el_begin_drag);
-	ui_event_add_listener(&(el2.events.onPointerLeftButtonReleased), &ui_el_end_drag);
-	ui_event_add_listener_front(&(el2.events.onPointerLeftButtonHold), &drag_test);
+	ui_el_setup_default_draggable(&el2);
 
 	t_ui_el el11;
 	ui_el_init(&el11);
@@ -187,10 +159,7 @@ int		main(int argc, char *argv[])
 	ui_el_set_abs_size(&el11, 50, 50);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
-	el11.params |= EL_IS_DRAGGABLE;
-	ui_event_add_listener(&(el11.events.onPointerLeftButtonPressed), &ui_el_begin_drag);
-	ui_event_add_listener(&(el11.events.onPointerLeftButtonReleased), &ui_el_end_drag);
-	ui_event_add_listener_front(&(el11.events.onPointerLeftButtonHold), &drag_test);
+	ui_el_setup_default_draggable(&el11);
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	el11.id = 2220;

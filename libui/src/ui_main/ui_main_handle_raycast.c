@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 17:10:22 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 18:40:44 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ui_main_handle_raycast(t_ui_main *m)
 		else if (m->params & MAIN_RMB_RELEASED && cur->params & EL_NOT_RELEASED)
 		{
 			ui_event_invoke(&(cur->events.onPointerRightButtonReleased), m, cur);
-			cur->params &= ~(EL_IS_LMB_PRESSED | EL_NOT_RELEASED);
+			cur->params &= ~(EL_IS_RMB_PRESSED | EL_NOT_RELEASED);
 			m->params &= ~MAIN_RMB_RELEASED;
 		}
 	}

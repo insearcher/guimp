@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 17:06:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 20:17:56 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ typedef struct		s_ui_main
 	Uint32			target_tick;
 	void			*data;
 	Uint32			params;
+	t_vec2			ptr_pos;
 }					t_ui_main;
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
@@ -253,6 +254,7 @@ void				ui_main_handle_mouse_event(t_ui_main *m);
 void				ui_main_handle_keyboard_event(t_ui_main *m);
 void				ui_main_handle_continious_event(t_ui_main *m, t_ui_el *el);
 
+void				ui_main_pointer_moved(void *a1, void *a2);
 void				ui_main_lmb_pressed(void *a1, void *a2);
 void				ui_main_lmb_released(void *a1, void *a2);
 void				ui_main_rmb_pressed(void *a1, void *a2);
@@ -341,7 +343,9 @@ void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
 
 void				ui_el_begin_drag(void *a1, void *a2);
+void 				ui_el_drag(void *a1, void *a2);
 void				ui_el_end_drag(void *a1, void *a2);
+void				ui_el_setup_default_draggable(t_ui_el *el);
 
 void				ui_find_dynamic_elements(void *a1, void *a2);
 

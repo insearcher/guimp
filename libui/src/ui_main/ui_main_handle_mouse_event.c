@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 16:50:19 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 20:08:06 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 		event = &(win->events.onPointerRightButtonReleased);
 	else if (m->sdl_event.type == SDL_MOUSEWHEEL)
 	{
-		if (m->sdl_event.wheel.y > 0)
+		if (m->sdl_event.wheel.y < 0)
 			event = &(win->events.onScrollUp);
-		else if (m->sdl_event.wheel.y < 0)
+		else if (m->sdl_event.wheel.y > 0)
 			event = &(win->events.onScrollDown);
 	}
 	if (event != NULL)

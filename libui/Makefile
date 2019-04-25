@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/25 20:18:35 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/25 20:48:17 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_begin_drag.c \
 					ui_el_drag.c \
 					ui_el_end_drag.c \
-					ui_el_setup_default_draggable.c
+					ui_el_setup_default_draggable.c \
+					ui_el_setup_default_scrollable.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 

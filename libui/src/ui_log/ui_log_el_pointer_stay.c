@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 06:10:29 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 13:51:32 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 19:47:42 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ui_log_el_pointer_stay(void *a1, void *a2)
 		KBLU,
 		"POINTER STAY",
 		KNRM,
-		m->sdl_event.motion.x,
-		m->sdl_event.motion.y,
+		m->ptr_pos.x,
+		m->ptr_pos.y,
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id,

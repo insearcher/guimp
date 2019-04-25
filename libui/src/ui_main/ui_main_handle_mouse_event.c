@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 05:00:27 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 20:08:06 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,20 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 	}
 	event = NULL;
 	if (m->sdl_event.type == SDL_MOUSEMOTION)
-		event = &(win->events.onMouseMoved);
-	if (m->sdl_event.type == SDL_MOUSEBUTTONDOWN)
-		event = &(win->events.onMouseButtonDown);
-	if (m->sdl_event.type == SDL_MOUSEBUTTONUP)
-		event = &(win->events.onMouseButtonUp);
-	if (m->sdl_event.type == SDL_MOUSEWHEEL)
+		event = &(win->events.onPointerMoved);
+	else if (m->sdl_event.type == SDL_MOUSEBUTTONDOWN && m->sdl_event.button.button == SDL_BUTTON_LEFT)
+		event = &(win->events.onPointerLeftButtonPressed);
+	else if (m->sdl_event.type == SDL_MOUSEBUTTONDOWN && m->sdl_event.button.button == SDL_BUTTON_RIGHT)
+		event = &(win->events.onPointerRightButtonPressed);
+	else if (m->sdl_event.type == SDL_MOUSEBUTTONUP && m->sdl_event.button.button == SDL_BUTTON_LEFT)
+		event = &(win->events.onPointerLeftButtonReleased);
+	else if (m->sdl_event.type == SDL_MOUSEBUTTONUP && m->sdl_event.button.button == SDL_BUTTON_RIGHT)
+		event = &(win->events.onPointerRightButtonReleased);
+	else if (m->sdl_event.type == SDL_MOUSEWHEEL)
 	{
-		if (m->sdl_event.wheel.y > 0)
+		if (m->sdl_event.wheel.y < 0)
 			event = &(win->events.onScrollUp);
-		else if (m->sdl_event.wheel.y < 0)
+		else if (m->sdl_event.wheel.y > 0)
 			event = &(win->events.onScrollDown);
 	}
 	if (event != NULL)

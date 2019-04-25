@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 05:29:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 13:51:09 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 19:47:30 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ui_log_el_left_button_pressed(void *a1, void *a2)
 		KGRN,
 		"LMB PRESSED",
 		KNRM,
-		m->sdl_event.motion.x,
-		m->sdl_event.motion.y,
+		m->ptr_pos.x,
+		m->ptr_pos.y,
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id,

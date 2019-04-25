@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 14:09:07 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 20:17:56 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,15 @@
 
 // KOSTIL
 # define EL_NOT_RELEASED	(1 << 31)
+
+# define MAIN_LMB_PRESSED	(1 << 0)
+# define MAIN_RMB_PRESSED	(1 << 1)
+# define MAIN_SCROLL_UP		(1 << 2)
+# define MAIN_SCROLL_DOWN	(1 << 3)
+# define MAIN_LMB_RELEASED	(1 << 4)
+# define MAIN_LMB_HOLD		(1 << 5)
+# define MAIN_RMB_RELEASED	(1 << 6)
+# define MAIN_RMB_HOLD		(1 << 7)
 
 //win params
 # define WIN_MAIN			(1 << 0)
@@ -174,9 +183,11 @@ typedef struct		s_ui_el
 
 typedef struct		s_ui_win_events
 {
-	t_ui_event		onMouseMoved;
-	t_ui_event		onMouseButtonDown;
-	t_ui_event		onMouseButtonUp;
+	t_ui_event		onPointerMoved;
+	t_ui_event		onPointerLeftButtonPressed;
+	t_ui_event		onPointerLeftButtonReleased;
+	t_ui_event		onPointerRightButtonPressed;
+	t_ui_event		onPointerRightButtonReleased;
 	t_ui_event		onScrollUp;
 	t_ui_event		onScrollDown;
 	t_ui_event		onFocusGained;
@@ -223,6 +234,8 @@ typedef struct		s_ui_main
 	Uint32			cur_tick;
 	Uint32			target_tick;
 	void			*data;
+	Uint32			params;
+	t_vec2			ptr_pos;
 }					t_ui_main;
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
@@ -240,6 +253,14 @@ void				ui_main_handle_window_event(t_ui_main *m);
 void				ui_main_handle_mouse_event(t_ui_main *m);
 void				ui_main_handle_keyboard_event(t_ui_main *m);
 void				ui_main_handle_continious_event(t_ui_main *m, t_ui_el *el);
+
+void				ui_main_pointer_moved(void *a1, void *a2);
+void				ui_main_lmb_pressed(void *a1, void *a2);
+void				ui_main_lmb_released(void *a1, void *a2);
+void				ui_main_rmb_pressed(void *a1, void *a2);
+void				ui_main_rmb_released(void *a1, void *a2);
+void				ui_main_scroll_up(void *a1, void *a2);
+void				ui_main_scroll_down(void *a1, void *a2);
 
 # pragma endregion
 # pragma region		log_functions
@@ -322,7 +343,9 @@ void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
 
 void				ui_el_begin_drag(void *a1, void *a2);
+void 				ui_el_drag(void *a1, void *a2);
 void				ui_el_end_drag(void *a1, void *a2);
+void				ui_el_setup_default_draggable(t_ui_el *el);
 
 void				ui_find_dynamic_elements(void *a1, void *a2);
 

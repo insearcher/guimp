@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 20:17:56 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 20:48:06 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,6 +341,8 @@ int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
 
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
+
+void				ui_el_setup_default_scrollable(t_ui_el *el);
 
 void				ui_el_begin_drag(void *a1, void *a2);
 void 				ui_el_drag(void *a1, void *a2);

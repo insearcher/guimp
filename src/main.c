@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 20:19:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 20:48:51 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,7 @@ int		main(int argc, char *argv[])
 	ui_el_set_abs_size(&el1, 200, 200);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-	el1.params |= EL_IS_SCROLLABLE;
-	ui_event_add_listener(&(el1.events.onScrollUp), ui_log_el_scroll_up);
-	ui_event_add_listener(&(el1.events.onScrollDown), ui_log_el_scroll_down);
+	ui_el_setup_default_scrollable(&el1);
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	el1.id = 10;

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 07:55:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 13:52:34 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 19:47:59 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ui_log_el_right_button_released(void *a1, void *a2)
 		KRED,
 		"RMB RELEASED",
 		KNRM,
-		m->sdl_event.motion.x,
-		m->sdl_event.motion.y,
+		m->ptr_pos.x,
+		m->ptr_pos.y,
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id,

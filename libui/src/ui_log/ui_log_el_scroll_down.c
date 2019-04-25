@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:45:12 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 04:50:46 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 20:07:35 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,15 @@ void	ui_log_el_scroll_down(void *a1, void *a2)
 
 	m = (t_ui_main *)a1;
 	el = (t_ui_el *)a2;
-	SDL_Log("Scrolled UP in element ID=%d in window ID=%d\n", el->id, m->sdl_event.window.windowID);
+	SDL_Log("%s%-15s%sglobal = %3d;%-3d   local = %3d;%-3d   elementID = %-3d   windowID = %-3d\n",
+		KMAG,
+		"SCROLLED DOWN",
+		KNRM,
+		m->ptr_pos.x,
+		m->ptr_pos.y,
+		el->ptr_rel_pos.x,
+		el->ptr_rel_pos.y,
+		el->id,
+		m->sdl_event.window.windowID
+	);
 }

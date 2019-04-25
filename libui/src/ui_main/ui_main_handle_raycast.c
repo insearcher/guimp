@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 10:49:11 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 18:40:44 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,39 +42,37 @@ void	ui_main_handle_raycast(t_ui_main *m)
 
 	if (cur != NULL)
 	{
-		if (m->sdl_event.button.button == SDL_BUTTON_LEFT)
+		if (cur->params & EL_IS_SCROLLABLE && m->params & (MAIN_SCROLL_DOWN | MAIN_SCROLL_UP))
 		{
-			if (m->sdl_event.type == SDL_MOUSEBUTTONDOWN && !(cur->params & EL_IS_LMB_PRESSED))
-			{
-				ui_event_invoke(&(cur->events.onPointerLeftButtonPressed), m, cur);
-				cur->params |= EL_IS_LMB_PRESSED | EL_NOT_RELEASED;
-			}
-			else if (m->sdl_event.type == SDL_MOUSEBUTTONUP && cur->params & EL_NOT_RELEASED)
-			{
-				ui_event_invoke(&(cur->events.onPointerLeftButtonReleased), m, cur);
-				cur->params &= ~(EL_IS_LMB_PRESSED | EL_NOT_RELEASED);
-			}
-		}
-		if (m->sdl_event.button.button == SDL_BUTTON_RIGHT)
-		{
-			if (m->sdl_event.type == SDL_MOUSEBUTTONDOWN && !(cur->params & EL_IS_RMB_PRESSED))
-			{
-				ui_event_invoke(&(cur->events.onPointerRightButtonPressed), m, cur);
-				cur->params |= EL_IS_RMB_PRESSED | EL_NOT_RELEASED;
-			}
-			else if (m->sdl_event.type == SDL_MOUSEBUTTONUP && cur->params & EL_NOT_RELEASED)
-			{
-				ui_event_invoke(&(cur->events.onPointerRightButtonReleased), m, cur);
-				cur->params &= ~(EL_IS_LMB_PRESSED | EL_NOT_RELEASED);
-			}
-		}
-		if (cur->params & EL_IS_SCROLLABLE && m->sdl_event.type == SDL_MOUSEWHEEL)
-		{
-			if (m->sdl_event.wheel.y > 0)
+			if (m->params & MAIN_SCROLL_DOWN)
 				ui_event_invoke(&(cur->events.onScrollDown), m, cur);
-			if (m->sdl_event.wheel.y < 0)
+			if (m->params & MAIN_SCROLL_UP)
 				ui_event_invoke(&(cur->events.onScrollUp), m, cur);
-				SDL_Log("INSIDE: %d\n", m->sdl_event.wheel.y);
+			m->params &= ~(MAIN_SCROLL_DOWN | MAIN_SCROLL_UP);
+		}
+		else if (m->params & MAIN_LMB_PRESSED && !(cur->params & EL_IS_LMB_PRESSED))
+		{
+			ui_event_invoke(&(cur->events.onPointerLeftButtonPressed), m, cur);
+			cur->params |= EL_IS_LMB_PRESSED | EL_NOT_RELEASED;
+			m->params &= ~MAIN_LMB_PRESSED;
+		}
+		else if (m->params & MAIN_LMB_RELEASED && cur->params & EL_NOT_RELEASED)
+		{
+			ui_event_invoke(&(cur->events.onPointerLeftButtonReleased), m, cur);
+			cur->params &= ~(EL_IS_LMB_PRESSED | EL_NOT_RELEASED);
+			m->params &= ~MAIN_LMB_RELEASED;
+		}
+		else if (m->params & MAIN_RMB_PRESSED && !(cur->params & EL_IS_RMB_PRESSED))
+		{
+			ui_event_invoke(&(cur->events.onPointerRightButtonPressed), m, cur);
+			cur->params |= EL_IS_RMB_PRESSED | EL_NOT_RELEASED;
+			m->params &= ~MAIN_RMB_PRESSED;
+		}
+		else if (m->params & MAIN_RMB_RELEASED && cur->params & EL_NOT_RELEASED)
+		{
+			ui_event_invoke(&(cur->events.onPointerRightButtonReleased), m, cur);
+			cur->params &= ~(EL_IS_RMB_PRESSED | EL_NOT_RELEASED);
+			m->params &= ~MAIN_RMB_RELEASED;
 		}
 	}
 	ui_main_handle_continious_event(m, cur);

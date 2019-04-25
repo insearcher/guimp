@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_main_rmb_pressed.c                              :+:      :+:    :+:   */
+/*   ui_el_setup_default_draggable.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/24 16:38:59 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 18:39:20 by sbednar          ###   ########.fr       */
+/*   Created: 2019/04/25 20:14:47 by sbednar           #+#    #+#             */
+/*   Updated: 2019/04/25 20:17:43 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_main_rmb_pressed(void *a1, void *a2)
+void	ui_el_setup_default_draggable(t_ui_el *el)
 {
-	t_ui_main	*m;
-
-	m = (t_ui_main *)a1;
-	(void)a2;
-	m->params |= MAIN_RMB_PRESSED | MAIN_RMB_HOLD;
+	el->params |= EL_IS_SCROLLABLE;
+	ui_event_add_listener(&(el->events.onPointerLeftButtonPressed), &ui_el_begin_drag);
+	ui_event_add_listener(&(el->events.onPointerLeftButtonHold), &ui_el_drag);
+	ui_event_add_listener(&(el->events.onPointerLeftButtonReleased), &ui_el_end_drag);
 }

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:14:00 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 13:51:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/25 19:47:20 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ui_log_el_pointer_exit(void *a1, void *a2)
 		KRED,
 		"POINTER EXIT",
 		KNRM,
-		m->sdl_event.motion.x,
-		m->sdl_event.motion.y,
+		m->ptr_pos.x,
+		m->ptr_pos.y,
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id,

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 20:48:06 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/30 20:22:45 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@
 # include <SDL2/SDL_image.h>
 # include "libft.h"
 # include <math.h>
+
+/*
+** TODO:
+** 1) текст
+** 2) кнопки
+** 3) картинки
+** 4) скроллбары
+** 5) прочее гавно
+*/
 
 # define KNRM				"\x1B[0m"
 # define KRED				"\x1B[31m"
@@ -64,6 +73,7 @@
 # define MAIN_LMB_HOLD		(1 << 5)
 # define MAIN_RMB_RELEASED	(1 << 6)
 # define MAIN_RMB_HOLD		(1 << 7)
+# define MAIN_ON_QUIT		(1 << 8)
 
 //win params
 # define WIN_MAIN			(1 << 0)
@@ -236,6 +246,8 @@ typedef struct		s_ui_main
 	void			*data;
 	Uint32			params;
 	t_vec2			ptr_pos;
+	t_list			*sdl_surfaces;
+	t_list			*sdl_fonts;
 }					t_ui_main;
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
@@ -243,6 +255,12 @@ t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
 void				ui_main_init(t_ui_main *m);
 void				ui_main_loop(t_ui_main *m);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
+
+int					ui_main_add_font_by_path(t_ui_main *m, const char *path, int font_id);
+int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, int sur_id);
+TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, int font_id);
+SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, int sur_id);
+
 
 t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
@@ -349,7 +367,12 @@ void 				ui_el_drag(void *a1, void *a2);
 void				ui_el_end_drag(void *a1, void *a2);
 void				ui_el_setup_default_draggable(t_ui_el *el);
 
+void				ui_el_set_default_texture(void *a1, void *a2);
+void				ui_el_set_focused_texture(void *a1, void *a2);
+void				ui_el_set_active_texture(void *a1, void *a2);
+
 void				ui_find_dynamic_elements(void *a1, void *a2);
+
 
 # pragma endregion
 

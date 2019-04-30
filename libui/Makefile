@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/25 20:48:17 by sbednar          ###   ########.fr        #
+#    Updated: 2019/04/30 20:23:58 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_drag.c \
 					ui_el_end_drag.c \
 					ui_el_setup_default_draggable.c \
-					ui_el_setup_default_scrollable.c
+					ui_el_setup_default_scrollable.c \
+					ui_el_set_texture.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -105,7 +106,11 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_rmb_released.c \
 					ui_main_scroll_up.c \
 					ui_main_scroll_down.c \
-					ui_main_pointer_moved.c
+					ui_main_pointer_moved.c \
+					ui_main_add_font_by_path.c \
+					ui_main_add_surface_by_path.c \
+					ui_main_get_font_by_id.c \
+					ui_main_get_surface_by_id.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c

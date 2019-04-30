@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:26:26 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 18:40:59 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/30 17:21:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ static int	ui_main_loop_non_sdl(void *d)
 	m = (t_ui_main *)d;
 	while (1)
 	{
+		if (m->params & MAIN_ON_QUIT)
+			return (1);
 		ui_main_handle_raycast(m);
 		ui_draw(m);
 		SDL_Delay((Uint32)(1000.0f / FPS));
 	}
+	return (0);
 }
 
 void		ui_main_loop(t_ui_main *m)

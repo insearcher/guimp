@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 18:40:44 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/30 19:04:26 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ui_main_handle_raycast(t_ui_main *m)
 	cur = ui_raycast(m, m->sdl_event.window.windowID);
 	if (prev != NULL && cur != NULL && prev->id != cur->id)
 	{
-		ui_event_invoke(&(prev->events.onPointerExit), m, prev);
 		ui_event_invoke(&(prev->events.onPointerLeftButtonReleased), m, prev);
 		ui_event_invoke(&(prev->events.onPointerRightButtonReleased), m, prev);
+		ui_event_invoke(&(prev->events.onPointerExit), m, prev);
 		ui_event_invoke(&(cur->events.onPointerEnter), m, cur);
 		m->raycaster.selected = cur;
 	}
@@ -34,9 +34,9 @@ void	ui_main_handle_raycast(t_ui_main *m)
 	}
 	if (cur == NULL && prev != NULL)
 	{
-		ui_event_invoke(&(prev->events.onPointerExit), m, prev);
 		ui_event_invoke(&(prev->events.onPointerLeftButtonReleased), m, prev);
 		ui_event_invoke(&(prev->events.onPointerRightButtonReleased), m, prev);
+		ui_event_invoke(&(prev->events.onPointerExit), m, prev);
 		m->raycaster.selected = NULL;
 	}
 

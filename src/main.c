@@ -6,41 +6,11 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 20:48:51 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/30 19:14:05 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
-
-static void	testOnPtrEnter(void *main, void *el)
-{
-	main = NULL;
-
-	if (main == NULL)
-	{
-		ui_el_set_current_texture_by_id(CAST_X_TO_Y(el, t_ui_el *), TID_ONFOCUSED);
-	}
-}
-
-static void	testOnPtrExit(void *main, void *el)
-{
-	main = NULL;
-
-	if (main == NULL)
-	{
-		ui_el_set_current_texture_by_id(CAST_X_TO_Y(el, t_ui_el *), TID_DEFAULT);
-	}
-}
-
-static void	testOnPtrLBDown(void *main, void *el)
-{
-	main = NULL;
-
-	if (main == NULL)
-	{
-		ui_el_set_current_texture_by_id(CAST_X_TO_Y(el, t_ui_el *), TID_ONACTIVE);
-	}
-}
 
 static void	testOnPtrStay(void *main, void *el_v)
 {
@@ -61,23 +31,23 @@ static void	testOnPtrStay(void *main, void *el_v)
 	}
 }
 
-static void	testOnPtrLBHold(void *main, void *el_v)
-{
-	main = NULL;
-	t_ui_el *el = (t_ui_el *)el_v;
-	static int dx;
-	static int dy;
-	static int dur = 1;
+// static void	testOnPtrLBHold(void *main, void *el_v)
+// {
+// 	main = NULL;
+// 	t_ui_el *el = (t_ui_el *)el_v;
+// 	static int dx;
+// 	static int dy;
+// 	static int dur = 1;
 
-	if (main == NULL)
-	{
-		if (dx > 50 || dx < -50)
-			dur *= -1;
-		dx += dur;
-		dy += dur;
-		el->rect.x += dur;
-	}
-}
+// 	if (main == NULL)
+// 	{
+// 		if (dx > 50 || dx < -50)
+// 			dur *= -1;
+// 		dx += dur;
+// 		dy += dur;
+// 		el->rect.x += dur;
+// 	}
+// }
 
 // static void drag_test2(void *a1, void *a2)
 // {
@@ -152,11 +122,11 @@ int		main(int argc, char *argv[])
 	ui_el_setup_default(&el11);
 	ui_event_add_listener(&(el11.events.onRender), &ui_el_draw_event);
 	ui_el_add_child(&el1, &el11);
-	ui_el_set_abs_pos(&el11, 100, 100);
+	ui_el_set_abs_pos(&el11, 50, 100);
 	ui_el_set_abs_size(&el11, 50, 50);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
-	ui_el_setup_default_draggable(&el11);
+	// ui_el_setup_default_draggable(&el11);
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	el11.id = 2220;
@@ -164,11 +134,37 @@ int		main(int argc, char *argv[])
 	ui_el_add_texture_from_file(&el11, "test4.jpeg", TID_DEFAULT);
 	ui_el_add_texture_from_file(&el11, "test.bmp", TID_ONFOCUSED);
 	ui_el_add_texture_from_file(&el11, "test5.png", TID_ONACTIVE);
-	ui_event_add_listener(&(el11.events.onPointerEnter), testOnPtrEnter);
-	ui_event_add_listener(&(el11.events.onPointerExit), testOnPtrExit);
-	ui_event_add_listener(&(el11.events.onPointerLeftButtonPressed), testOnPtrLBDown);
-	ui_event_add_listener(&(el11.events.onPointerLeftButtonReleased), testOnPtrEnter);
-	ui_event_add_listener(&(el11.events.onPointerLeftButtonHold), &testOnPtrLBHold);
+	ui_event_add_listener(&(el11.events.onPointerEnter), &ui_el_set_focused_texture);
+	ui_event_add_listener(&(el11.events.onPointerExit), &ui_el_set_default_texture);
+	ui_event_add_listener(&(el11.events.onPointerLeftButtonPressed), &ui_el_set_active_texture);
+	ui_event_add_listener(&(el11.events.onPointerLeftButtonReleased), &ui_el_set_focused_texture);
+	// ui_event_add_listener(&(el11.events.onPointerLeftButtonHold), &testOnPtrLBHold);
+
+
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	t_ui_el el222;
+	ui_el_init(&el222);
+	ui_el_setup_default(&el222);
+	ui_event_add_listener(&(el222.events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&w.canvas, &el222);
+	ui_el_set_abs_pos(&el222, 300, 100);
+	ui_el_set_abs_size(&el222, 200, 100);
+	el222.sdl_renderer = w.sdl_renderer;
+	TTF_Font* test = TTF_OpenFont("libui/content/Aller_Rg.ttf", 24);
+	SDL_Color white = {255, 0, 0, 255};
+	el222.sdl_surface = TTF_RenderText_Solid(test, "ZDES BILA JANA", white); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
+	t_list *l = ft_lstnew(NULL, 0);
+	l->content = ui_el_create_texture_from_surface(&el222);
+	ui_event_add_listener(&(el222.events.onRender), &ui_el_draw_event);
+	l->content_size = TID_DEFAULT;
+	ft_lstadd(&(el222.sdl_textures), l);
+	// SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+	// t_list *tmp_lst = ft_lstnew(NULL, 0);
+	// tmp_lst->content_size = TID_DEFAULT;
+	// tmp_lst->content = (void *)Message;
+	// ft_lstadd(el222->sdl_textures, tmp_lst);
+
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	t_ui_win w1;
 	ui_win_init(&w1);

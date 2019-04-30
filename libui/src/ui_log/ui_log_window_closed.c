@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:51:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 14:09:53 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/04/30 17:20:36 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void		ui_log_window_closed(void *a1, void *a2)
 			m->sdl_event.window.windowID
 		);
 		if (w->params & WIN_MAIN)
+		{
+			m->params |= MAIN_ON_QUIT;
 			close_main();
+		}
 		else
 			close_notmain(m, windowID);
 	}

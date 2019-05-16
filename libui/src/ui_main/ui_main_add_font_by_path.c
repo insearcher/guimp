@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:17:22 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/30 20:21:32 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/07 04:45:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	ui_main_add_font_by_path(t_ui_main *m, const char *path, int font_id)
 		return (FUNCTION_FAILURE);
 	lst->content = (void *)font;
 	lst->content_size = font_id;
-	ft_lstadd_back(&(m->sdl_fonts), lst);
+	ft_lstadd(&(m->sdl_fonts), lst);
 	return (FUNCTION_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/30 19:14:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/07 04:49:55 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,20 +149,16 @@ int		main(int argc, char *argv[])
 	ui_el_add_child(&w.canvas, &el222);
 	ui_el_set_abs_pos(&el222, 300, 100);
 	ui_el_set_abs_size(&el222, 200, 100);
+	ui_main_add_font_by_path(&m, "libui/content/Aller_Rg.ttf", 1);
 	el222.sdl_renderer = w.sdl_renderer;
-	TTF_Font* test = TTF_OpenFont("libui/content/Aller_Rg.ttf", 24);
+	TTF_Font* test = ui_main_get_font_by_id(&m, 1);
 	SDL_Color white = {255, 0, 0, 255};
-	el222.sdl_surface = TTF_RenderText_Solid(test, "ZDES BILA JANA", white); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
+	el222.sdl_surface = TTF_RenderText_Solid(test, "Test test test", white); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
 	t_list *l = ft_lstnew(NULL, 0);
 	l->content = ui_el_create_texture_from_surface(&el222);
 	ui_event_add_listener(&(el222.events.onRender), &ui_el_draw_event);
 	l->content_size = TID_DEFAULT;
 	ft_lstadd(&(el222.sdl_textures), l);
-	// SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-	// t_list *tmp_lst = ft_lstnew(NULL, 0);
-	// tmp_lst->content_size = TID_DEFAULT;
-	// tmp_lst->content = (void *)Message;
-	// ft_lstadd(el222->sdl_textures, tmp_lst);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/07 04:49:55 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/17 15:54:51 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int		main(int argc, char *argv[])
 	SDL_Color white = {255, 0, 0, 255};
 	el222.sdl_surface = TTF_RenderText_Solid(test, "Test test test", white); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
 	t_list *l = ft_lstnew(NULL, 0);
-	l->content = ui_el_create_texture_from_surface(&el222);
+	l->content = ui_el_create_texture(&el222);
 	ui_event_add_listener(&(el222.events.onRender), &ui_el_draw_event);
 	l->content_size = TID_DEFAULT;
 	ft_lstadd(&(el222.sdl_textures), l);

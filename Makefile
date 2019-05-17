@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/22 05:02:14 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/05/17 15:42:54 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,7 @@ clean:
 	@make -C $(FT_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) clean
-	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
+	@echo "$(TEXT_CR)$(TEXT_B)GUIMP:$(TEXT_R)"
 	@rm -f $(TEMP)
 	rm -rf $(OBJ_DIR)
 	@echo "$(TEXT_CG)$(TEXT_BL)$(TEXT_B)↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ success$(TEXT_R)"

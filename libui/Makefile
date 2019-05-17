@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/04/30 20:23:58 by sbednar          ###   ########.fr        #
+#    Updated: 2019/05/17 15:55:30 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_load_surface_from.c \
 					ui_el_set_current_texture_by_id.c \
 					ui_el_add_texture.c \
+					ui_el_create_texture.c \
 					ui_el_create_texture_from_surface.c \
 					ui_el_get_current_texture.c \
 					ui_el_set_abs_size.c \

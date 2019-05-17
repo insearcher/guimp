@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_add_texture.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 04:27:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/22 07:47:14 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/17 16:00:09 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			ui_el_add_texture_from_file(t_ui_el *el, const char *path, int texture_id)
 	if (check_texture_id(el->sdl_textures, texture_id) || !(tmp_lst = ft_lstnew(NULL, 0)))
 		return(FUNCTION_FAILURE);
 	if (ui_el_load_surface_from(el, path) == FUNCTION_FAILURE
-		|| (tmp_texture = ui_el_create_texture_from_surface(el)) == NULL)
+		|| (tmp_texture = ui_el_create_texture(el)) == NULL)
 	{
 		free(tmp_lst);
 		return(FUNCTION_FAILURE);

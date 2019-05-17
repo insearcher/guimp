@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/11 13:54:30 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/17 16:07:35 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,7 @@ typedef struct		s_ui_el_events
 typedef struct		s_ui_el
 {
 	SDL_Surface		*sdl_surface;
-	SDL_Texture		*sdl_texture; //legacy. use t_list_texture sdl_textures. can be delited
-	t_list_texture	*sdl_textures;
+	t_list			*sdl_textures;
 	size_t			current_texture;
 	SDL_Renderer	*sdl_renderer;
 	struct s_ui_el	*parent;
@@ -186,6 +185,7 @@ typedef struct		s_ui_el
 	Uint32			id;
 	Uint32			params; // <- put there next parameters
 	t_vec2			ptr_rel_pos;
+	void			*data;
 }					t_ui_el;
 
 # pragma endregion
@@ -243,7 +243,6 @@ typedef struct		s_ui_main
 	t_ui_raycaster	raycaster;
 	Uint32			cur_tick;
 	Uint32			target_tick;
-	void			*data;
 	Uint32			params;
 	t_vec2			ptr_pos;
 	t_list			*sdl_surfaces;
@@ -347,12 +346,14 @@ void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
-int					ui_el_create_texture(t_ui_el *el); //legacy. can be delited
+
+SDL_Texture			*ui_el_create_texture(t_ui_el *el);
+SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el, SDL_Surface *sur);
+
 int					ui_el_add_texture_from_file(t_ui_el *el,
 						const char *path, int texture_id);
 int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
 						int texture_id);
-SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
 SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, int id);
 int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);

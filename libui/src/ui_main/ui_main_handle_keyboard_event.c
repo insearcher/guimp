@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 07:49:09 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 08:07:59 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/19 00:22:16 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ui_main_handle_keyboard_event(t_ui_main *m)
 	windowID = m->sdl_event.window.windowID;
 	if ((win = ui_main_find_window_by_id(m, windowID)) == NULL)
 	{
-		SDL_Log("Window with id %d is not presented in main\n", windowID);
-		ui_sdl_deinit(EXIT_FAILURE);
+	//	SDL_Log("Window with id %d is not presented in main\n", windowID);
+	//	ui_sdl_deinit(EXIT_FAILURE);
 		return ; // TODO: FIX
 	}
 	event = NULL;

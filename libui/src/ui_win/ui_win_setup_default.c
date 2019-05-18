@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 05:38:36 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 20:04:29 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/19 00:30:29 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ui_win_setup_default(t_ui_win *w)
 	ui_event_add_listener(&(w->events.onFocusGained), &ui_log_window_focus_gained);
 	ui_event_add_listener(&(w->events.onFocusLost), &ui_log_window_focus_lost);
 	ui_event_add_listener(&(w->events.onResize), &ui_log_window_resized);
+	ui_event_add_listener(&(w->events.onKeyDown[SDL_SCANCODE_ESCAPE]), &ui_log_window_closed);
 	ui_event_add_listener(&(w->events.onClose), &ui_log_window_closed);
 	w->canvas.rect = (t_rect){0, 0, w->size.x, w->size.y};
 	w->canvas.frect = (t_frect){0, 0, 1, 1};

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/17 15:55:30 by sbednar          ###   ########.fr        #
+#    Updated: 2019/05/19 02:55:16 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,14 @@ include				../Makefile.inc
 NAME 			=	libui.a
 WHOAMI			=	$(shell whoami)
 
-SDL_VER			= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2/ | tail -1)
-TTF_VER			= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/ | tail -1)
-IMG_VER			= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_image/ | tail -1)
+SDL_VER			= 	$(shell ls ../sdl2/ | tail -1)
+TTF_VER			= 	$(shell ls ../sdl2_ttf/ | tail -1)
+IMG_VER			= 	$(shell ls ../sdl2_image/ | tail -1)
 
 INC_FT			=	../libft/include
+INC_SDL2		=	../sdl2/$(SDL_VER)/include/SDL2
+INC_SDL2_IMG	=	../sdl2_image/$(IMG_VER)/include/SDL2
+INC_SDL2_TTF	=	../sdl2_ttf/$(TTF_VER)/include/SDL2
 
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
@@ -127,7 +130,7 @@ SRC_UI_RAYCAST	=	ui_raycast.c \
 
 SRC_UI_STUFF	=	ui_get_mouse_win_pos.c
 
-OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
+OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW:.c=.o)) \
@@ -141,10 +144,9 @@ OBJ			=		$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 
 INCS		=		-I$(INC_DIR) \
 					-I$(INC_FT) \
-					-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/ \
-					-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/SDL2/ \
-					-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/$(TTF_VER)/include/ \
-					-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
+					-I$(INC_SDL2) \
+					-I$(INC_SDL2_IMG) \
+					-I$(INC_SDL2_TTF)
 
 CC 			=		gcc
 CFLAGS		=		-Wall -Werror -Wextra -g

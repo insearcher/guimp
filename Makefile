@@ -6,60 +6,68 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/17 15:42:54 by sbednar          ###   ########.fr        #
+#    Updated: 2019/05/19 03:02:44 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include			Makefile.inc
 
-NAME		=	guimp
-WHOAMI		=	$(shell whoami)
+NAME			=	guimp
+WHOAMI			=	$(shell whoami)
 
-SDL_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2/ | tail -1)
-TTF_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/ | tail -1)
-IMG_VER		= 	$(shell ls /Users/$(WHOAMI)/.brew/Cellar/sdl2_image/ | tail -1)
+SDL_VER			= 	$(shell ls ./sdl2/ | tail -1)
+TTF_VER			= 	$(shell ls ./sdl2_ttf/ | tail -1)
+IMG_VER			= 	$(shell ls ./sdl2_image/ | tail -1)
 
-TEXT_R		=	\033[0m
-TEXT_B		=	\033[1m
-TEXT_BL		=	\033[5m
-TEXT_CR		=	\033[31m
-TEXT_CG		=	\033[32m
-TEXT_CY		=	\033[33m
-TEXT_CB		=	\033[34m
-TEXT_CM		=	\033[35m
-TEXT_CC		=	\033[36m
+TEXT_R			=	\033[0m
+TEXT_B			=	\033[1m
+TEXT_BL			=	\033[5m
+TEXT_CR			=	\033[31m
+TEXT_CG			=	\033[32m
+TEXT_CY			=	\033[33m
+TEXT_CB			=	\033[34m
+TEXT_CM			=	\033[35m
+TEXT_CC			=	\033[36m
 
-FT_DIR		=	./libft
-UI_DIR		=	./libui
+FT_DIR			=	./libft
+UI_DIR			=	./libui
+SDL2_DIR		=	./sdl2/$(SDL_VER)/lib
+SDL2_IMG_DIR	=	./sdl2_image/$(IMG_VER)/lib
+SDL2_TTF_DIR	=	./sdl2_ttf/$(TTF_VER)/lib
 
-INC_FT		=	$(FT_DIR)/include
-INC_UI		=	$(UI_DIR)/include
+INC_FT			=	$(FT_DIR)/include
+INC_UI			=	$(UI_DIR)/include
+INC_SDL2		=	./sdl2/$(SDL_VER)/include/SDL2
+INC_SDL2_IMG	=	./sdl2_image/$(IMG_VER)/include/SDL2
+INC_SDL2_TTF	=	./sdl2_ttf/$(TTF_VER)/include/SDL2
 
-INC_DIR		=	./include
-SRC_DIR		=	./src
-OBJ_DIR		=	./obj
-LIB_DIR		=	./lib
+INC_DIR			=	./include
+SRC_DIR			=	./src
+OBJ_DIR			=	./obj
+LIB_DIR			=	./lib
 
-SRC			=	main.c \
-				draw_func.c \
-				draw_main_canvas_event.c
+SRC				=	main.c \
+					draw_func.c \
+					draw_main_canvas_event.c
 
-OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-INCS		=	-I$(INC_DIR) \
-				-I$(INC_FT) \
-				-I$(INC_UI) \
-				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/ \
-				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2/$(SDL_VER)/include/SDL2/ \
-				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_ttf/$(TTF_VER)/include/ \
-				-I/Users/$(WHOAMI)/.brew/Cellar/sdl2_image/$(IMG_VER)/include/
+INCS			=	-I$(INC_DIR) \
+					-I$(INC_FT) \
+					-I$(INC_UI) \
+					-I$(INC_SDL2) \
+					-I$(INC_SDL2_IMG) \
+					-I$(INC_SDL2_TTF)
 
-LIBS		=	-L$(FT_DIR) -lft \
-				-L$(UI_DIR) -lui \
-				-L/Users/$(WHOAMI)/.brew/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image
 
-CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g
+LIBS			=	-L$(FT_DIR) -lft \
+					-L$(UI_DIR) -lui \
+					-L$(SDL2_DIR) -lSDL2 \
+					-L$(SDL2_IMG_DIR) -lSDL2_image \
+					-L$(SDL2_TTF_DIR) -lSDL2_ttf
+
+CC				=	gcc
+CFLAGS			=	-Wall -Wextra -Werror -g
 
 all: $(NAME)
 
@@ -78,9 +86,9 @@ $(NAME):
 
 compile: $(OBJ)
 	@if [ $(CAT_TEMP) ] ; \
-	then \
+		then \
 		make build;\
-	fi;
+		fi;
 
 build:
 	$(CC) $(CFLAGS) $(OBJ) $(INCS) $(LIBS) -o $(NAME)

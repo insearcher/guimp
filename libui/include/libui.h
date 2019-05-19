@@ -6,16 +6,16 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/17 16:07:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/19 01:48:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
 
-# include <SDL2/SDL.h>
-# include <SDL2/SDL_ttf.h>
-# include <SDL2/SDL_image.h>
+# include "SDL.h"
+# include "SDL_ttf.h"
+# include "SDL_image.h"
 # include "libft.h"
 # include <math.h>
 

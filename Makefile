@@ -6,18 +6,13 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/19 03:02:44 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/19 22:20:18 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include			Makefile.inc
 
 NAME			=	guimp
-WHOAMI			=	$(shell whoami)
-
-SDL_VER			= 	$(shell ls ./sdl2/ | tail -1)
-TTF_VER			= 	$(shell ls ./sdl2_ttf/ | tail -1)
-IMG_VER			= 	$(shell ls ./sdl2_image/ | tail -1)
 
 TEXT_R			=	\033[0m
 TEXT_B			=	\033[1m
@@ -31,17 +26,11 @@ TEXT_CC			=	\033[36m
 
 FT_DIR			=	./libft
 UI_DIR			=	./libui
-SDL2_DIR		=	./sdl2/$(SDL_VER)/lib
-SDL2_IMG_DIR	=	./sdl2_image/$(IMG_VER)/lib
-SDL2_TTF_DIR	=	./sdl2_ttf/$(TTF_VER)/lib
 
 INC_FT			=	$(FT_DIR)/include
 INC_UI			=	$(UI_DIR)/include
-INC_SDL2		=	./sdl2/$(SDL_VER)/include/SDL2
-INC_SDL2_IMG	=	./sdl2_image/$(IMG_VER)/include/SDL2
-INC_SDL2_TTF	=	./sdl2_ttf/$(TTF_VER)/include/SDL2
-
 INC_DIR			=	./include
+
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
 LIB_DIR			=	./lib
@@ -55,16 +44,18 @@ OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 INCS			=	-I$(INC_DIR) \
 					-I$(INC_FT) \
 					-I$(INC_UI) \
-					-I$(INC_SDL2) \
-					-I$(INC_SDL2_IMG) \
-					-I$(INC_SDL2_TTF)
+					-I./frameworks/SDL2.framework/Versions/A/Headers \
+					-I./frameworks/SDL2_image.framework/Versions/A/Headers \
+					-I./frameworks/SDL2_ttf.framework/Versions/A/Headers
+
+FRAMEWORKS		=	-F./frameworks \
+					-rpath ./frameworks \
+					-framework OpenGL -framework AppKit -framework OpenCl \
+					-framework SDL2 -framework SDL2_ttf -framework SDL2_image
 
 
 LIBS			=	-L$(FT_DIR) -lft \
 					-L$(UI_DIR) -lui \
-					-L$(SDL2_DIR) -lSDL2 \
-					-L$(SDL2_IMG_DIR) -lSDL2_image \
-					-L$(SDL2_TTF_DIR) -lSDL2_ttf
 
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror -g
@@ -91,7 +82,7 @@ compile: $(OBJ)
 		fi;
 
 build:
-	$(CC) $(CFLAGS) $(OBJ) $(INCS) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(INCS) $(LIBS) $(FRAMEWORKS) -o $(NAME)
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)

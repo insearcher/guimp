@@ -6,16 +6,16 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/19 01:48:13 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/19 22:18:19 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
 
-# include "SDL.h"
-# include "SDL_ttf.h"
-# include "SDL_image.h"
+# include <SDL.h>
+# include <SDL_ttf.h>
+# include <SDL_image.h>
 # include "libft.h"
 # include <math.h>
 
@@ -179,7 +179,7 @@ typedef struct		s_ui_el
 	struct s_ui_el	*parent;
 	t_list			*children;
 	t_rect			rect;
-	t_rect			rrect;
+	t_rect			rrect;	// TODO not used
 	t_frect			frect;
 	t_ui_el_events	events;
 	Uint32			id;

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/20 02:14:58 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/20 22:14:42 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_end_drag.c \
 					ui_el_setup_default_draggable.c \
 					ui_el_setup_default_scroll_menu.c \
+					ui_el_setup_default_scroll_menu_elem.c \
 					ui_el_scroll_menu.c \
 					ui_el_set_texture.c
 

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:37:32 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 19:48:45 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/20 21:15:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int	ui_el_is_pointer_inside(void *a1, void *a2)
 		return (0);
 	x = m->ptr_pos.x;
 	y = m->ptr_pos.y;
+	if (el->params & EL_IS_DEPENDENT)
+		if (!((el->parent->rect.x <= x && el->parent->rect.y <= y) &&
+		(x <= (el->parent->rect.x + el->parent->rect.w)
+		 && y <= (el->parent->rect.y + el->parent->rect.h))))
+			return (0);
 	return ((el->rect.x <= x && el->rect.y <= y) &&
 		(x <= (el->rect.x + el->rect.w) && y <= (el->rect.y + el->rect.h)));
 }

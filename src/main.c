@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/19 22:22:14 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/20 04:15:27 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		main(int argc, char *argv[])
 	ui_win_init(&w);
 	w.title = ft_strdup("TEST1");
 	w.params = WIN_MAIN | WIN_RESIZABLE;
-	w.size = (t_vec2){640, 480};
+	w.size = (t_vec2){800, 600};
 	w.canvas.id = 0;
 	ui_event_add_listener(&(w.events.onResize), &ui_win_update_size);
 	ui_win_setup_default(&w);
@@ -93,9 +93,6 @@ int		main(int argc, char *argv[])
 	ui_el_add_child(&(w.canvas), &el1);
 	ui_el_set_abs_pos(&el1, 100, 100);
 	ui_el_set_abs_size(&el1, 200, 200);
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
-	ui_el_setup_default_scrollable(&el1);
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 	el1.id = 10;
 	el1.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
@@ -125,9 +122,79 @@ int		main(int argc, char *argv[])
 	el2.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el2, "images/test6.jpeg", TID_DEFAULT);
 	ui_event_add_listener(&(el2.events.onPointerStay), testOnPtrStay);
-
 	ui_el_setup_default_draggable(&el2);
 
+
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	t_ui_el el_scroll_menu;
+	ui_el_init(&el_scroll_menu);
+	ui_el_setup_default(&el_scroll_menu);
+	ui_event_add_listener(&(el_scroll_menu.events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&(w.canvas), &el_scroll_menu);
+	ui_el_set_abs_pos(&el_scroll_menu, 500, 100);
+	ui_el_set_abs_size(&el_scroll_menu, 300, 400);
+	ui_el_setup_default_scroll_menu(&el_scroll_menu);
+	el_scroll_menu.id = 3;
+	el_scroll_menu.sdl_renderer = w.sdl_renderer;
+	ui_el_add_texture_from_file(&el_scroll_menu, "images/flower.png", TID_DEFAULT);
+
+	t_ui_el el_scroll_elem1;
+	ui_el_init(&el_scroll_elem1);
+	ui_el_setup_default(&el_scroll_elem1);
+	ui_event_add_listener(&(el_scroll_elem1.events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&(el_scroll_menu), &el_scroll_elem1);
+	ui_el_set_abs_pos(&el_scroll_elem1, 550, 100);
+	ui_el_set_abs_size(&el_scroll_elem1, 200, 100);
+	el_scroll_elem1.id = 31;
+	el_scroll_elem1.sdl_renderer = w.sdl_renderer;
+	ui_el_add_texture_from_file(&el_scroll_elem1, "images/fractal_dick.png", TID_DEFAULT);
+
+	t_ui_el el_scroll_elem2;
+	ui_el_init(&el_scroll_elem2);
+	ui_el_setup_default(&el_scroll_elem2);
+	ui_event_add_listener(&(el_scroll_elem2.events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&(el_scroll_menu), &el_scroll_elem2);
+	ui_el_set_abs_pos(&el_scroll_elem2, 550, 210);
+	ui_el_set_abs_size(&el_scroll_elem2, 200, 100);
+	el_scroll_elem2.id = 32;
+	el_scroll_elem2.sdl_renderer = w.sdl_renderer;
+	ui_el_add_texture_from_file(&el_scroll_elem2, "images/fractal_dick.png", TID_DEFAULT);
+
+	t_ui_el el_scroll_elem3;
+	ui_el_init(&el_scroll_elem3);
+	ui_el_setup_default(&el_scroll_elem3);
+	ui_event_add_listener(&(el_scroll_elem3.events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&(el_scroll_menu), &el_scroll_elem3);
+	ui_el_set_abs_pos(&el_scroll_elem3, 550, 320);
+	ui_el_set_abs_size(&el_scroll_elem3, 200, 100);
+	el_scroll_elem3.id = 33;
+	el_scroll_elem3.sdl_renderer = w.sdl_renderer;
+	ui_el_add_texture_from_file(&el_scroll_elem3, "images/fractal_dick.png", TID_DEFAULT);
+
+	t_ui_el el_scroll_elem4;
+	ui_el_init(&el_scroll_elem4);
+	ui_el_setup_default(&el_scroll_elem4);
+	ui_event_add_listener(&(el_scroll_elem4.events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&(el_scroll_menu), &el_scroll_elem4);
+	ui_el_set_abs_pos(&el_scroll_elem4, 550, 430);
+	ui_el_set_abs_size(&el_scroll_elem4, 200, 100);
+	el_scroll_elem4.id = 34;
+	el_scroll_elem4.sdl_renderer = w.sdl_renderer;
+	ui_el_add_texture_from_file(&el_scroll_elem4, "images/fractal_dick.png", TID_DEFAULT);
+
+	t_ui_el el_scroll_elem5;
+	ui_el_init(&el_scroll_elem5);
+	ui_el_setup_default(&el_scroll_elem5);
+	ui_event_add_listener(&(el_scroll_elem5.events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&(el_scroll_menu), &el_scroll_elem5);
+	ui_el_set_abs_pos(&el_scroll_elem5, 550, 540);
+	ui_el_set_abs_size(&el_scroll_elem5, 200, 100);
+	el_scroll_elem5.id = 35;
+	el_scroll_elem5.sdl_renderer = w.sdl_renderer;
+	ui_el_add_texture_from_file(&el_scroll_elem5, "images/fractal_dick.png", TID_DEFAULT);
+
+
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	t_ui_el el11;
 	ui_el_init(&el11);
 	ui_el_setup_default(&el11);
@@ -135,11 +202,9 @@ int		main(int argc, char *argv[])
 	ui_el_add_child(&el1, &el11);
 	ui_el_set_abs_pos(&el11, 50, 100);
 	ui_el_set_abs_size(&el11, 50, 50);
-
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// ui_el_setup_default_draggable(&el11);
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 	el11.id = 2220;
 	el11.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el11, "images/test4.jpeg", TID_DEFAULT);

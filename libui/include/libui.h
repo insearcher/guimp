@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/19 22:18:19 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/20 04:10:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & _ON)
 # define EL_IS_LMB_PRESSED	(1 << 4)
 # define EL_IS_RMB_PRESSED	(1 << 5)
-# define EL_IS_SCROLLABLE	(1 << 6)
+# define EL_IS_SCROLL_MENU	(1 << 6)
 # define EL_IS_DRAGGABLE	(1 << 7)
 # define EL_ON_DRAG			(1 << 8)
 
@@ -361,7 +361,9 @@ int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
 
-void				ui_el_setup_default_scrollable(t_ui_el *el);
+void				ui_el_setup_default_scroll_menu(t_ui_el *el);
+void				ui_el_scroll_menu_up(void *a1, void *a2);
+void				ui_el_scroll_menu_down(void *a1, void *a2);
 
 void				ui_el_begin_drag(void *a1, void *a2);
 void 				ui_el_drag(void *a1, void *a2);

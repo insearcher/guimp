@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/30 19:04:26 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/20 04:16:06 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ui_main_handle_raycast(t_ui_main *m)
 
 	if (cur != NULL)
 	{
-		if (cur->params & EL_IS_SCROLLABLE && m->params & (MAIN_SCROLL_DOWN | MAIN_SCROLL_UP))
+		if (cur->params & EL_IS_SCROLL_MENU && m->params & (MAIN_SCROLL_DOWN | MAIN_SCROLL_UP))
 		{
 			if (m->params & MAIN_SCROLL_DOWN)
 				ui_event_invoke(&(cur->events.onScrollDown), m, cur);

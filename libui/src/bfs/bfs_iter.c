@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 12:15:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/06 18:21:58 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/19 23:37:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,3 @@ t_ui_el			*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p)
 	free(lst);
 	return (res);
 }
-
-

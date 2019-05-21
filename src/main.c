@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/20 22:21:29 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/21 02:26:40 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,26 @@ int		main(int argc, char *argv[])
 	ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el1);
 
+	t_ui_el el111;
+	ui_el_init(&el111);
+	ui_el_setup_default(&el111);
+	ui_event_add_listener(&(el111.events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&(w.canvas), &el111);
+	ui_el_set_abs_pos(&el111, 100, 100);
+	ui_el_set_abs_size(&el111, 200, 200);
+	el111.id = 111;
+	el111.sdl_renderer = w.sdl_renderer;
+	ui_el_add_texture_from_file(&el111, "images/frolushka.jpeg", TID_DEFAULT);
+	ui_el_setup_default_draggable(&el111);
+
 	t_ui_el el100;
 	ui_el_init(&el100);
 	ui_el_setup_default(&el100);
 	ui_event_add_listener(&(el100.events.onRender), &ui_el_draw_event);
-	ui_el_add_child(&(el1), &el100);
+	ui_el_add_child(&(el111), &el100);
 	ui_el_set_abs_pos(&el100, 100, 100);
 	ui_el_set_abs_size(&el100, 100, 100);
+	el100.params |= EL_IS_DEPENDENT;
 	el100.id = 1000;
 	el100.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el100, "images/prison.jpg", TID_DEFAULT);

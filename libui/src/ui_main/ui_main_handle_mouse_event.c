@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 20:08:06 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/21 09:07:52 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,8 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 	t_ui_event	*event;
 
 	windowID = m->sdl_event.window.windowID;
-	if (windowID == 0)
-		return ;
 	if ((win = ui_main_find_window_by_id(m, windowID)) == NULL)
-	{
-		SDL_Log("Window with id %d is not presented in main\n", windowID);
-		ui_sdl_deinit(EXIT_FAILURE);
-		// return ; // TODO: FIX
-	}
+		return ;
 	event = NULL;
 	if (m->sdl_event.type == SDL_MOUSEMOTION)
 		event = &(win->events.onPointerMoved);

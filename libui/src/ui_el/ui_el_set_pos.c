@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:36:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 10:40:37 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/21 05:20:46 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static void ui_el_set_pos_abs(t_ui_el *el, int x, int y)
 
 static void ui_el_set_pos_flex(t_ui_el *el, int x, int y)
 {
-
+	// TODO
 }
 
 static void ui_el_set_pos_rel(t_ui_el *el, int x, int y)
 {
-
+	// TODO
 }
 
 void	ui_el_set_pos(t_ui_el *el, int x, int y, int m)

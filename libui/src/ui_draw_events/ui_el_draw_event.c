@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 18:23:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/21 07:21:09 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/22 08:47:37 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,56 @@ static void	cutting_texture_and_draw(t_ui_el *el, SDL_Texture *texture)
 	t_rect		srect;
 	int			width;
 	int			height;
-	int			x;
-//	int			y;
 
 	tmp_rect = el->rect;
 	get_texture_params(texture, &srect, &width, &height);
-	if (el->rect.x < el->parent->rect.x)
+	if (el->rect.x < el->parent->rect.x &&
+			el->rect.x + el->rect.w > el->parent->rect.x + el->parent->rect.w)
 	{
-		x = el->parent->rect.x - el->rect.x;
-		srect.x = x * (width / el->rect.w);
-		srect.w = width - srect.x; 
+		srect.x = (el->parent->rect.x - el->rect.x) * (float)(width / (float)el->rect.w);
+		srect.w = el->parent->rect.w * (float)(width / (float)el->rect.w);
 		tmp_rect.x = el->parent->rect.x;
-		tmp_rect.w = el->rect.w - x;
+		tmp_rect.w = el->parent->rect.w;
 	}
-	if (el->rect.x + el->rect.w > el->parent->rect.x + el->parent->rect.w)
+	else if (el->rect.x < el->parent->rect.x)
+	{
+		tmp_rect.x = el->parent->rect.x;
+		tmp_rect.w = el->rect.w - (el->parent->rect.x - el->rect.x);
+		srect.x = (el->parent->rect.x - el->rect.x) * (float)(width / (float)el->rect.w);
+		srect.w = tmp_rect.w * (float)(width / (float)el->rect.w);
+	}
+	else if (el->rect.x + el->rect.w > el->parent->rect.x + el->parent->rect.w)
 	{
 		srect.x = 0;
 		tmp_rect.w = el->parent->rect.x + el->parent->rect.w - el->rect.x;
-		srect.w = (tmp_rect.w) * (width / el->rect.w);
+		srect.w = tmp_rect.w * (float)(width / (float)el->rect.w);
 		tmp_rect.x = el->rect.x;
 	}
-	SDL_RenderCopy(el->sdl_renderer, texture, &srect, &tmp_rect);
-	return ;
 
+	if (el->rect.y < el->parent->rect.y &&
+			el->rect.y + el->rect.h > el->parent->rect.y + el->parent->rect.h)
+	{
+		srect.y = (el->parent->rect.y - el->rect.y) * (float)(height / (float)el->rect.h);
+		srect.h = el->parent->rect.h * (float)(height / (float)el->rect.h);
+		tmp_rect.y = el->parent->rect.y;
+		tmp_rect.h = el->parent->rect.h;
+	}
+	else if (el->rect.y < el->parent->rect.y)
+	{
+		tmp_rect.y = el->parent->rect.y;
+		tmp_rect.h = el->rect.h - (el->parent->rect.y - el->rect.y);
+		srect.y = (el->parent->rect.y - el->rect.y) * (float)(height / (float)el->rect.h);
+		srect.h = tmp_rect.h * (float)(height / (float)el->rect.h);
+	}
+	else if (el->rect.y + el->rect.h > el->parent->rect.y + el->parent->rect.h)
+	{
+		srect.y = 0;
+		tmp_rect.h = el->parent->rect.y + el->parent->rect.h - el->rect.y;
+		srect.h = tmp_rect.h * (float)(height / (float)el->rect.h);
+		tmp_rect.y = el->rect.y;
+	}
+	SDL_RenderCopy(el->sdl_renderer, texture, &srect, &tmp_rect);
+	//TODO maybe because of floats variables absence - there is a little shaking of textures, need to fix.
 }
 
 void	ui_el_draw_event(void *el_v, void *arg)
@@ -74,6 +101,3 @@ void	ui_el_draw_event(void *el_v, void *arg)
 	}
 	SDL_RenderCopy(el->sdl_renderer, texture, NULL, &el->rect);
 }
-
-//		printf("w: %d, h: %d, id: %d\n", width, height, el->id);
-//		printf("frect.w %f\n", el->frect.w);

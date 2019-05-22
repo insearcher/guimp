@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 01:36:50 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 02:08:03 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 # define EL_POS_FLEXIBLE	1
 # define EL_POS_RELATIVE	2
 
+# define SCROLL_SPEED		10
+
 //el params
 # define EL_DYNAMIC_SIZE	(1 << 0)
 # define EL_IGNOR_RAYCAST	(1 << 1)
@@ -64,7 +66,7 @@
 # define EL_IS_DEPENDENT	(1 << 9)
 
 // KOSTIL
-# define EL_NOT_RELEASED	(1 << 31)
+// # define EL_NOT_RELEASED	(1 << 31)
 
 # define MAIN_LMB_PRESSED	(1 << 0)
 # define MAIN_RMB_PRESSED	(1 << 1)
@@ -318,9 +320,11 @@ void				ui_log_key_released(void *a1, void *a2);
 void				q_push(QUEUE **q, t_list *el);
 void				*q_pop(QUEUE **q);
 
+void				bfs_iter(const t_list *root, const func_ptr f,
+						const void *arg);
 void				bfs_iter_root(const t_ui_el *root, const func_ptr f,
 						const void *arg);
-
+void				*bfs(t_ui_main *m, const t_list *root, pred_ptr p);
 t_ui_el				*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p);
 
 # pragma endregion

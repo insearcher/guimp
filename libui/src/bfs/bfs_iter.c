@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 12:15:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/19 23:37:47 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 01:50:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-static void		bfs_iter(const t_list *root, const func_ptr f,
+void			bfs_iter(const t_list *root, const func_ptr f,
 					const void *arg)
 {
 	QUEUE	*q;
@@ -42,7 +42,7 @@ void			bfs_iter_root(const t_ui_el *root, const func_ptr f,
 	free(lst);
 }
 
-static void		*bfs(t_ui_main *m, const t_list *root, pred_ptr p)
+void			*bfs(t_ui_main *m, const t_list *root, pred_ptr p)
 {
 	QUEUE	*q;
 	void	*tmp;

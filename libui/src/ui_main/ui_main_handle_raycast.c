@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/20 22:12:52 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 01:37:50 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,24 @@ void	ui_main_handle_raycast(t_ui_main *m)
 				ui_event_invoke(&(cur->events.onScrollUp), m, cur);
 			m->params &= ~(MAIN_SCROLL_DOWN | MAIN_SCROLL_UP);
 		}
-		else if (m->params & MAIN_LMB_PRESSED && !(cur->params & EL_IS_LMB_PRESSED))
+		else if (m->params & MAIN_LMB_PRESSED)
 		{
 			ui_event_invoke(&(cur->events.onPointerLeftButtonPressed), m, cur);
-			cur->params |= EL_IS_LMB_PRESSED | EL_NOT_RELEASED;
 			m->params &= ~MAIN_LMB_PRESSED;
 		}
-		else if (m->params & MAIN_LMB_RELEASED && cur->params & EL_NOT_RELEASED)
+		else if (m->params & MAIN_LMB_RELEASED)
 		{
 			ui_event_invoke(&(cur->events.onPointerLeftButtonReleased), m, cur);
-			cur->params &= ~(EL_IS_LMB_PRESSED | EL_NOT_RELEASED);
 			m->params &= ~MAIN_LMB_RELEASED;
 		}
-		else if (m->params & MAIN_RMB_PRESSED && !(cur->params & EL_IS_RMB_PRESSED))
+		else if (m->params & MAIN_RMB_PRESSED)
 		{
 			ui_event_invoke(&(cur->events.onPointerRightButtonPressed), m, cur);
-			cur->params |= EL_IS_RMB_PRESSED | EL_NOT_RELEASED;
 			m->params &= ~MAIN_RMB_PRESSED;
 		}
-		else if (m->params & MAIN_RMB_RELEASED && cur->params & EL_NOT_RELEASED)
+		else if (m->params & MAIN_RMB_RELEASED)
 		{
 			ui_event_invoke(&(cur->events.onPointerRightButtonReleased), m, cur);
-			cur->params &= ~(EL_IS_RMB_PRESSED | EL_NOT_RELEASED);
 			m->params &= ~MAIN_RMB_RELEASED;
 		}
 	}

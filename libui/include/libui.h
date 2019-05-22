@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/20 22:15:16 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 01:36:50 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@
 # define EL_IGNOR_RAYCAST	(1 << 1)
 # define EL_IS_HIDDEN		(1 << 2) // TODO. usefull for hidden elems, like popap menu. Do not forget to change bfs for this.
 # define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & _ON)
-# define EL_IS_LMB_PRESSED	(1 << 4)
-# define EL_IS_RMB_PRESSED	(1 << 5)
+// # define EL_IS_LMB_PRESSED	(1 << 4)
+// # define EL_IS_RMB_PRESSED	(1 << 5)
 # define EL_IS_SCROLLABLE	(1 << 6)
 # define EL_IS_DRAGGABLE	(1 << 7)
 # define EL_ON_DRAG			(1 << 8)

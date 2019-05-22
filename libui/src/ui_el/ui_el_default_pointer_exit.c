@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:32:11 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 07:53:56 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 01:37:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void	ui_el_default_pointer_exit(void *a1, void *a2)
 
 	(void)a1;
 	el = (t_ui_el *)a2;
-	el->params &= ~(EL_IS_PTR_INSIDE | EL_IS_LMB_PRESSED | EL_IS_RMB_PRESSED);
+	el->params &= ~(EL_IS_PTR_INSIDE);
 }

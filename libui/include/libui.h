@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 02:08:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 03:45:51 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@
 //el params
 # define EL_DYNAMIC_SIZE	(1 << 0)
 # define EL_IGNOR_RAYCAST	(1 << 1)
-# define EL_IS_HIDDEN		(1 << 2) // TODO. usefull for hidden elems, like popap menu. Do not forget to change bfs for this.
+# define EL_IS_HIDDEN		(1 << 2)
 # define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & _ON)
 // # define EL_IS_LMB_PRESSED	(1 << 4)
 // # define EL_IS_RMB_PRESSED	(1 << 5)
 # define EL_IS_SCROLLABLE	(1 << 6)
-# define EL_IS_DRAGGABLE	(1 << 7)
-# define EL_ON_DRAG			(1 << 8)
-# define EL_IS_DEPENDENT	(1 << 9)
+# define EL_IS_DEPENDENT	(1 << 7)
 
 // KOSTIL
 // # define EL_NOT_RELEASED	(1 << 31)
@@ -347,7 +345,6 @@ void				ui_el_setup_default(t_ui_el *el);
 void				ui_el_set_abs_size(t_ui_el *el, int x, int y);//need to be tested
 void				ui_el_set_rel_size(t_ui_el *el, float x, float y); //need to be tested
 void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
-void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);//need to be tested
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
@@ -373,9 +370,7 @@ void				ui_el_scroll_menu_down(void *a1, void *a2);
 void				ui_el_scroll_child_menu_up(void *a1, void *a2);
 void				ui_el_scroll_child_menu_down(void *a1, void *a2);
 
-void				ui_el_begin_drag(void *a1, void *a2);
 void 				ui_el_drag(void *a1, void *a2);
-void				ui_el_end_drag(void *a1, void *a2);
 void				ui_el_setup_default_draggable(t_ui_el *el);
 
 void				ui_el_set_default_texture(void *a1, void *a2);

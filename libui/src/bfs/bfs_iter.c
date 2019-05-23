@@ -6,33 +6,41 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 12:15:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 01:50:33 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 03:05:07 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
 void			bfs_iter(const t_list *root, const func_ptr f,
-					const void *arg)
+		const void *arg)
 {
 	QUEUE	*q;
 	void	*tmp;
 
 	q = NULL;
 	q_push(&q, (t_list *)root);
-	while (q)
-	{
-		tmp = q_pop(&q);
-		q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
-		if (f)
+	if (f)
+		while (q)
+		{
+			tmp = q_pop(&q);
+			q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
 			f(tmp, (void *)arg);
-		else
-			ui_event_invoke(&(((t_ui_el *)tmp)->events.onRender), tmp, (void *)arg);
-	}
+		}
+	else
+		while (q)
+		{
+			tmp = q_pop(&q);
+			if (!(((t_ui_el *)tmp)->params & EL_IS_HIDDEN))
+			{
+				q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
+				ui_event_invoke(&(((t_ui_el *)tmp)->events.onRender), tmp, (void *)arg);
+			}
+		}
 }
 
 void			bfs_iter_root(const t_ui_el *root, const func_ptr f,
-					const void *arg)
+		const void *arg)
 {
 	t_list *lst;
 

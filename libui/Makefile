@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/20 22:14:42 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/23 03:48:56 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRC_BFS			=	bfs_iter.c \
 					queue.c
 
 SRC_UI_EL		=	ui_el_add_child.c \
-					ui_el_free.c \
 					ui_el_init.c \
 					ui_el_create_texture.c \
 					ui_el_load_surface_from.c \
@@ -36,7 +35,6 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_set_abs_size.c \
 					ui_el_set_rel_size.c \
 					ui_el_set_abs_pos.c \
-					ui_el_set_rel_pos.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
 					ui_el_setup_default.c \
@@ -44,9 +42,7 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_get_texture_by_id.c \
 					ui_log_el_scroll_up.c \
 					ui_log_el_scroll_down.c \
-					ui_el_begin_drag.c \
 					ui_el_drag.c \
-					ui_el_end_drag.c \
 					ui_el_setup_default_draggable.c \
 					ui_el_setup_default_scroll_menu.c \
 					ui_el_setup_default_scroll_menu_elem.c \

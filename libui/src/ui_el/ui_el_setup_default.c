@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 05:50:32 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 04:21:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 11:50:09 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	ui_el_setup_default(t_ui_el *el)
 	ui_event_add_listener(&(el->events.onPointerRightButtonHold), &ui_log_el_right_button_hold);
 	ui_event_add_listener(&(el->events.onPointerRightButtonPressed), &ui_log_el_right_button_pressed);
 	ui_event_add_listener(&(el->events.onPointerRightButtonReleased), &ui_log_el_right_button_released);
+	el->params |= EL_DYNAMIC_SIZE; //TODO MB NAHUI EGO u FSe EleMenTbl resaizit'?
 	el->id = ++elementID;
 }

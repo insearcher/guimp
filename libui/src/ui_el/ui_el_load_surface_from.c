@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_load_surface_from.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:32:52 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/10 05:02:45 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/23 05:33:26 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
+
+/*
+** OBSOLETE
+*/
 
 int	ui_el_load_surface_from(t_ui_el *el, const char *path)
 {

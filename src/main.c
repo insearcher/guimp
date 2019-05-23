@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 03:43:41 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 06:58:02 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	testOnPtrStay(void *main, void *el_v)
 // 	// el->frect.y = m->sdl_event.motion.y - el->ptr_rel_pos.y;
 // }
 
-int		main(int argc, char *argv[])
+int		old_main(int argc, char *argv[])
 {
 	(void)argc;
 	(void)argv;
@@ -293,5 +293,97 @@ int		main(int argc, char *argv[])
 	ui_main_add_window(&m, &w2);
 
 	ui_main_loop(&m);
+	return (0);
+}
+
+int		new_main()
+{
+	t_guimp	g_main;
+
+	/* INIT */
+	ui_sdl_init();
+	gm_init(&g_main);
+	if (!(g_main.ui_main = (t_ui_main *)malloc(sizeof(t_ui_main))))
+	{
+		printf("ui_main malloc error in struct g_main\n");
+		return (0);
+	}
+	ui_main_init(g_main.ui_main);
+
+	/* MAIN_WIN */
+	if (!(g_main.main_win = (t_ui_win *)malloc(sizeof(t_ui_win))))
+	{
+		printf("main_win malloc error in struct g_main\n");
+		return (0);
+	}
+	ui_win_init(g_main.main_win);
+	g_main.main_win->title = ft_strdup("GUIMP");
+	g_main.main_win->params = WIN_MAIN | WIN_RESIZABLE;
+	g_main.main_win->size = (t_vec2){GM_MAIN_WIN_W, GM_MAIN_WIN_H};
+	ui_win_setup_default(g_main.main_win);
+	ui_win_create(g_main.main_win);
+	ui_event_add_listener(&(g_main.main_win->events.onResize), &ui_win_update_size);
+	ui_main_add_window(g_main.ui_main, g_main.main_win);
+	g_main.main_win->canvas.id = 0;
+	g_main.main_win->canvas.sdl_renderer = g_main.main_win->sdl_renderer;
+	ui_el_add_texture_from_file(&(g_main.main_win->canvas), "images/test3.jpg", TID_DEFAULT);
+	ui_el_add_empty_texture(
+		&(g_main.main_win->canvas),
+		g_main.main_win->canvas.rect.w,
+		g_main.main_win->canvas.rect.h,
+		TID_DRAW_TEXTURE);
+	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &draw_main_canvas_event);
+	ui_event_add_listener(&(g_main.main_win->canvas.events.onPointerLeftButtonHold), &draw_dot);
+
+	/* TOOL_WIN */
+	if (!(g_main.tool_win = (t_ui_win *)malloc(sizeof(t_ui_win))))
+	{
+		printf("tool_win malloc error in struct g_main\n");
+		return (0);
+	}
+	ui_win_init(g_main.tool_win);
+	g_main.tool_win->title = ft_strdup("TOOLS");
+	g_main.tool_win->params = 0;
+	g_main.tool_win->size = (t_vec2){GM_TOOL_WIN_W, GM_TOOL_WIN_H};
+	ui_win_setup_default(g_main.tool_win);
+	ui_win_create(g_main.tool_win);
+	ui_main_add_window(g_main.ui_main, g_main.tool_win);
+	g_main.tool_win->canvas.id = 0;
+	g_main.tool_win->canvas.sdl_renderer = g_main.tool_win->sdl_renderer;
+	ui_el_add_texture_from_file(&(g_main.tool_win->canvas), "images/test3.jpg", TID_DEFAULT);
+	// ui_el_add_empty_texture(
+	// 	&(g_main.tool_win->canvas),
+	// 	g_main.tool_win->canvas.rect.w,
+	// 	g_main.tool_win->canvas.rect.h,
+	// 	TID_DRAW_TEXTURE);
+	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &draw_main_canvas_event);
+	// ui_event_add_listener(&(g_main.tool_win->canvas.events.onPointerLeftButtonHold), &draw_dot);
+
+	/* LAYER_WIN */
+	if (!(g_main.layer_win = (t_ui_win *)malloc(sizeof(t_ui_win))))
+	{
+		printf("layer_win malloc error in struct g_main\n");
+		return (0);
+	}
+	ui_win_init(g_main.layer_win);
+	g_main.layer_win->title = ft_strdup("LAYERS");
+	g_main.layer_win->params = 0;
+	g_main.layer_win->size = (t_vec2){GM_LAYER_WIN_W, GM_LAYER_WIN_H};
+	ui_win_setup_default(g_main.layer_win);
+	ui_win_create(g_main.layer_win);
+	ui_main_add_window(g_main.ui_main, g_main.layer_win);
+	g_main.layer_win->canvas.id = 0;
+	g_main.layer_win->canvas.sdl_renderer = g_main.layer_win->sdl_renderer;
+	ui_el_add_texture_from_file(&(g_main.layer_win->canvas), "images/test3.jpg", TID_DEFAULT);
+	// ui_el_add_empty_texture(
+	// 	&(g_main.layer_win->canvas),
+	// 	g_main.layer_win->canvas.rect.w,
+	// 	g_main.layer_win->canvas.rect.h,
+	// 	TID_DRAW_TEXTURE);
+	ui_event_add_listener(&(g_main.layer_win->canvas.events.onRender), &draw_main_canvas_event);
+	// ui_event_add_listener(&(g_main.layer_win->canvas.events.onPointerLeftButtonHold), &draw_dot);
+
+	/* MAIN_LOOP */
+	ui_main_loop(g_main.ui_main);
 	return (0);
 }

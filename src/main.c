@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 05:27:43 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 06:17:29 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ static void	testOnPtrStay(void *main, void *el_v)
 		el->rect.x -= dist;
 		el->rect.y -= dist;
 	}
+}
+
+static void	test(void *main, void *el_v)
+{
+	main = NULL;
+	t_ui_el *el = (t_ui_el *)el_v;
+	t_ui_el *text = (t_ui_el *)el->data;
+	ui_el_update_text(text, "FROM 7 ZALOOP");
 }
 
 // static void	testOnPtrLBHold(void *main, void *el_v)
@@ -245,6 +253,8 @@ int		main(int argc, char *argv[])
 
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// ui_el_text_change_text
+	// ui_el_text_update_texture
 	t_ui_el el222;
 	ui_el_init(&el222);
 	ui_el_setup_default(&el222);
@@ -254,14 +264,10 @@ int		main(int argc, char *argv[])
 	ui_el_set_abs_size(&el222, 200, 100);
 	ui_main_add_font_by_path(&m, "libui/content/Aller_Rg.ttf", 1);
 	el222.sdl_renderer = w.sdl_renderer;
-	TTF_Font* test = ui_main_get_font_by_id(&m, 1);
-	SDL_Color white = {255, 255, 255, 255};
-	el222.sdl_surface = TTF_RenderText_Solid(test, "Test test test", white); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
-	t_list *l = ft_lstnew(NULL, 0);
-	l->content = ui_el_create_texture(&el222);
-	ui_event_add_listener(&(el222.events.onRender), &ui_el_draw_event);
-	l->content_size = TID_DEFAULT;
-	ft_lstadd(&(el222.sdl_textures), l);
+	ui_el_setup_text(&m, &el222, (SDL_Color){255, 255, 255, 255}, 1);
+	ui_el_update_text(&el222, "LOOP");
+	el11.data = &el222;
+	ui_event_add_listener(&(el11.events.onPointerRightButtonPressed), &test);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 05:14:04 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 05:52:15 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,12 @@ typedef struct		s_ui_el_events
 
 # pragma endregion
 # pragma region		t_ui_el
+
+typedef struct		s_ui_text
+{
+	TTF_Font		*font;
+	SDL_Color		color;
+}					t_ui_text;
 
 typedef struct		s_ui_el
 {
@@ -383,6 +389,8 @@ void				ui_find_dynamic_elements(void *a1, void *a2);
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 size_t id, int texture_id);
 
+int					ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, int font_id);
+int					ui_el_update_text(t_ui_el *el, const char *text);
 
 # pragma endregion
 

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/23 05:10:02 by sbednar          ###   ########.fr        #
+#    Updated: 2019/05/23 05:52:30 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_default_scroll_menu_elem.c \
 					ui_el_scroll_menu.c \
 					ui_el_set_texture.c \
-					ui_el_add_texture_from_main_by_id.c
+					ui_el_add_texture_from_main_by_id.c \
+					ui_el_setup_text.c \
+					ui_el_update_text.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 

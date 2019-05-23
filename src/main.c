@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 02:08:11 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 03:43:41 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int		main(int argc, char *argv[])
 	ui_el_init(&el100);
 	ui_el_setup_default(&el100);
 	ui_event_add_listener(&(el100.events.onRender), &ui_el_draw_event);
-	ui_el_add_child(&(w.canvas), &el100);
+	ui_el_add_child(&(el111), &el100);
 	ui_el_set_abs_pos(&el100, 50, 400);
 	ui_el_set_abs_size(&el100, 150, 150);
 	el100.params |= EL_IS_DEPENDENT;
@@ -146,6 +146,7 @@ int		main(int argc, char *argv[])
 	ui_el_add_child(&(w.canvas), &el_scroll_menu);
 	ui_el_set_abs_pos(&el_scroll_menu, 500, 100);
 	ui_el_set_abs_size(&el_scroll_menu, 300, 400);
+//	el_scroll_menu.params |= EL_IS_HIDDEN;
 	ui_el_setup_default_scroll_menu(&el_scroll_menu);
 	el_scroll_menu.id = 3;
 	el_scroll_menu.sdl_renderer = w.sdl_renderer;
@@ -161,7 +162,6 @@ int		main(int argc, char *argv[])
 	el_scroll_elem1.id = 31;
 	el_scroll_elem1.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem1, "images/fractal_dick.png", TID_DEFAULT);
-	ui_el_add_child(&el_scroll_elem1, &el2);
 
 	t_ui_el el_scroll_elem2;
 	ui_el_init(&el_scroll_elem2);
@@ -173,6 +173,17 @@ int		main(int argc, char *argv[])
 	el_scroll_elem2.id = 32;
 	el_scroll_elem2.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem2, "images/fractal_dick.png", TID_DEFAULT);
+
+	t_ui_el el_button_for_scroll_elem2;
+	ui_el_init(&el_button_for_scroll_elem2);
+	ui_el_setup_default(&el_button_for_scroll_elem2);
+	ui_el_setup_default_scroll_menu_elem(&el_button_for_scroll_elem2, &el_scroll_elem2);
+	ui_event_add_listener(&(el_button_for_scroll_elem2.events.onRender), &ui_el_draw_event);
+	ui_el_set_abs_pos(&el_button_for_scroll_elem2, 550, 210);
+	ui_el_set_abs_size(&el_button_for_scroll_elem2, 100, 100);
+	el_button_for_scroll_elem2.id = 302;
+	el_button_for_scroll_elem2.sdl_renderer = w.sdl_renderer;
+	ui_el_add_texture_from_file(&el_button_for_scroll_elem2, "images/bl.png", TID_DEFAULT);
 
 	t_ui_el el_scroll_elem3;
 	ui_el_init(&el_scroll_elem3);

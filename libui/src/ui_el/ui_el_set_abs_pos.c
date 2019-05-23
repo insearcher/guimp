@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 13:35:28 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 02:05:09 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 02:44:43 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,13 @@ void	ui_el_set_abs_pos(t_ui_el *el, int x, int y)
 		return ;
 	v.x = x - el->rect.x;
 	v.y = y - el->rect.y;
-	bfs_iter_root(el, ui_el_set_abs_pos_for_children, &v);
+	if (el->params & EL_IS_DEPENDENT)
+		bfs_iter_root(el, ui_el_set_abs_pos_for_children, &v);
+	else
+	{
+		el->rect.x = x;
+		el->rect.y = y;
+		el->frect.x = (float)((float)x / (float)p->rect.w);
+		el->frect.y = (float)((float)y / (float)p->rect.h);
+	}
 }

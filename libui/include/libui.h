@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 03:45:51 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 06:16:18 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 ** 3) картинки
 ** 4) скроллбары
 ** 5) прочее гавно
+** 6) ФЛАГ ДЛЯ ОКНА, ШОБ ЗАКРЫТЬ НЕЛЬЗЯ БЫЛО
+** 7)
 */
 
 # define KNRM				"\x1B[0m"
@@ -219,6 +221,7 @@ typedef struct		s_ui_win
 	Uint32			sdl_windowID;
 	char			*title;
 	t_vec2			size;
+	t_vec2			pos; //TODO for programs init
 	t_ui_el			canvas;
 	t_ui_win_events	events;
 	Uint32			params;
@@ -371,6 +374,7 @@ void				ui_el_scroll_child_menu_up(void *a1, void *a2);
 void				ui_el_scroll_child_menu_down(void *a1, void *a2);
 
 void 				ui_el_drag(void *a1, void *a2);
+
 void				ui_el_setup_default_draggable(t_ui_el *el);
 
 void				ui_el_set_default_texture(void *a1, void *a2);

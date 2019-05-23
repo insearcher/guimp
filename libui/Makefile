@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/23 03:48:56 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/23 05:58:13 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_default_scroll_menu.c \
 					ui_el_setup_default_scroll_menu_elem.c \
 					ui_el_scroll_menu.c \
-					ui_el_set_texture.c
+					ui_el_set_texture.c \
+					ui_el_change_pos.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -117,8 +118,6 @@ SRC_UI_WIN		=	ui_win_init.c \
 
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
-
-SRC_UI_STUFF	=	ui_get_mouse_win_pos.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \

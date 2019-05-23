@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 03:45:51 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 05:57:45 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define EL_DYNAMIC_SIZE	(1 << 0)
 # define EL_IGNOR_RAYCAST	(1 << 1)
 # define EL_IS_HIDDEN		(1 << 2)
-# define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & _ON)
+# define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & ON)
 // # define EL_IS_LMB_PRESSED	(1 << 4)
 // # define EL_IS_RMB_PRESSED	(1 << 5)
 # define EL_IS_SCROLLABLE	(1 << 6)
@@ -180,6 +180,7 @@ typedef struct		s_ui_el
 	struct s_ui_el	*parent;
 	t_list			*children;
 	t_rect			rect;
+	t_rect			cut_rect;
 	t_rect			rrect;	// TODO not used
 	t_frect			frect;
 	t_ui_el_events	events;
@@ -346,6 +347,7 @@ void				ui_el_set_abs_size(t_ui_el *el, int x, int y);//need to be tested
 void				ui_el_set_rel_size(t_ui_el *el, float x, float y); //need to be tested
 void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
+void				ui_el_change_pos(t_ui_el *el, int x, int y);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 
@@ -391,11 +393,6 @@ void				ui_win_update_size(void *a1, void *a2);
 
 int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);
-
-int					ui_get_mouse_win_pos_x(t_ui_main *m);
-int					ui_get_mouse_win_pos_y(t_ui_main *m);
-int					ui_get_mouse_el_pos_x(t_ui_main *m);
-int					ui_get_mouse_el_pos_y(t_ui_main *m);
 
 # pragma GCC diagnostic pop
 

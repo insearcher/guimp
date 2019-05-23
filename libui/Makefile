@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/23 05:58:13 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/23 06:12:58 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_default_scroll_menu_elem.c \
 					ui_el_scroll_menu.c \
 					ui_el_set_texture.c \
-					ui_el_change_pos.c
+					ui_el_change_pos.c \
+					ui_el_add_texture_from_main_by_id.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -105,7 +106,8 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_add_font_by_path.c \
 					ui_main_add_surface_by_path.c \
 					ui_main_get_font_by_id.c \
-					ui_main_get_surface_by_id.c
+					ui_main_get_surface_by_id.c \
+					ui_main_fill_default_surfaces.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c

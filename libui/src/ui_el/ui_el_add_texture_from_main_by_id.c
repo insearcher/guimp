@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_set_rel_size.c                               :+:      :+:    :+:   */
+/*   ui_el_add_texture_from_main_by_id.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 13:35:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 04:19:14 by sbednar          ###   ########.fr       */
+/*   Created: 2019/05/23 05:08:46 by sbednar           #+#    #+#             */
+/*   Updated: 2019/05/23 05:15:15 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_set_rel_size(t_ui_el *el, float w, float h)
+int	ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
+size_t id, int texture_id)
 {
-	t_ui_el	*p;
+	SDL_Surface	*s;
+	SDL_Texture	*t;
+	t_list		*n;
 
-	if (!el || !(p = el->parent) || w == 0.0 || h == 0.0)
-		return ;
-	el->frect.w = w;
-	el->frect.h = h;
-	el->rect.w = (int)((float)p->rect.w * w);
-	el->rect.h = (int)((float)p->rect.h * h);
+	s = ui_main_get_surface_by_id(m, id);
+	t = ui_el_create_texture_from_surface(el, s);
+	if (!(n = ft_lstnew(NULL, 0)))
+		return (FUNCTION_FAILURE);
+	n->content_size = texture_id;
+	n->content = (void *)t;
+	ft_lstadd(&(el->sdl_textures), n);
+	return (FUNCTION_SUCCESS);
 }

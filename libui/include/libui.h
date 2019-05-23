@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 05:57:45 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 06:11:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, int sur_id);
 TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, int font_id);
 SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, int sur_id);
 
+void				ui_main_fill_default_surfaces(t_ui_main *m);
 
 t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
@@ -380,6 +381,9 @@ void				ui_el_set_focused_texture(void *a1, void *a2);
 void				ui_el_set_active_texture(void *a1, void *a2);
 
 void				ui_find_dynamic_elements(void *a1, void *a2);
+
+int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
+size_t id, int texture_id);
 
 
 # pragma endregion

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 06:58:02 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/23 12:32:56 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ static void	testOnPtrStay(void *main, void *el_v)
 		el->rect.x -= dist;
 		el->rect.y -= dist;
 	}
+}
+
+static void	test(void *main, void *el_v)
+{
+	main = NULL;
+	t_ui_el *el = (t_ui_el *)el_v;
+	t_ui_el *text = (t_ui_el *)el->data;
+	ui_el_update_text(text, "FROM 7 ZALOOP");
 }
 
 // static void	testOnPtrLBHold(void *main, void *el_v)
@@ -70,6 +78,7 @@ int		old_main(int argc, char *argv[])
 
 	t_ui_main m;
 	ui_main_init(&m);
+	ui_main_fill_default_surfaces(&m);
 
 	t_ui_win w;
 	ui_win_init(&w);
@@ -81,7 +90,8 @@ int		old_main(int argc, char *argv[])
 	ui_win_setup_default(&w);
 	ui_win_create(&w);
 	w.canvas.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_file(&(w.canvas), "images/test3.jpg", TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &(w.canvas), 9, TID_DEFAULT);
+	// ui_el_add_texture_from_file(&(w.canvas), "images/test3.jpg", TID_DEFAULT);
 	ui_el_add_empty_texture(&(w.canvas), w.canvas.rect.w, w.canvas.rect.h, TID_DRAW_TEXTURE);
 	ui_event_add_listener(&(w.canvas.events.onRender), &draw_main_canvas_event);
 	ui_event_add_listener(&(w.canvas.events.onPointerLeftButtonHold), &draw_dot);
@@ -95,34 +105,9 @@ int		old_main(int argc, char *argv[])
 	ui_el_set_abs_size(&el1, 150, 150);
 	el1.id = 10;
 	el1.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &el1, 8, TID_DEFAULT);
+	// ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el1);
-
-	t_ui_el el111;
-	ui_el_init(&el111);
-	ui_el_setup_default(&el111);
-	ui_event_add_listener(&(el111.events.onRender), &ui_el_draw_event);
-	ui_el_add_child(&(w.canvas), &el111);
-	ui_el_set_abs_pos(&el111, 50, 100);
-	ui_el_set_abs_size(&el111, 200, 200);
-	el111.id = 111;
-	el111.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_file(&el111, "images/frolushka.jpeg", TID_DEFAULT);
-	ui_el_setup_default_draggable(&el111);
-
-	t_ui_el el100;
-	ui_el_init(&el100);
-	ui_el_setup_default(&el100);
-	ui_event_add_listener(&(el100.events.onRender), &ui_el_draw_event);
-	ui_el_add_child(&(el111), &el100);
-	ui_el_set_abs_pos(&el100, 50, 400);
-	ui_el_set_abs_size(&el100, 150, 150);
-	el100.params |= EL_IS_DEPENDENT;
-	el100.id = 1000;
-//	el100.params |= EL_IGNOR_RAYCAST;
-	el100.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_file(&el100, "images/prison.jpg", TID_DEFAULT);
-	ui_el_setup_default_draggable(&el100);
 
 	t_ui_el el2;
 	ui_el_init(&el2);
@@ -242,6 +227,8 @@ int		old_main(int argc, char *argv[])
 
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// ui_el_text_change_text
+	// ui_el_text_update_texture
 	t_ui_el el222;
 	ui_el_init(&el222);
 	ui_el_setup_default(&el222);
@@ -251,14 +238,10 @@ int		old_main(int argc, char *argv[])
 	ui_el_set_abs_size(&el222, 200, 100);
 	ui_main_add_font_by_path(&m, "libui/content/Aller_Rg.ttf", 1);
 	el222.sdl_renderer = w.sdl_renderer;
-	TTF_Font* test = ui_main_get_font_by_id(&m, 1);
-	SDL_Color white = {255, 0, 0, 255};
-	el222.sdl_surface = TTF_RenderText_Solid(test, "Test test test", white); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
-	t_list *l = ft_lstnew(NULL, 0);
-	l->content = ui_el_create_texture(&el222);
-	ui_event_add_listener(&(el222.events.onRender), &ui_el_draw_event);
-	l->content_size = TID_DEFAULT;
-	ft_lstadd(&(el222.sdl_textures), l);
+	ui_el_setup_text(&m, &el222, (SDL_Color){255, 255, 255, 255}, 1);
+	ui_el_update_text(&el222, "LOOP");
+	el11.data = &el222;
+	ui_event_add_listener(&(el11.events.onPointerRightButtonPressed), &test);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -296,11 +279,13 @@ int		old_main(int argc, char *argv[])
 	return (0);
 }
 
-int		new_main()
+int		main()
 {
 	t_guimp	g_main;
 
+	/********/
 	/* INIT */
+	/********/
 	ui_sdl_init();
 	gm_init(&g_main);
 	if (!(g_main.ui_main = (t_ui_main *)malloc(sizeof(t_ui_main))))
@@ -309,8 +294,11 @@ int		new_main()
 		return (0);
 	}
 	ui_main_init(g_main.ui_main);
+	ui_main_fill_default_surfaces(g_main.ui_main);
 
+	/************/
 	/* MAIN_WIN */
+	/************/
 	if (!(g_main.main_win = (t_ui_win *)malloc(sizeof(t_ui_win))))
 	{
 		printf("main_win malloc error in struct g_main\n");
@@ -326,7 +314,7 @@ int		new_main()
 	ui_main_add_window(g_main.ui_main, g_main.main_win);
 	g_main.main_win->canvas.id = 0;
 	g_main.main_win->canvas.sdl_renderer = g_main.main_win->sdl_renderer;
-	ui_el_add_texture_from_file(&(g_main.main_win->canvas), "images/test3.jpg", TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), 9, TID_DEFAULT);
 	ui_el_add_empty_texture(
 		&(g_main.main_win->canvas),
 		g_main.main_win->canvas.rect.w,
@@ -334,8 +322,27 @@ int		new_main()
 		TID_DRAW_TEXTURE);
 	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &draw_main_canvas_event);
 	ui_event_add_listener(&(g_main.main_win->canvas.events.onPointerLeftButtonHold), &draw_dot);
+	/*MAIN ELEM*/
+	t_ui_el *tmp_el;
+	if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+	{
+		printf("main_elem malloc error in canvas in main_win\n");
+		return (0);
+	}
+	ui_el_init(tmp_el);
+	ui_el_setup_default(tmp_el);
+	ui_event_add_listener(&(tmp_el->events.onRender), &ui_el_draw_event);
+	ui_el_add_child(&(g_main.main_win->canvas), tmp_el);
+	ui_el_set_rel_pos(tmp_el, 0.05, 0.05);
+	ui_el_set_rel_size(tmp_el, 0.9, 0.9);
+	tmp_el->id = MAIN_WIN_DRAW_EL_ID;
+	tmp_el->sdl_renderer = g_main.main_win->sdl_renderer;
+	tmp_el->params |= EL_DYNAMIC_SIZE;
+	ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, 8, TID_DEFAULT);
 
+	/************/
 	/* TOOL_WIN */
+	/************/
 	if (!(g_main.tool_win = (t_ui_win *)malloc(sizeof(t_ui_win))))
 	{
 		printf("tool_win malloc error in struct g_main\n");
@@ -350,16 +357,12 @@ int		new_main()
 	ui_main_add_window(g_main.ui_main, g_main.tool_win);
 	g_main.tool_win->canvas.id = 0;
 	g_main.tool_win->canvas.sdl_renderer = g_main.tool_win->sdl_renderer;
-	ui_el_add_texture_from_file(&(g_main.tool_win->canvas), "images/test3.jpg", TID_DEFAULT);
-	// ui_el_add_empty_texture(
-	// 	&(g_main.tool_win->canvas),
-	// 	g_main.tool_win->canvas.rect.w,
-	// 	g_main.tool_win->canvas.rect.h,
-	// 	TID_DRAW_TEXTURE);
+	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.tool_win->canvas), 2, TID_DEFAULT);
 	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &draw_main_canvas_event);
-	// ui_event_add_listener(&(g_main.tool_win->canvas.events.onPointerLeftButtonHold), &draw_dot);
 
+	/*************/
 	/* LAYER_WIN */
+	/*************/
 	if (!(g_main.layer_win = (t_ui_win *)malloc(sizeof(t_ui_win))))
 	{
 		printf("layer_win malloc error in struct g_main\n");
@@ -374,16 +377,12 @@ int		new_main()
 	ui_main_add_window(g_main.ui_main, g_main.layer_win);
 	g_main.layer_win->canvas.id = 0;
 	g_main.layer_win->canvas.sdl_renderer = g_main.layer_win->sdl_renderer;
-	ui_el_add_texture_from_file(&(g_main.layer_win->canvas), "images/test3.jpg", TID_DEFAULT);
-	// ui_el_add_empty_texture(
-	// 	&(g_main.layer_win->canvas),
-	// 	g_main.layer_win->canvas.rect.w,
-	// 	g_main.layer_win->canvas.rect.h,
-	// 	TID_DRAW_TEXTURE);
+	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.layer_win->canvas), 1, TID_DEFAULT);
 	ui_event_add_listener(&(g_main.layer_win->canvas.events.onRender), &draw_main_canvas_event);
-	// ui_event_add_listener(&(g_main.layer_win->canvas.events.onPointerLeftButtonHold), &draw_dot);
 
+	/*************/
 	/* MAIN_LOOP */
+	/*************/
 	ui_main_loop(g_main.ui_main);
 	return (0);
 }

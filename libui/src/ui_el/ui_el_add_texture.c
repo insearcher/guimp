@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 04:27:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/17 16:00:09 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 05:33:37 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ static int	check_texture_id(t_list_texture *lst, int texture_id)
 	while (lst)
 	{
 		if (lst->content_size == (size_t)texture_id)
-			return (1);
+			return (FUNCTION_FAILURE);
 		lst = lst->next;
 	}
-	return (0);
+	return (FUNCTION_SUCCESS);
 }
+
+/*
+** OBSOLETE
+*/
 
 int			ui_el_add_texture_from_file(t_ui_el *el, const char *path, int texture_id)
 {
@@ -39,7 +43,7 @@ int			ui_el_add_texture_from_file(t_ui_el *el, const char *path, int texture_id)
 	tmp_lst->content_size = texture_id;
 	tmp_lst->content = (void *)tmp_texture;
 	ft_lstadd(&(el->sdl_textures), tmp_lst);
-	return(FUNCTION_SUCCESS);
+	return (FUNCTION_SUCCESS);
 }
 
 int			ui_el_add_empty_texture(t_ui_el *el, int w, int h, int texture_id)

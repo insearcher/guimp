@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_set_rel_size.c                               :+:      :+:    :+:   */
+/*   ui_el_setup_text.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 13:35:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 04:19:14 by sbednar          ###   ########.fr       */
+/*   Created: 2019/05/23 05:40:57 by sbednar           #+#    #+#             */
+/*   Updated: 2019/05/23 05:50:11 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_set_rel_size(t_ui_el *el, float w, float h)
+int	ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, int font_id)
 {
-	t_ui_el	*p;
+	t_ui_text	*t;
 
-	if (!el || !(p = el->parent) || w == 0.0 || h == 0.0)
-		return ;
-	el->frect.w = w;
-	el->frect.h = h;
-	el->rect.w = (int)((float)p->rect.w * w);
-	el->rect.h = (int)((float)p->rect.h * h);
+	if (!(t = (t_ui_text *)malloc(sizeof(t_ui_text))))
+		return (FUNCTION_FAILURE);
+	t->font = ui_main_get_font_by_id(m, font_id);
+	t->color.a = c.a;
+	t->color.b = c.b;
+	t->color.g = c.g;
+	t->color.r = c.r;
+	el->data = t;
+	return (FUNCTION_SUCCESS);
 }

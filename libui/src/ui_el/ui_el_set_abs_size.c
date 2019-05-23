@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 13:33:27 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 05:42:58 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 11:38:18 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	ui_el_set_abs_size(t_ui_el *el, int w, int h)
 {
-	t_ui_el	*p;
-
-	if (!el || !(p = el->parent) || w == 0 || h == 0)
+	if (!el)
 		return ;
 	el->rect.w = w;
 	el->rect.h = h;

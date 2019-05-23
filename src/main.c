@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 06:19:00 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 11:06:55 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,6 @@ static void	test(void *main, void *el_v)
 // 	}
 // }
 
-// static void drag_test2(void *a1, void *a2)
-// {
-// 	t_ui_el		*el;
-
-// 	(void)a2;
-// 	el = (t_ui_el *)a1;
-// 	ui_el_set_rel_pos(el, el->frect.x, el->frect.y);
-// 	// SDL_Log("%d %d\n", el->rect.x, el->rect.y);
-// 	// el->frect.x = ((float)(m->sdl_event.motion.x - el->ptr_rel_pos.x);
-// 	// el->frect.y = m->sdl_event.motion.y - el->ptr_rel_pos.y;
-// }
-
 int		main(int argc, char *argv[])
 {
 	(void)argc;
@@ -108,6 +96,7 @@ int		main(int argc, char *argv[])
 	ui_el_add_texture_from_main_by_id(&m, &el1, 8, TID_DEFAULT);
 	// ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el1);
+	ui_el_set_relative_pos_and_size(&el1);
 
 	t_ui_el el2;
 	ui_el_init(&el2);
@@ -121,6 +110,7 @@ int		main(int argc, char *argv[])
 	ui_el_add_texture_from_file(&el2, "images/test6.jpeg", TID_DEFAULT);
 	ui_event_add_listener(&(el2.events.onPointerStay), testOnPtrStay);
 	ui_el_setup_default_draggable(&el2);
+	ui_el_set_relative_pos_and_size(&el2);
 
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -136,6 +126,8 @@ int		main(int argc, char *argv[])
 	el_scroll_menu.id = 3;
 	el_scroll_menu.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_menu, "images/flower.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_menu);
+
 
 	t_ui_el el_scroll_elem1;
 	ui_el_init(&el_scroll_elem1);
@@ -147,6 +139,7 @@ int		main(int argc, char *argv[])
 	el_scroll_elem1.id = 31;
 	el_scroll_elem1.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem1, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem1);
 
 	t_ui_el el_scroll_elem2;
 	ui_el_init(&el_scroll_elem2);
@@ -158,6 +151,7 @@ int		main(int argc, char *argv[])
 	el_scroll_elem2.id = 32;
 	el_scroll_elem2.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem2, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem2);
 
 	t_ui_el el_button_for_scroll_elem2;
 	ui_el_init(&el_button_for_scroll_elem2);
@@ -169,6 +163,7 @@ int		main(int argc, char *argv[])
 	el_button_for_scroll_elem2.id = 302;
 	el_button_for_scroll_elem2.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_button_for_scroll_elem2, "images/bl.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_button_for_scroll_elem2);
 
 	t_ui_el el_scroll_elem3;
 	ui_el_init(&el_scroll_elem3);
@@ -180,6 +175,7 @@ int		main(int argc, char *argv[])
 	el_scroll_elem3.id = 33;
 	el_scroll_elem3.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem3, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem3);
 
 	t_ui_el el_scroll_elem4;
 	ui_el_init(&el_scroll_elem4);
@@ -191,6 +187,7 @@ int		main(int argc, char *argv[])
 	el_scroll_elem4.id = 34;
 	el_scroll_elem4.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem4, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem4);
 
 	t_ui_el el_scroll_elem5;
 	ui_el_init(&el_scroll_elem5);
@@ -202,6 +199,7 @@ int		main(int argc, char *argv[])
 	el_scroll_elem5.id = 35;
 	el_scroll_elem5.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem5, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem5);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	t_ui_el el11;
@@ -224,6 +222,7 @@ int		main(int argc, char *argv[])
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonPressed), &ui_el_set_active_texture);
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonReleased), &ui_el_set_focused_texture);
 	// ui_event_add_listener(&(el11.events.onPointerLeftButtonHold), &testOnPtrLBHold);
+	ui_el_set_relative_pos_and_size(&el11);
 
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -242,6 +241,7 @@ int		main(int argc, char *argv[])
 	ui_el_update_text(&el222, "LOOP");
 	el11.data = &el222;
 	ui_event_add_listener(&(el11.events.onPointerRightButtonPressed), &test);
+	ui_el_set_relative_pos_and_size(&el222);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

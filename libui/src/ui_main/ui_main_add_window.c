@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_add_window.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 22:02:32 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/15 09:05:07 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/23 05:29:39 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	ui_main_add_window(t_ui_main *m, t_ui_win *w)
 {
 	t_list	*node;
 
-	// if (!(node = ft_lstnew((void *)w, sizeof(t_ui_win))))
-	// 	return (FUNCTION_FAILURE);
 	if (!(node = ft_lstnew(NULL, 0)))
 		return (FUNCTION_FAILURE);
 	node->content = (void *)w;

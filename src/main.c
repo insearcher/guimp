@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 05:50:04 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/23 06:13:46 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		main(int argc, char *argv[])
 
 	t_ui_main m;
 	ui_main_init(&m);
+	ui_main_fill_default_surfaces(&m);
 
 	t_ui_win w;
 	ui_win_init(&w);
@@ -81,7 +82,8 @@ int		main(int argc, char *argv[])
 	ui_win_setup_default(&w);
 	ui_win_create(&w);
 	w.canvas.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_file(&(w.canvas), "images/test3.jpg", TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &(w.canvas), 9, TID_DEFAULT);
+	// ui_el_add_texture_from_file(&(w.canvas), "images/test3.jpg", TID_DEFAULT);
 	ui_el_add_empty_texture(&(w.canvas), w.canvas.rect.w, w.canvas.rect.h, TID_DRAW_TEXTURE);
 	ui_event_add_listener(&(w.canvas.events.onRender), &draw_main_canvas_event);
 	ui_event_add_listener(&(w.canvas.events.onPointerLeftButtonHold), &draw_dot);
@@ -95,7 +97,8 @@ int		main(int argc, char *argv[])
 	ui_el_set_abs_size(&el1, 150, 150);
 	el1.id = 10;
 	el1.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &el1, 8, TID_DEFAULT);
+	// ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el1);
 
 	t_ui_el el2;
@@ -226,7 +229,7 @@ int		main(int argc, char *argv[])
 	ui_main_add_font_by_path(&m, "libui/content/Aller_Rg.ttf", 1);
 	el222.sdl_renderer = w.sdl_renderer;
 	TTF_Font* test = ui_main_get_font_by_id(&m, 1);
-	SDL_Color white = {255, 0, 0, 255};
+	SDL_Color white = {255, 255, 255, 255};
 	el222.sdl_surface = TTF_RenderText_Solid(test, "Test test test", white); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
 	t_list *l = ft_lstnew(NULL, 0);
 	l->content = ui_el_create_texture(&el222);

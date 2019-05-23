@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/23 05:57:25 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/05/23 09:42:34 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ LIB_DIR			=	./lib
 SRC				=	main.c \
 					draw_func.c \
 					draw_main_canvas_event.c \
-					gm_init.c
+					gm_init.c \
+					gm_generate_surfaces_id.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

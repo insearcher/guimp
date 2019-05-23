@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 06:16:18 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/23 12:31:41 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # define EL_DYNAMIC_SIZE	(1 << 0)
 # define EL_IGNOR_RAYCAST	(1 << 1)
 # define EL_IS_HIDDEN		(1 << 2)
-# define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & _ON)
+# define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & ON)
 // # define EL_IS_LMB_PRESSED	(1 << 4)
 // # define EL_IS_RMB_PRESSED	(1 << 5)
 # define EL_IS_SCROLLABLE	(1 << 6)
@@ -173,6 +173,12 @@ typedef struct		s_ui_el_events
 # pragma endregion
 # pragma region		t_ui_el
 
+typedef struct		s_ui_text
+{
+	TTF_Font		*font;
+	SDL_Color		color;
+}					t_ui_text;
+
 typedef struct		s_ui_el
 {
 	SDL_Surface		*sdl_surface;
@@ -182,6 +188,7 @@ typedef struct		s_ui_el
 	struct s_ui_el	*parent;
 	t_list			*children;
 	t_rect			rect;
+	t_rect			cut_rect;
 	t_rect			rrect;	// TODO not used
 	t_frect			frect;
 	t_ui_el_events	events;
@@ -264,6 +271,7 @@ int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, int sur_id);
 TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, int font_id);
 SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, int sur_id);
 
+void				ui_main_fill_default_surfaces(t_ui_main *m);
 
 t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
@@ -345,10 +353,12 @@ void				ui_el_draw_event(void *el_v, void *arg);
 
 void				ui_el_init(t_ui_el *el);
 void				ui_el_setup_default(t_ui_el *el);
-void				ui_el_set_abs_size(t_ui_el *el, int x, int y);//need to be tested
-void				ui_el_set_rel_size(t_ui_el *el, float x, float y); //need to be tested
-void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
+void				ui_el_set_abs_size(t_ui_el *el, int x, int y);
+void				ui_el_set_rel_size(t_ui_el *el, float x, float y);
+void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);
+void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
+void				ui_el_change_pos(t_ui_el *el, int x, int y);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 
@@ -383,6 +393,11 @@ void				ui_el_set_active_texture(void *a1, void *a2);
 
 void				ui_find_dynamic_elements(void *a1, void *a2);
 
+int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
+size_t id, int texture_id);
+
+int					ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, int font_id);
+int					ui_el_update_text(t_ui_el *el, const char *text);
 
 # pragma endregion
 
@@ -395,11 +410,6 @@ void				ui_win_update_size(void *a1, void *a2);
 
 int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);
-
-int					ui_get_mouse_win_pos_x(t_ui_main *m);
-int					ui_get_mouse_win_pos_y(t_ui_main *m);
-int					ui_get_mouse_el_pos_x(t_ui_main *m);
-int					ui_get_mouse_el_pos_y(t_ui_main *m);
 
 # pragma GCC diagnostic pop
 

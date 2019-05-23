@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_main_add_window.c                               :+:      :+:    :+:   */
+/*   ui_el_update_text.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/30 22:02:32 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 05:29:39 by sbednar          ###   ########.fr       */
+/*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
+/*   Updated: 2019/05/23 06:05:11 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_main_add_window(t_ui_main *m, t_ui_win *w)
+int	ui_el_update_text(t_ui_el *el, const char *text)
 {
-	t_list	*node;
+	t_ui_text	*td;
+	t_list		*n;
 
-	if (!(node = ft_lstnew(NULL, 0)))
+	td = (t_ui_text *)el->data;
+	if (!(el->sdl_surface = TTF_RenderText_Solid(td->font, text, td->color)) ||
+		!(n = ft_lstnew(NULL, 0)))
 		return (FUNCTION_FAILURE);
-	node->content = (void *)w;
-	if (m->windows == NULL)
-		m->windows = node;
-	else
-		ft_lstadd(&(m->windows), node);
+	n->content = ui_el_create_texture(el);
+	n->content_size = TID_DEFAULT;
+	if (el->sdl_textures)
+	{
+		SDL_DestroyTexture((SDL_Texture *)el->sdl_textures->content);
+		free(el->sdl_textures);
+	}
+	ft_lstadd(&(el->sdl_textures), n);
 	return (FUNCTION_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 20:15:41 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 20:15:55 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 05:39:19 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void 	ui_el_drag(void *a1, void *a2)
 		x + el->rect.w > el->parent->rect.x + el->parent->rect.w ||
 		y + el->rect.h > el->parent->rect.y + el->parent->rect.h)
 		return ;
-	ui_el_set_abs_pos(el, x, y);
+	ui_el_change_pos(el, x, y);
 }

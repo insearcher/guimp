@@ -6,11 +6,25 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:45:47 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 01:25:04 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/23 05:56:08 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
+
+static int	ui_get_mouse_el_pos_x(t_ui_main *m)
+{
+	if (m->raycaster.selected == NULL)
+		return (-1);
+	return (m->ptr_pos.x - m->raycaster.selected->rect.x);
+}
+
+static int	ui_get_mouse_el_pos_y(t_ui_main *m)
+{
+	if (m->raycaster.selected == NULL)
+		return (-1);
+	return (m->ptr_pos.y - m->raycaster.selected->rect.y);
+}
 
 void	ui_main_handle_continious_event(t_ui_main *m, t_ui_el *el)
 {

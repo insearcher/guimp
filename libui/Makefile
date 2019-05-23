@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/23 03:48:56 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/23 12:31:10 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_set_abs_size.c \
 					ui_el_set_rel_size.c \
 					ui_el_set_abs_pos.c \
+					ui_el_set_rel_pos.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
 					ui_el_setup_default.c \
@@ -47,7 +48,11 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_default_scroll_menu.c \
 					ui_el_setup_default_scroll_menu_elem.c \
 					ui_el_scroll_menu.c \
-					ui_el_set_texture.c
+					ui_el_set_texture.c \
+					ui_el_setup_text.c \
+					ui_el_update_text.c \
+					ui_el_change_pos.c \
+					ui_el_add_texture_from_main_by_id.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -104,7 +109,8 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_add_font_by_path.c \
 					ui_main_add_surface_by_path.c \
 					ui_main_get_font_by_id.c \
-					ui_main_get_surface_by_id.c
+					ui_main_get_surface_by_id.c \
+					ui_main_fill_default_surfaces.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c
@@ -117,8 +123,6 @@ SRC_UI_WIN		=	ui_win_init.c \
 
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
-
-SRC_UI_STUFF	=	ui_get_mouse_win_pos.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \

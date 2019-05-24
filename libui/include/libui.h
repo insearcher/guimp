@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 11:06:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/24 16:43:21 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,12 @@
 //button status
 # define BUTTON_OFF			0 // TODO: remove
 # define BUTTON_ON			1 // TODO: remove
+
+//for set pos and size
+# define POS_ABS			(1 << 0)
+# define POS_PIXEL			(1 << 1)
+# define SIZE_ABS			(1 << 2)
+# define SIZE_PIXEL			(1 << 3)
 
 typedef	void		(*func_ptr)(void *, void *);
 typedef	int			(*pred_ptr)(void *, void *);
@@ -191,7 +197,7 @@ typedef struct		s_ui_el
 	t_ui_el_events	events;
 	Uint32			id;
 	Uint32			params; // <- put there next parameters
-	t_vec2			ptr_rel_pos;
+	t_vec2			ptr_rel_pos; // TODO it's mouse pos
 	void			*data;
 }					t_ui_el;
 
@@ -349,11 +355,10 @@ void				ui_el_draw_event(void *el_v, void *arg);
 
 void				ui_el_init(t_ui_el *el);
 void				ui_el_setup_default(t_ui_el *el);
-void				ui_el_set_abs_size(t_ui_el *el, int x, int y);//need to be tested
-void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);//need to be tested
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
+void				ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_change_pos(t_ui_el *el, int x, int y);
-void				ui_el_set_relative_pos_and_size(t_ui_el *el);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:04:46 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 11:27:57 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/24 17:13:34 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static void	find_new_size(void *a1, void *a2)
 
 	if (!(el->params & EL_DYNAMIC_SIZE))
 		return ;
-	el->rect.x = el->parent->rect.w * el->relative_rect.x;
-	el->rect.y = el->parent->rect.h * el->relative_rect.y;
-	el->rect.w = el->parent->rect.w * el->relative_rect.w;
-	el->rect.h = el->parent->rect.h * el->relative_rect.h;
+	el->rect.x = (float)el->parent->rect.w * el->relative_rect.x;
+	el->rect.y = (float)el->parent->rect.h * el->relative_rect.y;
+	el->rect.w = (float)el->parent->rect.w * el->relative_rect.w;
+	el->rect.h = (float)el->parent->rect.h * el->relative_rect.h;
 	el->cut_rect = el->rect;
 }
 

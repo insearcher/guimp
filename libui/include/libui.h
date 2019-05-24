@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/24 16:43:21 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/24 19:32:05 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@
 # define FUNCTION_FAILURE	1
 
 //texture id`s
-# define TID_DEFAULT		0
-# define TID_ONFOCUSED		1
-# define TID_ONACTIVE		2
+// # define TID_DEFAULT		0
+// # define TID_ONFOCUSED		1
+// # define TID_ONACTIVE		2
 
 //button status
 # define BUTTON_OFF			0 // TODO: remove
@@ -268,10 +268,10 @@ void				ui_main_init(t_ui_main *m);
 void				ui_main_loop(t_ui_main *m);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
 
-int					ui_main_add_font_by_path(t_ui_main *m, const char *path, int font_id);
-int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, int sur_id);
-TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, int font_id);
-SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, int sur_id);
+int					ui_main_add_font_by_path(t_ui_main *m, const char *path, const char *font_id);
+int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, const char *sur_id);
+TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, const char *font_id);
+SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, const char *sur_id);
 
 void				ui_main_fill_default_surfaces(t_ui_main *m);
 
@@ -366,12 +366,12 @@ SDL_Texture			*ui_el_create_texture(t_ui_el *el);
 SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el, SDL_Surface *sur);
 
 int					ui_el_add_texture_from_file(t_ui_el *el,
-						const char *path, int texture_id);
+						const char *path, const char *texture_id);
 int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
-						int texture_id);
+						const char *texture_id);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
-SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, int id);
-int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
+SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, const char *id);
+int					ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id);
 
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
@@ -393,9 +393,9 @@ void				ui_el_set_active_texture(void *a1, void *a2);
 void				ui_find_dynamic_elements(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
-size_t id, int texture_id);
+const char *id, const char *texture_id);
 
-int					ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, int font_id);
+int					ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
 int					ui_el_update_text(t_ui_el *el, const char *text);
 
 # pragma endregion

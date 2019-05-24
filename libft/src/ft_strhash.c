@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_get_current_texture.c                        :+:      :+:    :+:   */
+/*   ft_strhash.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 05:05:14 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/24 19:36:54 by sbednar          ###   ########.fr       */
+/*   Created: 2019/05/24 18:51:06 by sbednar           #+#    #+#             */
+/*   Updated: 2019/05/24 18:55:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui.h"
+#include "libft.h"
 
-SDL_Texture	*ui_el_get_current_texture(t_ui_el *el)
+int	ft_strhash(const char *str)
 {
-	t_list_texture	*tmp;
+	int	res;
+	int	p;
+	int	i;
 
-	tmp = el->sdl_textures;
-	if (tmp == NULL)
-		return (NULL);
-	while (tmp)
+	res = 0;
+	p = 1;
+	i = -1;
+	while (str[++i])
 	{
-		if (tmp->content_size == el->current_texture)
-			return(CAST_X_TO_Y(tmp->content, SDL_Texture *));
-		tmp = tmp->next;
+		res = (res + (str[i] - 'a') * p) % HASH_P;
+		p = (p * HASH_P) % HASH_M;
 	}
-	return (NULL);
+	return (res);
 }

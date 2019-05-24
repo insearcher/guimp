@@ -6,14 +6,14 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:08:46 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 05:15:15 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/24 19:02:19 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
 int	ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
-size_t id, int texture_id)
+const char *id, const char *texture_id)
 {
 	SDL_Surface	*s;
 	SDL_Texture	*t;
@@ -23,7 +23,7 @@ size_t id, int texture_id)
 	t = ui_el_create_texture_from_surface(el, s);
 	if (!(n = ft_lstnew(NULL, 0)))
 		return (FUNCTION_FAILURE);
-	n->content_size = texture_id;
+	n->content_size = ft_strhash(texture_id);
 	n->content = (void *)t;
 	ft_lstadd(&(el->sdl_textures), n);
 	return (FUNCTION_SUCCESS);

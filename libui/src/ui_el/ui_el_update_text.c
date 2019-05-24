@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 06:05:11 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/24 19:26:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 		!(n = ft_lstnew(NULL, 0)))
 		return (FUNCTION_FAILURE);
 	n->content = ui_el_create_texture(el);
-	n->content_size = TID_DEFAULT;
+	n->content_size = ft_strhash("default");
 	if (el->sdl_textures)
 	{
 		SDL_DestroyTexture((SDL_Texture *)el->sdl_textures->content);

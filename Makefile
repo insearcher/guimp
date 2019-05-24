@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/19 22:20:18 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/24 16:41:26 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_DIR			=	./src
 OBJ_DIR			=	./obj
 LIB_DIR			=	./lib
 
-SRC				=	main.c \
+SRC				=	tmp_main.c \
 					draw_func.c \
 					draw_main_canvas_event.c
 

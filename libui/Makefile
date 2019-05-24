@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/23 10:01:39 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/24 16:30:13 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,6 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_create_texture.c \
 					ui_el_create_texture_from_surface.c \
 					ui_el_get_current_texture.c \
-					ui_el_set_abs_size.c \
-					ui_el_set_abs_pos.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
 					ui_el_setup_default.c \
@@ -51,7 +49,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_update_text.c \
 					ui_el_change_pos.c \
 					ui_el_add_texture_from_main_by_id.c \
-					ui_el_set_relative_pos_and_size.c
+					ui_el_set_pos.c \
+					ui_el_set_size.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 

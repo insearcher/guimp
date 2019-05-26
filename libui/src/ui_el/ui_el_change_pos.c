@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:28:15 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/23 05:35:17 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/26 06:53:24 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ static void	ui_el_change_pos_for_children(void *a1, void *a2)
 	d = (t_vec2 *)a2;
 	el->rect.x += d->x;
 	el->rect.y += d->y;
+	el->relative_rect.x = (float)el->rect.x / (float)el->parent->rect.w;
+	el->relative_rect.y = (float)el->rect.x / (float)el->parent->rect.h;
+	el->cut_rect.x = el->rect.x;
+	el->cut_rect.y = el->rect.y;
 }
 
 void    ui_el_change_pos(t_ui_el *el, int x, int y)

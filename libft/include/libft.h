@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 23:51:41 by sbednar           #+#    #+#             */
-/*   Updated: 2018/12/13 02:15:15 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/24 18:53:35 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # include <string.h>
 # include <unistd.h>
 
-# define BUFF_SIZE 32
+# define BUFF_SIZE	32
+
+# define HASH_P		31
+# define HASH_M		1000000009
 
 typedef struct		s_list
 {
@@ -101,6 +104,8 @@ size_t				ft_wordscnt(const char *str, char c);
 char				**ft_strsfree(char **src);
 void				ft_lstdels(t_list **alst);
 void				ft_lstdelones(t_list **alst);
+
+int					ft_strhash(const char *str);
 
 int					get_next_line(int const fd, char **line);
 

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_main_get_font_by_id.c                           :+:      :+:    :+:   */
+/*   ft_strhash.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 20:18:46 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/24 19:00:13 by sbednar          ###   ########.fr       */
+/*   Created: 2019/05/24 18:51:06 by sbednar           #+#    #+#             */
+/*   Updated: 2019/05/24 19:47:25 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui.h"
+#include "libft.h"
+#include <stdio.h>
 
-TTF_Font	*ui_main_get_font_by_id(t_ui_main *m, const char *font_id)
+int	ft_strhash(const char *str)
 {
-	TTF_Font	*res;
-	t_list		*tmp;
-	int			hash;
+	int	res;
+	int	p;
+	int	i;
 
-	res = NULL;
-	tmp = m->sdl_fonts;
-	hash = ft_strhash(font_id);
-	while (tmp && !res)
+	res = 0;
+	p = 1;
+	i = -1;
+	while (str[++i])
 	{
-		if (tmp->content_size == (size_t)hash)
-			res = (TTF_Font *)tmp->content;
-		tmp = tmp->next;
+		res = (res + (str[i] - 'a') * p) % HASH_M;
+		p = (p * HASH_P) % HASH_M;
 	}
 	return (res);
 }

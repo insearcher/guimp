@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/24 16:30:13 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/26 15:21:09 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,6 +122,8 @@ SRC_UI_WIN		=	ui_win_init.c \
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
 
+SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c
+
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
@@ -132,7 +134,7 @@ OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_SDL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_WIN:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_RAYCAST:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_UI_STUFF:.c=.o))
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_PREFAB:.c=.o))
 
 INCS		=		-I$(INC_DIR) \
 					-I$(INC_FT) \
@@ -191,7 +193,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_win/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_stuff/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_prefab/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

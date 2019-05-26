@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/24 19:32:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/26 15:25:12 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,19 @@ typedef struct		s_ui_main
 	t_list			*sdl_fonts;
 }					t_ui_main;
 
+typedef struct		s_scroll_m_pref
+{
+	int				type_pos;
+	t_fvec2			begin_pos;
+	int				type_size;
+	t_fvec2			size;
+	int				indent;
+	int				params;
+	int				begin_id;
+	SDL_Renderer	*sdl_renderer;
+	char			*texture;
+}					t_scroll_m_pref;
+
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_init(t_ui_main *m);
@@ -332,9 +345,9 @@ void				q_push(QUEUE **q, t_list *el);
 void				*q_pop(QUEUE **q);
 
 void				bfs_iter(const t_list *root, const func_ptr f,
-						const void *arg);
+		const void *arg);
 void				bfs_iter_root(const t_ui_el *root, const func_ptr f,
-						const void *arg);
+		const void *arg);
 void				*bfs(t_ui_main *m, const t_list *root, pred_ptr p);
 t_ui_el				*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p);
 
@@ -366,9 +379,9 @@ SDL_Texture			*ui_el_create_texture(t_ui_el *el);
 SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el, SDL_Surface *sur);
 
 int					ui_el_add_texture_from_file(t_ui_el *el,
-						const char *path, const char *texture_id);
+		const char *path, const char *texture_id);
 int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
-						const char *texture_id);
+		const char *texture_id);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
 SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, const char *id);
 int					ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id);
@@ -393,7 +406,7 @@ void				ui_el_set_active_texture(void *a1, void *a2);
 void				ui_find_dynamic_elements(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
-const char *id, const char *texture_id);
+		const char *id, const char *texture_id);
 
 int					ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
 int					ui_el_update_text(t_ui_el *el, const char *text);
@@ -411,5 +424,8 @@ int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);
 
 # pragma GCC diagnostic pop
+
+void				ui_prefab_scroll_menu(t_ui_main *m, t_ui_el *canvas,
+		t_ui_el *scroll_menu, t_scroll_m_pref *scroll_data);
 
 #endif

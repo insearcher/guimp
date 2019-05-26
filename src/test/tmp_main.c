@@ -6,11 +6,11 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:36:15 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/26 08:31:37 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/26 13:01:23 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "guimp.h"
+#include "guimp_test.h"
 
 int main()
 {

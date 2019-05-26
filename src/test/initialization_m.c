@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   guimp.h                                            :+:      :+:    :+:   */
+/*   initialization_m.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/26 12:55:54 by sbecker          ###   ########.fr       */
+/*   Created: 2019/05/24 07:33:51 by sbecker           #+#    #+#             */
+/*   Updated: 2019/05/26 15:47:58 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GUIMP_H
-# define GUIMP_H
+#include "guimp_test.h"
 
-# include "libft.h"
-# include "libui.h"
+void	initialization_main_and_default_surfaces(t_guimp *guimp)
+{
+	t_ui_main	m;
 
-# define TID_DRAW_TEXTURE		3
-
-void							draw_dot(void *ui_main, void *ui_el);
-void							draw_main_canvas_event(void *el_v, void *arg);
-
-#endif
+	ui_main_init(&m);
+	ui_main_fill_default_surfaces(&m);
+	guimp->m = m;
+}

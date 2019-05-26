@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/03/12 05:22:36 by sbednar          ###   ########.fr        #
+#    Updated: 2019/05/24 18:55:43 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ SRC		= 	ft_memset.c \
 			ft_strsfree.c \
 			ft_lstdels.c \
 			ft_lstdelones.c \
+			ft_strhash.c \
 			get_next_line.c
 OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

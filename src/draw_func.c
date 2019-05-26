@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:01:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/22 10:53:58 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/24 19:36:12 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_dot(void *ui_main, void *ui_el)
 	m = (t_ui_main *)ui_main;
 	el = (t_ui_el *)ui_el;
 	//SDL_SetRenderDrawColor(el->sdl_renderer, 255, 0, 0, 255);
-	SDL_SetRenderTarget(el->sdl_renderer, ui_el_get_texture_by_id(el, TID_DRAW_TEXTURE));
+	SDL_SetRenderTarget(el->sdl_renderer, ui_el_get_texture_by_id(el, "draw_texture"));
 	SDL_RenderDrawPoint(el->sdl_renderer, m->sdl_event.motion.x, m->sdl_event.motion.y);
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
 	// printf("done\n");

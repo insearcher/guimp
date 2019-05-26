@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tmp_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:36:15 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/24 17:10:35 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/24 19:38:47 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int main()
 	ui_win_setup_default(&w);
 	ui_win_create(&w);
 	w.canvas.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_main_by_id(&m, &(w.canvas), 9, TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &(w.canvas), "test3", "default");
 	// ui_el_add_texture_from_file(&(w.canvas), "images/test3.jpg", TID_DEFAULT);
-	ui_el_add_empty_texture(&(w.canvas), w.canvas.rect.w, w.canvas.rect.h, TID_DRAW_TEXTURE);
+	ui_el_add_empty_texture(&(w.canvas), w.canvas.rect.w, w.canvas.rect.h, "draw_texture");
 	ui_event_add_listener(&(w.canvas.events.onRender), &draw_main_canvas_event);
 	ui_event_add_listener(&(w.canvas.events.onPointerLeftButtonHold), &draw_dot);
 	w.canvas.id = 0;
@@ -41,7 +41,7 @@ int main()
 	ui_el_set_pos(&el1, &(w.canvas), POS_ABS | POS_PIXEL, (t_fvec2){0, 0});
 	ui_el_set_size(&el1, &(w.canvas), SIZE_PIXEL, (t_fvec2){100, 100});
 	el1.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_main_by_id(&m, &el1, 8, TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &el1, "test2", "default");
 	// ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el1);
 
@@ -52,7 +52,7 @@ int main()
 	ui_el_set_pos(&el2, &(w.canvas), POS_ABS, (t_fvec2){0.2, 0});
 	ui_el_set_size(&el2, &(w.canvas), SIZE_PIXEL, (t_fvec2){100, 100});
 	el2.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_main_by_id(&m, &el2, 7, TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &el2, "test2", "default");
 	// ui_el_add_texture_from_file(&el2, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el2);
 
@@ -63,7 +63,7 @@ int main()
 	ui_el_set_pos(&el3, &(w.canvas), 0, (t_fvec2){0.5, 0.5});
 	ui_el_set_size(&el3, &(w.canvas), 0, (t_fvec2){0.5, 0.5});
 	el3.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_main_by_id(&m, &el3, 8, TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &el3, "test2", "default");
 	// ui_el_add_texture_from_file(&el3, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el3);
 
@@ -74,7 +74,7 @@ int main()
 	ui_el_set_pos(&el4, &(w.canvas), POS_PIXEL, (t_fvec2){50, 0});
 	ui_el_set_size(&el4, &(w.canvas), 0, (t_fvec2){0.5, 0.5});
 	el4.sdl_renderer = w.sdl_renderer;
-	ui_el_add_texture_from_main_by_id(&m, &el4, 8, TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(&m, &el4, "test2", "default");
 	// ui_el_add_texture_from_file(&el4, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el4);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   guimp.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/24 13:06:33 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/26 06:50:20 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "libui.h"
 
+<<<<<<< HEAD
 # define TID_DRAW_TEXTURE		3
 
 typedef struct	s_scroll_prefab

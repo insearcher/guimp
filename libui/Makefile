@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/26 15:21:09 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/27 10:20:46 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,9 @@ SRC_UI_WIN		=	ui_win_init.c \
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
 
-SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c
+SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c \
+					ui_prefab_get_relative_pos.c \
+					ui_prefab_get_relative_size.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \

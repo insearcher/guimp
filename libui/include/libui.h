@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/26 15:25:12 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/27 10:22:06 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,8 @@ typedef struct		s_scroll_m_pref
 	t_fvec2			begin_pos;
 	int				type_size;
 	t_fvec2			size;
-	int				indent;
+	int				type_indent;
+	t_fvec2			indent;
 	int				params;
 	int				begin_id;
 	SDL_Renderer	*sdl_renderer;
@@ -427,5 +428,9 @@ void				ui_sdl_deinit(int exit_status);
 
 void				ui_prefab_scroll_menu(t_ui_main *m, t_ui_el *canvas,
 		t_ui_el *scroll_menu, t_scroll_m_pref *scroll_data);
+void				ui_prefab_get_relative_pos(t_ui_el *p, t_ui_el *canvas,
+		int type, t_fvec2 *pos);
+void				ui_prefab_get_relative_size(t_ui_el *p, t_ui_el *canvas,
+		int type, t_fvec2 *size);
 
 #endif

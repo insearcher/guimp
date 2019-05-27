@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 01:38:28 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/27 11:09:17 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/05/27 14:51:53 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ui_el_scroll_menu_down(void *a1, void *a2)
 
 	main = (t_ui_main *)a1;
 	el_menu = (t_ui_el *)a2;
+	if (el_menu->children == 0)
+		return ;
 	higher_el = (t_ui_el *)el_menu->children->content;
 	if (higher_el->rect.y >= el_menu->rect.y)
 		return ;
@@ -65,6 +67,8 @@ void	ui_el_scroll_menu_up(void *a1, void *a2)
 
 	main = (t_ui_main*)a1;
 	el_menu = (t_ui_el*)a2;
+	if (el_menu->children == 0)
+		return ;
 	list = el_menu->children;
 	while (list->next)
 		list = list->next;

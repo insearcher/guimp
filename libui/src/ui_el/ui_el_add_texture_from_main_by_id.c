@@ -6,14 +6,14 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:08:46 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/24 19:48:46 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/27 14:42:15 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
 int	ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
-const char *id, const char *texture_id)
+		const char *id, const char *texture_id)
 {
 	SDL_Surface	*s;
 	SDL_Texture	*t;

@@ -1,0 +1,47 @@
+
+void    ui_prefab_scroll_menu(t_ui_main *m, t_ui_el *canvas, t_ui_el *scroll_menu, t_scroll_m_pref *scroll_data);
+
+принимает в себя мейн, канвас, элемент скролл менюшки (для которой будут задаваться элементы), и структура данных, с помощью которой элементы будут заполняться.
+
+пример вызова префаба:
+{
+ui_el_setup_default_scroll_menu_elem(&scroll_menu_el1, &scroll_menu);
+ui_el_setup_default_scroll_menu_elem(&scroll_menu_el2, &scroll_menu);
+ui_el_setup_default_scroll_menu_elem(&scroll_menu_el3, &scroll_menu);
+ui_el_setup_default_scroll_menu_elem(&scroll_menu_el4, &scroll_menu);
+ui_el_setup_default_scroll_menu_elem(&scroll_menu_el5, &scroll_menu);
+ui_el_setup_default_scroll_menu_elem(&scroll_menu_el6, &scroll_menu);
+ui_el_setup_default_scroll_menu_elem(&scroll_menu_el7, &scroll_menu);
+ui_el_setup_default_scroll_menu_elem(&scroll_menu_el8, &scroll_menu);
+scroll_data.type_pos = 0;
+scroll_data.begin_pos = (t_fvec2){0.1, 0};
+scroll_data.type_size = 0;
+scroll_data.size = (t_fvec2){0.8, 0.2};
+scroll_data.type_indent = SIZE_PIXEL;
+scroll_data.indent = (t_fvec2){0, 2};
+scroll_data.params = 0;
+scroll_data.begin_id = scroll_menu->id * 1000;
+scroll_data.sdl_renderer = guimp->w1.sdl_renderer;
+scroll_data.texture = ft_strdup("fractal_dick");
+ui_prefab_scroll_menu(&guimp->m, 0, scroll_menu, &scroll_data);
+}
+
+сначала, каждый элемент скролл меню получает базовый набор функций и становится дочерним для scroll_menu.
+
+после заполняется структура, с помощью которой будет создан префаб:
+scroll_data.type_pos - принимает в себя флаги POS_ABS, POS_PIXEL, можно задать позицию также вариативно, как и с помощью функции ui_el_set_pos.
+scroll_data.begin_pos - позиция самого первого (верхнего) элемента, все остальные элементы будут ставится ниже него, (флаг type_pos относится к нему).
+scroll_data.type_size - флаги SIZE_ABS и SIZE_PIXEL.
+scroll_data.size - размер каждого элемента в скролл меню (флаг type_size относится к нему).
+scroll_data.type_indent - флаги SIZE_ABS и SIZE_PIXEL
+scroll_data.indent - отступ между элементами.
+scroll_data.params - общие параметры, которые можно добавить каждому элементу.
+scroll_data.begin_id - id самого первого элемента (каждый последующий элемент будет повышать id на 1).
+scroll_data.sdl_renderer - общий рендерер.
+scroll_data.texture - общая текстура.
+
+функция переведет все размеры и позиции заданные в структуре в проценты от родителя (для удобства);
+пройдется по всем дочерним элементам скролл меню (они задаются заранее, как на примере выше);
+присвоит каждому элементу позицию и размер, каждый раз увеличивыя позицию на высоту элемента плюс отступ;
+присвоит айди, каждый раз увеличивая его;
+и присвоит все остальные параметры из структуры scroll_data.

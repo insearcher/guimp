@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/26 17:26:51 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/27 07:47:25 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -158,7 +158,7 @@ compile_test: $(OBJ_TEST)
 		fi;
 
 build_test:
-	$(CC) $(CFLAGS) $(OBJ_TEST) $(INCS) $(LIBS) $(FRAMEWORKS) #-fsanitize=address -o $(NAME_TEST)
+	$(CC) $(CFLAGS) $(OBJ_TEST) $(INCS) $(LIBS) $(FRAMEWORKS) -fsanitize=address -o $(NAME_TEST)
 
 $(OBJ_DIR_TEST):
 	@mkdir $(OBJ_DIR_TEST)

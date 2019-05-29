@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 16:12:29 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/29 18:30:40 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,19 @@
 # define FUNCTION_FAILURE	1
 
 //texture id`s
-# define TID_DEFAULT		0
-# define TID_ONFOCUSED		1
-# define TID_ONACTIVE		2
+// # define TID_DEFAULT		0
+// # define TID_ONFOCUSED		1
+// # define TID_ONACTIVE		2
 
 //button status
 # define BUTTON_OFF			0 // TODO: remove
 # define BUTTON_ON			1 // TODO: remove
+
+//for set pos and size
+# define POS_ABS			(1 << 0)
+# define POS_PIXEL			(1 << 1)
+# define SIZE_ABS			(1 << 2)
+# define SIZE_PIXEL			(1 << 3)
 
 typedef	void		(*func_ptr)(void *, void *);
 typedef	int			(*pred_ptr)(void *, void *);
@@ -193,7 +199,7 @@ typedef struct		s_ui_el
 	t_ui_el_events	events;
 	Uint32			id;
 	Uint32			params; // <- put there next parameters
-	t_vec2			ptr_rel_pos;
+	t_vec2			ptr_rel_pos; // TODO it's mouse pos
 	void			*data;
 }					t_ui_el;
 
@@ -260,16 +266,30 @@ typedef struct		s_ui_main
 	void			*data;
 }					t_ui_main;
 
+typedef struct		s_scroll_m_pref
+{
+	int				type_pos;
+	t_fvec2			begin_pos;
+	int				type_size;
+	t_fvec2			size;
+	int				type_indent;
+	t_fvec2			indent;
+	int				params;
+	int				begin_id;
+	SDL_Renderer	*sdl_renderer;
+	char			*texture;
+}					t_scroll_m_pref;
+
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_init(t_ui_main *m);
 void				ui_main_loop(t_ui_main *m);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
 
-int					ui_main_add_font_by_path(t_ui_main *m, const char *path, int font_id);
-int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, int sur_id);
-TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, int font_id);
-SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, int sur_id);
+int					ui_main_add_font_by_path(t_ui_main *m, const char *path, const char *font_id);
+int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, const char *sur_id);
+TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, const char *font_id);
+SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, const char *sur_id);
 
 void				ui_main_fill_default_surfaces(t_ui_main *m);
 
@@ -330,9 +350,9 @@ void				q_push(QUEUE **q, t_list *el);
 void				*q_pop(QUEUE **q);
 
 void				bfs_iter(const t_list *root, const func_ptr f,
-						const void *arg);
+		const void *arg);
 void				bfs_iter_root(const t_ui_el *root, const func_ptr f,
-						const void *arg);
+		const void *arg);
 void				*bfs(t_ui_main *m, const t_list *root, pred_ptr p);
 t_ui_el				*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p);
 
@@ -353,13 +373,10 @@ void				ui_el_draw_event(void *el_v, void *arg);
 
 void				ui_el_init(t_ui_el *el);
 void				ui_el_setup_default(t_ui_el *el);
-void				ui_el_set_abs_size(t_ui_el *el, int x, int y);
-void				ui_el_set_rel_size(t_ui_el *el, float x, float y);
-void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);
-void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
+void				ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_change_pos(t_ui_el *el, int x, int y);
-void				ui_el_set_relative_pos_and_size(t_ui_el *el);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 
@@ -367,12 +384,12 @@ SDL_Texture			*ui_el_create_texture(t_ui_el *el);
 SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el, SDL_Surface *sur);
 
 int					ui_el_add_texture_from_file(t_ui_el *el,
-						const char *path, int texture_id);
+		const char *path, const char *texture_id);
 int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
-						int texture_id);
+		const char *texture_id);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
-SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, int id);
-int					ui_el_set_current_texture_by_id(t_ui_el *el, int texture_id);
+SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, const char *id);
+int					ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id);
 
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
@@ -397,9 +414,9 @@ void				ui_el_set_active_texture(void *a1, void *a2);
 void				ui_find_dynamic_elements(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
-size_t id, int texture_id);
+		const char *id, const char *texture_id);
 
-int					ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, int font_id);
+int					ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
 int					ui_el_update_text(t_ui_el *el, const char *text);
 
 # pragma endregion
@@ -415,5 +432,12 @@ int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);
 
 # pragma GCC diagnostic pop
+
+void				ui_prefab_scroll_menu(t_ui_main *m, t_ui_el *canvas,
+		t_ui_el *scroll_menu, t_scroll_m_pref *scroll_data);
+void				ui_prefab_get_relative_pos(t_ui_el *p, t_ui_el *canvas,
+		int type, t_fvec2 *pos);
+void				ui_prefab_get_relative_size(t_ui_el *p, t_ui_el *canvas,
+		int type, t_fvec2 *size);
 
 #endif

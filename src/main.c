@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 12:32:56 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/23 16:13:27 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		old_main(int argc, char *argv[])
 	ui_el_add_texture_from_main_by_id(&m, &el1, 8, TID_DEFAULT);
 	// ui_el_add_texture_from_file(&el1, "images/test2.jpg", TID_DEFAULT);
 	ui_el_setup_default_draggable(&el1);
+	ui_el_set_relative_pos_and_size(&el1);
 
 	t_ui_el el2;
 	ui_el_init(&el2);
@@ -121,6 +122,7 @@ int		old_main(int argc, char *argv[])
 	ui_el_add_texture_from_file(&el2, "images/test6.jpeg", TID_DEFAULT);
 	ui_event_add_listener(&(el2.events.onPointerStay), testOnPtrStay);
 	ui_el_setup_default_draggable(&el2);
+	ui_el_set_relative_pos_and_size(&el2);
 
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -136,6 +138,8 @@ int		old_main(int argc, char *argv[])
 	el_scroll_menu.id = 3;
 	el_scroll_menu.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_menu, "images/flower.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_menu);
+
 
 	t_ui_el el_scroll_elem1;
 	ui_el_init(&el_scroll_elem1);
@@ -147,6 +151,7 @@ int		old_main(int argc, char *argv[])
 	el_scroll_elem1.id = 31;
 	el_scroll_elem1.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem1, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem1);
 
 	t_ui_el el_scroll_elem2;
 	ui_el_init(&el_scroll_elem2);
@@ -158,6 +163,7 @@ int		old_main(int argc, char *argv[])
 	el_scroll_elem2.id = 32;
 	el_scroll_elem2.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem2, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem2);
 
 	t_ui_el el_button_for_scroll_elem2;
 	ui_el_init(&el_button_for_scroll_elem2);
@@ -169,6 +175,7 @@ int		old_main(int argc, char *argv[])
 	el_button_for_scroll_elem2.id = 302;
 	el_button_for_scroll_elem2.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_button_for_scroll_elem2, "images/bl.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_button_for_scroll_elem2);
 
 	t_ui_el el_scroll_elem3;
 	ui_el_init(&el_scroll_elem3);
@@ -180,6 +187,7 @@ int		old_main(int argc, char *argv[])
 	el_scroll_elem3.id = 33;
 	el_scroll_elem3.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem3, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem3);
 
 	t_ui_el el_scroll_elem4;
 	ui_el_init(&el_scroll_elem4);
@@ -191,6 +199,7 @@ int		old_main(int argc, char *argv[])
 	el_scroll_elem4.id = 34;
 	el_scroll_elem4.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem4, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem4);
 
 	t_ui_el el_scroll_elem5;
 	ui_el_init(&el_scroll_elem5);
@@ -202,6 +211,7 @@ int		old_main(int argc, char *argv[])
 	el_scroll_elem5.id = 35;
 	el_scroll_elem5.sdl_renderer = w.sdl_renderer;
 	ui_el_add_texture_from_file(&el_scroll_elem5, "images/fractal_dick.png", TID_DEFAULT);
+	ui_el_set_relative_pos_and_size(&el_scroll_elem5);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	t_ui_el el11;
@@ -224,6 +234,7 @@ int		old_main(int argc, char *argv[])
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonPressed), &ui_el_set_active_texture);
 	ui_event_add_listener(&(el11.events.onPointerLeftButtonReleased), &ui_el_set_focused_texture);
 	// ui_event_add_listener(&(el11.events.onPointerLeftButtonHold), &testOnPtrLBHold);
+	ui_el_set_relative_pos_and_size(&el11);
 
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -242,6 +253,7 @@ int		old_main(int argc, char *argv[])
 	ui_el_update_text(&el222, "LOOP");
 	el11.data = &el222;
 	ui_event_add_listener(&(el11.events.onPointerRightButtonPressed), &test);
+	ui_el_set_relative_pos_and_size(&el222);
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -282,6 +294,11 @@ int		old_main(int argc, char *argv[])
 int		main()
 {
 	t_guimp	g_main;
+	t_ui_el	*tmp_el;
+	t_ui_el	*tmp_el_p1;
+	t_ui_el	*tmp_el_p2;
+
+
 
 	/********/
 	/* INIT */
@@ -295,6 +312,9 @@ int		main()
 	}
 	ui_main_init(g_main.ui_main);
 	ui_main_fill_default_surfaces(g_main.ui_main);
+	g_main.ui_main->data = (void *)g_main;
+
+
 
 	/************/
 	/* MAIN_WIN */
@@ -314,7 +334,7 @@ int		main()
 	ui_main_add_window(g_main.ui_main, g_main.main_win);
 	g_main.main_win->canvas.id = 0;
 	g_main.main_win->canvas.sdl_renderer = g_main.main_win->sdl_renderer;
-	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), 9, TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), 2, TID_DEFAULT);
 	ui_el_add_empty_texture(
 		&(g_main.main_win->canvas),
 		g_main.main_win->canvas.rect.w,
@@ -322,23 +342,25 @@ int		main()
 		TID_DRAW_TEXTURE);
 	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &draw_main_canvas_event);
 	ui_event_add_listener(&(g_main.main_win->canvas.events.onPointerLeftButtonHold), &draw_dot);
+
 	/*MAIN ELEM*/
-	t_ui_el *tmp_el;
-	if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
-	{
-		printf("main_elem malloc error in canvas in main_win\n");
-		return (0);
-	}
-	ui_el_init(tmp_el);
-	ui_el_setup_default(tmp_el);
-	ui_event_add_listener(&(tmp_el->events.onRender), &ui_el_draw_event);
-	ui_el_add_child(&(g_main.main_win->canvas), tmp_el);
-	ui_el_set_rel_pos(tmp_el, 0.05, 0.05);
-	ui_el_set_rel_size(tmp_el, 0.9, 0.9);
-	tmp_el->id = MAIN_WIN_DRAW_EL_ID;
-	tmp_el->sdl_renderer = g_main.main_win->sdl_renderer;
-	tmp_el->params |= EL_DYNAMIC_SIZE;
-	ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, 8, TID_DEFAULT);
+		if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		{
+			printf("main_elem malloc error in canvas in main_win\n");
+			return (0);
+		}
+		ui_el_init(tmp_el);
+		ui_el_setup_default(tmp_el);
+		ui_event_add_listener(&(tmp_el->events.onRender), &ui_el_draw_event);
+		ui_el_add_child(&(g_main.main_win->canvas), tmp_el);
+		ui_el_set_rel_pos(tmp_el, 0.05, 0.05);
+		ui_el_set_rel_size(tmp_el, 0.9, 0.9);
+		tmp_el->id = MAIN_WIN_DRAW_EL_ID;
+		tmp_el->sdl_renderer = g_main.main_win->sdl_renderer;
+		tmp_el->params |= EL_DYNAMIC_SIZE;
+		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, 1, TID_DEFAULT);
+
+
 
 	/************/
 	/* TOOL_WIN */
@@ -360,6 +382,116 @@ int		main()
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.tool_win->canvas), 2, TID_DEFAULT);
 	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &draw_main_canvas_event);
 
+	/*DRAW BUTTONS SCROLLABLE MENU*/
+		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		{
+			printf("scrollable menu malloc error in canvas in tool_win\n");
+			return (0);
+		}
+		ui_el_init(tmp_el_p1);
+		ui_el_setup_default(tmp_el_p1);
+		ui_event_add_listener(&(tmp_el_p1->events.onRender), &ui_el_draw_event);
+		ui_el_add_child(&(g_main.tool_win->canvas), tmp_el_p1);
+		ui_el_set_rel_pos(tmp_el_p1, 0.01, 0.01);
+		ui_el_set_rel_size(tmp_el_p1, 0.98, 0.59);
+		ui_el_setup_default_scroll_menu(tmp_el_p1);
+		//tmp_el_p1->id = MAIN_WIN_DRAW_EL_ID;
+		tmp_el_p1->sdl_renderer = g_main.tool_win->sdl_renderer;
+		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, 3, TID_DEFAULT);
+
+	/*SELECT BRUSH BUTTON*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("draw_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_init(tmp_el);
+			ui_el_setup_default(tmp_el);
+			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_event_add_listener(&(tmp_el->events.onRender), &ui_el_draw_event);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_set_rel_pos(tmp_el, 0.1, 0.05);
+			//TODO nizhe kostil nuzhno fixit`
+			ui_el_set_abs_pos(tmp_el, tmp_el->parent->rect.x + tmp_el->rect.x, tmp_el->parent->rect.y + tmp_el->rect.y);
+			ui_el_set_abs_size(tmp_el, GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35);
+			//tmp_el->id = MAIN_WIN_DRAW_EL_ID;
+			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, 1, TID_DEFAULT);
+
+	/*ERASER BUTTON*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_init(tmp_el);
+			ui_el_setup_default(tmp_el);
+			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_event_add_listener(&(tmp_el->events.onRender), &ui_el_draw_event);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_set_rel_pos(tmp_el, 0.55, 0.05);
+			//TODO nizhe kostil nuzhno fixit`
+			ui_el_set_abs_pos(tmp_el, tmp_el->parent->rect.x + tmp_el->rect.x, tmp_el->parent->rect.y + tmp_el->rect.y);
+			ui_el_set_abs_size(tmp_el, GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35);
+			//tmp_el->id = MAIN_WIN_DRAW_EL_ID;
+			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, 1, TID_DEFAULT);
+
+	/*SETTINGS MENU*/
+		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		{
+			printf("settings menu malloc error in canvas in tool_win\n");
+			return (0);
+		}
+		ui_el_init(tmp_el_p1);
+		ui_el_setup_default(tmp_el_p1);
+		ui_event_add_listener(&(tmp_el_p1->events.onRender), &ui_el_draw_event);
+		ui_el_add_child(&(g_main.tool_win->canvas), tmp_el_p1);
+		ui_el_set_rel_pos(tmp_el_p1, 0.01, 0.61);
+		ui_el_set_rel_size(tmp_el_p1, 0.98, 0.38);
+		//tmp_el_p1->id = MAIN_WIN_DRAW_EL_ID;
+		tmp_el_p1->sdl_renderer = g_main.tool_win->sdl_renderer;
+		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, 4, TID_DEFAULT);
+
+	/*SLIDER ROOT*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_init(tmp_el);
+			ui_el_setup_default(tmp_el);
+			ui_event_add_listener(&(tmp_el->events.onRender), &ui_el_draw_event);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_set_rel_pos(tmp_el, 0.1, 0.49);
+			//TODO nizhe kostil nuzhno fixit`
+			ui_el_set_abs_pos(tmp_el, tmp_el->parent->rect.x + tmp_el->rect.x, tmp_el->parent->rect.y + tmp_el->rect.y);
+			ui_el_set_rel_size(tmp_el, 0.8, 0.02);
+			//tmp_el->id = MAIN_WIN_DRAW_EL_ID;
+			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, 1, TID_DEFAULT);
+
+	/*SLIDER HEAD*/
+				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				{
+					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+					return (0);
+				}
+				ui_el_init(tmp_el_p2);
+				ui_el_setup_default(tmp_el_p2);
+				ui_event_add_listener(&(tmp_el_p2->events.onRender), &ui_el_draw_event);
+				ui_el_add_child(tmp_el, tmp_el_p2);
+				ui_el_set_rel_pos(tmp_el_p2, 0.5, -4.5);
+				//TODO nizhe kostil nuzhno fixit`
+				ui_el_set_abs_pos(tmp_el_p2, tmp_el_p2->parent->rect.x + tmp_el_p2->rect.x, tmp_el_p2->parent->rect.y + tmp_el_p2->rect.y);
+				ui_el_set_rel_size(tmp_el_p2, 0.04, 10);
+				//tmp_el_p2->id = MAIN_WIN_DRAW_EL_ID;
+				tmp_el_p2->sdl_renderer = g_main.tool_win->sdl_renderer;
+				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, 7, TID_DEFAULT);
+				ui_el_setup_hor_draggable(tmp_el_p2);
+
+
+
 	/*************/
 	/* LAYER_WIN */
 	/*************/
@@ -377,7 +509,7 @@ int		main()
 	ui_main_add_window(g_main.ui_main, g_main.layer_win);
 	g_main.layer_win->canvas.id = 0;
 	g_main.layer_win->canvas.sdl_renderer = g_main.layer_win->sdl_renderer;
-	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.layer_win->canvas), 1, TID_DEFAULT);
+	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.layer_win->canvas), 2, TID_DEFAULT);
 	ui_event_add_listener(&(g_main.layer_win->canvas.events.onRender), &draw_main_canvas_event);
 
 	/*************/

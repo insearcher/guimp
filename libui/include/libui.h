@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 12:31:41 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/23 16:12:29 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,7 @@ typedef struct		s_ui_el
 	t_list			*children;
 	t_rect			rect;
 	t_rect			cut_rect;
-	t_rect			rrect;	// TODO not used
-	t_frect			frect;
+	t_frect			relative_rect;
 	t_ui_el_events	events;
 	Uint32			id;
 	Uint32			params; // <- put there next parameters
@@ -258,6 +257,7 @@ typedef struct		s_ui_main
 	t_vec2			ptr_pos;
 	t_list			*sdl_surfaces;
 	t_list			*sdl_fonts;
+	void			*data;
 }					t_ui_main;
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
@@ -359,6 +359,7 @@ void				ui_el_set_abs_pos(t_ui_el *el, int x, int y);
 void				ui_el_set_rel_pos(t_ui_el *el, float x, float y);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 void				ui_el_change_pos(t_ui_el *el, int x, int y);
+void				ui_el_set_relative_pos_and_size(t_ui_el *el);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 
@@ -383,9 +384,11 @@ void				ui_el_scroll_menu_down(void *a1, void *a2);
 void				ui_el_scroll_child_menu_up(void *a1, void *a2);
 void				ui_el_scroll_child_menu_down(void *a1, void *a2);
 
-void 				ui_el_drag(void *a1, void *a2);
+void				ui_el_drag(void *a1, void *a2);
+void				ui_el_hor_slider_drug(void *a1, void *a2);
 
 void				ui_el_setup_default_draggable(t_ui_el *el);
+void				ui_el_setup_hor_draggable(t_ui_el *el);
 
 void				ui_el_set_default_texture(void *a1, void *a2);
 void				ui_el_set_focused_texture(void *a1, void *a2);

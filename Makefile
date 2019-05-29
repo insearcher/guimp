@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/27 07:47:25 by sbecker          ###   ########.fr        #
+#    Updated: 2019/05/29 12:53:13 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,7 +136,11 @@ re: fclean all
 
 ##########################################################################################################
 
-test: fclean_t $(NAME_TEST)
+test: rm_test $(NAME_TEST)
+
+rm_test:
+	rm -f $(NAME_TEST)
+	rm -rf $(OBJ_DIR_TEST)
 
 $(NAME_TEST):
 	@echo "$(TEXT_CC)$(TEXT_B)↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ test$(TEXT_R)"

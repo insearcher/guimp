@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 12:19:50 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/05/23 14:58:26 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 # define GM_LAYER_WIN_H			800
 
 //id_generator flags
-# define ID_GENERATOR_GET	0
-# define ID_GENERATOR_ADD	1
-# define ID_GENERATOR_DEL	1
-# define ID_GENERATOR_START	63
+# define ID_GENERATOR_GET		0
+# define ID_GENERATOR_ADD		1
+# define ID_GENERATOR_DEL		1
+# define ID_GENERATOR_START		63
 
 typedef struct					s_guimp
 {

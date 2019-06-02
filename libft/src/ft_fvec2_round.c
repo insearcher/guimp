@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   ft_fvec2_round.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 07:13:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/31 22:25:36 by sbecker          ###   ########.fr       */
+/*   Created: 2019/06/01 20:09:07 by sbecker           #+#    #+#             */
+/*   Updated: 2019/06/01 20:09:53 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "guimp_test.h"
+#include "libft.h"
 
-int	main()
+t_fvec2  ft_fvec2_round(t_fvec2 v)
 {
-	t_guimp	guimp;
+	t_fvec2 ronded_v;
 
-	ui_sdl_init();
-	initialization_main_and_default_surfaces(&guimp);
-	initialization_w1(&guimp);
-	el1(&guimp);
-	scroll_menu1(&guimp);
-//	initialization_flex_menu1(&guimp);
-//	initialization_popap_menu1(&guimp);
-	ui_main_add_window(&(guimp.m), &(guimp.w1));
-	ui_main_loop(&(guimp.m));
+	ronded_v.x = roundf(v.x);
+	ronded_v.y = roundf(v.y);
+	return (ronded_v);
 }

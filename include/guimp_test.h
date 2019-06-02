@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 13:09:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/26 15:16:32 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/01 14:33:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct  s_guimp
 	t_ui_el     popap_menu1_el5;
 	t_ui_el     popap_menu1_el6;
 	t_ui_el     popap_menu1_el7;
+	t_ui_el		el1;
 }               t_guimp;
 
 void                            draw_dot(void *ui_main, void *ui_el);
@@ -55,5 +56,6 @@ void                            draw_main_canvas_event(void *el_v, void *arg);
 void							initialization_main_and_default_surfaces(t_guimp *guimp);
 void							initialization_w1(t_guimp *guimp);
 void							scroll_menu1(t_guimp *guimp);
+void							el1(t_guimp *guimp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 18:23:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/27 10:42:10 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/01 20:57:03 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	cutting_texture_and_draw(t_ui_el *el, SDL_Texture *texture)
 	}
 	el->cut_rect = tmp_rect;
 	SDL_RenderCopy(el->sdl_renderer, texture, &srect, &tmp_rect);
-	//TODO maybe because of floats variables absence - there is a little shaking of textures, need to fix.
 }
 
 void	ui_el_draw_event(void *el_v, void *arg)

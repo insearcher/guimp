@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 15:57:02 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/02 19:05:01 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,43 @@
 // 	ui_el_update_text(text, "FROM 7 ZALOOP");
 // }
 
+static void	testOnPtrEnter(void *main, void *el_v)
+{
+	main = NULL;
+	t_ui_el *el = (t_ui_el *)el_v;
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
+		ui_el_set_current_texture_by_id(el, "onFocus");
+}
+
+static void	testOnPtrExit(void *main, void *el_v)
+{
+	main = NULL;
+	t_ui_el *el = (t_ui_el *)el_v;
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
+		ui_el_set_current_texture_by_id(el, "default");
+}
+
+static void	testOnPtrLBD(void *main, void *el_v)
+{
+	t_list	*layer_elems;
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	t_ui_el *el = (t_ui_el *)el_v;
+	layer_elems = el->parent->children;
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
+	{
+		while (layer_elems)
+		{
+			if (((t_ui_el *)layer_elems->content)->current_texture == (size_t)ft_strhash("onActive"))
+				ui_el_set_current_texture_by_id(((t_ui_el *)layer_elems->content), "default");
+			layer_elems = layer_elems->next;
+		}
+		ui_el_set_current_texture_by_id(el, "onActive");
+		g->layers.current_layer = el;
+	}
+}
+
 static void	test_add_layer(void *ui_main, void *el_v)
 {
 	t_ui_main	*m;
@@ -58,10 +95,33 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	}
 	ui_el_setup_default_scroll_menu_elem(tmp_el, layer_menu);
 	tmp_el->id = gm_generate_surf_id(ID_GENERATOR_ADD);
-	ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.27 * (float)gm_generator_get_surf_count()});
+	ui_el_set_pos(tmp_el, 0, 0,
+		(t_fvec2){0.1,
+			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.3 * (float)gm_generator_get_surf_count()});
 	ui_el_set_size(tmp_el, &(g->layer_win->canvas), SIZE_ABS, (t_fvec2){0.8, 0.25});
 	tmp_el->sdl_renderer = g->layer_win->sdl_renderer;
-	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "bl", "default");
+	// ui_el_add_empty_texture(tmp_el, tmp_el->rect.w, tmp_el->rect.h, "default");
+	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "test", "default");
+	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "bl", "onFocus");
+	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "test4", "onActive");
+	ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &testOnPtrLBD);
+	ui_event_add_listener(&(tmp_el->events.onPointerEnter), &testOnPtrEnter);
+	ui_event_add_listener(&(tmp_el->events.onPointerExit), &testOnPtrExit);
+
+	if (!(el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+	{
+		printf("layer texture malloc error in scrollable menu in layer_win\n");
+		return ;
+	}
+	//ui_el_setup_default_scroll_menu_elem(el, tmp_el);
+	ui_el_setup_default(el);
+	ui_el_add_child(tmp_el, el);
+	ui_el_set_pos(el, 0, 0, (t_fvec2){0.1, 0.1});
+	ui_el_set_size(el, 0, 0, (t_fvec2){0.8, 0.8});
+	el->id = tmp_el->id * 1000;
+	el->params |= EL_IGNOR_RAYCAST | EL_IS_DEPENDENT;
+	el->sdl_renderer = g->layer_win->sdl_renderer;
+	ui_el_add_texture_from_main_by_id(g->ui_main, el, "prison", "default");
 }
 
 int		main()
@@ -108,13 +168,7 @@ int		main()
 	g_main.main_win->canvas.id = 0;
 	g_main.main_win->canvas.sdl_renderer = g_main.main_win->sdl_renderer;
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), "flower", "default");
-	ui_el_add_empty_texture(
-		&(g_main.main_win->canvas),
-		g_main.main_win->canvas.rect.w,
-		g_main.main_win->canvas.rect.h,
-		TID_DRAW_TEXTURE);
-	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &draw_main_canvas_event);
-	ui_event_add_listener(&(g_main.main_win->canvas.events.onPointerLeftButtonHold), &draw_dot);
+	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &ui_el_draw_event);
 
 	/*MAIN ELEM*/
 		if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -124,14 +178,20 @@ int		main()
 		}
 		ui_el_init(tmp_el);
 		ui_el_setup_default(tmp_el);
-		ui_event_add_listener(&(tmp_el->events.onRender), &ui_el_draw_event);
 		ui_el_add_child(&(g_main.main_win->canvas), tmp_el);
 		ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.05});
 		ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.9, 0.9});
 		tmp_el->id = GM_MAIN_ID_DRAW;
 		tmp_el->sdl_renderer = g_main.main_win->sdl_renderer;
-		tmp_el->params |= EL_DYNAMIC_SIZE;
+		ui_el_set_default_resize(tmp_el);
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+		ui_el_add_empty_texture(
+			tmp_el,
+			tmp_el->rect.w,
+			tmp_el->rect.h,
+			TID_DRAW_TEXTURE);
+		ui_event_add_listener(&(tmp_el->events.onRender), &draw_main_canvas_event);
+		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &draw_dot);
 
 
 
@@ -153,7 +213,7 @@ int		main()
 	g_main.tool_win->canvas.id = 0;
 	g_main.tool_win->canvas.sdl_renderer = g_main.tool_win->sdl_renderer;
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.tool_win->canvas), "flower", "default");
-	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &draw_main_canvas_event);
+	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &ui_el_draw_event);
 
 	/*DRAW BUTTONS SCROLLABLE MENU*/
 		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -236,7 +296,7 @@ int		main()
 				tmp_el_p2->id = GM_TOOL_ID_SLIDER_HEAD;
 				tmp_el_p2->sdl_renderer = g_main.tool_win->sdl_renderer;
 				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
-				ui_el_setup_hor_draggable(tmp_el_p2);
+				ui_el_set_hor_draggable(tmp_el_p2);
 
 
 
@@ -258,7 +318,7 @@ int		main()
 	g_main.layer_win->canvas.id = 0;
 	g_main.layer_win->canvas.sdl_renderer = g_main.layer_win->sdl_renderer;
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.layer_win->canvas), "flower", "default");
-	ui_event_add_listener(&(g_main.layer_win->canvas.events.onRender), &draw_main_canvas_event);
+	ui_event_add_listener(&(g_main.layer_win->canvas.events.onRender), &ui_el_draw_event);
 
 	/*LAYERS SCROLLABLE MENU*/
 		if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -273,6 +333,7 @@ int		main()
 		tmp_el_p2->id = GM_LAYER_ID_MENU;
 		tmp_el_p2->sdl_renderer = g_main.layer_win->sdl_renderer;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "priso", "default");
+		g_main.layers.layers = tmp_el_p2->children;
 
 	/*DEFAULT LAYER*/
 			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -283,9 +344,30 @@ int		main()
 			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p2);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
 			ui_el_set_size(tmp_el, &(g_main.layer_win->canvas), SIZE_ABS, (t_fvec2){0.8, 0.25});
-			tmp_el->id = 23456;//GM_LAYER_ID_DEF_LAYER;
+			tmp_el->id = GM_LAYER_ID_DEF_LAYER;
 			tmp_el->sdl_renderer = g_main.layer_win->sdl_renderer;
-			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_el_add_empty_texture(tmp_el, tmp_el->rect.w, tmp_el->rect.h, "default");
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "onFocus");
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "test4", "onActive");
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &testOnPtrLBD);
+			ui_event_add_listener(&(tmp_el->events.onPointerEnter), &testOnPtrEnter);
+			ui_event_add_listener(&(tmp_el->events.onPointerExit), &testOnPtrExit);
+			ui_el_set_current_texture_by_id(tmp_el, "onActive");
+			g_main.layers.current_layer = tmp_el;
+
+	/*DEFAULT LAYER TEXTURE*/
+				if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+						{
+							printf("default layer malloc error in scrollable menu in layer_win\n");
+							return (0);
+						}
+						ui_el_setup_default_scroll_menu_elem(tmp_el_p1, tmp_el);
+						ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.1, 0.1});
+						ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.8, 0.8});
+						tmp_el_p1->id = GM_LAYER_ID_DEF_LAYER * 1000;
+						tmp_el_p1->params |= EL_IGNOR_RAYCAST;
+						tmp_el_p1->sdl_renderer = g_main.layer_win->sdl_renderer;
+						ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "prison", "default");
 
 	/*ADD BUTTON*/
 		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/27 10:20:46 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/02 14:09:01 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ OBJ_DIR			=	./obj
 INC_DIR			=	./include
 
 SRC_BFS			=	bfs_iter.c \
+					bfs_for_resize.c \
 					queue.c
 
 SRC_UI_EL		=	ui_el_add_child.c \
@@ -35,22 +36,28 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
 					ui_el_setup_default.c \
-					ui_find_dynamic_elements.c \
+					ui_el_resize_elems.c \
 					ui_el_get_texture_by_id.c \
 					ui_log_el_scroll_up.c \
 					ui_log_el_scroll_down.c \
 					ui_el_drag.c \
-					ui_el_setup_default_draggable.c \
+					ui_el_set_default_draggable.c \
 					ui_el_setup_default_scroll_menu.c \
 					ui_el_setup_default_scroll_menu_elem.c \
 					ui_el_scroll_menu.c \
 					ui_el_set_texture.c \
-					ui_el_setup_text.c \
+					ui_el_set_text.c \
 					ui_el_update_text.c \
 					ui_el_change_pos.c \
 					ui_el_add_texture_from_main_by_id.c \
 					ui_el_set_pos.c \
-					ui_el_set_size.c
+					ui_el_set_size.c \
+					ui_el_default_resize.c \
+					ui_el_set_default_resize.c \
+					ui_el_menu_resize.c \
+					ui_el_set_menu_resize.c \
+					ui_el_change_pos_for_resize.c \
+					ui_el_change_size_for_resize.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 

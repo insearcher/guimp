@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:01:55 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 04:06:40 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/05/31 20:32:19 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	ui_win_update_size(void *a1, void *a2)
 		SDL_GetWindowSize(w->sdl_window, &(w->size.x), &(w->size.y));
 		w->canvas.rect.w = w->size.x;
 		w->canvas.rect.h = w->size.y;
-		ui_find_dynamic_elements(a1, (void *)w);
+		ui_el_resize_elems(a1, (void *)w);
 	}
 }

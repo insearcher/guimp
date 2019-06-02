@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 14:45:05 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/02 14:07:07 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/02 15:29:20 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	ui_el_menu_resize(void *a1, void *a2)
 	list = el->children;
 	while (list)
 	{
-		printf("data x: %f\n", data.elem_pos.x);
 		cur_el = (t_ui_el *)list->content;
 		ui_el_change_pos_for_resize(cur_el, 0, POS_PIXEL, data.elem_pos);
 		ui_el_change_size_for_resize(cur_el, 0, SIZE_PIXEL, data.elem_size);

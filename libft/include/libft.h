@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 23:51:41 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/24 18:53:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/01 20:27:06 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <math.h>
 
 # define BUFF_SIZE	32
 
@@ -29,6 +30,18 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_vec2
+{
+	int				x;
+	int				y;
+}					t_vec2;
+
+typedef struct		s_fvec2
+{
+	float			x;
+	float			y;
+}					t_fvec2;
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -104,6 +117,8 @@ size_t				ft_wordscnt(const char *str, char c);
 char				**ft_strsfree(char **src);
 void				ft_lstdels(t_list **alst);
 void				ft_lstdelones(t_list **alst);
+
+t_fvec2				ft_fvec2_round(t_fvec2 v);
 
 int					ft_strhash(const char *str);
 

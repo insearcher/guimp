@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/27 10:22:06 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/02 14:07:58 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,16 @@
 
 # define FPS				150 // NE TROGAY PLS
 
-# define EL_POS_ABSOLUTE	0
-# define EL_POS_FLEXIBLE	1
-# define EL_POS_RELATIVE	2
-
 # define SCROLL_SPEED		10
 
 //el params
-# define EL_DYNAMIC_SIZE	(1 << 0)
-# define EL_IGNOR_RAYCAST	(1 << 1)
-# define EL_IS_HIDDEN		(1 << 2)
-# define EL_IS_PTR_INSIDE	(1 << 3) // Smart using of params (replace BUTTON_OFF & ON)
-// # define EL_IS_LMB_PRESSED	(1 << 4)
-// # define EL_IS_RMB_PRESSED	(1 << 5)
-# define EL_IS_SCROLLABLE	(1 << 6)
-# define EL_IS_DEPENDENT	(1 << 7)
+# define EL_IGNOR_RAYCAST	(1 << 0)
+# define EL_IS_HIDDEN		(1 << 1)
+# define EL_IS_PTR_INSIDE	(1 << 2) // Smart using of params (replace BUTTON_OFF & ON)
+// # define EL_IS_LMB_PRESSED	(1 << 3)
+// # define EL_IS_RMB_PRESSED	(1 << 4)
+# define EL_IS_SCROLLABLE	(1 << 5)
+# define EL_IS_DEPENDENT	(1 << 6)
 
 // KOSTIL
 // # define EL_NOT_RELEASED	(1 << 31)
@@ -113,25 +108,7 @@ typedef	t_list		t_list_texture;
 # pragma GCC diagnostic push
 # pragma GCC diagnostic ignored "-Wunknown-pragmas"
 
-# pragma region		t_vec2
-
-typedef struct		s_vec2
-{
-	int				x;
-	int				y;
-}					t_vec2;
-
-# pragma endregion
-# pragma region		t_fvec2
-
-typedef struct		s_fvec2
-{
-	float			x;
-	float			y;
-}					t_fvec2;
-
-# pragma endregion
-# pragma region		t_fvec2
+# pragma region		t_frect
 
 typedef struct		s_frect
 {
@@ -172,6 +149,7 @@ typedef struct		s_ui_el_events
 	t_ui_event		onScrollUp;
 	t_ui_event		onScrollDown;
 	t_ui_event		onRender;
+	t_ui_event		onResize;
 }					t_ui_el_events;
 
 # pragma endregion
@@ -351,6 +329,7 @@ void				bfs_iter_root(const t_ui_el *root, const func_ptr f,
 		const void *arg);
 void				*bfs(t_ui_main *m, const t_list *root, pred_ptr p);
 t_ui_el				*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p);
+void				bfs_for_resize(const t_ui_el *root, const void *arg);
 
 # pragma endregion
 
@@ -398,18 +377,24 @@ void				ui_el_scroll_child_menu_up(void *a1, void *a2);
 void				ui_el_scroll_child_menu_down(void *a1, void *a2);
 
 void 				ui_el_drag(void *a1, void *a2);
-void				ui_el_setup_default_draggable(t_ui_el *el);
+void				ui_el_set_default_draggable(t_ui_el *el);
 
 void				ui_el_set_default_texture(void *a1, void *a2);
 void				ui_el_set_focused_texture(void *a1, void *a2);
 void				ui_el_set_active_texture(void *a1, void *a2);
 
-void				ui_find_dynamic_elements(void *a1, void *a2);
+void				ui_el_resize_elems(void *a1, void *a2);
+void				ui_el_default_resize(void *a1, void *a2);
+void				ui_el_set_default_resize(t_ui_el *el);
+void				ui_el_menu_resize(void *a1, void *a2);
+void				ui_el_set_menu_resize(t_ui_el *el);
+void				ui_el_change_size_for_resize(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_change_pos_for_resize(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 		const char *id, const char *texture_id);
 
-int					ui_el_setup_text(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
+int					ui_el_set_text(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
 int					ui_el_update_text(t_ui_el *el, const char *text);
 
 # pragma endregion

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 19:05:01 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/02 21:10:55 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static void	test_add_layer(void *ui_main, void *el_v)
 
 	el = (t_ui_el *)el_v;
 	m = (t_ui_main *)ui_main;
-	layer_menu = (t_ui_el *)el->data;
 	g = (t_guimp *)m->data;
+	layer_menu = ui_win_find_el_by_id(g->layer_win, GM_LAYER_ID_MENU);//(t_ui_el *)el->data;
 	if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
 	{
 		printf("layer malloc error in scrollable menu in layer_win\n");
@@ -100,8 +100,7 @@ static void	test_add_layer(void *ui_main, void *el_v)
 			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.3 * (float)gm_generator_get_surf_count()});
 	ui_el_set_size(tmp_el, &(g->layer_win->canvas), SIZE_ABS, (t_fvec2){0.8, 0.25});
 	tmp_el->sdl_renderer = g->layer_win->sdl_renderer;
-	// ui_el_add_empty_texture(tmp_el, tmp_el->rect.w, tmp_el->rect.h, "default");
-	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "test", "default");
+	ui_el_add_empty_texture(tmp_el, tmp_el->rect.w, tmp_el->rect.h, "default");
 	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "bl", "onFocus");
 	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "test4", "onActive");
 	ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &testOnPtrLBD);
@@ -113,7 +112,6 @@ static void	test_add_layer(void *ui_main, void *el_v)
 		printf("layer texture malloc error in scrollable menu in layer_win\n");
 		return ;
 	}
-	//ui_el_setup_default_scroll_menu_elem(el, tmp_el);
 	ui_el_setup_default(el);
 	ui_el_add_child(tmp_el, el);
 	ui_el_set_pos(el, 0, 0, (t_fvec2){0.1, 0.1});
@@ -122,6 +120,42 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	el->params |= EL_IGNOR_RAYCAST | EL_IS_DEPENDENT;
 	el->sdl_renderer = g->layer_win->sdl_renderer;
 	ui_el_add_texture_from_main_by_id(g->ui_main, el, "prison", "default");
+}
+
+static void	test_del_layer(void *main, void *el_v)
+{
+	t_guimp	*g;
+	t_ui_el	*el;
+	t_ui_el	*next_active;
+	t_list	*tmp;
+	t_list	*prev;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	el = g->layers.current_layer;
+	(void)el_v;
+	if (gm_generator_get_surf_count() == 0 || el->id == GM_LAYER_ID_DEF_LAYER)
+		return ;
+	if (!(next_active = ui_win_find_el_by_id(g->layer_win, el->id + 1)))
+		next_active = ui_win_find_el_by_id(g->layer_win, el->id - 1);
+	ui_el_set_current_texture_by_id(next_active, "onActive");
+	g->layers.current_layer = next_active;
+	tmp = el->parent->children;
+	prev = tmp;
+	while (tmp)
+	{
+		next_active = (t_ui_el *)(tmp->content);
+		if (next_active->id == el->id)
+			prev->next = tmp->next;
+		if (next_active->id > el->id)
+		{
+			next_active->id--;
+			ui_el_change_pos(next_active, next_active->rect.x, next_active->rect.y - next_active->rect.h); //todo norm change pos
+		}
+		prev = tmp;
+		tmp = tmp->next;
+	}
+	//del el
+	gm_generate_surf_id(ID_GENERATOR_DEL);
 }
 
 int		main()
@@ -357,17 +391,18 @@ int		main()
 
 	/*DEFAULT LAYER TEXTURE*/
 				if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
-						{
-							printf("default layer malloc error in scrollable menu in layer_win\n");
-							return (0);
-						}
-						ui_el_setup_default_scroll_menu_elem(tmp_el_p1, tmp_el);
-						ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.1, 0.1});
-						ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.8, 0.8});
-						tmp_el_p1->id = GM_LAYER_ID_DEF_LAYER * 1000;
-						tmp_el_p1->params |= EL_IGNOR_RAYCAST;
-						tmp_el_p1->sdl_renderer = g_main.layer_win->sdl_renderer;
-						ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "prison", "default");
+				{
+					printf("default layer malloc error in scrollable menu in layer_win\n");
+					return (0);
+				}
+				ui_el_setup_default(tmp_el_p1);
+				ui_el_add_child(tmp_el, tmp_el_p1);
+				ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.1, 0.1});
+				ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.8, 0.8});
+				tmp_el_p1->id = GM_LAYER_ID_DEF_LAYER * 1000;
+				tmp_el_p1->params |= EL_IGNOR_RAYCAST | EL_IS_DEPENDENT;
+				tmp_el_p1->sdl_renderer = g_main.layer_win->sdl_renderer;
+				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "prison", "default");
 
 	/*ADD BUTTON*/
 		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -382,7 +417,6 @@ int		main()
 		tmp_el_p1->id = GM_LAYER_ID_ADD;
 		tmp_el_p1->sdl_renderer = g_main.layer_win->sdl_renderer;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
-		tmp_el_p1->data = (void *)tmp_el_p2;
 		ui_event_add_listener(&(tmp_el_p1->events.onPointerLeftButtonPressed), &test_add_layer);
 
 	/*DEL BUTTON*/
@@ -398,7 +432,7 @@ int		main()
 		tmp_el_p1->id = GM_LAYER_ID_DEL;
 		tmp_el_p1->sdl_renderer = g_main.layer_win->sdl_renderer;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
-		tmp_el_p1->data = (void *)tmp_el_p2;
+		ui_event_add_listener(&(tmp_el_p1->events.onPointerLeftButtonPressed), &test_del_layer);
 
 	/*************/
 	/* MAIN_LOOP */

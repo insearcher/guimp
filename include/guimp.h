@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 19:03:44 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/02 19:59:28 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define GM_MAIN_WIN_H			800
 # define GM_MAIN_ID_DRAW		1
 
-# define GM_TOOL_WIN_W		300
-# define GM_TOOL_WIN_H		800
+# define GM_TOOL_WIN_W			300
+# define GM_TOOL_WIN_H			800
 # define GM_TOOL_ID_BUT_MENU	11
 # define GM_TOOL_ID_BRUSH		12
 # define GM_TOOL_ID_ERASER		13

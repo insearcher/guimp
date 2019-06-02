@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_setup_hor_draggable.c                        :+:      :+:    :+:   */
+/*   ui_el_set_default_draggable.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/23 15:52:20 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 15:53:18 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/06/01 19:49:49 by sbecker           #+#    #+#             */
+/*   Updated: 2019/06/01 19:49:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_setup_hor_draggable(t_ui_el *el)
+void	ui_el_set_default_draggable(t_ui_el *el)
 {
-	ui_event_add_listener(&(el->events.onPointerLeftButtonHold),
-		&ui_el_hor_slider_drug);
+	ui_event_add_listener(&(el->events.onPointerLeftButtonHold), &ui_el_drag);
 }

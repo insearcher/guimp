@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/05/24 18:55:43 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/01 20:25:58 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,9 @@ SRC		= 	ft_memset.c \
 			ft_lstdels.c \
 			ft_lstdelones.c \
 			ft_strhash.c \
+			ft_fvec2_round.c \
 			get_next_line.c
+
 OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 CC 		=	gcc

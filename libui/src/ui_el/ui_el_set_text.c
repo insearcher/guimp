@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   ui_el_set_text.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 07:13:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/31 22:25:36 by sbecker          ###   ########.fr       */
+/*   Created: 2019/06/01 19:58:32 by sbecker           #+#    #+#             */
+/*   Updated: 2019/06/01 19:58:34 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "guimp_test.h"
+#include "libui.h"
 
-int	main()
+int	ui_el_set_text(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id)
 {
-	t_guimp	guimp;
+	t_ui_text	*t;
 
-	ui_sdl_init();
-	initialization_main_and_default_surfaces(&guimp);
-	initialization_w1(&guimp);
-	el1(&guimp);
-	scroll_menu1(&guimp);
-//	initialization_flex_menu1(&guimp);
-//	initialization_popap_menu1(&guimp);
-	ui_main_add_window(&(guimp.m), &(guimp.w1));
-	ui_main_loop(&(guimp.m));
+	if (!(t = (t_ui_text *)malloc(sizeof(t_ui_text))))
+		return (FUNCTION_FAILURE);
+	t->font = ui_main_get_font_by_id(m, font_id);
+	t->color.a = c.a;
+	t->color.b = c.b;
+	t->color.g = c.g;
+	t->color.r = c.r;
+	el->data = t;
+	return (FUNCTION_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 13:09:44 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/27 11:13:37 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/01 23:26:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	add_elems_scroll_menu1(t_guimp *guimp, t_ui_el *scroll_menu)
 	ui_el_setup_default_scroll_menu_elem(&guimp->scroll_menu1_el7, scroll_menu);
 	ui_el_setup_default_scroll_menu_elem(&guimp->scroll_menu1_el8, scroll_menu);
 	scroll_data.type_pos = 0;
-	scroll_data.begin_pos = (t_fvec2){0.1, 0};
+	scroll_data.begin_pos = (t_fvec2){0.2, 0};
 	scroll_data.type_size = 0;
-	scroll_data.size = (t_fvec2){0.8, 0.2};
+	scroll_data.size = (t_fvec2){0.6, 0.2};
 	scroll_data.type_indent = SIZE_PIXEL;
 	scroll_data.indent = (t_fvec2){0, 2};
 	scroll_data.params = 0;
@@ -43,8 +43,9 @@ void	scroll_menu1(t_guimp *guimp)
 
 	scroll_menu = &guimp->scroll_menu1;
 	ui_el_setup_default_scroll_menu(scroll_menu);
-	ui_el_setup_default_draggable(scroll_menu);
 	ui_el_add_child(&(guimp->w1.canvas), scroll_menu);
+	ui_el_set_menu_resize(scroll_menu);
+	ui_el_set_default_draggable(scroll_menu);
 	ui_el_set_pos(scroll_menu, 0, 0, (t_fvec2){0.7, 0.1});
 	ui_el_set_size(scroll_menu, 0, 0, (t_fvec2){0.3, 0.8});
 	scroll_menu->id = 1;

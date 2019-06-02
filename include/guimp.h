@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/01 20:44:24 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/02 19:03:44 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define GM_LAYER_ID_ADD		2
 # define GM_LAYER_ID_DEL		3
 # define GM_LAYER_ID_DEF_LAYER	ID_GENERATOR_START
+# define GM_LAYER_MAX_COUNT		100
 
 //id_generator flags
 # define ID_GENERATOR_GET		0
@@ -44,21 +45,21 @@
 # define ID_GENERATOR_DEL		2
 # define ID_GENERATOR_START		63
 
+/* t_layers - struct for elems in layer win */
+typedef struct					s_layers
+{
+	t_ui_el						*current_layer;
+	t_list						*layers;
+}								t_layers;
+
 typedef struct					s_guimp
 {
 	t_ui_main					*ui_main;
 	t_ui_win					*main_win;
 	t_ui_win					*tool_win;
 	t_ui_win					*layer_win;
+	t_layers					layers;
 }								t_guimp;
-
-/* t_layers - struct for elems in layer win */
-typedef struct					s_layers
-{
-	t_ui_el						*current_layer; //el with current layer
-	t_list						*layers; //
-
-}								t_layers;
 
 
 void							draw_dot(void *ui_main, void *ui_el);

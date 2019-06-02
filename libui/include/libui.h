@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 18:30:40 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/01 20:14:32 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct		s_fvec2
 }					t_fvec2;
 
 # pragma endregion
-# pragma region		t_fvec2
+# pragma region		t_frect
 
 typedef struct		s_frect
 {

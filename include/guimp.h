@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/29 18:29:43 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/01 20:44:24 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,32 @@
 # include "libft.h"
 # include "libui.h"
 
-# define TID_DRAW_TEXTURE		3
+# define TID_DRAW_TEXTURE		"draw_texture"
 
 # define GM_MAIN_WIN_W			1200
 # define GM_MAIN_WIN_H			800
-# define MAIN_WIN_DRAW_EL_ID	1
+# define GM_MAIN_ID_DRAW		1
 
-# define GM_TOOL_WIN_W			300
-# define GM_TOOL_WIN_H			800
+# define GM_TOOL_WIN_W		300
+# define GM_TOOL_WIN_H		800
+# define GM_TOOL_ID_BUT_MENU	11
+# define GM_TOOL_ID_BRUSH		12
+# define GM_TOOL_ID_ERASER		13
+# define GM_TOOL_ID_SET_MENU	40
+# define GM_TOOL_ID_SLIDER_ROOT	41
+# define GM_TOOL_ID_SLIDER_HEAD	42
 
 # define GM_LAYER_WIN_W			300
 # define GM_LAYER_WIN_H			800
+# define GM_LAYER_ID_MENU		1
+# define GM_LAYER_ID_ADD		2
+# define GM_LAYER_ID_DEL		3
+# define GM_LAYER_ID_DEF_LAYER	ID_GENERATOR_START
 
 //id_generator flags
 # define ID_GENERATOR_GET		0
 # define ID_GENERATOR_ADD		1
-# define ID_GENERATOR_DEL		1
+# define ID_GENERATOR_DEL		2
 # define ID_GENERATOR_START		63
 
 typedef struct					s_guimp

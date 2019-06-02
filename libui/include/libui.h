@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 14:07:58 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/02 18:22:03 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,6 +390,7 @@ void				ui_el_menu_resize(void *a1, void *a2);
 void				ui_el_set_menu_resize(t_ui_el *el);
 void				ui_el_change_size_for_resize(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_change_pos_for_resize(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_win_update_size(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 		const char *id, const char *texture_id);
@@ -403,8 +404,7 @@ void				ui_win_create(t_ui_win *w);
 void				ui_win_setup_default(t_ui_win *w);
 void				ui_win_init(t_ui_win *w);
 void				ui_win_close(t_ui_win *w);
-
-void				ui_win_update_size(void *a1, void *a2);
+t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);
 
 int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);

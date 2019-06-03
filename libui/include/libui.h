@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/03 16:09:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/03 17:12:40 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include <SDL.h>
 # include <SDL_ttf.h>
 # include <SDL_image.h>
-# include "libft.h"
 # include <math.h>
+# include "libft.h"
+# include "libjtoc.h"
 
 /*
 ** TODO:
@@ -76,10 +77,6 @@
 //win params
 # define WIN_MAIN			(1 << 0)
 # define WIN_RESIZABLE		(1 << 1)
-
-//func status
-# define FUNCTION_SUCCESS	0
-# define FUNCTION_FAILURE	1
 
 //texture id`s
 // # define TID_DEFAULT		0

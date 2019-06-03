@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/02 23:41:42 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/03 17:15:34 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ OBJ_TEST		=	$(addprefix $(OBJ_DIR_TEST)/,$(SRC_TEST:.c=.o))
 INCS			=	-I$(INC_DIR) \
 					-I$(INC_FT) \
 					-I$(INC_UI) \
+					-I$(INC_JTOC) \
 					-I./frameworks/SDL2.framework/Versions/A/Headers \
 					-I./frameworks/SDL2_image.framework/Versions/A/Headers \
 					-I./frameworks/SDL2_ttf.framework/Versions/A/Headers

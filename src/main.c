@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 21:10:55 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/03 17:02:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,12 +197,13 @@ int		main()
 	g_main.main_win->size = (t_vec2){GM_MAIN_WIN_W, GM_MAIN_WIN_H};
 	ui_win_setup_default(g_main.main_win);
 	ui_win_create(g_main.main_win);
+	ui_main_add_window(g_main.ui_main, g_main.main_win); // ???????????????????????????????
 	ui_event_add_listener(&(g_main.main_win->events.onResize), &ui_win_update_size);
-	ui_main_add_window(g_main.ui_main, g_main.main_win);
-	g_main.main_win->canvas.id = 0;
-	g_main.main_win->canvas.sdl_renderer = g_main.main_win->sdl_renderer;
+
+
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), "flower", "default");
 	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &ui_el_draw_event);
+
 
 	/*MAIN ELEM*/
 		if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -216,7 +217,6 @@ int		main()
 		ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.05});
 		ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.9, 0.9});
 		tmp_el->id = GM_MAIN_ID_DRAW;
-		tmp_el->sdl_renderer = g_main.main_win->sdl_renderer;
 		ui_el_set_default_resize(tmp_el);
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
 		ui_el_add_empty_texture(
@@ -244,8 +244,6 @@ int		main()
 	ui_win_setup_default(g_main.tool_win);
 	ui_win_create(g_main.tool_win);
 	ui_main_add_window(g_main.ui_main, g_main.tool_win);
-	g_main.tool_win->canvas.id = 0;
-	g_main.tool_win->canvas.sdl_renderer = g_main.tool_win->sdl_renderer;
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.tool_win->canvas), "flower", "default");
 	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &ui_el_draw_event);
 
@@ -260,7 +258,6 @@ int		main()
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.01, 0.01});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.98, 0.59});
 		tmp_el_p1->id = GM_TOOL_ID_BUT_MENU;
-		tmp_el_p1->sdl_renderer = g_main.tool_win->sdl_renderer;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
 
 	/*SELECT BRUSH BUTTON*/
@@ -286,7 +283,6 @@ int		main()
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.55, 0.05});
 			ui_el_set_size(tmp_el,  0, SIZE_PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_ERASER;
-			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
 
 	/*SETTINGS MENU*/
@@ -300,7 +296,6 @@ int		main()
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.01, 0.61});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.98, 0.38});
 		tmp_el_p1->id = GM_TOOL_ID_SET_MENU;
-		tmp_el_p1->sdl_renderer = g_main.tool_win->sdl_renderer;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "frolushka", "default");
 
 	/*SLIDER ROOT*/
@@ -314,7 +309,6 @@ int		main()
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.49});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
 			tmp_el->id = GM_TOOL_ID_SLIDER_ROOT;
-			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
 
 	/*SLIDER HEAD*/
@@ -328,7 +322,6 @@ int		main()
 				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
 				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
 				tmp_el_p2->id = GM_TOOL_ID_SLIDER_HEAD;
-				tmp_el_p2->sdl_renderer = g_main.tool_win->sdl_renderer;
 				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
 				ui_el_set_hor_draggable(tmp_el_p2);
 
@@ -349,8 +342,6 @@ int		main()
 	ui_win_setup_default(g_main.layer_win);
 	ui_win_create(g_main.layer_win);
 	ui_main_add_window(g_main.ui_main, g_main.layer_win);
-	g_main.layer_win->canvas.id = 0;
-	g_main.layer_win->canvas.sdl_renderer = g_main.layer_win->sdl_renderer;
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.layer_win->canvas), "flower", "default");
 	ui_event_add_listener(&(g_main.layer_win->canvas.events.onRender), &ui_el_draw_event);
 
@@ -365,7 +356,6 @@ int		main()
 		ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.01, 0.01});
 		ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.98, 0.89});
 		tmp_el_p2->id = GM_LAYER_ID_MENU;
-		tmp_el_p2->sdl_renderer = g_main.layer_win->sdl_renderer;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "priso", "default");
 		g_main.layers.layers = tmp_el_p2->children;
 
@@ -379,7 +369,6 @@ int		main()
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
 			ui_el_set_size(tmp_el, &(g_main.layer_win->canvas), SIZE_ABS, (t_fvec2){0.8, 0.25});
 			tmp_el->id = GM_LAYER_ID_DEF_LAYER;
-			tmp_el->sdl_renderer = g_main.layer_win->sdl_renderer;
 			ui_el_add_empty_texture(tmp_el, tmp_el->rect.w, tmp_el->rect.h, "default");
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "onFocus");
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "test4", "onActive");
@@ -401,7 +390,6 @@ int		main()
 				ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.8, 0.8});
 				tmp_el_p1->id = GM_LAYER_ID_DEF_LAYER * 1000;
 				tmp_el_p1->params |= EL_IGNOR_RAYCAST | EL_IS_DEPENDENT;
-				tmp_el_p1->sdl_renderer = g_main.layer_win->sdl_renderer;
 				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "prison", "default");
 
 	/*ADD BUTTON*/
@@ -415,7 +403,6 @@ int		main()
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.01, 0.91});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.485, 0.08});
 		tmp_el_p1->id = GM_LAYER_ID_ADD;
-		tmp_el_p1->sdl_renderer = g_main.layer_win->sdl_renderer;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
 		ui_event_add_listener(&(tmp_el_p1->events.onPointerLeftButtonPressed), &test_add_layer);
 
@@ -430,7 +417,6 @@ int		main()
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.505, 0.91});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.485, 0.08});
 		tmp_el_p1->id = GM_LAYER_ID_DEL;
-		tmp_el_p1->sdl_renderer = g_main.layer_win->sdl_renderer;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
 		ui_event_add_listener(&(tmp_el_p1->events.onPointerLeftButtonPressed), &test_del_layer);
 

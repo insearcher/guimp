@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 19:59:28 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/02 21:16:37 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct					s_guimp
 	t_ui_win					*layer_win;
 	t_layers					layers;
 }								t_guimp;
-
 
 void							draw_dot(void *ui_main, void *ui_el);
 void							draw_main_canvas_event(void *el_v, void *arg);

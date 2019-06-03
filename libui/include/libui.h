@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 19:06:53 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/03 16:09:35 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,8 +235,6 @@ typedef struct		s_ui_main
 	t_list			*windows;
 	SDL_Event		sdl_event;
 	t_ui_raycaster	raycaster;
-	Uint32			cur_tick;
-	Uint32			target_tick;
 	Uint32			params;
 	t_vec2			ptr_pos;
 	t_list			*sdl_surfaces;

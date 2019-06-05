@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:38:55 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/05 04:12:29 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/05 21:52:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ui_el_set_new_size_for_children(void *a1, void *a2)
 	el = (t_ui_el *)a1;
 	(void)a2;
 	el->rect.w = (float)el->parent->rect.w * el->relative_rect.w;
-	el->rect.y = (float)el->parent->rect.h * el->relative_rect.h;
+	el->rect.h = (float)el->parent->rect.h * el->relative_rect.h;
 	el->cut_rect.w = el->rect.w;
 	el->cut_rect.h = el->rect.h;
 }

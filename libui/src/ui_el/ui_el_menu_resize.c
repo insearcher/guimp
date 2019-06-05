@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 14:45:05 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/05 04:52:08 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/05 21:53:01 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	ui_el_set_new_pos_for_resize(t_ui_el *el, t_fvec2 v)
 	el->rect.y = roundf(v.y + (float)el->parent->rect.y);
 	el->cut_rect.x = el->rect.x;
 	el->cut_rect.y = el->rect.y;
-	bfs_iter(el->children, ui_el_set_new_pos_for_children, 0);
 }
 
 static void	ui_el_set_new_size_for_resize(t_ui_el *el, t_fvec2 v)
@@ -27,7 +26,6 @@ static void	ui_el_set_new_size_for_resize(t_ui_el *el, t_fvec2 v)
 	el->rect.h = roundf(v.y);
 	el->cut_rect.w = el->rect.w;
 	el->cut_rect.h = el->rect.h;
-	bfs_iter(el->children, ui_el_set_new_size_for_children, 0);
 }
 
 static void	get_new_pos_size_indent(t_ui_el *el, t_resize_data *data)
@@ -74,6 +72,8 @@ void		ui_el_menu_resize(void *a1, void *a2)
 			cur_el = (t_ui_el *)list->content;
 			ui_el_set_new_pos_for_resize(cur_el, data.elem_pos);
 			ui_el_set_new_size_for_resize(cur_el, data.elem_size);
+			bfs_iter(cur_el->children, ui_el_set_new_pos_for_children, 0);
+			bfs_iter(cur_el->children, ui_el_set_new_size_for_children, 0);
 			data.elem_pos.y += data.elem_size.y + data.indent.y;
 			list = list->next;
 		}

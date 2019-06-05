@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_draw_windows.c                                  :+:      :+:    :+:   */
+/*   ui_main_from_json.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/04 06:06:48 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/06/04 15:55:03 by edraugr-         ###   ########.fr       */
+/*   Created: 2019/06/03 17:06:58 by sbednar           #+#    #+#             */
+/*   Updated: 2019/06/03 17:18:58 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_draw_windows(t_ui_main *m)
+int	ui_main_from_json(t_ui_main *m, const char *p)
 {
-	t_list	*node;
-
-	node = m->windows;
-	while (node)
-	{
-		ui_draw_window((t_ui_win *)node->content, m);
-		node = node->next;
-	}
+	(void)m;
+	(void)p;
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_setup_default.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 05:50:32 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/01 19:42:26 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/03 19:25:21 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ui_el_setup_default(t_ui_el *el)
 {
 	ui_el_init(el);
+	el->current_texture = ft_strhash("default");
 	ui_event_add_listener(&(el->events.onRender), &ui_el_draw_event);
 	ui_event_add_listener(&(el->events.onPointerEnter), &ui_log_el_pointer_enter);
 	ui_event_add_listener(&(el->events.onPointerEnter), &ui_el_default_pointer_enter);

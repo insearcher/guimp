@@ -1,0 +1,50 @@
+{
+	"windows":
+	[
+		{
+			"title": "name1",
+			"params":
+			[
+				"WIN_MAIN",
+				"WIN_RESIZABLE"
+			],
+			"size":
+			{
+				"x": 480,
+				"y": 320
+			},
+			"elements":
+			[
+				{
+					"id": 1,
+					"parent": 23,
+					"functions":
+					[
+						{
+							"count_args": 3,
+							"type_args":
+							[
+								"int", "int", "fvec"
+							],
+							"name": "ui_el_setup_default_scroll_menu",
+							"args":
+							[
+
+							]
+						}
+					],
+					"events":
+					[
+						{
+							"name": "onRender",
+							"functions":
+							[
+								"ui_el_huel"
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ui_draw_window.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 05:49:45 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/04/06 18:04:04 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/04 15:54:36 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_draw_window(t_ui_win *w)
+void	ui_draw_window(t_ui_win *w, t_ui_main *m)
 {
-	bfs_iter_root(&w->canvas, NULL, NULL);
+	bfs_iter_root(&w->canvas, NULL, (void *)m);
 }

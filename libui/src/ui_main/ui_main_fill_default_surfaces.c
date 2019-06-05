@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_fill_default_surfaces.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:03:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/24 19:03:25 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/03 21:35:55 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,7 @@ void	ui_main_fill_default_surfaces(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/test5.png", "test5");
 	ui_main_add_surface_by_path(m, "images/test6.jpeg", "test6");
 	ui_main_add_surface_by_path(m, "images/test31.jpg", "test31");
+	ui_main_add_surface_by_path(m, "images/layer_place.png", "layer_place");
+	ui_main_add_surface_by_path(m, "images/layer_onPtr.png", "layer_onPtr");
+	ui_main_add_surface_by_path(m, "images/layer_active.png", "layer_active");
 }

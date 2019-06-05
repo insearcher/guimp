@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/02 19:06:59 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/06/05 05:02:54 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_set_text.c \
 					ui_el_update_text.c \
 					ui_el_change_pos.c \
+					ui_el_change_size.c \
 					ui_el_add_texture_from_main_by_id.c \
 					ui_el_set_hor_draggable.c \
 					ui_el_set_pos.c \
@@ -57,8 +58,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_set_default_resize.c \
 					ui_el_menu_resize.c \
 					ui_el_set_menu_resize.c \
-					ui_el_change_pos_for_resize.c \
-					ui_el_change_size_for_resize.c
+					ui_el_set_new_pos.c \
+					ui_el_set_new_size.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -135,6 +136,8 @@ SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c \
 					ui_prefab_get_relative_pos.c \
 					ui_prefab_get_relative_size.c
 
+SRC_UTILITS		=	ui_get_rect_from_frect.c
+
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
@@ -145,7 +148,8 @@ OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_SDL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_WIN:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_RAYCAST:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_UI_PREFAB:.c=.o))
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_PREFAB:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UTILITS:.c=.o))
 
 INCS		=		-I$(INC_DIR) \
 					-I$(INC_FT) \
@@ -205,6 +209,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_win/%.c
 	@echo "1" > ../$(TEMP)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_prefab/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/utilits/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

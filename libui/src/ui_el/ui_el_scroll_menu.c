@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 01:38:28 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/27 14:51:53 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/05 05:05:19 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ui_el_scroll_menu_down(void *a1, void *a2)
 	while (list)
 	{
 		cur_el = (t_ui_el*)list->content;
-		ui_el_change_pos(cur_el, cur_el->rect.x, cur_el->rect.y + tmp_scroll_speed);
+		ui_el_change_pos(cur_el, 0, PIXEL, (t_fvec2){0, tmp_scroll_speed});
 		list = list->next;
 	}
 }
@@ -82,7 +82,7 @@ void	ui_el_scroll_menu_up(void *a1, void *a2)
 	while (list)
 	{
 		cur_el = (t_ui_el*)list->content;
-		ui_el_change_pos(cur_el, cur_el->rect.x, cur_el->rect.y - tmp_scroll_speed);
+		ui_el_change_pos(cur_el, 0, PIXEL, (t_fvec2){0, -tmp_scroll_speed});
 		list = list->next;
 	}
 }

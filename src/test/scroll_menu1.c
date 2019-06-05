@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 13:09:44 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/01 23:26:13 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/04 20:22:35 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	add_elems_scroll_menu1(t_guimp *guimp, t_ui_el *scroll_menu)
 	scroll_data.begin_pos = (t_fvec2){0.2, 0};
 	scroll_data.type_size = 0;
 	scroll_data.size = (t_fvec2){0.6, 0.2};
-	scroll_data.type_indent = SIZE_PIXEL;
+	scroll_data.type_indent = PIXEL;
 	scroll_data.indent = (t_fvec2){0, 2};
 	scroll_data.params = 0;
 	scroll_data.begin_id = scroll_menu->id * 1000;

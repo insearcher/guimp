@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 12:15:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 12:10:15 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/02 22:23:12 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,12 @@ void			bfs_iter(const t_list *root, const func_ptr f,
 
 	q = NULL;
 	q_push(&q, (t_list *)root);
-	if (f)
-		while (q)
-		{
-			tmp = q_pop(&q);
-			q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
-			f(tmp, (void *)arg);
-		}
-	else
-		while (q)
-		{
-			tmp = q_pop(&q);
-			if (!(((t_ui_el *)tmp)->params & EL_IS_HIDDEN))
-			{
-				q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
-				ui_event_invoke(&(((t_ui_el *)tmp)->events.onRender), tmp, (void *)arg);
-			}
-		}
+	while (q)
+	{
+		tmp = q_pop(&q);
+		q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
+		f(tmp, (void *)arg);
+	}
 }
 
 void			bfs_iter_root(const t_ui_el *root, const func_ptr f,

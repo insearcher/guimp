@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:12:38 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/26 09:03:01 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/05 04:18:05 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
 {
-	if ((type & SIZE_PIXEL))
+	if ((type & PIXEL))
 	{
 		el->rect.w = roundf(v.x);
 		el->rect.h = roundf(v.y);
 	}
-	else if ((type & SIZE_ABS))
+	else if ((type & ABS))
 	{
 		el->rect.w = roundf((float)canvas->rect.w * v.x);
 		el->rect.h = roundf((float)canvas->rect.h * v.y);

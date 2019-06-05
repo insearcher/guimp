@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_add_texture.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 04:27:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/24 19:33:58 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/04 19:38:44 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,37 @@ int			ui_el_add_empty_texture(t_ui_el *el, int w, int h, const char *texture_id)
 	SDL_SetRenderTarget(el->sdl_renderer, tmp_texture);
 	SDL_SetRenderDrawBlendMode(el->sdl_renderer, SDL_BLENDMODE_NONE);
 	SDL_SetRenderDrawColor(el->sdl_renderer, 255, 255, 255, 0);
+	SDL_SetTextureBlendMode(tmp_texture, SDL_BLENDMODE_BLEND);
+	SDL_RenderFillRect(el->sdl_renderer, NULL);
+	SDL_SetRenderDrawBlendMode(el->sdl_renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderTarget(el->sdl_renderer, NULL);
+	SDL_SetRenderDrawColor(el->sdl_renderer, 0, 0, 0, 255);
+	tmp_lst->content_size = hash;
+	tmp_lst->content = (void *)tmp_texture;
+	ft_lstadd(&(el->sdl_textures), tmp_lst);
+	return(FUNCTION_SUCCESS);
+}
+
+int			ui_el_add_white_texture(t_ui_el *el, int w, int h, const char *texture_id)
+{
+	t_list_texture	*tmp_lst;
+	SDL_Texture		*tmp_texture;
+	int				hash;
+
+	hash = ft_strhash(texture_id);
+	if (check_texture_id(el->sdl_textures, hash) || !(tmp_lst = ft_lstnew(NULL, 0)))
+		return(FUNCTION_FAILURE);
+	// if ((tmp_texture = SDL_CreateTexture(el->sdl_renderer, SDL_PIXELFORMAT_RGBA8888,
+	// 	SDL_TEXTUREACCESS_TARGET, w, h)) == NULL)
+	if ((tmp_texture = SDL_CreateTexture(el->sdl_renderer, SDL_PIXELFORMAT_RGBA8888,
+		SDL_TEXTUREACCESS_TARGET, w, h)) == NULL)
+	{
+		free(tmp_lst);
+		return(FUNCTION_FAILURE);
+	}
+	SDL_SetRenderTarget(el->sdl_renderer, tmp_texture);
+	SDL_SetRenderDrawBlendMode(el->sdl_renderer, SDL_BLENDMODE_NONE);
+	SDL_SetRenderDrawColor(el->sdl_renderer, 255, 255, 255, 255);
 	SDL_SetTextureBlendMode(tmp_texture, SDL_BLENDMODE_BLEND);
 	SDL_RenderFillRect(el->sdl_renderer, NULL);
 	SDL_SetRenderDrawBlendMode(el->sdl_renderer, SDL_BLENDMODE_BLEND);

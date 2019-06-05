@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_event_add_listener.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:16:15 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/04 01:22:59 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/04 16:03:49 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	ui_event_add_listener(t_ui_event *e, func_ptr f)
 
 	ptr = (long)f;
 	if ((node = ft_lstnew((void *)&ptr, sizeof(ptr))) == NULL)
+	//if ((node = ft_lstnew(NULL, 0)) == NULL)
 		return (FUNCTION_FAILURE);
+	//node->content = (void *)&ptr;
 	if (e->events == NULL)
 	{
 		e->events = node;

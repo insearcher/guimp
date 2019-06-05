@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 19:06:53 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/04 15:54:49 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include <SDL.h>
 # include <SDL_ttf.h>
 # include <SDL_image.h>
-# include "libft.h"
 # include <math.h>
+# include "libft.h"
+# include "libjtoc.h"
 
 /*
 ** TODO:
@@ -76,10 +77,6 @@
 //win params
 # define WIN_MAIN			(1 << 0)
 # define WIN_RESIZABLE		(1 << 1)
-
-//func status
-# define FUNCTION_SUCCESS	0
-# define FUNCTION_FAILURE	1
 
 //texture id`s
 // # define TID_DEFAULT		0
@@ -235,8 +232,6 @@ typedef struct		s_ui_main
 	t_list			*windows;
 	SDL_Event		sdl_event;
 	t_ui_raycaster	raycaster;
-	Uint32			cur_tick;
-	Uint32			target_tick;
 	Uint32			params;
 	t_vec2			ptr_pos;
 	t_list			*sdl_surfaces;
@@ -340,7 +335,7 @@ void				bfs_for_resize(const t_ui_el *root, const void *arg);
 # pragma region draw
 
 void				ui_draw(t_ui_main *m);
-void				ui_draw_window(t_ui_win *w);
+void				ui_draw_window(t_ui_win *w, t_ui_main *m);
 void				ui_draw_windows(t_ui_main *m);
 void				ui_clear_windows(t_ui_main *m);
 void				ui_show_window(t_ui_win *w);
@@ -363,9 +358,11 @@ SDL_Texture			*ui_el_create_texture(t_ui_el *el);
 SDL_Texture			*ui_el_create_texture_from_surface(t_ui_el *el, SDL_Surface *sur);
 
 int					ui_el_add_texture_from_file(t_ui_el *el,
-		const char *path, const char *texture_id);
+						const char *path, const char *texture_id);
 int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
-		const char *texture_id);
+						const char *texture_id);
+int					ui_el_add_white_texture(t_ui_el *el, int w, int h,
+						const char *texture_id);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
 SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, const char *id);
 int					ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id);

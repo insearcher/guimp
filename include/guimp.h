@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 21:16:37 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:03:42 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@
 
 # define GM_LAYER_WIN_W			300
 # define GM_LAYER_WIN_H			800
-# define GM_LAYER_ID_MENU		1
-# define GM_LAYER_ID_ADD		2
-# define GM_LAYER_ID_DEL		3
+# define GM_LAYER_ID_MENU		2
+# define GM_LAYER_ID_ADD		3
+# define GM_LAYER_ID_DEL		4
 # define GM_LAYER_ID_DEF_LAYER	ID_GENERATOR_START
 # define GM_LAYER_MAX_COUNT		100
+# define GM_IMAGE_SIZE_X		1920
+# define GM_IMAGE_SIZE_Y		1080
 
 //id_generator flags
 # define ID_GENERATOR_GET		0
@@ -52,13 +54,22 @@ typedef struct					s_layers
 	t_list						*layers;
 }								t_layers;
 
+typedef struct					s_draw_tool
+{
+	t_vec2						prew_point;
+	t_vec2						cur_point;
+	int							tool;
+	Uint8						r;
+}								t_draw_tool;
+
+
 typedef struct					s_guimp
 {
 	t_ui_main					*ui_main;
 	t_ui_win					*main_win;
 	t_ui_win					*tool_win;
-	t_ui_win					*layer_win;
 	t_layers					layers;
+	t_draw_tool					draw_tool;
 }								t_guimp;
 
 void							draw_dot(void *ui_main, void *ui_el);

@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/02 16:02:50 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/06/03 17:15:34 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-include			Makefile.inc
+include				Makefile.inc
 
 NAME			=	guimp
 NAME_TEST		=	guimp_test
@@ -27,14 +27,15 @@ TEXT_CC			=	\033[36m
 
 FT_DIR			=	./libft
 UI_DIR			=	./libui
+JTOC_DIR		=	./libjtoc
 
 INC_FT			=	$(FT_DIR)/include
 INC_UI			=	$(UI_DIR)/include
+INC_JTOC		=	$(JTOC_DIR)/include
 INC_DIR			=	./include
 
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
-LIB_DIR			=	./lib
 
 SRC				=	main.c \
 					draw_func.c \
@@ -65,6 +66,7 @@ OBJ_TEST		=	$(addprefix $(OBJ_DIR_TEST)/,$(SRC_TEST:.c=.o))
 INCS			=	-I$(INC_DIR) \
 					-I$(INC_FT) \
 					-I$(INC_UI) \
+					-I$(INC_JTOC) \
 					-I./frameworks/SDL2.framework/Versions/A/Headers \
 					-I./frameworks/SDL2_image.framework/Versions/A/Headers \
 					-I./frameworks/SDL2_ttf.framework/Versions/A/Headers
@@ -77,6 +79,7 @@ FRAMEWORKS		=	-F./frameworks \
 
 LIBS			=	-L$(FT_DIR) -lft \
 					-L$(UI_DIR) -lui \
+					-L$(JTOC_DIR) -ljtoc
 
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror -g
@@ -90,6 +93,8 @@ $(NAME):
 	@make -C $(FT_DIR) all
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) all
+	@echo "$(TEXT_CR)$(TEXT_B)LIBJTOC:$(TEXT_R)"
+	@make -C $(JTOC_DIR) all
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
 	@make $(OBJ_DIR)
 	@make compile
@@ -118,6 +123,8 @@ clean:
 	@make -C $(FT_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) clean
+	@echo "$(TEXT_CR)$(TEXT_B)LIBJTOC:$(TEXT_R)"
+	@make -C $(JTOC_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)GUIMP:$(TEXT_R)"
 	@rm -f $(TEMP)
 	rm -rf $(OBJ_DIR)
@@ -129,6 +136,8 @@ fclean:
 	@make -C $(FT_DIR) fclean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) fclean
+	@echo "$(TEXT_CR)$(TEXT_B)LIBJTOC:$(TEXT_R)"
+	@make -C $(JTOC_DIR) fclean
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
 	@rm -f $(TEMP)
 	rm -rf $(OBJ_DIR)
@@ -152,6 +161,8 @@ $(NAME_TEST):
 	@make -C $(FT_DIR) all
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) all
+	@echo "$(TEXT_CR)$(TEXT_B)LIBJTOC:$(TEXT_R)"
+	@make -C $(JTOC_DIR) all
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME_TEST):$(TEXT_R)"
 	@make $(OBJ_DIR_TEST)
 	@make compile_test
@@ -180,6 +191,8 @@ clean_t:
 	@make -C $(FT_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) clean
+	@echo "$(TEXT_CR)$(TEXT_B)LIBJTOC:$(TEXT_R)"
+	@make -C $(JTOC_DIR) clean
 	@echo "$(TEXT_CR)$(TEXT_B)GUIMP:$(TEXT_R)"
 	@rm -f $(TEMP)
 	rm -rf $(OBJ_DIR_TEST)
@@ -191,6 +204,8 @@ fclean_t:
 	@make -C $(FT_DIR) fclean
 	@echo "$(TEXT_CR)$(TEXT_B)LIBUI:$(TEXT_R)"
 	@make -C $(UI_DIR) fclean
+	@echo "$(TEXT_CR)$(TEXT_B)LIBJTOC:$(TEXT_R)"
+	@make -C $(JTOC_DIR) fclean
 	@echo "$(TEXT_CR)$(TEXT_B)$(NAME):$(TEXT_R)"
 	@rm -f $(TEMP)
 	rm -rf $(OBJ_DIR_TEST)

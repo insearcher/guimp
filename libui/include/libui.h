@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 04:20:35 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/05 06:04:38 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include <SDL.h>
 # include <SDL_ttf.h>
 # include <SDL_image.h>
-# include "libft.h"
 # include <math.h>
+# include "libft.h"
+# include "libjtoc.h"
 
 /*
 ** TODO:
@@ -76,10 +77,6 @@
 //win params
 # define WIN_MAIN			(1 << 0)
 # define WIN_RESIZABLE		(1 << 1)
-
-//func status
-# define FUNCTION_SUCCESS	0
-# define FUNCTION_FAILURE	1
 
 //texture id`s
 // # define TID_DEFAULT		0
@@ -233,8 +230,6 @@ typedef struct		s_ui_main
 	t_list			*windows;
 	SDL_Event		sdl_event;
 	t_ui_raycaster	raycaster;
-	Uint32			cur_tick;
-	Uint32			target_tick;
 	Uint32			params;
 	t_vec2			ptr_pos;
 	t_list			*sdl_surfaces;

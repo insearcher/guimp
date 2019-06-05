@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_add_child.c                                  :+:      :+:    :+:   */
+/*   jtoc_read.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/28 14:55:52 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/06/03 16:56:46 by sbednar          ###   ########.fr       */
+/*   Created: 2019/06/01 15:46:08 by sbednar           #+#    #+#             */
+/*   Updated: 2019/06/01 15:50:54 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui.h"
+#include "libjtoc.h"
 
-int	ui_el_add_child(t_ui_el *el, t_ui_el *child)
+t_jnode	*jtoc_read(const char *str)
 {
-	t_list	*node;
+	t_jnode	*json_tree;
+	char	*json_str;
 
-	if ((node = ft_lstnew(NULL, 0)) == NULL)
-		return (FUNCTION_FAILURE);
-	child->parent = el;
-	child->sdl_renderer = el->sdl_renderer;
-	node->content = (void *)child;
-	ft_lstadd_back(&(el->children), node);
-	return (FUNCTION_SUCCESS);
+	json_tree = NULL;
+	json_str = NULL;
+	if (jtoc_read_file(str, &json_str) < 0)
+		return (NULL);
+	if (jtoc_remove_spaces(&json_str) < 0)
+	{
+		free(json_str);
+		return (NULL);
+	}
+	json_tree = jtoc_parse(json_str);
+	free(json_str);
+	return (json_tree);
 }

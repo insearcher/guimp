@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/05 05:02:54 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/05 06:03:38 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ include				../Makefile.inc
 NAME 			=	libui.a
 
 INC_FT			=	../libft/include
+INC_JTOC		=	../libjtoc/include
 
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
@@ -138,6 +139,8 @@ SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c \
 
 SRC_UTILITS		=	ui_get_rect_from_frect.c
 
+SRC_UI_JTOC		=	ui_main_from_json.c
+
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
@@ -149,10 +152,12 @@ OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_WIN:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_RAYCAST:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_PREFAB:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_UTILITS:.c=.o))
+					$(addprefix $(OBJ_DIR)/,$(SRC_UTILITS:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_JTOC:.c=.o))
 
 INCS		=		-I$(INC_DIR) \
 					-I$(INC_FT) \
+					-I$(INC_JTOC) \
 					-I../frameworks/SDL2.framework/Versions/A/Headers \
 					-I../frameworks/SDL2_image.framework/Versions/A/Headers \
 					-I../frameworks/SDL2_ttf.framework/Versions/A/Headers
@@ -213,6 +218,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_prefab/%.c
 	@echo "1" > ../$(TEMP)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/utilits/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_jtoc/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

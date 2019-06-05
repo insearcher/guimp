@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_set_rel_size.c                               :+:      :+:    :+:   */
+/*   ui_get_rect_from_frect.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 13:35:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 04:19:14 by sbednar          ###   ########.fr       */
+/*   Created: 2019/06/04 19:47:56 by sbecker           #+#    #+#             */
+/*   Updated: 2019/06/04 23:33:26 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_set_rel_size(t_ui_el *el, float w, float h)
+t_rect	ui_get_rect_from_frect(t_frect frect)
 {
-	t_ui_el	*p;
+	t_rect	rect;
 
-	if (!el || !(p = el->parent) || w == 0.0 || h == 0.0)
-		return ;
-	el->frect.w = w;
-	el->frect.h = h;
-	el->rect.w = (int)((float)p->rect.w * w);
-	el->rect.h = (int)((float)p->rect.h * h);
+	rect.x = (int)roundf(frect.x);
+	rect.y = (int)roundf(frect.y);
+	rect.w = (int)roundf(frect.w);
+	rect.h = (int)roundf(frect.h);
+	return (rect);
 }

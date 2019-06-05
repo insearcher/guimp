@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_change_pos.c                                 :+:      :+:    :+:   */
+/*   ui_el_change_size.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/23 05:28:15 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/05 05:16:18 by sbecker          ###   ########.fr       */
+/*   Created: 2019/06/03 22:01:02 by sbecker           #+#    #+#             */
+/*   Updated: 2019/06/05 16:42:03 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-static void	ui_el_change_pos_in_tree(void *a1, void *a2)
+static void ui_el_change_size_in_tree(void *a1, void *a2)
 {
-	t_ui_el	*el;
-	t_vec2	*dist;
+	t_ui_el *el;
+	t_vec2  *dist;
 
 	el = (t_ui_el *)a1;
 	dist = (t_vec2 *)a2;
-	el->rect.x += dist->x;
-	el->rect.y += dist->y;
-	el->relative_rect.x = (float)(el->rect.x - el->parent->rect.x) / (float)el->parent->rect.w;
-	el->relative_rect.y = (float)(el->rect.y - el->parent->rect.y) / (float)el->parent->rect.h;
-	el->cut_rect.x = el->rect.x;
-	el->cut_rect.y = el->rect.y;
+	el->rect.w += dist->x;
+	el->rect.h += dist->y;
+	el->relative_rect.w = (float)el->rect.w / (float)el->parent->rect.w;
+	el->relative_rect.h = (float)el->rect.h / (float)el->parent->rect.h;
+	el->cut_rect.w = el->rect.w;
+	el->cut_rect.h = el->rect.h;
 }
 
-void    ui_el_change_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
+void		ui_el_change_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
 {
 	t_vec2  dist;
 
@@ -46,5 +46,5 @@ void    ui_el_change_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
 		dist.x = roundf((float)el->parent->rect.w * v.x);
 		dist.y = roundf((float)el->parent->rect.h * v.y);
 	}
-	bfs_iter_root(el, ui_el_change_pos_in_tree, &dist);
+	bfs_iter_root(el, ui_el_change_size_in_tree, &dist);
 }

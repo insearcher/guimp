@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/04 15:54:49 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/05 16:31:08 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,9 @@
 # define BUTTON_OFF			0 // TODO: remove
 # define BUTTON_ON			1 // TODO: remove
 
-//for set pos and size
-# define POS_ABS			(1 << 0)
-# define POS_PIXEL			(1 << 1)
-# define SIZE_ABS			(1 << 2)
-# define SIZE_PIXEL			(1 << 3)
+//for set/chage pos/size
+# define ABS			(1 << 0)
+# define PIXEL			(1 << 1)
 
 typedef	void		(*func_ptr)(void *, void *);
 typedef	int			(*pred_ptr)(void *, void *);
@@ -253,6 +251,13 @@ typedef struct		s_scroll_m_pref
 	char			*texture;
 }					t_scroll_m_pref;
 
+typedef struct		s_resize_data
+{
+	t_fvec2			elem_pos;
+	t_fvec2			elem_size;
+	t_fvec2			indent;
+}					t_resize_data;
+
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_init(t_ui_main *m);
@@ -350,7 +355,12 @@ void				ui_el_setup_default(t_ui_el *el);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 void				ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
-void				ui_el_change_pos(t_ui_el *el, int x, int y);
+void				ui_el_change_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_set_new_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_set_new_pos_for_children(void *a1, void *a2);
+void				ui_el_set_new_size_for_children(void *a1, void *a2);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 
@@ -391,8 +401,6 @@ void				ui_el_default_resize(void *a1, void *a2);
 void				ui_el_set_default_resize(t_ui_el *el);
 void				ui_el_menu_resize(void *a1, void *a2);
 void				ui_el_set_menu_resize(t_ui_el *el);
-void				ui_el_change_size_for_resize(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
-void				ui_el_change_pos_for_resize(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_win_update_size(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
@@ -420,5 +428,7 @@ void				ui_prefab_get_relative_pos(t_ui_el *p, t_ui_el *canvas,
 		int type, t_fvec2 *pos);
 void				ui_prefab_get_relative_size(t_ui_el *p, t_ui_el *canvas,
 		int type, t_fvec2 *size);
+
+t_rect				ui_get_rect_from_frect(t_frect frect);
 
 #endif

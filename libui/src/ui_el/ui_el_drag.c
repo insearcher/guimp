@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 20:15:41 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 16:01:05 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/05 17:20:56 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ui_el_drag(void *a1, void *a2)
 		x + el->rect.w > el->parent->rect.x + el->parent->rect.w ||
 		y + el->rect.h > el->parent->rect.y + el->parent->rect.h)
 		return ;
-	ui_el_change_pos(el, x, y);
+	ui_el_set_new_pos(el, 0, PIXEL, (t_fvec2){x, y});
 }
 
 void	ui_el_hor_slider_drug(void *a1, void *a2)
@@ -44,5 +44,5 @@ void	ui_el_hor_slider_drug(void *a1, void *a2)
 	if (x < el->parent->rect.x ||
 		x + el->rect.w > el->parent->rect.x + el->parent->rect.w)
 		return ;
-	ui_el_change_pos(el, x, y);
+	ui_el_set_new_pos(el, el->parent, PIXEL, (t_fvec2){-x, y});
 }

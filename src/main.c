@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 21:10:55 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/05 05:44:54 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_el_set_pos(tmp_el, 0, 0,
 		(t_fvec2){0.1,
 			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.3 * (float)gm_generator_get_surf_count()});
-	ui_el_set_size(tmp_el, &(g->layer_win->canvas), SIZE_ABS, (t_fvec2){0.8, 0.25});
+	ui_el_set_size(tmp_el, &(g->layer_win->canvas), ABS, (t_fvec2){0.8, 0.25});
 	tmp_el->sdl_renderer = g->layer_win->sdl_renderer;
 	ui_el_add_empty_texture(tmp_el, tmp_el->rect.w, tmp_el->rect.h, "default");
 	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "bl", "onFocus");
@@ -149,7 +149,7 @@ static void	test_del_layer(void *main, void *el_v)
 		if (next_active->id > el->id)
 		{
 			next_active->id--;
-			ui_el_change_pos(next_active, next_active->rect.x, next_active->rect.y - next_active->rect.h); //todo norm change pos
+			ui_el_change_pos(next_active, 0, PIXEL, (t_fvec2){0, -next_active->rect.h}); //todo norm change pos
 		}
 		prev = tmp;
 		tmp = tmp->next;
@@ -271,7 +271,7 @@ int		main()
 			}
 			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
-			ui_el_set_size(tmp_el, 0, SIZE_PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
+			ui_el_set_size(tmp_el, 0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_BRUSH;
 			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
@@ -284,7 +284,7 @@ int		main()
 			}
 			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.55, 0.05});
-			ui_el_set_size(tmp_el,  0, SIZE_PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
+			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_ERASER;
 			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
@@ -377,7 +377,7 @@ int		main()
 			}
 			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p2);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
-			ui_el_set_size(tmp_el, &(g_main.layer_win->canvas), SIZE_ABS, (t_fvec2){0.8, 0.25});
+			ui_el_set_size(tmp_el, &(g_main.layer_win->canvas), ABS, (t_fvec2){0.8, 0.25});
 			tmp_el->id = GM_LAYER_ID_DEF_LAYER;
 			tmp_el->sdl_renderer = g_main.layer_win->sdl_renderer;
 			ui_el_add_empty_texture(tmp_el, tmp_el->rect.w, tmp_el->rect.h, "default");

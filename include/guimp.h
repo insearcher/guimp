@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 15:03:42 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/05 21:33:32 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,15 @@
 # define GM_TOOL_ID_BRUSH		12
 # define GM_TOOL_ID_ERASER		13
 # define GM_TOOL_ID_SET_MENU	40
-# define GM_TOOL_ID_SLIDER_ROOT	41
-# define GM_TOOL_ID_SLIDER_HEAD	42
+# define GM_TOOL_ID_SL_ROOT_RED	41
+# define GM_TOOL_ID_SL_HEAD_RED	42
+# define GM_TOOL_ID_SL_ROOT_GR	43
+# define GM_TOOL_ID_SL_HEAD_GR	44
+# define GM_TOOL_ID_SL_ROOT_BL	45
+# define GM_TOOL_ID_SL_HEAD_BL	46
+# define GM_TOOL_ID_SL_ROOT_SZ	47
+# define GM_TOOL_ID_SL_HEAD_SZ	48
+
 
 # define GM_LAYER_WIN_W			300
 # define GM_LAYER_WIN_H			800
@@ -38,8 +45,12 @@
 # define GM_LAYER_ID_DEL		4
 # define GM_LAYER_ID_DEF_LAYER	ID_GENERATOR_START
 # define GM_LAYER_MAX_COUNT		100
+
 # define GM_IMAGE_SIZE_X		1920
 # define GM_IMAGE_SIZE_Y		1080
+
+# define GM_BRUSH_MAX_SIZE		100
+# define GM_BRUSH_DEF_SIZE		10
 
 //id_generator flags
 # define ID_GENERATOR_GET		0
@@ -59,7 +70,10 @@ typedef struct					s_draw_tool
 	t_vec2						prew_point;
 	t_vec2						cur_point;
 	int							tool;
+	int							brush_size;
 	Uint8						r;
+	Uint8						g;
+	Uint8						b;
 }								t_draw_tool;
 
 

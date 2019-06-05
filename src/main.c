@@ -6,30 +6,11 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 19:08:20 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/05 21:38:57 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
-
-// static void	testOnPtrStay(void *main, void *el_v)
-// {
-// 	main = NULL;
-// 	t_ui_el *el = (t_ui_el *)el_v;
-// 	static int dist = 1;
-// 	static int dsize;
-
-// 	if (main == NULL)
-// 	{
-// 		dsize += dist;
-// 		if (dsize > 200 || dsize == 0)
-// 			dist *= -1;
-// 		el->rect.w += 2 * dist;
-// 		el->rect.h += 2 * dist;
-// 		el->rect.x -= dist;
-// 		el->rect.y -= dist;
-// 	}
-// }
 
 // static void	test(void *main, void *el_v)
 // {
@@ -98,7 +79,6 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_el_set_pos(tmp_el, 0, 0,
 		(t_fvec2){0.1,
 			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.3 * (float)gm_generator_get_surf_count()});
-	// ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
 	ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.25});
 	tmp_el->sdl_renderer = g->main_win->sdl_renderer;
 	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_place", "default");
@@ -186,10 +166,8 @@ static void	draw_canvas_renderer(void *el_v, void *main)
 	t_list	*layer;
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
-	//el = g->layers.current_layer;
 	el = (t_ui_el *)el_v;
 	layer = g->layers.layers;
-	//SDL_SetRenderTarget(g->main_win->sdl_renderer, el->current_texture)
 	while (layer)
 	{
 		SDL_RenderCopy(el->sdl_renderer, (SDL_Texture *)(layer->content), NULL, &el->rect);
@@ -208,8 +186,6 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	el = (t_ui_el *)el_v;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * GM_IMAGE_SIZE_X;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * GM_IMAGE_SIZE_Y;
-	printf(">>>>>>>>>>>>>%d>>>>>>>>>>>%d\n", x, y);
-	// g->draw_tool.prew_point = (t_vec2){el->ptr_rel_pos.x, el->ptr_rel_pos.y};
 	g->draw_tool.prew_point = (t_vec2){x, y};
 }
 
@@ -224,16 +200,23 @@ static void	draw_with_selected_tool(void *main, void *el_v)
 	el = (t_ui_el *)el_v;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * GM_IMAGE_SIZE_X;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * GM_IMAGE_SIZE_Y;
-	// g->draw_tool.cur_point = (t_vec2){el->ptr_rel_pos.x, el->ptr_rel_pos.y};
 	g->draw_tool.cur_point = (t_vec2){x, y};
 	SDL_SetRenderTarget(el->sdl_renderer, (SDL_Texture *)(g->layers.current_layer->sdl_textures->content));
-	SDL_SetRenderDrawColor(el->sdl_renderer, g->draw_tool.r, 0, 0, 255);
-	SDL_RenderDrawLine(el->sdl_renderer, g->draw_tool.prew_point.x, g->draw_tool.prew_point.y,
-		g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
+	//SDL_SetRenderDrawColor(el->sdl_renderer, g->draw_tool.r, 0, 0, 255);
+	// SDL_RenderDrawLine(el->sdl_renderer, g->draw_tool.prew_point.x, g->draw_tool.prew_point.y,
+	// 	g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
+	SDL_SetTextureColorMod((SDL_Texture *)(el->sdl_textures->content), g->draw_tool.r, g->draw_tool.g, g->draw_tool.b);
+	SDL_RenderCopy(el->sdl_renderer, (SDL_Texture *)(el->sdl_textures->content), NULL, &((t_rect){
+		x - g->draw_tool.brush_size / 2,
+		y - g->draw_tool.brush_size / 2,
+		g->draw_tool.brush_size,
+		g->draw_tool.brush_size
+	}));
 	// SDL_RenderDrawRect(el->sdl_renderer, &((t_rect){
 	// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y,
 	// 	g->draw_tool.cur_point.x, g->draw_tool.cur_point.y
 	// }));
+	printf(">>>>>>>>>>>>%d\n", g->draw_tool.brush_size);
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
 	g->draw_tool.prew_point = (t_vec2){x, y};
 }
@@ -244,12 +227,21 @@ static void	choose_color(void *main, void *el_v)
 	t_ui_el	*el;
 	t_ui_el	*par;
 	int		res;
+	int		max;
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
 	par = el->parent;
-	res = ((float)(par->rect.x - el->rect.x) / (float)par->rect.w) * 255.0;
-	g->draw_tool.r = res;
+	max = (el->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
+	res = ((float)-(par->rect.x - el->rect.x) / (float)par->rect.w) * (float)max;
+	if (el->id == GM_TOOL_ID_SL_HEAD_RED)
+		g->draw_tool.r = res;
+	else if (el->id == GM_TOOL_ID_SL_HEAD_GR)
+		g->draw_tool.g = res;
+	else if (el->id == GM_TOOL_ID_SL_HEAD_BL)
+		g->draw_tool.b = res;
+	else if (el->id == GM_TOOL_ID_SL_HEAD_SZ)
+		g->draw_tool.brush_size = res;
 }
 
 int		main()
@@ -274,6 +266,7 @@ int		main()
 	ui_main_init(g_main.ui_main);
 	ui_main_fill_default_surfaces(g_main.ui_main);
 	g_main.ui_main->data = (void *)(&g_main);
+	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
 
 
 
@@ -311,6 +304,7 @@ int		main()
 		tmp_el->id = GM_MAIN_ID_DRAW;
 		ui_el_set_default_resize(tmp_el);
 		ui_event_clear(&(tmp_el->events.onRender));
+		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "brush", "brush");
 		ui_event_add_listener(&(tmp_el->events.onRender), &draw_canvas_renderer);
 		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &draw_with_selected_tool);
 		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &start_draw_with_selected_tool);
@@ -338,8 +332,6 @@ int		main()
 				return (0);
 			}
 			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p2);
-			// ui_el_setup_default(tmp_el);
-			// ui_el_add_child(tmp_el_p2, tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.25});
 			tmp_el->id = GM_LAYER_ID_DEF_LAYER;
@@ -475,6 +467,7 @@ int		main()
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "frolushka", "default");
 
 	/*SLIDER ROOT*/
+/*RED*/
 			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
 			{
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
@@ -482,9 +475,9 @@ int		main()
 			}
 			ui_el_setup_default(tmp_el);
 			ui_el_add_child(tmp_el_p1, tmp_el);
-			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.49});
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.15});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
-			tmp_el->id = GM_TOOL_ID_SLIDER_ROOT;
+			tmp_el->id = GM_TOOL_ID_SL_ROOT_RED;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
 
 	/*SLIDER HEAD*/
@@ -497,7 +490,94 @@ int		main()
 				ui_el_add_child(tmp_el, tmp_el_p2);
 				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
 				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
-				tmp_el_p2->id = GM_TOOL_ID_SLIDER_HEAD;
+				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_RED;
+				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
+				ui_el_set_hor_draggable(tmp_el_p2);
+				ui_event_add_listener(&(tmp_el_p2->events.onPointerStay), &choose_color);
+
+	/*SLIDER ROOT*/
+/*GREEN*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_setup_default(tmp_el);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.45});
+			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
+			tmp_el->id = GM_TOOL_ID_SL_ROOT_GR;
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+
+	/*SLIDER HEAD*/
+				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				{
+					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+					return (0);
+				}
+				ui_el_setup_default(tmp_el_p2);
+				ui_el_add_child(tmp_el, tmp_el_p2);
+				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
+				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
+				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_GR;
+				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
+				ui_el_set_hor_draggable(tmp_el_p2);
+				ui_event_add_listener(&(tmp_el_p2->events.onPointerStay), &choose_color);
+
+	/*SLIDER ROOT*/
+/*BLUE*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_setup_default(tmp_el);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.65});
+			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
+			tmp_el->id = GM_TOOL_ID_SL_ROOT_BL;
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+
+	/*SLIDER HEAD*/
+				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				{
+					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+					return (0);
+				}
+				ui_el_setup_default(tmp_el_p2);
+				ui_el_add_child(tmp_el, tmp_el_p2);
+				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
+				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
+				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_BL;
+				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
+				ui_el_set_hor_draggable(tmp_el_p2);
+				ui_event_add_listener(&(tmp_el_p2->events.onPointerStay), &choose_color);
+
+	/*SLIDER ROOT*/
+/*SIZE*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_setup_default(tmp_el);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.85});
+			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
+			tmp_el->id = GM_TOOL_ID_SL_ROOT_SZ;
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+
+	/*SLIDER HEAD*/
+				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				{
+					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+					return (0);
+				}
+				ui_el_setup_default(tmp_el_p2);
+				ui_el_add_child(tmp_el, tmp_el_p2);
+				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
+				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
+				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_SZ;
 				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
 				ui_el_set_hor_draggable(tmp_el_p2);
 				ui_event_add_listener(&(tmp_el_p2->events.onPointerStay), &choose_color);

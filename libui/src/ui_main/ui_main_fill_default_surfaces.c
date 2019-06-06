@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:03:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 20:40:02 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/06 21:07:30 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	ui_main_fill_default_surfaces(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/layer_place.png", "layer_place");
 	ui_main_add_surface_by_path(m, "images/layer_onPtr.png", "layer_onPtr");
 	ui_main_add_surface_by_path(m, "images/layer_active.png", "layer_active");
-	ui_main_add_surface_by_path(m, "images/brush.png", "brush");
+	//ui_main_add_surface_by_path(m, "images/brush.png", "brush");
+	ui_main_add_surface_by_path(m, "images/frolushka-meme.png", "brush");
 }

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 02:19:12 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 05:54:26 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/06 03:46:46 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ui_main_handle_window_event(t_ui_main *m)
 		event = &(win->events.onFocusGained);
 	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
 		event = &(win->events.onFocusLost);
+	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_MOVED)
+		event = &(win->events.onMoved);
 	if (event != NULL)
 		ui_event_invoke(event, m, &windowID);
 }

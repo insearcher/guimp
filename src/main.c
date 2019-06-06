@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 21:38:57 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/06 06:40:14 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,41 @@
 // 	t_ui_el *text = (t_ui_el *)el->data;
 // 	ui_el_update_text(text, "FROM 7 ZALOOP");
 // }
+
+static void move_windows(void *a1, void *a2)
+{
+	t_ui_main   *m;
+	t_ui_win    *w;
+	Uint32      windowID;
+	t_list      *list;
+	t_ui_win    *cur_w;
+	t_vec2      pos;
+
+	m = (t_ui_main *)a1;
+	windowID = *((Uint32 *)a2);
+	w = ui_main_find_window_by_id(m, windowID);
+	if (w != NULL)
+	{
+		list = m->windows;
+		while (list)
+		{
+			cur_w = (t_ui_win *)list->content;
+			if (cur_w->sdl_windowID == windowID)
+			{
+				list = list->next;
+				continue;
+			}
+			SDL_GetWindowPosition(w->sdl_window, &pos.x, &pos.y);
+			if (cur_w->params & WIN_MAIN)
+				pos.x = pos.x + GM_TOOL_WIN_W + 5;
+			else
+				pos.x = pos.x - GM_TOOL_WIN_W - 5;
+			printf("id: %d, (%d, %d)\n", windowID, pos.x, pos.y);
+			SDL_SetWindowPosition(cur_w->sdl_window, pos.x, pos.y);
+			list = list->next;
+		}
+	}
+}
 
 static void	testOnPtrEnter(void *main, void *el_v)
 {
@@ -282,10 +317,12 @@ int		main()
 	g_main.main_win->title = ft_strdup("GUIMP");
 	g_main.main_win->params = WIN_MAIN | WIN_RESIZABLE;
 	g_main.main_win->size = (t_vec2){GM_MAIN_WIN_W, GM_MAIN_WIN_H};
+	g_main.main_win->pos = (t_vec2){GM_MAIN_WIN_X, GM_MAIN_WIN_Y};
 	ui_win_setup_default(g_main.main_win);
 	ui_win_create(g_main.main_win);
 	ui_main_add_window(g_main.ui_main, g_main.main_win);
 	ui_event_add_listener(&(g_main.main_win->events.onResize), &ui_win_update_size);
+	ui_event_add_listener(&(g_main.main_win->events.onMoved), &move_windows);
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), "flower", "default");
 	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &ui_el_draw_event);
 
@@ -409,9 +446,11 @@ int		main()
 	g_main.tool_win->title = ft_strdup("TOOLS");
 	g_main.tool_win->params = 0;
 	g_main.tool_win->size = (t_vec2){GM_TOOL_WIN_W, GM_TOOL_WIN_H};
+	g_main.tool_win->pos = (t_vec2){GM_TOOL_WIN_X, GM_TOOL_WIN_Y};
 	ui_win_setup_default(g_main.tool_win);
 	ui_win_create(g_main.tool_win);
 	ui_main_add_window(g_main.ui_main, g_main.tool_win);
+	ui_event_add_listener(&(g_main.tool_win->events.onMoved), &move_windows);
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.tool_win->canvas), "flower", "default");
 	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &ui_el_draw_event);
 

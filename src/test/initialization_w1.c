@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 07:27:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/27 07:43:51 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/06 02:52:40 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	initialization_w1(t_guimp *guimp)
 	ui_win_init(w);
 	w->title = ft_strdup("TEST1");
 	w->params = WIN_MAIN | WIN_RESIZABLE;
-	w->size = (t_vec2){800, 600};
+	w->size = (t_vec2){1024, 768};
+	w->pos = (t_vec2){SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED};
 	ui_event_add_listener(&(w->events.onResize), &ui_win_update_size);
 	ui_win_setup_default(w);
 	ui_win_create(w);

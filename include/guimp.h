@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 04:09:28 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/06 21:11:02 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 # define GM_IMAGE_SIZE_X		1920
 # define GM_IMAGE_SIZE_Y		1080
 
-# define GM_BRUSH_MAX_SIZE		100
+# define GM_BRUSH_MAX_SIZE		300
 # define GM_BRUSH_DEF_SIZE		10
 
 //id_generator flags

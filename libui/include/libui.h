@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 03:44:05 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/06 23:19:36 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -432,5 +432,7 @@ void				ui_prefab_get_pixel_size(t_ui_el *p, t_ui_el *canvas,
 		int type, t_fvec2 *size);
 
 t_rect				ui_get_rect_from_frect(t_frect frect);
+
+int					ui_open_file_dialog(char **res);
 
 #endif

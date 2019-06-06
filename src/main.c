@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 06:40:14 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/06 23:25:04 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,9 @@ int		main()
 	t_ui_el	*tmp_el_p2;
 
 
+	char *res = NULL;
+	ui_open_file_dialog(&res);
+	printf("%s\n", res);
 
 	/********/
 	/* INIT */

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/05 06:03:38 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/06 03:44:23 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ SRC_UI_LOG		=	ui_log_mouse_motion.c \
 					ui_log_window_focus_lost.c \
 					ui_log_window_closed.c \
 					ui_log_window_resized.c \
+					ui_log_window_moved.c \
 					ui_log_el_pointer_stay.c \
 					ui_log_el_pointer_enter.c \
 					ui_log_el_pointer_exit.c \
@@ -134,8 +135,8 @@ SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
 
 SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c \
-					ui_prefab_get_relative_pos.c \
-					ui_prefab_get_relative_size.c
+					ui_prefab_get_pixel_pos.c \
+					ui_prefab_get_pixel_size.c
 
 SRC_UTILITS		=	ui_get_rect_from_frect.c
 

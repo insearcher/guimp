@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 16:31:08 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/06 03:44:05 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct		s_ui_win_events
 	t_ui_event		onFocusLost;
 	t_ui_event		onResize;
 	t_ui_event		onClose;
+	t_ui_event		onMoved;
 	t_ui_event		onKeyDown[KEYS_COUNT];
 	t_ui_event		onKeyUp[KEYS_COUNT];
 }					t_ui_win_events;
@@ -300,6 +301,7 @@ void				ui_log_window_focus_gained(void *a1, void *a2);
 void				ui_log_window_focus_lost(void *a1, void *a2);
 void				ui_log_window_closed(void *a1, void *a2);
 void				ui_log_window_resized(void *a1, void *a2);
+void				ui_log_window_moved(void *a1, void *a2);
 
 void				ui_log_el_pointer_enter(void *a1, void *a2);
 void				ui_log_el_pointer_stay(void *a1, void *a2);
@@ -424,9 +426,9 @@ void				ui_sdl_deinit(int exit_status);
 
 void				ui_prefab_scroll_menu(t_ui_main *m, t_ui_el *canvas,
 		t_ui_el *scroll_menu, t_scroll_m_pref *scroll_data);
-void				ui_prefab_get_relative_pos(t_ui_el *p, t_ui_el *canvas,
+void				ui_prefab_get_pixel_pos(t_ui_el *p, t_ui_el *canvas,
 		int type, t_fvec2 *pos);
-void				ui_prefab_get_relative_size(t_ui_el *p, t_ui_el *canvas,
+void				ui_prefab_get_pixel_size(t_ui_el *p, t_ui_el *canvas,
 		int type, t_fvec2 *size);
 
 t_rect				ui_get_rect_from_frect(t_frect frect);

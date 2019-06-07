@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/03 17:15:34 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/06 22:40:49 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRC_TEST		=	main_test.c \
 					initialization_m.c \
 					initialization_w1.c \
 					scroll_menu1.c \
-					el1.c
+					el1.c \
+					el_text.c
 
 OBJ_TEST		=	$(addprefix $(OBJ_DIR_TEST)/,$(SRC_TEST:.c=.o))
 

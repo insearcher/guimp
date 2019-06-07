@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 03:44:05 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/07 21:43:02 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ typedef struct		s_ui_text
 {
 	TTF_Font		*font;
 	SDL_Color		color;
+	char			*text;
 }					t_ui_text;
 
 typedef struct		s_ui_el
@@ -171,8 +172,9 @@ typedef struct		s_ui_el
 	t_frect			relative_rect;
 	t_ui_el_events	events;
 	Uint32			id;
-	Uint32			params; // <- put there next parameters
-	t_vec2			ptr_rel_pos; // TODO it's mouse pos
+	Uint32			params;
+	t_vec2			ptr_rel_pos;
+	t_ui_text		text;
 	void			*data;
 }					t_ui_el;
 
@@ -271,6 +273,7 @@ TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, const char *font_id);
 SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, const char *sur_id);
 
 void				ui_main_fill_default_surfaces(t_ui_main *m);
+void				ui_main_fill_default_fonts(t_ui_main *m);
 
 t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
@@ -410,6 +413,7 @@ int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 
 int					ui_el_set_text(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
 int					ui_el_update_text(t_ui_el *el, const char *text);
+void				ui_main_set_font_outline(t_ui_main *m, const char *font_id, int outline);
 
 # pragma endregion
 

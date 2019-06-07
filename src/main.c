@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/07 20:31:58 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/07 20:34:54 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,6 +347,9 @@ int		main()
 	t_ui_el	*tmp_el_p2;
 
 
+	char *res = NULL;
+	ui_open_file_dialog(&res);
+	printf("%s\n", res);
 
 	/********/
 	/* INIT */

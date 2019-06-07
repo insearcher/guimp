@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/06 03:44:23 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/06 23:19:17 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,6 +142,8 @@ SRC_UTILITS		=	ui_get_rect_from_frect.c
 
 SRC_UI_JTOC		=	ui_main_from_json.c
 
+SRC_UI_FILE		=	ui_open_file_dialog.c
+
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
@@ -154,17 +156,18 @@ OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_RAYCAST:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_PREFAB:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UTILITS:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_UI_JTOC:.c=.o))
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_JTOC:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_FILE:.c=.o))
 
-INCS		=		-I$(INC_DIR) \
+INCS			=	-I$(INC_DIR) \
 					-I$(INC_FT) \
 					-I$(INC_JTOC) \
 					-I../frameworks/SDL2.framework/Versions/A/Headers \
 					-I../frameworks/SDL2_image.framework/Versions/A/Headers \
 					-I../frameworks/SDL2_ttf.framework/Versions/A/Headers
 
-CC 			=		gcc
-CFLAGS		=		-Wall -Werror -Wextra -g
+CC 				=	gcc
+CFLAGS			=	-Wall -Werror -Wextra -g
 
 all: $(NAME)
 
@@ -223,6 +226,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/utilits/%.c
 	@echo "1" > ../$(TEMP)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_jtoc/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_file/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

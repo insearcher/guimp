@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 21:11:02 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/07 18:28:26 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@
 # define GM_TOOL_ID_BUT_MENU	11
 # define GM_TOOL_ID_BRUSH		12
 # define GM_TOOL_ID_ERASER		13
-# define GM_TOOL_ID_SET_MENU	40
-# define GM_TOOL_ID_SL_ROOT_RED	41
-# define GM_TOOL_ID_SL_HEAD_RED	42
-# define GM_TOOL_ID_SL_ROOT_GR	43
-# define GM_TOOL_ID_SL_HEAD_GR	44
-# define GM_TOOL_ID_SL_ROOT_BL	45
-# define GM_TOOL_ID_SL_HEAD_BL	46
-# define GM_TOOL_ID_SL_ROOT_SZ	47
-# define GM_TOOL_ID_SL_HEAD_SZ	48
+# define GM_TOOL_ID_SET_MENU	20
+# define GM_TOOL_ID_SL_ROOT_RED	21
+# define GM_TOOL_ID_SL_HEAD_RED	22
+# define GM_TOOL_ID_SL_ROOT_GR	23
+# define GM_TOOL_ID_SL_HEAD_GR	24
+# define GM_TOOL_ID_SL_ROOT_BL	25
+# define GM_TOOL_ID_SL_HEAD_BL	26
+# define GM_TOOL_ID_SL_ROOT_SZ	27
+# define GM_TOOL_ID_SL_HEAD_SZ	28
+# define GM_TOOL_ID_CL_RECT		29
 
 
 # define GM_LAYER_WIN_W			300
@@ -55,6 +56,9 @@
 
 # define GM_BRUSH_MAX_SIZE		300
 # define GM_BRUSH_DEF_SIZE		10
+
+# define GM_TOOL_BRUSH			0
+# define GM_TOOL_ZOOM			1
 
 //id_generator flags
 # define ID_GENERATOR_GET		0
@@ -78,6 +82,7 @@ typedef struct					s_draw_tool
 	Uint8						r;
 	Uint8						g;
 	Uint8						b;
+	int							zoom;
 }								t_draw_tool;
 
 
@@ -88,6 +93,7 @@ typedef struct					s_guimp
 	t_ui_win					*tool_win;
 	t_layers					layers;
 	t_draw_tool					draw_tool;
+	t_rect						zoom_rect;
 }								t_guimp;
 
 void							draw_dot(void *ui_main, void *ui_el);

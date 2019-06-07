@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 03:44:05 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/07 14:24:18 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,6 +374,10 @@ int					ui_el_add_texture_from_file(t_ui_el *el,
 int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
 						const char *texture_id);
 int					ui_el_add_white_texture(t_ui_el *el, int w, int h,
+						const char *texture_id);
+int					ui_el_add_gradient_texture(t_ui_el *el, t_vec2 wh, int color,
+						const char *texture_id);
+int					ui_el_add_color_texture(t_ui_el *el, t_vec2 wh, int color,
 						const char *texture_id);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
 SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, const char *id);

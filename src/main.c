@@ -6,19 +6,11 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 06:40:14 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/07 20:31:58 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
-
-// static void	test(void *main, void *el_v)
-// {
-// 	main = NULL;
-// 	t_ui_el *el = (t_ui_el *)el_v;
-// 	t_ui_el *text = (t_ui_el *)el->data;
-// 	ui_el_update_text(text, "FROM 7 ZALOOP");
-// }
 
 static void move_windows(void *a1, void *a2)
 {
@@ -205,7 +197,7 @@ static void	draw_canvas_renderer(void *el_v, void *main)
 	layer = g->layers.layers;
 	while (layer)
 	{
-		SDL_RenderCopy(el->sdl_renderer, (SDL_Texture *)(layer->content), NULL, &el->rect);
+		SDL_RenderCopy(el->sdl_renderer, (SDL_Texture *)(layer->content), &g->zoom_rect, &el->rect);
 		layer = layer->next;
 	}
 }
@@ -219,9 +211,47 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
-	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * GM_IMAGE_SIZE_X;
-	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * GM_IMAGE_SIZE_Y;
+	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
+	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
 	g->draw_tool.prew_point = (t_vec2){x, y};
+	if (g->draw_tool.tool == GM_TOOL_ZOOM && g->draw_tool.zoom < 16)
+	{
+		g->draw_tool.zoom++;
+		g->zoom_rect.w = GM_IMAGE_SIZE_X / g->draw_tool.zoom;
+		g->zoom_rect.h = GM_IMAGE_SIZE_Y / g->draw_tool.zoom;
+		x = x - g->zoom_rect.w / 2;
+		y = y - g->zoom_rect.h / 2;
+		//BUG todo fix
+		g->zoom_rect.x = x < 0 ? 0 : x;
+		g->zoom_rect.y = y < 0 ? 0 : y;
+	}
+	printf("x>>>%d\ny>>>>%d\nw>>>>%d\nh>>>>%d\n", g->zoom_rect.x, g->zoom_rect.y, g->zoom_rect.w, g->zoom_rect.h);
+}
+
+static void	start_alt_with_selected_tool(void *main, void *el_v)
+{
+	t_guimp	*g;
+	t_ui_el	*el;
+	int		x;
+	int		y;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	el = (t_ui_el *)el_v;
+	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
+	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
+	g->draw_tool.prew_point = (t_vec2){x, y};
+	if (g->draw_tool.tool == GM_TOOL_ZOOM && g->draw_tool.zoom > 1)
+	{
+		g->draw_tool.zoom--;
+		g->zoom_rect.w = GM_IMAGE_SIZE_X / g->draw_tool.zoom;
+		g->zoom_rect.h = GM_IMAGE_SIZE_Y / g->draw_tool.zoom;
+		x = x - g->zoom_rect.w / 2;
+		y = y - g->zoom_rect.h / 2;
+		//BUG todo fix
+		g->zoom_rect.x = x < 0 || g->draw_tool.zoom == 1 ? 0 : x;
+		g->zoom_rect.y = y < 0 || g->draw_tool.zoom == 1 ? 0 : y;
+	}
+	printf("x>>>%d\ny>>>>%d\nw>>>>%d\nh>>>>%d\n", g->zoom_rect.x, g->zoom_rect.y, g->zoom_rect.w, g->zoom_rect.h);
 }
 
 static void	draw_with_selected_tool(void *main, void *el_v)
@@ -233,50 +263,80 @@ static void	draw_with_selected_tool(void *main, void *el_v)
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
-	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * GM_IMAGE_SIZE_X;
-	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * GM_IMAGE_SIZE_Y;
+	// x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * GM_IMAGE_SIZE_X;
+	// y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * GM_IMAGE_SIZE_Y;
+	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
+	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
 	g->draw_tool.cur_point = (t_vec2){x, y};
-	SDL_SetRenderTarget(el->sdl_renderer, (SDL_Texture *)(g->layers.current_layer->sdl_textures->content));
-	//SDL_SetRenderDrawColor(el->sdl_renderer, g->draw_tool.r, 0, 0, 255);
-	// SDL_RenderDrawLine(el->sdl_renderer, g->draw_tool.prew_point.x, g->draw_tool.prew_point.y,
-	// 	g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
-	SDL_SetTextureColorMod((SDL_Texture *)(el->sdl_textures->content), g->draw_tool.r, g->draw_tool.g, g->draw_tool.b);
-	SDL_RenderCopy(el->sdl_renderer, (SDL_Texture *)(el->sdl_textures->content), NULL, &((t_rect){
-		x - g->draw_tool.brush_size / 2,
-		y - g->draw_tool.brush_size / 2,
-		g->draw_tool.brush_size,
-		g->draw_tool.brush_size
-	}));
-	// SDL_RenderDrawRect(el->sdl_renderer, &((t_rect){
-	// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y,
-	// 	g->draw_tool.cur_point.x, g->draw_tool.cur_point.y
-	// }));
-	printf(">>>>>>>>>>>>%d\n", g->draw_tool.brush_size);
+	if (g->draw_tool.tool == GM_TOOL_BRUSH)
+	{
+		SDL_SetRenderTarget(el->sdl_renderer, (SDL_Texture *)(g->layers.current_layer->sdl_textures->content));
+		SDL_SetTextureColorMod((SDL_Texture *)(el->sdl_textures->content), g->draw_tool.r, g->draw_tool.g, g->draw_tool.b);
+		SDL_RenderCopy(el->sdl_renderer, (SDL_Texture *)(el->sdl_textures->content), NULL, &((t_rect){
+			x - g->draw_tool.brush_size / 2,
+			y - g->draw_tool.brush_size / 2,
+			g->draw_tool.brush_size,
+			g->draw_tool.brush_size
+		}));
+	}
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
 	g->draw_tool.prew_point = (t_vec2){x, y};
+}
+
+static void choose_brush(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_BRUSH;
+}
+
+static void choose_zoom(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_ZOOM;
 }
 
 static void	choose_color(void *main, void *el_v)
 {
 	t_guimp	*g;
 	t_ui_el	*el;
-	t_ui_el	*par;
+	t_ui_el	*chil;
 	int		res;
 	int		max;
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
-	par = el->parent;
+	chil = ((t_ui_el *)el->children->content);
 	max = (el->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
-	res = ((float)-(par->rect.x - el->rect.x) / (float)par->rect.w) * (float)max;
-	if (el->id == GM_TOOL_ID_SL_HEAD_RED)
+	ui_el_set_new_pos(chil, 0, PIXEL, (t_fvec2){el->ptr_rel_pos.x - chil->rect.w / 2, 0});
+	res = ((float)(el->ptr_rel_pos.x) / (float)el->rect.w) * (float)max;
+	if (chil->id == GM_TOOL_ID_SL_HEAD_RED)
 		g->draw_tool.r = res;
-	else if (el->id == GM_TOOL_ID_SL_HEAD_GR)
+	else if (chil->id == GM_TOOL_ID_SL_HEAD_GR)
 		g->draw_tool.g = res;
-	else if (el->id == GM_TOOL_ID_SL_HEAD_BL)
+	else if (chil->id == GM_TOOL_ID_SL_HEAD_BL)
 		g->draw_tool.b = res;
-	else if (el->id == GM_TOOL_ID_SL_HEAD_SZ)
+	else if (chil->id == GM_TOOL_ID_SL_HEAD_SZ)
 		g->draw_tool.brush_size = res;
+}
+
+static void	draw_color_rect(void *el_v, void *main)
+{
+	t_guimp	*g;
+	t_ui_el	*el;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	el = (t_ui_el *)el_v;
+	SDL_SetRenderTarget(el->sdl_renderer, ui_el_get_current_texture(el));
+	SDL_SetRenderDrawColor(el->sdl_renderer, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b, 255);
+	SDL_RenderFillRect(el->sdl_renderer, NULL);
+	SDL_SetRenderTarget(el->sdl_renderer, NULL);
+	SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
 }
 
 int		main()
@@ -302,7 +362,12 @@ int		main()
 	ui_main_fill_default_surfaces(g_main.ui_main);
 	g_main.ui_main->data = (void *)(&g_main);
 	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
-
+	g_main.draw_tool.zoom = 1;
+	g_main.draw_tool.tool = GM_TOOL_BRUSH;
+	g_main.zoom_rect.x = 0;
+	g_main.zoom_rect.y = 0;
+	g_main.zoom_rect.w = GM_IMAGE_SIZE_X;
+	g_main.zoom_rect.h = GM_IMAGE_SIZE_Y;
 
 
 	/************/
@@ -345,6 +410,7 @@ int		main()
 		ui_event_add_listener(&(tmp_el->events.onRender), &draw_canvas_renderer);
 		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &draw_with_selected_tool);
 		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &start_draw_with_selected_tool);
+		ui_event_add_listener(&(tmp_el->events.onPointerRightButtonPressed), &start_alt_with_selected_tool);
 
 
 	/*LAYERS SCROLLABLE MENU*/
@@ -479,6 +545,7 @@ int		main()
 			tmp_el->id = GM_TOOL_ID_BRUSH;
 			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_brush);
 
 	/*ERASER BUTTON*/
 			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -491,6 +558,7 @@ int		main()
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_ERASER;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_zoom);
 
 	/*SETTINGS MENU*/
 		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -514,10 +582,12 @@ int		main()
 			}
 			ui_el_setup_default(tmp_el);
 			ui_el_add_child(tmp_el_p1, tmp_el);
-			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.15});
-			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.08});
+			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.7, 0.15});
 			tmp_el->id = GM_TOOL_ID_SL_ROOT_RED;
-			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xFF0000, "default");
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 	/*SLIDER HEAD*/
 				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -527,12 +597,11 @@ int		main()
 				}
 				ui_el_setup_default(tmp_el_p2);
 				ui_el_add_child(tmp_el, tmp_el_p2);
-				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
-				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
+				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0, 0});
+				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.06, 1});
 				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_RED;
-				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
-				ui_el_set_hor_draggable(tmp_el_p2);
-				ui_event_add_listener(&(tmp_el_p2->events.onPointerStay), &choose_color);
+				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
+				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 
 	/*SLIDER ROOT*/
 /*GREEN*/
@@ -543,10 +612,12 @@ int		main()
 			}
 			ui_el_setup_default(tmp_el);
 			ui_el_add_child(tmp_el_p1, tmp_el);
-			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.45});
-			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.31});
+			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.7, 0.15});
 			tmp_el->id = GM_TOOL_ID_SL_ROOT_GR;
-			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0x00FF00, "default");
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 	/*SLIDER HEAD*/
 				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -556,12 +627,11 @@ int		main()
 				}
 				ui_el_setup_default(tmp_el_p2);
 				ui_el_add_child(tmp_el, tmp_el_p2);
-				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
-				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
+				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0, 0});
+				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.06, 1});
 				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_GR;
-				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
-				ui_el_set_hor_draggable(tmp_el_p2);
-				ui_event_add_listener(&(tmp_el_p2->events.onPointerStay), &choose_color);
+				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
+				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 
 	/*SLIDER ROOT*/
 /*BLUE*/
@@ -572,10 +642,12 @@ int		main()
 			}
 			ui_el_setup_default(tmp_el);
 			ui_el_add_child(tmp_el_p1, tmp_el);
-			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.65});
-			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.54});
+			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.7, 0.15});
 			tmp_el->id = GM_TOOL_ID_SL_ROOT_BL;
-			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0x0000FF, "default");
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 	/*SLIDER HEAD*/
 				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -585,12 +657,11 @@ int		main()
 				}
 				ui_el_setup_default(tmp_el_p2);
 				ui_el_add_child(tmp_el, tmp_el_p2);
-				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
-				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
+				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0, 0});
+				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.06, 1});
 				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_BL;
-				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
-				ui_el_set_hor_draggable(tmp_el_p2);
-				ui_event_add_listener(&(tmp_el_p2->events.onPointerStay), &choose_color);
+				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
+				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 
 	/*SLIDER ROOT*/
 /*SIZE*/
@@ -601,10 +672,12 @@ int		main()
 			}
 			ui_el_setup_default(tmp_el);
 			ui_el_add_child(tmp_el_p1, tmp_el);
-			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.85});
-			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.02});
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.77});
+			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.7, 0.15});
 			tmp_el->id = GM_TOOL_ID_SL_ROOT_SZ;
-			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0x000000, "default");
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 	/*SLIDER HEAD*/
 				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
@@ -614,13 +687,27 @@ int		main()
 				}
 				ui_el_setup_default(tmp_el_p2);
 				ui_el_add_child(tmp_el, tmp_el_p2);
-				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.5, -4.5});
-				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.04, 10});
+				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0, 0});
+				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.06, 1});
 				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_SZ;
-				ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "test", "default");
-				ui_el_set_hor_draggable(tmp_el_p2);
-				ui_event_add_listener(&(tmp_el_p2->events.onPointerStay), &choose_color);
-
+				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
+				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
+	/*COLOR_RECT*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_setup_default(tmp_el);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.825, 0.45});
+			ui_el_set_size(tmp_el, 0, PIXEL, (t_fvec2){0.1 * (float)GM_TOOL_WIN_W, 0.1 * (float)GM_TOOL_WIN_W});
+			tmp_el->id = GM_TOOL_ID_CL_RECT;
+			ui_el_add_color_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0x000000, "default");
+			ui_event_clear(&(tmp_el->events.onRender));
+			ui_event_add_listener(&(tmp_el->events.onRender), &draw_color_rect);
+			// ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
+			// ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 
 	/*************/

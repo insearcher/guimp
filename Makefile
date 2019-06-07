@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/06 22:40:49 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/08 01:36:14 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,13 +70,12 @@ INCS			=	-I$(INC_DIR) \
 					-I$(INC_JTOC) \
 					-I./frameworks/SDL2.framework/Versions/A/Headers \
 					-I./frameworks/SDL2_image.framework/Versions/A/Headers \
-					-I./frameworks/SDL2_ttf.framework/Versions/A/Headers
+					-I./frameworks/SDL2_ttf.framework/Versions/A/Headers \
 
 FRAMEWORKS		=	-F./frameworks \
 					-rpath ./frameworks \
 					-framework OpenGL -framework AppKit -framework OpenCl \
 					-framework SDL2 -framework SDL2_ttf -framework SDL2_image
-
 
 LIBS			=	-L$(FT_DIR) -lft \
 					-L$(UI_DIR) -lui \

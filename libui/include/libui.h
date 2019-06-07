@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/07 21:43:02 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/08 01:35:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,6 +378,10 @@ int					ui_el_add_empty_texture(t_ui_el *el, int w, int h,
 						const char *texture_id);
 int					ui_el_add_white_texture(t_ui_el *el, int w, int h,
 						const char *texture_id);
+int					ui_el_add_gradient_texture(t_ui_el *el, t_vec2 wh, int color,
+						const char *texture_id);
+int					ui_el_add_color_texture(t_ui_el *el, t_vec2 wh, int color,
+						const char *texture_id);
 SDL_Texture			*ui_el_get_current_texture(t_ui_el *el);
 SDL_Texture			*ui_el_get_texture_by_id(t_ui_el *el, const char *id);
 int					ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id);
@@ -436,5 +440,7 @@ void				ui_prefab_get_pixel_size(t_ui_el *p, t_ui_el *canvas,
 		int type, t_fvec2 *size);
 
 t_rect				ui_get_rect_from_frect(t_frect frect);
+
+int					ui_open_file_dialog(char **res);
 
 #endif

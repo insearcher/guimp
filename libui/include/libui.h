@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/07 20:34:42 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/09 23:00:22 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@
 typedef	void		(*func_ptr)(void *, void *);
 typedef	int			(*pred_ptr)(void *, void *);
 typedef	SDL_Rect	t_rect;
+typedef	SDL_Texture	t_texture;
 typedef	t_list		t_list_texture;
 
 /*

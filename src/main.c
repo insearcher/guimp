@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/09 23:02:22 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/09 23:21:08 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,18 +214,18 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
 	g->draw_tool.prew_point = (t_vec2){x, y};
-	if (g->draw_tool.tool == GM_TOOL_ZOOM && g->draw_tool.zoom < 16)
+	if (g->draw_tool.tool == GM_TOOL_ZOOM && g->draw_tool.zoom < GM_ZOOM_MAX_SIZE)
 	{
 		g->draw_tool.zoom++;
 		g->zoom_rect.w = GM_IMAGE_SIZE_X / g->draw_tool.zoom;
 		g->zoom_rect.h = GM_IMAGE_SIZE_Y / g->draw_tool.zoom;
 		x = x - g->zoom_rect.w / 2;
 		y = y - g->zoom_rect.h / 2;
-		//BUG todo fix
+		x = (x + g->zoom_rect.w > GM_IMAGE_SIZE_X) ? GM_IMAGE_SIZE_X - g->zoom_rect.w : x;
+		y = (y + g->zoom_rect.h > GM_IMAGE_SIZE_Y) ? GM_IMAGE_SIZE_Y - g->zoom_rect.h : y;
 		g->zoom_rect.x = x < 0 ? 0 : x;
 		g->zoom_rect.y = y < 0 ? 0 : y;
 	}
-	printf("x>>>%d\ny>>>>%d\nw>>>>%d\nh>>>>%d\n", g->zoom_rect.x, g->zoom_rect.y, g->zoom_rect.w, g->zoom_rect.h);
 }
 
 static void	start_alt_with_selected_tool(void *main, void *el_v)
@@ -247,11 +247,11 @@ static void	start_alt_with_selected_tool(void *main, void *el_v)
 		g->zoom_rect.h = GM_IMAGE_SIZE_Y / g->draw_tool.zoom;
 		x = x - g->zoom_rect.w / 2;
 		y = y - g->zoom_rect.h / 2;
-		//BUG todo fix
+		x = (x + g->zoom_rect.w > GM_IMAGE_SIZE_X) ? GM_IMAGE_SIZE_X - g->zoom_rect.w : x;
+		y = (y + g->zoom_rect.h > GM_IMAGE_SIZE_Y) ? GM_IMAGE_SIZE_Y - g->zoom_rect.h : y;
 		g->zoom_rect.x = x < 0 || g->draw_tool.zoom == 1 ? 0 : x;
 		g->zoom_rect.y = y < 0 || g->draw_tool.zoom == 1 ? 0 : y;
 	}
-	printf("x>>>%d\ny>>>>%d\nw>>>>%d\nh>>>>%d\n", g->zoom_rect.x, g->zoom_rect.y, g->zoom_rect.w, g->zoom_rect.h);
 }
 
 static void	draw_with_selected_tool(void *main, void *el_v)
@@ -263,8 +263,6 @@ static void	draw_with_selected_tool(void *main, void *el_v)
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
-	// x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * GM_IMAGE_SIZE_X;
-	// y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * GM_IMAGE_SIZE_Y;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
 	g->draw_tool.cur_point = (t_vec2){x, y};
@@ -278,6 +276,15 @@ static void	draw_with_selected_tool(void *main, void *el_v)
 			g->draw_tool.brush_size,
 			g->draw_tool.brush_size
 		}));
+	}
+	if (g->draw_tool.tool == GM_TOOL_HAND)
+	{
+		g->zoom_rect.x += (abs(g->draw_tool.prew_point.x - g->draw_tool.cur_point.x) >= GM_HAND_MIN_DIST ? g->draw_tool.prew_point.x - g->draw_tool.cur_point.x : 0) * GM_HAND_MOVE_SPEED;
+		g->zoom_rect.y += (abs(g->draw_tool.prew_point.y - g->draw_tool.cur_point.y) >= GM_HAND_MIN_DIST ? g->draw_tool.prew_point.y - g->draw_tool.cur_point.y : 0) * GM_HAND_MOVE_SPEED;
+		g->zoom_rect.x = g->zoom_rect.x < 0 ? 0 : g->zoom_rect.x;
+		g->zoom_rect.x = g->zoom_rect.x + g->zoom_rect.w > GM_IMAGE_SIZE_X ? GM_IMAGE_SIZE_X - g->zoom_rect.w : g->zoom_rect.x;
+		g->zoom_rect.y = g->zoom_rect.y < 0 ? 0 : g->zoom_rect.y;
+		g->zoom_rect.y = g->zoom_rect.y + g->zoom_rect.h > GM_IMAGE_SIZE_Y ? GM_IMAGE_SIZE_Y - g->zoom_rect.h : g->zoom_rect.y;
 	}
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
 	g->draw_tool.prew_point = (t_vec2){x, y};
@@ -299,6 +306,15 @@ static void choose_zoom(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_ZOOM;
+}
+
+static void choose_hand(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_HAND;
 }
 
 static void	choose_color(void *main, void *el_v)
@@ -325,6 +341,36 @@ static void	choose_color(void *main, void *el_v)
 		g->draw_tool.brush_size = res;
 }
 
+static void	move_draw_canvas_with_zoom(void *main, void *el_v)
+{
+	t_guimp	*g;
+	t_ui_el	*el;
+	float	x;
+	float	y;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	el = (t_ui_el *)el_v;
+	x = 0;
+	y = 0;
+	if (g->draw_tool.tool == GM_TOOL_ZOOM)
+	{
+		if (el->ptr_rel_pos.x > el->rect.w * (1.0 - GM_ZOOM_MOVE_ZONE))
+			x = ((float)el->ptr_rel_pos.x / (float)el->rect.w - (1.0 - GM_ZOOM_MOVE_ZONE)) / (GM_ZOOM_MOVE_ZONE);
+		if (el->ptr_rel_pos.x < el->rect.w * GM_ZOOM_MOVE_ZONE)
+			x = -(GM_ZOOM_MOVE_ZONE - (float)el->ptr_rel_pos.x / (float)el->rect.w) / GM_ZOOM_MOVE_ZONE;
+		if (el->ptr_rel_pos.y > el->rect.h * (1.0 - GM_ZOOM_MOVE_ZONE))
+			y = ((float)el->ptr_rel_pos.y / (float)el->rect.h - (1.0 - GM_ZOOM_MOVE_ZONE)) / (GM_ZOOM_MOVE_ZONE);
+		if (el->ptr_rel_pos.y < el->rect.h * GM_ZOOM_MOVE_ZONE)
+			y = -(GM_ZOOM_MOVE_ZONE - (float)el->ptr_rel_pos.y / (float)el->rect.h) / GM_ZOOM_MOVE_ZONE;
+		g->zoom_rect.x += x * (GM_ZOOM_MOVE_SPEED / g->draw_tool.zoom);
+		g->zoom_rect.y += y * (GM_ZOOM_MOVE_SPEED / g->draw_tool.zoom);
+		g->zoom_rect.x = g->zoom_rect.x < 0 ? 0 : g->zoom_rect.x;
+		g->zoom_rect.x = g->zoom_rect.x + g->zoom_rect.w > GM_IMAGE_SIZE_X ? GM_IMAGE_SIZE_X - g->zoom_rect.w : g->zoom_rect.x;
+		g->zoom_rect.y = g->zoom_rect.y < 0 ? 0 : g->zoom_rect.y;
+		g->zoom_rect.y = g->zoom_rect.y + g->zoom_rect.h > GM_IMAGE_SIZE_Y ? GM_IMAGE_SIZE_Y - g->zoom_rect.h : g->zoom_rect.y;
+	}
+}
+
 static void	draw_color_rect(void *el_v, void *main)
 {
 	t_guimp	*g;
@@ -338,6 +384,8 @@ static void	draw_color_rect(void *el_v, void *main)
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
 	SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
 }
+
+
 
 int		main()
 {
@@ -416,6 +464,7 @@ int		main()
 		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &draw_with_selected_tool);
 		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &start_draw_with_selected_tool);
 		ui_event_add_listener(&(tmp_el->events.onPointerRightButtonPressed), &start_alt_with_selected_tool);
+		ui_event_add_listener(&(tmp_el->events.onPointerStay), &move_draw_canvas_with_zoom);
 
 
 	/*LAYERS SCROLLABLE MENU*/
@@ -549,7 +598,7 @@ int		main()
 			ui_el_set_size(tmp_el, 0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_BRUSH;
 			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
-			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "brush_icon", "default");
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_brush);
 
 	/*ERASER BUTTON*/
@@ -562,8 +611,34 @@ int		main()
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.55, 0.05});
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_ERASER;
-			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "bl", "default");
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "eraser_icon", "default");
+			//ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_zoom);
+
+	/*ZOOM BUTTON*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("zoom_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.33});
+			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
+			tmp_el->id = GM_TOOL_ID_ZOOM;
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "zoom_icon", "default");
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_zoom);
+
+	/*HAND BUTTON*/
+			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			{
+				printf("zoom_brush malloc error in scrollable menu in tool_win\n");
+				return (0);
+			}
+			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.55, 0.33});
+			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
+			tmp_el->id = GM_TOOL_ID_ZOOM;
+			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "hand_icon", "default");
+			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_hand);
 
 	/*SETTINGS MENU*/
 		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))

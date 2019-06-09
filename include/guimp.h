@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/07 18:28:26 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/09 22:36:30 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define GM_TOOL_ID_BUT_MENU	11
 # define GM_TOOL_ID_BRUSH		12
 # define GM_TOOL_ID_ERASER		13
+# define GM_TOOL_ID_ZOOM		14
+# define GM_TOOL_ID_HAND		15
 # define GM_TOOL_ID_SET_MENU	20
 # define GM_TOOL_ID_SL_ROOT_RED	21
 # define GM_TOOL_ID_SL_HEAD_RED	22
@@ -56,9 +58,16 @@
 
 # define GM_BRUSH_MAX_SIZE		300
 # define GM_BRUSH_DEF_SIZE		10
+# define GM_ZOOM_MAX_SIZE		32
+# define GM_ZOOM_MOVE_ZONE		0.1
+# define GM_ZOOM_MOVE_SPEED		64
+# define GM_HAND_MOVE_SPEED		1
+# define GM_HAND_MIN_DIST		3
 
 # define GM_TOOL_BRUSH			0
 # define GM_TOOL_ZOOM			1
+# define GM_TOOL_ERASER			2
+# define GM_TOOL_HAND			3
 
 //id_generator flags
 # define ID_GENERATOR_GET		0

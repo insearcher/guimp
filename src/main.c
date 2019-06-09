@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/09 23:21:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/10 00:23:00 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,38 @@ static void	start_alt_with_selected_tool(void *main, void *el_v)
 	}
 }
 
+static void	start_zoom_in(void *m, void *wid)
+{
+	int			pt;
+	t_guimp		*g;
+	t_ui_win	*w;
+	Uint32		windowID;
+
+	g = (t_guimp *)(((t_ui_main *)m)->data);
+	windowID = *((Uint32 *)wid);
+	w = ui_main_find_window_by_id((t_ui_main *)m, windowID);
+	pt = g->draw_tool.tool;
+	g->draw_tool.tool = GM_TOOL_ZOOM;
+	start_draw_with_selected_tool(m, ui_win_find_el_by_id(w, GM_MAIN_ID_DRAW));
+	g->draw_tool.tool = pt;
+}
+
+static void	start_zoom_out(void *m, void *wid)
+{
+	int			pt;
+	t_guimp		*g;
+	t_ui_win	*w;
+	Uint32		windowID;
+
+	g = (t_guimp *)(((t_ui_main *)m)->data);
+	windowID = *((Uint32 *)wid);
+	w = ui_main_find_window_by_id((t_ui_main *)m, windowID);
+	pt = g->draw_tool.tool;
+	g->draw_tool.tool = GM_TOOL_ZOOM;
+	start_alt_with_selected_tool(m, ui_win_find_el_by_id(w, GM_MAIN_ID_DRAW));
+	g->draw_tool.tool = pt;
+}
+
 static void	draw_with_selected_tool(void *main, void *el_v)
 {
 	t_guimp	*g;
@@ -395,11 +427,11 @@ int		main()
 	t_ui_el	*tmp_el_p2;
 
 
-	char *res = NULL;
-	ui_open_file_dialog(&res);
-	printf("%s\n", res);
-	ui_save_file_dialog(&res);
-	printf("%s\n", res);
+	// char *res = NULL;
+	// // ui_open_file_dialog(&res);
+	// // printf("%s\n", res);
+	// // ui_save_file_dialog(&res);
+	// // printf("%s\n", res);
 
 	/********/
 	/* INIT */
@@ -441,6 +473,8 @@ int		main()
 	ui_main_add_window(g_main.ui_main, g_main.main_win);
 	ui_event_add_listener(&(g_main.main_win->events.onResize), &ui_win_update_size);
 	ui_event_add_listener(&(g_main.main_win->events.onMoved), &move_windows);
+	ui_event_add_listener(&(g_main.main_win->events.onScrollUp), &start_zoom_in);
+	ui_event_add_listener(&(g_main.main_win->events.onScrollDown), &start_zoom_out);
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), "flower", "default");
 	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &ui_el_draw_event);
 

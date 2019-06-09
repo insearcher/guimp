@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/06 23:19:17 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/09 23:19:05 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_menu_resize.c \
 					ui_el_set_menu_resize.c \
 					ui_el_set_new_pos.c \
-					ui_el_set_new_size.c
+					ui_el_set_new_size.c \
+					ui_el_add_texture_from_file_dialog.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -142,7 +143,10 @@ SRC_UTILITS		=	ui_get_rect_from_frect.c
 
 SRC_UI_JTOC		=	ui_main_from_json.c
 
-SRC_UI_FILE		=	ui_open_file_dialog.c
+SRC_UI_FILE		=	ui_open_file_dialog.c \
+					ui_save_file_dialog.c \
+					ui_parse_path.c \
+					ui_find_last_slash.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \

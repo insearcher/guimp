@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/07 20:34:54 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/09 23:02:22 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,8 @@ int		main()
 
 	char *res = NULL;
 	ui_open_file_dialog(&res);
+	printf("%s\n", res);
+	ui_save_file_dialog(&res);
 	printf("%s\n", res);
 
 	/********/

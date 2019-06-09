@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/09 23:00:22 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/10 00:45:27 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -438,6 +438,12 @@ void				ui_prefab_get_pixel_size(t_ui_el *p, t_ui_el *canvas,
 
 t_rect				ui_get_rect_from_frect(t_frect frect);
 
+int					ui_parse_path(char **res);
+int					ui_find_last_slash(const char *str);
 int					ui_open_file_dialog(char **res);
+int					ui_save_file_dialog(char **res);
+
+int					ui_el_add_texture_from_file_dialog(t_ui_el *el);
+int					ui_el_add_texture_from_file_dialog_with_size(t_ui_el *el, int w, int h);
 
 #endif

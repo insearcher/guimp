@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/08 01:35:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/08 05:49:16 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,17 @@
 # define EL_IGNOR_RAYCAST	(1 << 0)
 # define EL_IS_HIDDEN		(1 << 1)
 # define EL_IS_PTR_INSIDE	(1 << 2) // Smart using of params (replace BUTTON_OFF & ON)
-// # define EL_IS_LMB_PRESSED	(1 << 3)
-// # define EL_IS_RMB_PRESSED	(1 << 4)
-# define EL_IS_SCROLLABLE	(1 << 5)
-# define EL_IS_DEPENDENT	(1 << 6)
+# define EL_IS_SCROLLABLE	(1 << 3)
+# define EL_IS_DEPENDENT	(1 << 4)
+# define EL_IS_TEXT			(1 << 5)
+// # define EL_IS_LMB_PRESSED	(1 << 6)
+// # define EL_IS_RMB_PRESSED	(1 << 7)
 
 // KOSTIL
 // # define EL_NOT_RELEASED	(1 << 31)
+
+//el text params
+# define EL_IS_CENTERED		(1 << 0)
 
 # define MAIN_LMB_PRESSED	(1 << 0)
 # define MAIN_RMB_PRESSED	(1 << 1)
@@ -157,6 +161,9 @@ typedef struct		s_ui_text
 	TTF_Font		*font;
 	SDL_Color		color;
 	char			*text;
+	size_t			max_text_size;
+	size_t			cursor_pos;
+	int				params;
 }					t_ui_text;
 
 typedef struct		s_ui_el
@@ -209,7 +216,7 @@ typedef struct		s_ui_win
 	Uint32			sdl_windowID;
 	char			*title;
 	t_vec2			size;
-	t_vec2			pos; //TODO for programs init
+	t_vec2			pos;
 	t_ui_el			canvas;
 	t_ui_win_events	events;
 	Uint32			params;
@@ -415,7 +422,7 @@ void				ui_win_update_size(void *a1, void *a2);
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 		const char *id, const char *texture_id);
 
-int					ui_el_set_text(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
+int					ui_el_set_font(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
 int					ui_el_update_text(t_ui_el *el, const char *text);
 void				ui_main_set_font_outline(t_ui_main *m, const char *font_id, int outline);
 

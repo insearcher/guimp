@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/07 18:28:26 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/10 00:07:39 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define TID_DRAW_TEXTURE		"draw_texture"
 
 # define GM_MAIN_WIN_X			800
-# define GM_MAIN_WIN_Y			SDL_WINDOWPOS_CENTERED
+# define GM_MAIN_WIN_Y			SDL_WINDOWPOS_CENTERED //SDL!!!
 # define GM_MAIN_WIN_W			1200
 # define GM_MAIN_WIN_H			800
 # define GM_MAIN_ID_DRAW		1
@@ -27,10 +27,12 @@
 # define GM_TOOL_WIN_W			300
 # define GM_TOOL_WIN_H			800
 # define GM_TOOL_WIN_X			GM_MAIN_WIN_X - GM_TOOL_WIN_W - 5
-# define GM_TOOL_WIN_Y			SDL_WINDOWPOS_CENTERED
+# define GM_TOOL_WIN_Y			SDL_WINDOWPOS_CENTERED //SDL!!!
 # define GM_TOOL_ID_BUT_MENU	11
 # define GM_TOOL_ID_BRUSH		12
 # define GM_TOOL_ID_ERASER		13
+# define GM_TOOL_ID_ZOOM		14
+# define GM_TOOL_ID_HAND		15
 # define GM_TOOL_ID_SET_MENU	20
 # define GM_TOOL_ID_SL_ROOT_RED	21
 # define GM_TOOL_ID_SL_HEAD_RED	22
@@ -56,9 +58,21 @@
 
 # define GM_BRUSH_MAX_SIZE		300
 # define GM_BRUSH_DEF_SIZE		10
+# define GM_ZOOM_MAX_SIZE		32
+# define GM_ZOOM_MOVE_ZONE		0.1
+# define GM_ZOOM_MOVE_SPEED		64
+# define GM_HAND_MOVE_SPEED		1
+# define GM_HAND_MIN_DIST		3
 
 # define GM_TOOL_BRUSH			0
 # define GM_TOOL_ZOOM			1
+# define GM_TOOL_ERASER			2
+# define GM_TOOL_HAND			3
+# define GM_TOOL_LINE			4
+
+# define GM_TOOL_STATE_NONE		0
+# define GM_TOOL_STATE_DRAW		1
+# define GM_TOOL_STATE_END		2
 
 //id_generator flags
 # define ID_GENERATOR_GET		0
@@ -71,6 +85,7 @@ typedef struct					s_layers
 {
 	t_ui_el						*current_layer;
 	t_list						*layers;
+	t_texture					*tmp_texture;
 }								t_layers;
 
 typedef struct					s_draw_tool
@@ -83,6 +98,7 @@ typedef struct					s_draw_tool
 	Uint8						g;
 	Uint8						b;
 	int							zoom;
+	int							state;
 }								t_draw_tool;
 
 

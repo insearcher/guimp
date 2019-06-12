@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/11 00:53:18 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/12 05:39:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,16 @@
 // # define EL_IS_LMB_PRESSED	(1 << 6)
 // # define EL_IS_RMB_PRESSED	(1 << 7)
 
+//text params
+# define TEXT_IS_CENTERED	(1 << 0)
+
+//text render_params
+# define TEXT_IS_SOLID		(1 << 0)
+# define TEXT_IS_SHADED		(1 << 1)
+# define TEXT_IS_BLENDED	(1 << 2)
+
 // KOSTIL
 // # define EL_NOT_RELEASED	(1 << 31)
-
-//el text params
-# define EL_IS_CENTERED		(1 << 0)
 
 # define MAIN_LMB_PRESSED	(1 << 0)
 # define MAIN_RMB_PRESSED	(1 << 1)
@@ -160,10 +165,12 @@ typedef struct		s_ui_el_events
 typedef struct		s_ui_text
 {
 	TTF_Font		*font;
-	SDL_Color		color;
+	SDL_Color		text_color;
+	SDL_Color		bg_color;
 	char			*text;
 	size_t			max_text_size;
 	size_t			cursor_pos;
+	int				render_param;
 	int				params;
 }					t_ui_text;
 
@@ -268,6 +275,23 @@ typedef struct		s_resize_data
 	t_fvec2			elem_size;
 	t_fvec2			indent;
 }					t_resize_data;
+
+typedef struct		s_font_params
+{
+	int				style;
+	int				hinting;
+	int				kerning;
+	int				outline;
+}					t_font_params;
+
+typedef struct		s_text_params
+{
+	SDL_Color		text_color;
+	SDL_Color		bg_color;
+	int				max_text_size;
+	int				is_text_centered;
+	int				render_param;
+}					t_text_params;
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
 
@@ -423,9 +447,9 @@ void				ui_win_update_size(void *a1, void *a2);
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 		const char *id, const char *texture_id);
 
-int					ui_el_set_font(t_ui_main *m, t_ui_el *el, SDL_Color c, const char *font_id);
+int					ui_main_set_font_params(t_ui_main *m, const char *font_id, t_font_params params);
+int					ui_el_set_text(t_ui_main *m, t_ui_el *el, const char *font_id, t_text_params params);
 int					ui_el_update_text(t_ui_el *el, const char *text);
-void				ui_main_set_font_outline(t_ui_main *m, const char *font_id, int outline);
 
 # pragma endregion
 

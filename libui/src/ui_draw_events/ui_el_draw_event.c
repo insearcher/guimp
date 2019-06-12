@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 18:23:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 04:41:22 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/12 06:45:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,16 @@ static void	cutting_texture_and_draw(t_ui_el *el, SDL_Texture *texture)
 
 	tmp_rect = el->rect;
 	get_texture_params(texture, &srect, &width, &height);
+	if ((el->params & EL_IS_TEXT) && width < tmp_rect.w)
+	{
+		if (el->text.params & TEXT_IS_CENTERED)
+		{
+			tmp_rect.x = tmp_rect.x + ((tmp_rect.w - width) + 0.5) / 2;
+			tmp_rect.w = width;
+		}
+		else
+			tmp_rect.w = width;
+	}
 	get_texture_x_and_width(el, &srect, &tmp_rect, width);
 	get_texture_y_and_height(el, &srect, &tmp_rect, height);
 	el->cut_rect = tmp_rect;

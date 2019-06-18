@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/18 20:44:04 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/18 21:25:46 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ typedef struct		s_resize_data
 
 t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
 
-void				ui_main_init(t_ui_main *m);
+t_ui_main			*ui_main_init(void);
 void				ui_main_loop(t_ui_main *m);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
 

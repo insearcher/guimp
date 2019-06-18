@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/18 20:50:41 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/18 23:06:53 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,14 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	m = (t_ui_main *)ui_main;
 	g = (t_guimp *)m->data;
 	layer_menu = ui_win_find_el_by_id(g->main_win, GM_LAYER_ID_MENU);
-	if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+	if (!(tmp_el = ui_el_init()))
 	{
 		printf("layer malloc error in scrollable menu in layer_win\n");
 		return ;
 	}
-	ui_el_add_child(tmp_el, layer_menu);
+	ui_el_setup_default(tmp_el);
 	ui_el_setup_default_scroll_menu_elem(tmp_el);
+	ui_el_add_child(layer_menu, tmp_el);
 	tmp_el->id = gm_generate_surf_id(ID_GENERATOR_ADD);
 	ui_el_set_pos(tmp_el, 0, 0,
 		(t_fvec2){0.1,
@@ -116,7 +117,7 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_event_add_listener(&(tmp_el->events.onPointerEnter), &testOnPtrEnter);
 	ui_event_add_listener(&(tmp_el->events.onPointerExit), &testOnPtrExit);
 
-	if (!(el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+	if (!(el = ui_el_init()))
 	{
 		printf("layer texture malloc error in scrollable menu in layer_win\n");
 		return ;
@@ -467,7 +468,7 @@ static void	draw_color_rect(void *el_v, void *main)
 
 
 
-int		main()
+int		main1()
 {
 	t_guimp	g_main;
 	t_ui_el	*tmp_el;
@@ -486,12 +487,11 @@ int		main()
 	/********/
 	ui_sdl_init();
 	gm_init(&g_main);
-	if (!(g_main.ui_main = (t_ui_main *)malloc(sizeof(t_ui_main))))
+	if (!(g_main.ui_main = ui_main_init()))
 	{
 		printf("ui_main malloc error in struct g_main\n");
 		return (0);
 	}
-	ui_main_init(g_main.ui_main);
 	ui_main_fill_default_surfaces(g_main.ui_main);
 	g_main.ui_main->data = (void *)(&g_main);
 	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
@@ -518,12 +518,14 @@ int		main()
 	g_main.main_win->pos = (t_vec2){GM_MAIN_WIN_X, GM_MAIN_WIN_Y};
 	ui_win_setup_default(g_main.main_win);
 	ui_win_create(g_main.main_win);
+	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), "flower", "default");
 	ui_main_add_window(g_main.ui_main, g_main.main_win);
+
+	// NON JSON FEATURES
 	ui_event_add_listener(&(g_main.main_win->events.onResize), &ui_win_update_size);
 	ui_event_add_listener(&(g_main.main_win->events.onMoved), &move_windows);
 	ui_event_add_listener(&(g_main.main_win->events.onScrollUp), &start_zoom_in);
 	ui_event_add_listener(&(g_main.main_win->events.onScrollDown), &start_zoom_out);
-	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.main_win->canvas), "flower", "default");
 	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &ui_el_draw_event);
 
 
@@ -533,17 +535,18 @@ int		main()
 			printf("main_elem malloc error in canvas in main_win\n");
 			return (0);
 		}
-		ui_el_setup_default(tmp_el);
+		tmp_el->id = GM_MAIN_ID_DRAW;
 		ui_el_add_child(&(g_main.main_win->canvas), tmp_el);
+		ui_el_setup_default(tmp_el);
+		ui_el_setup_default_resizable(tmp_el);
 		ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.05});
 		ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.69, 0.9});
-		tmp_el->id = GM_MAIN_ID_DRAW;
-		ui_el_setup_default_resizable(tmp_el);
-		ui_event_clear(&(tmp_el->events.onRender));
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "brush", "brush");
+
+		// NON JSON FUATURES
 		ui_el_add_empty_texture(tmp_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
-		//ui_el_add_white_texture(tmp_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
 		g_main.layers.tmp_texture = ui_el_get_texture_by_id(tmp_el, "tmp_layer");
+		ui_event_clear(&(tmp_el->events.onRender));
 		ui_event_add_listener(&(tmp_el->events.onRender), &draw_canvas_renderer);
 		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &draw_with_selected_tool);
 		ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &start_draw_with_selected_tool);
@@ -557,14 +560,16 @@ int		main()
 			printf("scrollable menu malloc error in canvas in layer_win\n");
 			return (0);
 		}
+		tmp_el_p2->id = GM_LAYER_ID_MENU;
+		ui_el_add_child(&(g_main.main_win->canvas), tmp_el_p2);
 		ui_el_setup_default(tmp_el_p2);
 		ui_el_setup_default_scroll_menu(tmp_el_p2);
-		ui_el_add_child(&(g_main.main_win->canvas), tmp_el_p2);
+		ui_el_setup_menu_resizable(tmp_el_p2);
 		ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.75, 0.01});
 		ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.245, 0.89});
-		tmp_el_p2->id = GM_LAYER_ID_MENU;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "priso", "default");
-		ui_el_setup_menu_resizable(tmp_el_p2);
+
+		// NON JSON FEATURES
 		g_main.layers.layers = tmp_el_p2->children;
 
 	/*DEFAULT LAYER*/
@@ -573,15 +578,17 @@ int		main()
 				printf("default layer malloc error in scrollable menu in layer_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = GM_LAYER_ID_DEF_LAYER;
 			ui_el_add_child(tmp_el_p2, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.25});
-			tmp_el->id = GM_LAYER_ID_DEF_LAYER;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "layer_place", "default");
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "layer_onPtr", "onFocus");
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "layer_active", "onActive");
+
+			// NON JSON FEATURES
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &testOnPtrLBD);
 			ui_event_add_listener(&(tmp_el->events.onPointerEnter), &testOnPtrEnter);
 			ui_event_add_listener(&(tmp_el->events.onPointerExit), &testOnPtrExit);
@@ -593,12 +600,14 @@ int		main()
 					printf("default layer malloc error in scrollable menu in layer_win\n");
 					return (0);
 				}
-				ui_el_setup_default(tmp_el_p1);
+				tmp_el_p1->id = GM_LAYER_ID_DEF_LAYER * 1000;
 				ui_el_add_child(tmp_el, tmp_el_p1);
+				tmp_el_p1->params |= EL_IGNOR_RAYCAST | EL_IS_DEPENDENT;
+				ui_el_setup_default(tmp_el_p1);
 				ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.1, 0.1});
 				ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.8, 0.8});
-				tmp_el_p1->id = GM_LAYER_ID_DEF_LAYER * 1000;
-				tmp_el_p1->params |= EL_IGNOR_RAYCAST | EL_IS_DEPENDENT;
+
+				// NON JSON FEATURES
 				ui_el_add_white_texture(tmp_el_p1, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
 				ui_el_set_current_texture_by_id(tmp_el_p1, "default");
 				g_main.layers.current_layer = tmp_el_p1;
@@ -615,13 +624,15 @@ int		main()
 			printf("add button malloc error in canvas in layer_win\n");
 			return (0);
 		}
-		ui_el_setup_default(tmp_el_p1);
+		tmp_el_p1->id = GM_LAYER_ID_ADD;
 		ui_el_add_child(&(g_main.main_win->canvas), tmp_el_p1);
+		ui_el_setup_default(tmp_el_p1);
+		ui_el_setup_default_resizable(tmp_el_p1);
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.75, 0.91});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.12, 0.08});
-		tmp_el_p1->id = GM_LAYER_ID_ADD;
-		ui_el_setup_default_resizable(tmp_el_p1);
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
+
+		// NON JSON FEATURES
 		ui_event_add_listener(&(tmp_el_p1->events.onPointerLeftButtonPressed), &test_add_layer);
 
 	/*DEL BUTTON*/
@@ -630,13 +641,15 @@ int		main()
 			printf("del button malloc error in canvas in layer_win\n");
 			return (0);
 		}
-		ui_el_setup_default(tmp_el_p1);
+		tmp_el_p1->id = GM_LAYER_ID_DEL;
 		ui_el_add_child(&(g_main.main_win->canvas), tmp_el_p1);
+		ui_el_setup_default(tmp_el_p1);
+		ui_el_setup_default_resizable(tmp_el_p1);
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.875, 0.91});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.12, 0.08});
-		tmp_el_p1->id = GM_LAYER_ID_DEL;
-		ui_el_setup_default_resizable(tmp_el_p1);
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
+
+		// NON JSON FEATURES
 		ui_event_add_listener(&(tmp_el_p1->events.onPointerLeftButtonPressed), &test_del_layer);
 
 
@@ -655,10 +668,13 @@ int		main()
 	g_main.tool_win->pos = (t_vec2){GM_TOOL_WIN_X, GM_TOOL_WIN_Y};
 	ui_win_setup_default(g_main.tool_win);
 	ui_win_create(g_main.tool_win);
-	ui_main_add_window(g_main.ui_main, g_main.tool_win);
-	ui_event_add_listener(&(g_main.tool_win->events.onMoved), &move_windows);
 	ui_el_add_texture_from_main_by_id(g_main.ui_main, &(g_main.tool_win->canvas), "flower", "default");
+	ui_main_add_window(g_main.ui_main, g_main.tool_win);
+
+	// NON JSON FEATURES
+	ui_event_add_listener(&(g_main.tool_win->events.onMoved), &move_windows);
 	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &ui_el_draw_event);
+
 
 	/*DRAW BUTTONS SCROLLABLE MENU*/
 		if (!(tmp_el_p1 = ui_el_init()))
@@ -666,12 +682,12 @@ int		main()
 			printf("scrollable menu malloc error in canvas in tool_win\n");
 			return (0);
 		}
-		ui_el_setup_default(tmp_el_p1);
+		tmp_el_p1->id = GM_TOOL_ID_BUT_MENU;
 		ui_el_add_child(&(g_main.tool_win->canvas), tmp_el_p1);
+		ui_el_setup_default(tmp_el_p1);
 		ui_el_setup_default_scroll_menu(tmp_el_p1);
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.01, 0.01});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.98, 0.59});
-		tmp_el_p1->id = GM_TOOL_ID_BUT_MENU;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
 
 	/*SELECT BRUSH BUTTON*/
@@ -680,14 +696,17 @@ int		main()
 				printf("draw_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
+			tmp_el->id = GM_TOOL_ID_BRUSH;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
 			ui_el_set_size(tmp_el, 0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
-			tmp_el->id = GM_TOOL_ID_BRUSH;
-			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "brush_icon", "default");
+
+			// NON JSON FEATURES
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_brush);
+			tmp_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 
 	/*ERASER BUTTON*/
 			if (!(tmp_el = ui_el_init()))
@@ -695,11 +714,12 @@ int		main()
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
+			tmp_el->id = GM_TOOL_ID_ERASER;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.55, 0.05});
-			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
-			tmp_el->id = GM_TOOL_ID_ERASER;
+			ui_el_set_size(tmp_el, 0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "eraser_icon", "default");
 			//ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_zoom);
 
@@ -709,13 +729,15 @@ int		main()
 				printf("zoom_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = GM_TOOL_ID_ZOOM;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.33});
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
-			tmp_el->id = GM_TOOL_ID_ZOOM;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "zoom_icon", "default");
+
+			// NON JSON FEATURES
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_zoom);
 
 	/*HAND BUTTON*/
@@ -724,13 +746,15 @@ int		main()
 				printf("zoom_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = 15;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.55, 0.33});
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
-			tmp_el->id = GM_TOOL_ID_ZOOM;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "hand_icon", "default");
+
+			// NON JSON FEATURES
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_hand);
 
 	/*LINE BUTTON*/
@@ -739,13 +763,15 @@ int		main()
 				printf("zoom_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = 16;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.6});
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
-			tmp_el->id = GM_TOOL_ID_ZOOM;
 			ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "prison", "default");
+
+			// NON JSON FEATURES
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_line);
 
 	/*SETTINGS MENU*/
@@ -754,11 +780,11 @@ int		main()
 			printf("settings menu malloc error in canvas in tool_win\n");
 			return (0);
 		}
+		tmp_el_p1->id = GM_TOOL_ID_SET_MENU;
 		ui_el_setup_default(tmp_el_p1);
 		ui_el_add_child(&(g_main.tool_win->canvas), tmp_el_p1);
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.01, 0.61});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.98, 0.38});
-		tmp_el_p1->id = GM_TOOL_ID_SET_MENU;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "frolushka", "default");
 
 	/*SLIDER ROOT*/
@@ -768,14 +794,16 @@ int		main()
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = GM_TOOL_ID_SL_ROOT_RED;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.08});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.7, 0.15});
-			tmp_el->id = GM_TOOL_ID_SL_ROOT_RED;
-			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xFF0000, "default");
+
+			// NON JSON FEATURES
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
+			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xFF0000, "default");
 
 	/*SLIDER HEAD*/
 				if (!(tmp_el_p2 = ui_el_init()))
@@ -783,13 +811,15 @@ int		main()
 					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 					return (0);
 				}
-				ui_el_setup_default(tmp_el_p2);
+				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_RED;
+				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 				ui_el_add_child(tmp_el, tmp_el_p2);
+				ui_el_setup_default(tmp_el_p2);
 				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0, 0});
 				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.06, 1});
-				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_RED;
+
+				// NON JSON FEATURES
 				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
-				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 
 	/*SLIDER ROOT*/
 /*GREEN*/
@@ -798,11 +828,13 @@ int		main()
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = GM_TOOL_ID_SL_ROOT_GR;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.31});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.7, 0.15});
-			tmp_el->id = GM_TOOL_ID_SL_ROOT_GR;
+
+			// NON JSON FEATURES
 			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0x00FF00, "default");
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
@@ -813,13 +845,15 @@ int		main()
 					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 					return (0);
 				}
-				ui_el_setup_default(tmp_el_p2);
+				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_GR;
+				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 				ui_el_add_child(tmp_el, tmp_el_p2);
+				ui_el_setup_default(tmp_el_p2);
 				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0, 0});
 				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.06, 1});
-				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_GR;
+
+				// NON JSON FEATURES
 				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
-				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 
 	/*SLIDER ROOT*/
 /*BLUE*/
@@ -828,11 +862,13 @@ int		main()
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = GM_TOOL_ID_SL_ROOT_BL;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.54});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.7, 0.15});
-			tmp_el->id = GM_TOOL_ID_SL_ROOT_BL;
+
+			// NON JSON FEATURES
 			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0x0000FF, "default");
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
@@ -843,13 +879,15 @@ int		main()
 					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 					return (0);
 				}
+				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_BL;
+				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 				ui_el_setup_default(tmp_el_p2);
 				ui_el_add_child(tmp_el, tmp_el_p2);
 				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0, 0});
 				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.06, 1});
-				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_BL;
+
+				// NON JSON FEATURES
 				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
-				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 
 	/*SLIDER ROOT*/
 /*SIZE*/
@@ -858,11 +896,13 @@ int		main()
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = GM_TOOL_ID_SL_ROOT_SZ;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.77});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.7, 0.15});
-			tmp_el->id = GM_TOOL_ID_SL_ROOT_SZ;
+
+			// NON JSON FEATURES
 			ui_el_add_gradient_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0x000000, "default");
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonHold), &choose_color);
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
@@ -873,24 +913,29 @@ int		main()
 					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 					return (0);
 				}
-				ui_el_setup_default(tmp_el_p2);
+				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_SZ;
+				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 				ui_el_add_child(tmp_el, tmp_el_p2);
+				ui_el_setup_default(tmp_el_p2);
 				ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0, 0});
 				ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.06, 1});
-				tmp_el_p2->id = GM_TOOL_ID_SL_HEAD_SZ;
+
+				// NON JSON FEATURES
 				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
-				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
+
 	/*COLOR_RECT*/
 			if (!(tmp_el = ui_el_init()))
 			{
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default(tmp_el);
+			tmp_el->id = GM_TOOL_ID_CL_RECT;
 			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.825, 0.45});
 			ui_el_set_size(tmp_el, 0, PIXEL, (t_fvec2){0.1 * (float)GM_TOOL_WIN_W, 0.1 * (float)GM_TOOL_WIN_W});
-			tmp_el->id = GM_TOOL_ID_CL_RECT;
+
+			// NON JSON FEATURES
 			ui_el_add_color_texture(tmp_el, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0x000000, "default");
 			ui_event_clear(&(tmp_el->events.onRender));
 			ui_event_add_listener(&(tmp_el->events.onRender), &draw_color_rect);
@@ -904,3 +949,146 @@ int		main()
 	ui_main_loop(g_main.ui_main);
 	return (0);
 }
+
+int		main()
+{
+	t_guimp	g_main;
+
+
+	// char *res = NULL;
+	// // ui_open_file_dialog(&res);
+	// // printf("%s\n", res);
+	// // ui_save_file_dialog(&res);
+	// // printf("%s\n", res);
+
+	/********/
+	/* INIT */
+	/********/
+	ui_sdl_init();
+	gm_init(&g_main);
+	if (!(g_main.ui_main = ui_main_init()))
+	{
+		printf("ui_main malloc error in struct g_main\n");
+		return (0);
+	}
+	ui_main_fill_default_surfaces(g_main.ui_main);
+	g_main.ui_main->data = (void *)(&g_main);
+	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
+	g_main.draw_tool.zoom = 1;
+	g_main.draw_tool.state = GM_TOOL_STATE_NONE;
+	g_main.draw_tool.tool = GM_TOOL_BRUSH;
+	g_main.zoom_rect.x = 0;
+	g_main.zoom_rect.y = 0;
+	g_main.zoom_rect.w = GM_IMAGE_SIZE_X;
+	g_main.zoom_rect.h = GM_IMAGE_SIZE_Y;
+
+
+	ui_main_from_json(g_main.ui_main, "./json/main.json");
+
+	g_main.main_win = (t_ui_win *)(g_main.ui_main->windows->next->content);
+	g_main.tool_win = (t_ui_win *)(g_main.ui_main->windows->content);
+
+	// WINS
+	ui_event_add_listener(&(g_main.main_win->events.onResize), &ui_win_update_size);
+	ui_event_add_listener(&(g_main.main_win->events.onMoved), &move_windows);
+	ui_event_add_listener(&(g_main.main_win->events.onScrollUp), &start_zoom_in);
+	ui_event_add_listener(&(g_main.main_win->events.onScrollDown), &start_zoom_out);
+	ui_event_add_listener(&(g_main.main_win->canvas.events.onRender), &ui_el_draw_event);
+
+	ui_event_add_listener(&(g_main.tool_win->events.onMoved), &move_windows);
+	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &ui_el_draw_event);
+
+	t_ui_el	*cur_el;
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
+	ui_el_add_empty_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
+	g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
+	ui_event_clear(&(cur_el->events.onRender));
+	ui_event_add_listener(&(cur_el->events.onRender), &draw_canvas_renderer);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonHold), &draw_with_selected_tool);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &start_draw_with_selected_tool);
+	ui_event_add_listener(&(cur_el->events.onPointerRightButtonPressed), &start_alt_with_selected_tool);
+	ui_event_add_listener(&(cur_el->events.onPointerStay), &move_draw_canvas_with_zoom);
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 2);
+	g_main.layers.layers = cur_el->children;
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 63);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &testOnPtrLBD);
+	ui_event_add_listener(&(cur_el->events.onPointerEnter), &testOnPtrEnter);
+	ui_event_add_listener(&(cur_el->events.onPointerExit), &testOnPtrExit);
+	ui_el_set_current_texture_by_id(cur_el, "onActive");
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 63000);
+	ui_el_add_white_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
+	ui_el_set_current_texture_by_id(cur_el, "default");
+	g_main.layers.current_layer = cur_el;
+	t_list	*tmp;
+	tmp = ft_lstnew(NULL, 0);
+	tmp->content = cur_el->sdl_textures->content;
+	tmp->content_size = 63;
+	ft_lstadd_back(&(g_main.layers.layers), tmp);
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 3);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &test_add_layer);
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 4);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &test_del_layer);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &choose_brush);
+	cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &choose_zoom);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &choose_hand);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &choose_line);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 21);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonHold), &choose_color);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &choose_color);
+	ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xFF0000, "default");
+
+	t_ui_el *cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 22);
+	ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23);
+	ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x00FF00, "default");
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonHold), &choose_color);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &choose_color);
+
+	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 24);
+	ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 25);
+	ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x0000FF, "default");
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonHold), &choose_color);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &choose_color);
+
+	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 26);
+	ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 27);
+	ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonHold), &choose_color);
+	ui_event_add_listener(&(cur_el->events.onPointerLeftButtonPressed), &choose_color);
+
+	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 28);
+	ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 29);
+	ui_el_add_color_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
+	ui_event_clear(&(cur_el->events.onRender));
+	ui_event_add_listener(&(cur_el->events.onRender), &draw_color_rect);
+
+	/*************/
+	/* MAIN_LOOP */
+	/*************/
+	ui_main_loop(g_main.ui_main);
+	return (0);
+}
+

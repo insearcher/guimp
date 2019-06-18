@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_set_default_draggable.c                      :+:      :+:    :+:   */
+/*   jtoc_get.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/01 19:49:49 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/01 19:49:59 by sbecker          ###   ########.fr       */
+/*   Created: 2019/06/03 19:04:36 by sbednar           #+#    #+#             */
+/*   Updated: 2019/06/05 20:34:54 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui.h"
+#include "libjtoc.h"
 
-void	ui_el_set_default_draggable(t_ui_el *el)
+int		jtoc_get_int(t_jnode *n)
 {
-	ui_event_add_listener(&(el->events.onPointerLeftButtonHold), &ui_el_drag);
+	return (roundf((int)(*((float *)n->data))));
+}
+
+float	jtoc_get_float(t_jnode *n)
+{
+	return (*((float *)n->data));
+}
+
+char	*jtoc_get_string(t_jnode *n)
+{
+	return ((char *)n->data);
 }

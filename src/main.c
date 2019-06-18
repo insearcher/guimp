@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/10 00:45:14 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/18 20:50:41 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ static void	test_add_layer(void *ui_main, void *el_v)
 		printf("layer malloc error in scrollable menu in layer_win\n");
 		return ;
 	}
-	ui_el_setup_default_scroll_menu_elem(tmp_el, layer_menu);
+	ui_el_add_child(tmp_el, layer_menu);
+	ui_el_setup_default_scroll_menu_elem(tmp_el);
 	tmp_el->id = gm_generate_surf_id(ID_GENERATOR_ADD);
 	ui_el_set_pos(tmp_el, 0, 0,
 		(t_fvec2){0.1,
@@ -506,12 +507,11 @@ int		main()
 	/************/
 	/* MAIN_WIN */
 	/************/
-	if (!(g_main.main_win = (t_ui_win *)malloc(sizeof(t_ui_win))))
+	if (!(g_main.main_win = ui_win_init()))
 	{
 		printf("main_win malloc error in struct g_main\n");
 		return (0);
 	}
-	ui_win_init(g_main.main_win);
 	g_main.main_win->title = ft_strdup("GUIMP");
 	g_main.main_win->params = WIN_MAIN | WIN_RESIZABLE;
 	g_main.main_win->size = (t_vec2){GM_MAIN_WIN_W, GM_MAIN_WIN_H};
@@ -528,18 +528,17 @@ int		main()
 
 
 	/*MAIN ELEM*/
-		if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		if (!(tmp_el = ui_el_init()))
 		{
 			printf("main_elem malloc error in canvas in main_win\n");
 			return (0);
 		}
-		ui_el_init(tmp_el);
 		ui_el_setup_default(tmp_el);
 		ui_el_add_child(&(g_main.main_win->canvas), tmp_el);
 		ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.05, 0.05});
 		ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.69, 0.9});
 		tmp_el->id = GM_MAIN_ID_DRAW;
-		ui_el_set_default_resize(tmp_el);
+		ui_el_setup_default_resizable(tmp_el);
 		ui_event_clear(&(tmp_el->events.onRender));
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el, "brush", "brush");
 		ui_el_add_empty_texture(tmp_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
@@ -553,27 +552,30 @@ int		main()
 
 
 	/*LAYERS SCROLLABLE MENU*/
-		if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		if (!(tmp_el_p2 = ui_el_init()))
 		{
 			printf("scrollable menu malloc error in canvas in layer_win\n");
 			return (0);
 		}
+		ui_el_setup_default(tmp_el_p2);
 		ui_el_setup_default_scroll_menu(tmp_el_p2);
 		ui_el_add_child(&(g_main.main_win->canvas), tmp_el_p2);
 		ui_el_set_pos(tmp_el_p2, 0, 0, (t_fvec2){0.75, 0.01});
 		ui_el_set_size(tmp_el_p2, 0, 0, (t_fvec2){0.245, 0.89});
 		tmp_el_p2->id = GM_LAYER_ID_MENU;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p2, "priso", "default");
-		ui_el_set_menu_resize(tmp_el_p2);
+		ui_el_setup_menu_resizable(tmp_el_p2);
 		g_main.layers.layers = tmp_el_p2->children;
 
 	/*DEFAULT LAYER*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("default layer malloc error in scrollable menu in layer_win\n");
 				return (0);
 			}
-			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p2);
+			ui_el_setup_default(tmp_el);
+			ui_el_add_child(tmp_el_p2, tmp_el);
+			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
 			ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.25});
 			tmp_el->id = GM_LAYER_ID_DEF_LAYER;
@@ -586,7 +588,7 @@ int		main()
 			ui_el_set_current_texture_by_id(tmp_el, "onActive");
 
 	/*DEFAULT LAYER TEXTURE*/
-				if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				if (!(tmp_el_p1 = ui_el_init()))
 				{
 					printf("default layer malloc error in scrollable menu in layer_win\n");
 					return (0);
@@ -608,7 +610,7 @@ int		main()
 				ft_lstadd_back(&(g_main.layers.layers), tmp);
 
 	/*ADD BUTTON*/
-		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		if (!(tmp_el_p1 = ui_el_init()))
 		{
 			printf("add button malloc error in canvas in layer_win\n");
 			return (0);
@@ -618,12 +620,12 @@ int		main()
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.75, 0.91});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.12, 0.08});
 		tmp_el_p1->id = GM_LAYER_ID_ADD;
-		ui_el_set_default_resize(tmp_el_p1);
+		ui_el_setup_default_resizable(tmp_el_p1);
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
 		ui_event_add_listener(&(tmp_el_p1->events.onPointerLeftButtonPressed), &test_add_layer);
 
 	/*DEL BUTTON*/
-		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		if (!(tmp_el_p1 = ui_el_init()))
 		{
 			printf("del button malloc error in canvas in layer_win\n");
 			return (0);
@@ -633,7 +635,7 @@ int		main()
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.875, 0.91});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.12, 0.08});
 		tmp_el_p1->id = GM_LAYER_ID_DEL;
-		ui_el_set_default_resize(tmp_el_p1);
+		ui_el_setup_default_resizable(tmp_el_p1);
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
 		ui_event_add_listener(&(tmp_el_p1->events.onPointerLeftButtonPressed), &test_del_layer);
 
@@ -642,12 +644,11 @@ int		main()
 	/************/
 	/* TOOL_WIN */
 	/************/
-	if (!(g_main.tool_win = (t_ui_win *)malloc(sizeof(t_ui_win))))
+	if (!(g_main.tool_win = ui_win_init()))
 	{
 		printf("tool_win malloc error in struct g_main\n");
 		return (0);
 	}
-	ui_win_init(g_main.tool_win);
 	g_main.tool_win->title = ft_strdup("TOOLS");
 	g_main.tool_win->params = 0;
 	g_main.tool_win->size = (t_vec2){GM_TOOL_WIN_W, GM_TOOL_WIN_H};
@@ -660,25 +661,27 @@ int		main()
 	ui_event_add_listener(&(g_main.tool_win->canvas.events.onRender), &ui_el_draw_event);
 
 	/*DRAW BUTTONS SCROLLABLE MENU*/
-		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		if (!(tmp_el_p1 = ui_el_init()))
 		{
 			printf("scrollable menu malloc error in canvas in tool_win\n");
 			return (0);
 		}
-		ui_el_setup_default_scroll_menu(tmp_el_p1);
+		ui_el_setup_default(tmp_el_p1);
 		ui_el_add_child(&(g_main.tool_win->canvas), tmp_el_p1);
+		ui_el_setup_default_scroll_menu(tmp_el_p1);
 		ui_el_set_pos(tmp_el_p1, 0, 0, (t_fvec2){0.01, 0.01});
 		ui_el_set_size(tmp_el_p1, 0, 0, (t_fvec2){0.98, 0.59});
 		tmp_el_p1->id = GM_TOOL_ID_BUT_MENU;
 		ui_el_add_texture_from_main_by_id(g_main.ui_main, tmp_el_p1, "priso", "default");
 
 	/*SELECT BRUSH BUTTON*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("draw_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.05});
 			ui_el_set_size(tmp_el, 0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_BRUSH;
@@ -687,12 +690,13 @@ int		main()
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_brush);
 
 	/*ERASER BUTTON*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.55, 0.05});
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_ERASER;
@@ -700,12 +704,14 @@ int		main()
 			//ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_zoom);
 
 	/*ZOOM BUTTON*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("zoom_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_el_setup_default(tmp_el);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.33});
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_ZOOM;
@@ -713,12 +719,14 @@ int		main()
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_zoom);
 
 	/*HAND BUTTON*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("zoom_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_el_setup_default(tmp_el);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.55, 0.33});
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_ZOOM;
@@ -726,12 +734,14 @@ int		main()
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_hand);
 
 	/*LINE BUTTON*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("zoom_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
 			}
-			ui_el_setup_default_scroll_menu_elem(tmp_el, tmp_el_p1);
+			ui_el_setup_default(tmp_el);
+			ui_el_add_child(tmp_el_p1, tmp_el);
+			ui_el_setup_default_scroll_menu_elem(tmp_el);
 			ui_el_set_pos(tmp_el, 0, 0, (t_fvec2){0.1, 0.6});
 			ui_el_set_size(tmp_el,  0, PIXEL, (t_fvec2){GM_TOOL_WIN_W * 0.35, GM_TOOL_WIN_W * 0.35});
 			tmp_el->id = GM_TOOL_ID_ZOOM;
@@ -739,7 +749,7 @@ int		main()
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_line);
 
 	/*SETTINGS MENU*/
-		if (!(tmp_el_p1 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+		if (!(tmp_el_p1 = ui_el_init()))
 		{
 			printf("settings menu malloc error in canvas in tool_win\n");
 			return (0);
@@ -753,7 +763,7 @@ int		main()
 
 	/*SLIDER ROOT*/
 /*RED*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
@@ -768,7 +778,7 @@ int		main()
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 	/*SLIDER HEAD*/
-				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				if (!(tmp_el_p2 = ui_el_init()))
 				{
 					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 					return (0);
@@ -783,7 +793,7 @@ int		main()
 
 	/*SLIDER ROOT*/
 /*GREEN*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
@@ -798,7 +808,7 @@ int		main()
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 	/*SLIDER HEAD*/
-				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				if (!(tmp_el_p2 = ui_el_init()))
 				{
 					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 					return (0);
@@ -813,7 +823,7 @@ int		main()
 
 	/*SLIDER ROOT*/
 /*BLUE*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
@@ -828,7 +838,7 @@ int		main()
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 	/*SLIDER HEAD*/
-				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				if (!(tmp_el_p2 = ui_el_init()))
 				{
 					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 					return (0);
@@ -843,7 +853,7 @@ int		main()
 
 	/*SLIDER ROOT*/
 /*SIZE*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);
@@ -858,7 +868,7 @@ int		main()
 			ui_event_add_listener(&(tmp_el->events.onPointerLeftButtonPressed), &choose_color);
 
 	/*SLIDER HEAD*/
-				if (!(tmp_el_p2 = (t_ui_el *)malloc(sizeof(t_ui_el))))
+				if (!(tmp_el_p2 = ui_el_init()))
 				{
 					printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 					return (0);
@@ -871,7 +881,7 @@ int		main()
 				ui_el_add_color_texture(tmp_el_p2, (t_vec2){tmp_el->rect.w, tmp_el->rect.h}, 0xAAAAAA, "default");
 				tmp_el_p2->params |= EL_IGNOR_RAYCAST;
 	/*COLOR_RECT*/
-			if (!(tmp_el = (t_ui_el *)malloc(sizeof(t_ui_el))))
+			if (!(tmp_el = ui_el_init()))
 			{
 				printf("eraser_brush malloc error in scrollable menu in tool_win\n");
 				return (0);

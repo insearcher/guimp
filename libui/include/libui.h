@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/10 00:45:27 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/18 20:44:04 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,8 +353,7 @@ void				ui_el_draw_event(void *el_v, void *arg);
 
 # pragma region		t_ui_el_func
 
-void				ui_el_init(t_ui_el *el);
-void				ui_el_setup_default(t_ui_el *el);
+t_ui_el				*ui_el_init(void);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 void				ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
@@ -387,8 +386,6 @@ int					ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id);
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
 
-void				ui_el_setup_default_scroll_menu(t_ui_el *el);
-void				ui_el_setup_default_scroll_menu_elem(t_ui_el *el, t_ui_el *el_parent);
 void				ui_el_scroll_menu_up(void *a1, void *a2);
 void				ui_el_scroll_menu_down(void *a1, void *a2);
 void				ui_el_scroll_child_menu_up(void *a1, void *a2);
@@ -396,8 +393,6 @@ void				ui_el_scroll_child_menu_down(void *a1, void *a2);
 
 void				ui_el_drag(void *a1, void *a2);
 void				ui_el_hor_slider_drug(void *a1, void *a2);
-void				ui_el_set_hor_draggable(t_ui_el *el);
-void				ui_el_set_default_draggable(t_ui_el *el);
 
 void				ui_el_set_default_texture(void *a1, void *a2);
 void				ui_el_set_focused_texture(void *a1, void *a2);
@@ -405,9 +400,7 @@ void				ui_el_set_active_texture(void *a1, void *a2);
 
 void				ui_el_resize_elems(void *a1, void *a2);
 void				ui_el_default_resize(void *a1, void *a2);
-void				ui_el_set_default_resize(t_ui_el *el);
 void				ui_el_menu_resize(void *a1, void *a2);
-void				ui_el_set_menu_resize(t_ui_el *el);
 void				ui_win_update_size(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
@@ -420,7 +413,7 @@ int					ui_el_update_text(t_ui_el *el, const char *text);
 
 void				ui_win_create(t_ui_win *w);
 void				ui_win_setup_default(t_ui_win *w);
-void				ui_win_init(t_ui_win *w);
+t_ui_win			*ui_win_init(void);
 void				ui_win_close(t_ui_win *w);
 t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);
 
@@ -445,5 +438,18 @@ int					ui_save_file_dialog(char **res);
 
 int					ui_el_add_texture_from_file_dialog(t_ui_el *el);
 int					ui_el_add_texture_from_file_dialog_with_size(t_ui_el *el, int w, int h);
+
+int					ui_main_from_json(t_ui_main *m, const char *p);
+int					ui_win_from_json(t_ui_main *m, t_jnode *n);
+int					ui_el_from_json(t_ui_main *m, t_ui_win *w, t_jnode *n);
+t_ui_event			*ui_el_from_json_get_event_by_name(t_ui_el *e, const char *n);
+
+void				ui_el_setup_default_draggable(t_ui_el *el);
+void				ui_el_setup_default_resizable(t_ui_el *el);
+void				ui_el_setup_default_scroll_menu_elem(t_ui_el *el);
+void				ui_el_setup_default_scroll_menu(t_ui_el *el);
+void				ui_el_setup_default(t_ui_el *el);
+void				ui_el_setup_horizontal_draggable(t_ui_el *el);
+void				ui_el_setup_menu_resizable(t_ui_el *el);
 
 #endif

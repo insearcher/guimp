@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:46:35 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 20:48:28 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/05 23:38:04 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_jnode		*jtoc_node_create(enum e_type type, char *name, void *data)
 	if (!(res = (t_jnode *)malloc(sizeof(t_jnode))))
 		return (NULL);
 	res->type = type;
+	res->name = ft_strdup(name);
 	res->hash = ft_strhash(name);
 	res->data = data;
 	res->right = NULL;
@@ -94,5 +95,6 @@ void		jtoc_node_clear(t_jnode *cur)
 	if (cur->down)
 		jtoc_node_clear(cur->down);
 	free(cur->data);
+	free(cur->name);
 	free(cur);
 }

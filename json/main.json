@@ -2,7 +2,7 @@
 	"windows":
 	[
 		{
-			"title": "name1",
+			"title": "GUIMP",
 			"params":
 			[
 				"WIN_MAIN",
@@ -10,37 +10,164 @@
 			],
 			"size":
 			{
-				"x": 480,
-				"y": 320
+				"x": 1200,
+				"y": 800
 			},
 			"elements":
 			[
 				{
-					"id": 1,
-					"parent": 23,
-					"functions":
+					"id": 0,
+					"textures":
 					[
 						{
-							"count_args": 3,
-							"type_args":
-							[
-								"int", "int", "fvec"
-							],
-							"name": "ui_el_setup_default_scroll_menu",
-							"args":
-							[
-
-							]
+							"main_id": "flower",
+							"el_id": "default"
 						}
+					]
+				},
+				{
+					"id": 1,
+					"parent": 0,
+					"type":
+					[
+						"RESIZABLE"
 					],
-					"events":
+					"params":
+					[
+						"EL_IS_HIDDEN"
+					],
+					"pos":
+					{
+						"x": 0.05,
+						"y": 0.05
+					},
+					"size":
+					{
+						"x": 0.69,
+						"y": 0.9
+					}
+				},
+				{
+					"id": 2,
+					"parent": 0,
+					"type":
+					[
+						"SCROLL_MENU",
+						"RESIZABLE"
+					],
+					"pos":
+					{
+						"x": 0.75,
+						"y": 0.01
+					},
+					"size":
+					{
+						"x": 0.245,
+						"y": 0.89
+					},
+					"textures":
 					[
 						{
-							"name": "onRender",
-							"functions":
-							[
-								"ui_el_huel"
-							]
+							"main_id": "priso",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 63,
+					"parent": 2,
+					"pos":
+					{
+						"x": 0.1,
+						"y": 0.05
+					},
+					"size":
+					{
+						"x": 0.8,
+						"y": 0.25
+					},
+					"textures":
+					[
+						{
+							"main_id": "layer_place",
+							"el_id": "default"
+						},
+						{
+							"main_id": "layer_onPtr",
+							"el_id": "onFocus"
+						},
+						{
+							"main_id": "layer_active",
+							"el_id": "onActive"
+						}
+					]
+				},
+				{
+					"id": 63000,
+					"parent": 63,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST",
+						"EL_IS_DEPENDENT"
+					],
+					"pos":
+					{
+						"x": 0.1,
+						"y": 0.1
+					},
+					"size":
+					{
+						"x": 0.8,
+						"y": 0.8
+					}
+				},
+				{
+					"id": 3,
+					"parent": 0,
+					"type":
+					[
+						"RESIZABLE"
+					],
+					"pos":
+					{
+						"x": 0.75,
+						"y": 0.91
+					},
+					"size":
+					{
+						"x": 0.12,
+						"y": 0.08
+					},
+					"textures":
+					[
+						{
+							"main_id": "priso",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 4,
+					"parent": 0,
+					"type":
+					[
+						"RESIZABLE"
+					],
+					"pos":
+					{
+						"x": 0.875,
+						"y": 0.91
+					},
+					"size":
+					{
+						"x": 0.12,
+						"y": 0.08
+					},
+					"textures":
+					[
+						{
+							"main_id": "priso",
+							"el_id": "default"
 						}
 					]
 				}

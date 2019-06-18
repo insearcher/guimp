@@ -6,34 +6,31 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 00:22:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 20:37:38 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/05 23:17:03 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libjtoc.h"
 
-static double	jtoc_atod_fraction(const char *str, int i, int s, double res)
+static void	jtoc_atof_fraction(const char *str, int i, int s, float *res)
 {
-	double	b;
+	float	b;
 
 	b = 0.1;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		res += (str[i++] - '0') * b * s;
+		*res += (str[i++] - '0') * b * s;
 		b /= 10;
 	}
-	return (res);
 }
 
-static double	jtoc_atod(const char *str)
+static void	jtoc_atof(const char *str, float *res)
 {
 	int		sign;
 	int		i;
-	double	res;
 
 	sign = 1;
 	i = 0;
-	res = 0;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		++i;
 	if (str[i] == '-')
@@ -42,25 +39,24 @@ static double	jtoc_atod(const char *str)
 		++i;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
-		res = res * 10 + (str[i++] - '0') * sign;
+		*res = (*res * 10) + (str[i++] - '0') * sign;
 	if (str[i] == '.')
-		res = jtoc_atod_fraction(str, ++i, sign, res);
-	return (res);
+		jtoc_atof_fraction(str, ++i, sign, res);
 }
 
 int				jtoc_parse_number(t_jnode *p, const char *str, int b, int e)
 {
 	char	*sub;
-	double	*data;
+	float	*data;
 
 	if (!(sub = ft_strsub(str, b, e - b + 1)))
 		return (FUNCTION_FAILURE);
-	if (!(data = (double *)malloc(sizeof(double))))
+	if (!(data = (float *)malloc(sizeof(float))))
 	{
 		free(sub);
 		return (FUNCTION_FAILURE);
 	}
-	*data = jtoc_atod(sub);
+	jtoc_atof(sub, data);
 	p->data = (void *)data;
 	return (FUNCTION_SUCCESS);
 }

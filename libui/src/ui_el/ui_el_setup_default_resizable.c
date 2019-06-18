@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_win_init.c                                      :+:      :+:    :+:   */
+/*   ui_el_setup_default_resizable.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/29 20:57:36 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/18 20:35:48 by sbednar          ###   ########.fr       */
+/*   Created: 2019/06/01 19:51:18 by sbecker           #+#    #+#             */
+/*   Updated: 2019/06/18 20:06:02 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-t_ui_win	*ui_win_init(void)
+void	ui_el_setup_default_resizable(t_ui_el *el)
 {
-	t_ui_win	*win;
-
-	if (!(win = (t_ui_win *)malloc(sizeof(t_ui_win))))
-		return (NULL);
-	ft_bzero(win, sizeof(t_ui_win));
-	return (win);
+	ui_event_add_listener(&(el->events.onResize), &ui_el_default_resize);
 }

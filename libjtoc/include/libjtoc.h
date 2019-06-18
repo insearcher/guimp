@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 19:28:19 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/02 20:48:17 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/05 23:37:25 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ enum						e_type
 typedef struct				s_jnode
 {
 	enum e_type				type;
+	char					*name;
 	int						hash;
 	void					*data;
 	struct s_jnode			*right;
@@ -101,5 +102,9 @@ int							jtoc_parse_array(t_jnode *p, const char *str,
 int b, int e);
 
 t_jnode						*jtoc_read(const char *str);
+
+int							jtoc_get_int(t_jnode *n);
+float						jtoc_get_float(t_jnode *n);
+char 						*jtoc_get_string(t_jnode *n);
 
 #endif

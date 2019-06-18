@@ -13,6 +13,10 @@
 				"x": 1200,
 				"y": 800
 			},
+			"pos":
+			{
+				"x": 800
+			},
 			"elements":
 			[
 				{
@@ -32,10 +36,6 @@
 					[
 						"RESIZABLE"
 					],
-					"params":
-					[
-						"EL_IS_HIDDEN"
-					],
 					"pos":
 					{
 						"x": 0.05,
@@ -45,7 +45,14 @@
 					{
 						"x": 0.69,
 						"y": 0.9
-					}
+					},
+					"textures":
+					[
+						{
+							"main_id": "brush",
+							"el_id": "brush"
+						}
+					]
 				},
 				{
 					"id": 2,
@@ -76,6 +83,10 @@
 				{
 					"id": 63,
 					"parent": 2,
+					"type":
+					[
+						"SCROLL_MENU_ELEM"
+					],
 					"pos":
 					{
 						"x": 0.1,
@@ -170,6 +181,372 @@
 							"el_id": "default"
 						}
 					]
+				}
+			]
+		},
+		{
+			"title": "TOOLS",
+			"size":
+			{
+				"x": 300,
+				"y": 800
+			},
+			"pos":
+			{
+				"x": 495
+			},
+			"elements":
+			[
+				{
+					"id": 0,
+					"textures":
+					[
+						{
+							"main_id": "flower",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 11,
+					"parent": 0,
+					"type":
+					[
+						"SCROLL_MENU"
+					],
+					"pos":
+					{
+						"x": 0.01,
+						"y": 0.01
+					},
+					"size":
+					{
+						"x": 0.98,
+						"y": 0.59
+					},
+					"textures":
+					[
+						{
+							"main_id": "priso",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 12,
+					"parent": 11,
+					"type":
+					[
+						"SCROLL_MENU_ELEM"
+					],
+					"pos":
+					{
+						"x": 0.1,
+						"y": 0.05
+					},
+					"size":
+					{
+						"x": 105,
+						"y": 105,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"main_id": "brush_icon",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 13,
+					"parent": 11,
+					"type":
+					[
+						"SCROLL_MENU_ELEM"
+					],
+					"pos":
+					{
+						"x": 0.55,
+						"y": 0.05
+					},
+					"size":
+					{
+						"x": 105,
+						"y": 105,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"main_id": "eraser_icon",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 14,
+					"parent": 11,
+					"type":
+					[
+						"SCROLL_MENU_ELEM"
+					],
+					"pos":
+					{
+						"x": 0.1,
+						"y": 0.33
+					},
+					"size":
+					{
+						"x": 105,
+						"y": 105,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"main_id": "zoom_icon",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 15,
+					"parent": 11,
+					"type":
+					[
+						"SCROLL_MENU_ELEM"
+					],
+					"pos":
+					{
+						"x": 0.55,
+						"y": 0.33
+					},
+					"size":
+					{
+						"x": 105,
+						"y": 105,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"main_id": "hand_icon",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 16,
+					"parent": 11,
+					"type":
+					[
+						"SCROLL_MENU_ELEM"
+					],
+					"pos":
+					{
+						"x": 0.1,
+						"y": 0.6
+					},
+					"size":
+					{
+						"x": 105,
+						"y": 105,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"main_id": "prison",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 20,
+					"parent": 0,
+					"pos":
+					{
+						"x": 0.01,
+						"y": 0.61
+					},
+					"size":
+					{
+						"x": 0.98,
+						"y": 0.38
+					},
+					"textures":
+					[
+						{
+							"main_id": "frolushka",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 21,
+					"parent": 20,
+					"pos":
+					{
+						"x": 0.05,
+						"y": 0.08
+					},
+					"size":
+					{
+						"x": 0.7,
+						"y": 0.15
+					}
+				},
+				{
+					"id": 22,
+					"parent": 21,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					}
+				},
+				{
+					"id": 23,
+					"parent": 20,
+					"pos":
+					{
+						"x": 0.05,
+						"y": 0.31
+					},
+					"size":
+					{
+						"x": 0.7,
+						"y": 0.15
+					}
+				},
+				{
+					"id": 24,
+					"parent": 23,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					}
+				},
+				{
+					"id": 25,
+					"parent": 20,
+					"pos":
+					{
+						"x": 0.05,
+						"y": 0.54
+					},
+					"size":
+					{
+						"x": 0.7,
+						"y": 0.15
+					}
+				},
+				{
+					"id": 26,
+					"parent": 25,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					}
+				},
+				{
+					"id": 27,
+					"parent": 20,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0.05,
+						"y": 0.77
+					},
+					"size":
+					{
+						"x": 0.7,
+						"y": 0.15
+					}
+				},
+				{
+					"id": 28,
+					"parent": 27,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					}
+				},
+				{
+					"id": 29,
+					"parent": 20,
+					"pos":
+					{
+						"x": 0.825,
+						"y": 0.45
+					},
+					"size":
+					{
+						"x": 30,
+						"y": 30,
+						"params":
+						[
+							"PIXEL"
+						]
+					}
 				}
 			]
 		}

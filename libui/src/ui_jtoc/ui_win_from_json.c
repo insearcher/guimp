@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:19:27 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/18 20:42:23 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/18 21:22:51 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ui_get_win_param_from_string(const char *str)
 	return (i);
 }
 
-static int	ui_win_from_json2(t_ui_main *m, t_ui_win *w, t_jnode *n)
+static int	ui_win_from_json_size(t_ui_main *m, t_ui_win *w, t_jnode *n)
 {
 	t_jnode	*tmp;
 
@@ -46,6 +46,26 @@ static int	ui_win_from_json2(t_ui_main *m, t_ui_win *w, t_jnode *n)
 	return (FUNCTION_SUCCESS);
 }
 
+static int	ui_win_from_json_pos(t_ui_main *m, t_ui_win *w, t_jnode *n)
+{
+	t_jnode	*tmp;
+
+	if (!(tmp = jtoc_node_get_by_path(n, "pos.x")) || tmp->type != number)
+		return (FUNCTION_FAILURE);
+	w->pos.x = jtoc_get_int(tmp);
+	if (!(tmp = jtoc_node_get_by_path(n, "pos.y")))
+		w->pos.y = SDL_WINDOWPOS_CENTERED;
+	else
+	{
+		if (tmp->type != number)
+			return (FUNCTION_FAILURE);
+		w->pos.y = jtoc_get_int(tmp);
+	}
+	if (!(tmp = jtoc_node_get_by_path(n, "elements")))
+		return (FUNCTION_FAILURE);
+	return (ui_win_from_json_size(m, w, n));
+}
+
 int			ui_win_from_json(t_ui_main *m, t_jnode *n)
 {
 	t_ui_win	*w;
@@ -64,7 +84,7 @@ int			ui_win_from_json(t_ui_main *m, t_jnode *n)
 			w->params |= ui_get_win_param_from_string(jtoc_get_string(tmp));
 			tmp = tmp->right;
 		}
-	if (ui_win_from_json2(m, w, n))
+	if (ui_win_from_json_pos(m, w, n))
 		return (FUNCTION_FAILURE);
 	ui_main_add_window(m, w);
 	return (FUNCTION_SUCCESS);

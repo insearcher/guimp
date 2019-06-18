@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:26:26 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/03 16:09:50 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 01:34:42 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		ui_main_loop(t_ui_main *m)
 	SDL_DetachThread(thread);
 	while (1)
 	{
-		if (SDL_PollEvent(&(m->sdl_event)))
+		if (SDL_PollEvent(m->sdl_event))
 			ui_main_handle_event(m);
 	}
 }

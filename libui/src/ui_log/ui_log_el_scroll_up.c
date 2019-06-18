@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_log_el_scroll_up.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:44:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 20:07:40 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 01:35:05 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	ui_log_el_scroll_up(void *a1, void *a2)
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id,
-		m->sdl_event.window.windowID
+		m->sdl_event->window.windowID
 	);
 }

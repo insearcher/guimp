@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/18 20:15:00 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/19 02:30:20 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,7 +130,8 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_create.c \
 					ui_win_close.c \
 					ui_win_update_size.c \
-					ui_win_find_el_by_id.c
+					ui_win_find_el_by_id.c \
+					ui_win_focus.c
 
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c

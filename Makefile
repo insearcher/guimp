@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/06 23:23:36 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/19 02:08:24 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ LIBS			=	-L$(FT_DIR) -lft \
 
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror -g
+# CFLAGS = -g
 
 all: $(NAME)
 

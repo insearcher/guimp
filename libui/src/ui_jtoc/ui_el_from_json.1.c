@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_from_json.c                                  :+:      :+:    :+:   */
+/*   ui_el_from_json.1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 23:26:06 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 01:41:34 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,19 @@ t_ui_event		*ui_el_from_json_get_event_by_name(t_ui_el *e, const char *n)
 
 	hash = ft_strhash(n);
 	res = NULL;
-	res = (hash == ft_strhash("onPointerEnter") ? &e->events.onPointerEnter : res);
-	res = (hash == ft_strhash("onPointerStay") ? &e->events.onPointerStay : res);
-	res = (hash == ft_strhash("onPointerExit") ? &e->events.onPointerExit : res);
-	res = (hash == ft_strhash("onPointerLeftButtonPressed") ? &e->events.onPointerLeftButtonPressed : res);
-	res = (hash == ft_strhash("onPointerLeftButtonHold") ? &e->events.onPointerLeftButtonHold : res);
-	res = (hash == ft_strhash("onPointerLeftButtonReleased") ? &e->events.onPointerLeftButtonReleased : res);
-	res = (hash == ft_strhash("onPointerRightButtonPressed") ? &e->events.onPointerRightButtonPressed : res);
-	res = (hash == ft_strhash("onPointerRightButtonHold") ? &e->events.onPointerRightButtonHold : res);
-	res = (hash == ft_strhash("onPointerRightButtonReleased") ? &e->events.onPointerRightButtonReleased : res);
-	res = (hash == ft_strhash("onScrollUp") ? &e->events.onScrollUp : res);
-	res = (hash == ft_strhash("onScrollDown") ? &e->events.onScrollDown : res);
-	res = (hash == ft_strhash("onRender") ? &e->events.onRender : res);
-	res = (hash == ft_strhash("onResize") ? &e->events.onResize : res);
+	res = (hash == ft_strhash("onPointerEnter") ? &e->events->onPointerEnter : res);
+	res = (hash == ft_strhash("onPointerStay") ? &e->events->onPointerStay : res);
+	res = (hash == ft_strhash("onPointerExit") ? &e->events->onPointerExit : res);
+	res = (hash == ft_strhash("onPointerLeftButtonPressed") ? &e->events->onPointerLeftButtonPressed : res);
+	res = (hash == ft_strhash("onPointerLeftButtonHold") ? &e->events->onPointerLeftButtonHold : res);
+	res = (hash == ft_strhash("onPointerLeftButtonReleased") ? &e->events->onPointerLeftButtonReleased : res);
+	res = (hash == ft_strhash("onPointerRightButtonPressed") ? &e->events->onPointerRightButtonPressed : res);
+	res = (hash == ft_strhash("onPointerRightButtonHold") ? &e->events->onPointerRightButtonHold : res);
+	res = (hash == ft_strhash("onPointerRightButtonReleased") ? &e->events->onPointerRightButtonReleased : res);
+	res = (hash == ft_strhash("onScrollUp") ? &e->events->onScrollUp : res);
+	res = (hash == ft_strhash("onScrollDown") ? &e->events->onScrollDown : res);
+	res = (hash == ft_strhash("onRender") ? &e->events->onRender : res);
+	res = (hash == ft_strhash("onResize") ? &e->events->onResize : res);
 	return (res);
 }
 
@@ -195,7 +195,7 @@ static int	ui_el_from_json_size(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *
 			p |= ui_get_pos_size(jtoc_get_string(tmp));
 			tmp = tmp->right;
 		}
-		ui_el_set_size(e, &w->canvas, p, (t_fvec2){x, y});
+		ui_el_set_size(e, w->canvas, p, (t_fvec2){x, y});
 	}
 	return (ui_el_from_json_textures(m, e, n));
 }
@@ -225,7 +225,7 @@ static int	ui_el_from_json_pos(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *n
 			tmp = tmp->right;
 		}
 	}
-	ui_el_set_pos(e, &w->canvas, p, (t_fvec2){x, y});
+	ui_el_set_pos(e, w->canvas, p, (t_fvec2){x, y});
 	return (ui_el_from_json_size(m, w, e, n));
 }
 

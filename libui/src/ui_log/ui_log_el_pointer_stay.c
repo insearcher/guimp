@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_log_el_pointer_stay.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 06:10:29 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/25 19:47:42 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 01:35:05 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	ui_log_el_pointer_stay(void *a1, void *a2)
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id,
-		m->sdl_event.window.windowID
+		m->sdl_event->window.windowID
 	);
 }

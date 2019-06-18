@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_handle_window_event.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 02:19:12 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 03:46:46 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/19 02:17:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ void	ui_main_handle_window_event(t_ui_main *m)
 	t_ui_win	*win;
 	t_ui_event	*event;
 
-	windowID = m->sdl_event.window.windowID;
+	windowID = m->sdl_event->window.windowID;
 	if ((win = ui_main_find_window_by_id(m, windowID)) == NULL)
 		return ;
 	event = NULL;
-	if (m->sdl_event.window.event == SDL_WINDOWEVENT_CLOSE)
-		event = &(win->events.onClose);
-//	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_RESIZED)
-	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-		event = &(win->events.onResize);
-	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
-		event = &(win->events.onFocusGained);
-	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
-		event = &(win->events.onFocusLost);
-	else if (m->sdl_event.window.event == SDL_WINDOWEVENT_MOVED)
-		event = &(win->events.onMoved);
+	if (m->sdl_event->window.event == SDL_WINDOWEVENT_CLOSE)
+		event = win->events->onClose;
+//	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_RESIZED)
+	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+		event = win->events->onResize;
+	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
+		event = win->events->onFocusGained;
+	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_FOCUS_LOST)
+		event = win->events->onFocusLost;
+	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_MOVED)
+		event = win->events->onMoved;
 	if (event != NULL)
-		ui_event_invoke(event, m, &windowID);
+		ui_event_invoke(event, m, win);
 }

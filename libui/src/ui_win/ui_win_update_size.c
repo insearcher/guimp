@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_win_update_size.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:01:55 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/06 06:50:31 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/19 01:24:28 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	ui_win_update_size(void *a1, void *a2)
 		SDL_GetRendererOutputSize(w->sdl_renderer, &(w->size.x), &(w->size.y));//vrode perestalo viletat', no ne tochno
 		if (w->size.x < 800 || w->size.y < 600)
 			SDL_SetWindowSize(w->sdl_window, 800, 600);
-		w->canvas.rect.w = w->size.x;
-		w->canvas.rect.h = w->size.y;
+		w->canvas->rect.w = w->size.x;
+		w->canvas->rect.h = w->size.y;
 		ui_el_resize_elems(a1, (void *)w);
 	}
 }

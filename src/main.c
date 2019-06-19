@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 16:09:24 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 18:26:30 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-static void move_windows(void *a1, void *a2)
+void move_windows(void *a1, void *a2)
 {
 	t_ui_main   *m;
 	t_ui_win    *w;
@@ -290,7 +290,7 @@ static void	start_alt_with_selected_tool(void *main, void *el_v)
 	}
 }
 
-static void	start_zoom_in(void *m, void *wid)
+void	start_zoom_in(void *m, void *wid)
 {
 	int			pt;
 	t_guimp		*g;
@@ -306,7 +306,7 @@ static void	start_zoom_in(void *m, void *wid)
 	g->draw_tool.tool = pt;
 }
 
-static void	start_zoom_out(void *m, void *wid)
+void	start_zoom_out(void *m, void *wid)
 {
 	int			pt;
 	t_guimp		*g;
@@ -970,6 +970,7 @@ int		main()
 		return (0);
 	}
 	ui_main_fill_default_surfaces(g_main.ui_main);
+	ui_main_fill_default_functions(g_main.ui_main);
 	g_main.ui_main->data = (void *)(&g_main);
 	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
 	g_main.draw_tool.zoom = 1;
@@ -987,13 +988,13 @@ int		main()
 	g_main.tool_win = (t_ui_win *)(g_main.ui_main->windows->content);
 
 	// WINS
-	ui_event_add_listener(g_main.main_win->events->onResize, ui_win_update_size);
-	ui_event_add_listener(g_main.main_win->events->onMoved, move_windows);
-	ui_event_add_listener(g_main.main_win->events->onScrollUp, start_zoom_in);
-	ui_event_add_listener(g_main.main_win->events->onScrollDown, start_zoom_out);
+	// ui_event_add_listener(g_main.main_win->events->onMoved, move_windows);
+	// ui_event_add_listener(g_main.main_win->events->onResize, ui_win_update_size);
+	// ui_event_add_listener(g_main.main_win->events->onScrollUp, start_zoom_in);
+	// ui_event_add_listener(g_main.main_win->events->onScrollDown, start_zoom_out);
 	ui_event_add_listener(g_main.main_win->canvas->events->onRender, ui_el_draw_event);
 
-	ui_event_add_listener(g_main.tool_win->events->onMoved, move_windows);
+	// ui_event_add_listener(g_main.tool_win->events->onMoved, move_windows);
 	ui_event_add_listener(g_main.tool_win->canvas->events->onRender, ui_el_draw_event);
 
 	t_ui_el	*cur_el;
@@ -1015,7 +1016,7 @@ int		main()
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, testOnPtrLBD);
 	ui_event_add_listener(cur_el->events->onPointerEnter, testOnPtrEnter);
 	ui_event_add_listener(cur_el->events->onPointerExit, testOnPtrExit);
-	ui_el_set_current_texture_by_id(cur_el, "onActive");
+	// ui_el_set_current_texture_by_id(cur_el, "onActive");
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63000);
 	ui_el_add_white_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_from_json.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 03:09:02 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 18:26:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,13 @@ static int	ui_el_from_json_textures(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		}
 			tmp = tmp->right;
 		}
+	}
+	if ((tmp = jtoc_node_get_by_path(n, "current_texture")))
+	{
+		if (tmp->type != string)
+			return (FUNCTION_FAILURE);
+		printf("for el id %d set cur %s\n", e->id, jtoc_get_string(tmp));
+		ui_el_set_current_texture_by_id(e, jtoc_get_string(tmp));
 	}
 	return (ui_el_from_json_events(e, n));
 }

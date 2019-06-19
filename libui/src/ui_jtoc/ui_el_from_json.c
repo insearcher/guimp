@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 18:26:16 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 18:43:38 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,59 @@ static int	ui_el_setup_by_type(t_ui_el *e, t_jnode *n)
 	return (FUNCTION_SUCCESS);
 }
 
+static int	ui_el_from_json_white_texture(t_ui_el *e, t_jnode *n)
+{
+	t_jnode	*tmp;
+	int		w;
+	int		h;
+	char	*el_id;
+
+	if (!(tmp = jtoc_node_get_by_path(n, "width")) || tmp->type != number ||
+		(w = jtoc_get_int(tmp)) <= 0 ||
+		!(tmp = jtoc_node_get_by_path(n, "height")) || tmp->type != number ||
+		(h = jtoc_get_int(tmp)) <= 0 ||
+		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
+		!(el_id = jtoc_get_string(tmp)))
+		return (FUNCTION_FAILURE);
+	ui_el_add_white_texture(e, w, h, el_id);
+	return (FUNCTION_SUCCESS);
+}
+
+static int	ui_el_from_json_empty_texture(t_ui_el *e, t_jnode *n)
+{
+	t_jnode	*tmp;
+	int		w;
+	int		h;
+	char	*el_id;
+
+	if (!(tmp = jtoc_node_get_by_path(n, "width")) || tmp->type != number ||
+		(w = jtoc_get_int(tmp)) <= 0 ||
+		!(tmp = jtoc_node_get_by_path(n, "height")) || tmp->type != number ||
+		(h = jtoc_get_int(tmp)) <= 0 ||
+		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
+		!(el_id = jtoc_get_string(tmp)))
+		return (FUNCTION_FAILURE);
+	ui_el_add_empty_texture(e, w, h, el_id);
+	return (FUNCTION_SUCCESS);
+}
+
 static int	ui_el_from_json_texture(t_ui_main *m, t_ui_el *e, t_jnode *n)
 {
 	t_jnode	*tmp;
 	char	*main_id;
 	char	*el_id;
 
-	if (!(tmp = jtoc_node_get_by_path(n, "main_id")) || tmp->type != string ||
+	if ((tmp = jtoc_node_get_by_path(n, "type")))
+	{
+		if (tmp->type != string)
+			return (FUNCTION_FAILURE);
+		if ((!ft_strcmp(jtoc_get_string(tmp), "empty") && ui_el_from_json_empty_texture(e, n)) ||
+			(!ft_strcmp(jtoc_get_string(tmp), "white") && ui_el_from_json_white_texture(e, n)))
+			return (FUNCTION_FAILURE);
+	}
+	else
+	{
+		if (!(tmp = jtoc_node_get_by_path(n, "main_id")) || tmp->type != string ||
 		!(main_id = jtoc_get_string(tmp)) ||
 		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
 		!(el_id = jtoc_get_string(tmp)))
@@ -81,7 +127,8 @@ static int	ui_el_from_json_texture(t_ui_main *m, t_ui_el *e, t_jnode *n)
 			printf("16");
 			return (FUNCTION_FAILURE);
 		}
-	ui_el_add_texture_from_main_by_id(m, e, main_id, el_id);
+		ui_el_add_texture_from_main_by_id(m, e, main_id, el_id);
+	}
 	return (FUNCTION_SUCCESS);
 }
 

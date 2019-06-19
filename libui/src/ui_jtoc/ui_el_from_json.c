@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 02:00:39 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 03:09:02 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 
 static int	ui_get_el_param_from_string(const char *str)
 {
+	int	hash;
 	int	i;
 
+	hash = ft_strhash(str);
 	i = 0;
-	i |= (ft_strcmp(str, "EL_IGNOR_RAYCAST") ? EL_IGNOR_RAYCAST : 0);
-	i |= (ft_strcmp(str, "EL_IS_HIDDEN") ? EL_IS_HIDDEN : 0);
-	i |= (ft_strcmp(str, "EL_IS_SCROLLABLE") ? EL_IS_SCROLLABLE : 0);
-	i |= (ft_strcmp(str, "EL_IS_DEPENDENT") ? EL_IS_DEPENDENT : 0);
+	i |= (hash == ft_strhash("EL_IGNOR_RAYCAST") ? EL_IGNOR_RAYCAST : 0);
+	i |= (hash == ft_strhash("EL_IS_HIDDEN") ? EL_IS_HIDDEN : 0);
+	i |= (hash == ft_strhash("EL_IS_SCROLLABLE") ? EL_IS_SCROLLABLE : 0);
+	i |= (hash == ft_strhash("EL_IS_DEPENDENT") ? EL_IS_DEPENDENT : 0);
 	return (i);
 }
 
 static int	ui_get_pos_size(const char *str)
 {
+	int	hash;
 	int	i;
 
+	hash = ft_strhash(str);
 	i = 0;
-	i |= (ft_strcmp(str, "ABS") ? ABS: 0);
-	i |= (ft_strcmp(str, "PIXEL") ? PIXEL : 0);
+	i |= (hash == ft_strhash("ABS") ? ABS: 0);
+	i |= (hash == ft_strhash("PIXEL") ? PIXEL : 0);
 	return (i);
 }
 
@@ -224,8 +228,9 @@ static int	ui_el_from_json_size(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *
 			tmp = tmp->right;
 		}
 	}
-	printf("Set size %f %f with p %d to id = %d\n", x, y, p, e->id);
-	ui_el_set_size(e, w->canvas, p, (t_fvec2){x, y});
+	(void)w;
+	// printf("Set size %f %f with p %d to id = %d\n", x, y, p, e->id);
+	ui_el_set_size(e, 0, p, (t_fvec2){x, y});
 	return (ui_el_from_json_textures(m, e, n));
 }
 
@@ -263,7 +268,8 @@ static int	ui_el_from_json_pos(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *n
 			tmp = tmp->right;
 		}
 	}
-	ui_el_set_pos(e, w->canvas, p, (t_fvec2){x, y});
+	(void)w;
+	ui_el_set_pos(e, 0, p, (t_fvec2){x, y});
 	return (ui_el_from_json_size(m, w, e, n));
 }
 
@@ -304,7 +310,10 @@ int			ui_el_from_json(t_ui_main *m, t_ui_win *w, t_jnode *n)
 		return (FUNCTION_FAILURE);
 	}
 	if ((e->id = jtoc_get_int(tmp)) == 0)
-		ui_parse_canvas(m, e, n);
+	{
+		// clear e
+		ui_parse_canvas(m, w->canvas, n);
+	}
 	else
 	{
 		if (!(tmp = jtoc_node_get_by_path(n, "parent")) ||

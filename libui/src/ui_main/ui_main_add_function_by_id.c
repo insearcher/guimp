@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_main_from_json.c                                :+:      :+:    :+:   */
+/*   ui_main_add_function_by_id.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/03 17:06:58 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 20:16:30 by sbednar          ###   ########.fr       */
+/*   Created: 2019/06/19 17:10:19 by sbednar           #+#    #+#             */
+/*   Updated: 2019/06/19 17:14:46 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_main_from_json(t_ui_main *m, const char *p)
+int	ui_main_add_function_by_id(t_ui_main *m, func_ptr f, const char *func_id)
 {
-	t_jnode	*root;
-	t_jnode	*win;
+	long		ptr;
+	t_list		*node;
+	int			hash;
 
-	if (!(root = jtoc_read(p)))
+	ptr = (long)f;
+	hash = ft_strhash(func_id);
+	if ((node = ft_lstnew((void *)&ptr, sizeof(ptr))) == NULL)
+	//if ((node = ft_lstnew(NULL, 0)) == NULL)
 		return (FUNCTION_FAILURE);
-	if (!(win = jtoc_node_get_by_path(root, "windows")) || win->type != array)
-		return (ui_sdl_log_error("MAIN: WINDOWS/TYPE"));
-	win = win->down;
-	while (win)
-	{
-		if (win->type != object)
-			return (ui_sdl_log_error("MAIN: TYPE"));
-		if (ui_win_from_json(m, win))
-			return (ui_sdl_log_error("MAIN: PARSING WINDOW"));
-		win = win->right;
-	}
-	jtoc_node_clear(root);
+	node->content_size = hash;
+	ft_lstadd(&(m->functions), node);
 	return (FUNCTION_SUCCESS);
 }

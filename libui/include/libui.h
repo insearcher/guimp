@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 17:49:37 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 20:12:35 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -498,5 +498,13 @@ void				ui_win_focus_gained(void *a1, void *a2);
 
 int					ui_main_add_function_by_id(t_ui_main *m, func_ptr f, const char *func_id);
 func_ptr			ui_main_get_function_by_id(t_ui_main *m, const char *func_id);
+
+t_ui_event			*ui_win_from_json_get_event_by_name(t_ui_win *w, const char *n);
+int					ui_get_el_param_from_string(const char *str);
+int					ui_get_pos_size(const char *str);
+int					ui_el_setup_by_type(t_ui_el *e, t_jnode *n);
+int					ui_get_win_param_from_string(const char *str);
+
+int	ui_sdl_log_error(const char *p);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:19:27 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 18:05:56 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 18:06:42 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ static int	ui_win_from_json_size(t_ui_main *m, t_ui_win *w, t_jnode *n)
 			return (FUNCTION_FAILURE);
 		tmp = tmp->right;
 	}
+	if ((tmp = jtoc_node_get_by_path(n, "events")))
+	{
+		if (tmp->type != array || ui_win_from_json_events(m, w, tmp))
+			return (FUNCTION_FAILURE);
+	}
 	return (FUNCTION_SUCCESS);
 }
 
@@ -108,8 +113,6 @@ static int	ui_win_from_json_pos(t_ui_main *m, t_ui_win *w, t_jnode *n)
 			return (FUNCTION_FAILURE);
 		w->pos.y = jtoc_get_int(tmp);
 	}
-	if (!(tmp = jtoc_node_get_by_path(n, "elements")))
-		return (FUNCTION_FAILURE);
 	return (ui_win_from_json_size(m, w, n));
 }
 

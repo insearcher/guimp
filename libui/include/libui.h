@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 16:38:01 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 17:49:37 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,7 @@ typedef struct		s_ui_main
 	t_ui_raycaster	*raycaster;
 	t_list			*sdl_surfaces;
 	t_list			*sdl_fonts;
+	t_list			*functions;
 	void			*data;
 	Uint32			params;
 	t_vec2			ptr_pos;
@@ -494,5 +495,8 @@ void				ui_el_setup_menu_resizable(t_ui_el *el);
 
 void				ui_win_focus_lost(void *a1, void *a2);
 void				ui_win_focus_gained(void *a1, void *a2);
+
+int					ui_main_add_function_by_id(t_ui_main *m, func_ptr f, const char *func_id);
+func_ptr			ui_main_get_function_by_id(t_ui_main *m, const char *func_id);
 
 #endif

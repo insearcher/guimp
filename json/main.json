@@ -17,6 +17,25 @@
 			{
 				"x": 800
 			},
+			"events":
+			[
+				{
+					"event_name": "onMoved",
+					"func_name": "move_windows"
+				},
+				{
+					"event_name": "onResize",
+					"func_name": "ui_win_update_size"
+				},
+				{
+					"event_name": "onScrollUp",
+					"func_name": "start_zoom_in"
+				},
+				{
+					"event_name": "onScrollDown",
+					"func_name": "start_zoom_out"
+				}
+			],
 			"elements":
 			[
 				{
@@ -60,7 +79,7 @@
 					"type":
 					[
 						"SCROLL_MENU",
-						"RESIZABLE"
+						"MENU_RESIZABLE"
 					],
 					"pos":
 					{
@@ -111,7 +130,8 @@
 							"main_id": "layer_active",
 							"el_id": "onActive"
 						}
-					]
+					],
+					"current_texture": "onActive"
 				},
 				{
 					"id": 63000,
@@ -195,6 +215,13 @@
 			{
 				"x": 495
 			},
+			"events":
+			[
+				{
+					"event_name": "onMoved",
+					"func_name": "move_windows"
+				}
+			],
 			"elements":
 			[
 				{

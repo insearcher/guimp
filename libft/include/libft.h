@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 23:51:41 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/01 20:27:06 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/19 18:41:32 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char				*ft_strnstr(char const *h, char const *n, size_t len);
 int					ft_strcmp(char const *s1, char const *s2);
 int					ft_strncmp(char const *s1, char const *s2, size_t n);
 int					ft_atoi(char const *str);
+int					ft_atoi_base(const char *str, int str_base);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);

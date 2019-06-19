@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 18:43:38 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 18:53:35 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,36 @@ static int	ui_el_from_json_empty_texture(t_ui_el *e, t_jnode *n)
 	return (FUNCTION_SUCCESS);
 }
 
+static int	ui_el_from_json_color_texture(t_ui_el *e, t_jnode *n)
+{
+	t_jnode	*tmp;
+	char	*color;
+	char	*el_id;
+
+	if (!(tmp = jtoc_node_get_by_path(n, "color")) || tmp->type != string ||
+		!(color = jtoc_get_string(tmp)) ||
+		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
+		!(el_id = jtoc_get_string(tmp)))
+		return (FUNCTION_FAILURE);
+	ui_el_add_color_texture(e, (t_vec2){e->rect.w, e->rect.h}, color, el_id);
+	return (FUNCTION_SUCCESS);
+}
+
+static int	ui_el_from_json_gradient_texture(t_ui_el *e, t_jnode *n)
+{
+	t_jnode	*tmp;
+	char	*color;
+	char	*el_id;
+
+	if (!(tmp = jtoc_node_get_by_path(n, "color")) || tmp->type != string ||
+		!(color = jtoc_get_string(tmp)) ||
+		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
+		!(el_id = jtoc_get_string(tmp)))
+		return (FUNCTION_FAILURE);
+	ui_el_add_gradient_texture(e, (t_vec2){e->rect.w, e->rect.h}, color, el_id);
+	return (FUNCTION_SUCCESS);
+}
+
 static int	ui_el_from_json_texture(t_ui_main *m, t_ui_el *e, t_jnode *n)
 {
 	t_jnode	*tmp;
@@ -114,7 +144,9 @@ static int	ui_el_from_json_texture(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		if (tmp->type != string)
 			return (FUNCTION_FAILURE);
 		if ((!ft_strcmp(jtoc_get_string(tmp), "empty") && ui_el_from_json_empty_texture(e, n)) ||
-			(!ft_strcmp(jtoc_get_string(tmp), "white") && ui_el_from_json_white_texture(e, n)))
+			(!ft_strcmp(jtoc_get_string(tmp), "white") && ui_el_from_json_white_texture(e, n)) ||
+			(!ft_strcmp(jtoc_get_string(tmp), "color") && ui_el_from_json_color_texture(e, n)) ||
+			(!ft_strcmp(jtoc_get_string(tmp), "gradient") && ui_el_from_json_gradient_texture(e, n)))
 			return (FUNCTION_FAILURE);
 	}
 	else

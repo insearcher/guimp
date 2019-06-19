@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 03:20:40 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 16:09:24 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1008,8 +1008,8 @@ int		main()
 	ui_event_add_listener(cur_el->events->onPointerRightButtonPressed, start_alt_with_selected_tool);
 	ui_event_add_listener(cur_el->events->onPointerStay, move_draw_canvas_with_zoom);
 
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 2);
-	g_main.layers.layers = cur_el->children;
+	// cur_el = ui_win_find_el_by_id(g_main.main_win, 2);
+	// g_main.layers.layers = cur_el->children;
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63);
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, testOnPtrLBD);
@@ -1021,11 +1021,11 @@ int		main()
 	ui_el_add_white_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
 	ui_el_set_current_texture_by_id(cur_el, "default");
 	g_main.layers.current_layer = cur_el;
-	// t_list	*tmp;
-	// tmp = ft_lstnew(NULL, 0);
-	// tmp->content = cur_el->sdl_textures->content;
-	// tmp->content_size = 63;
-	// ft_lstadd_back(&(g_main.layers.layers), tmp);
+	t_list	*tmp;
+	tmp = ft_lstnew(NULL, 0);
+	tmp->content = cur_el->sdl_textures->content;
+	tmp->content_size = 63;
+	ft_lstadd(&(g_main.layers.layers), tmp);
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 3);
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_add_layer);

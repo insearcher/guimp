@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs_for_resize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 20:44:38 by sbecker           #+#    #+#             */
-/*   Updated: 2019/05/31 21:10:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/19 01:56:49 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	bfs_resize_iter(const t_list *root, const void *arg)
 	{
 		tmp = q_pop(&q);
 		q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
-		ui_event_invoke(&(((t_ui_el *)tmp)->events.onResize), tmp, (void *)arg);
+		ui_event_invoke(((t_ui_el *)tmp)->events->onResize, tmp, (void *)arg);
 	}
 }
 

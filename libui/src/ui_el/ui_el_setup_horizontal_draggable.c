@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_setup_default_scroll_menu.c                  :+:      :+:    :+:   */
+/*   ui_el_setup_horizontal_draggable.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 01:15:33 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/19 01:58:59 by sbednar          ###   ########.fr       */
+/*   Created: 2019/05/23 15:52:20 by edraugr-          #+#    #+#             */
+/*   Updated: 2019/06/19 01:59:21 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_setup_default_scroll_menu(t_ui_el *el)
+void	ui_el_setup_horizontal_draggable(t_ui_el *el)
 {
-	el->params |= EL_IS_SCROLLABLE;
-	ui_event_add_listener(el->events->onScrollUp, ui_el_scroll_menu_up);
-	ui_event_add_listener(el->events->onScrollUp, ui_log_el_scroll_up);
-	ui_event_add_listener(el->events->onScrollDown, ui_el_scroll_menu_down);
-	ui_event_add_listener(el->events->onScrollDown, ui_log_el_scroll_down);
+	ui_event_add_listener(el->events->onPointerLeftButtonHold,
+		ui_el_hor_slider_drug);
 }

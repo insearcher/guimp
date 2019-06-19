@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/02 20:42:10 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/05 23:11:02 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC			=	jtoc_read_file.c \
 				jtoc_parse_value.c \
 				jtoc_utils.c \
 				jtoc_node.c \
-				jtoc_read.c
+				jtoc_read.c \
+				jtoc_get.c
 
 OBJ			=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
@@ -36,7 +37,7 @@ INCS		=	-I$(INC_DIR) -I$(FT_INC_DIR)
 LIBS		=	-L$(FT_DIR) -lft
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra -g
 
 all: $(NAME)
 

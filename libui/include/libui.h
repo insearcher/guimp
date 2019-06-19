@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/12 05:39:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/19 16:38:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct		s_ui_event
 	t_list			*events;
 }					t_ui_event;
 
-void				ui_event_init(t_ui_event *e);
+t_ui_event			*ui_event_init(void);
 int					ui_event_add_listener(t_ui_event *e, func_ptr f);
 int					ui_event_add_listener_front(t_ui_event *e, func_ptr f);
 void				ui_event_invoke(t_ui_event *e, void *a1, void *a2);
@@ -144,20 +144,22 @@ void				ui_event_clear(t_ui_event *e);
 
 typedef struct		s_ui_el_events
 {
-	t_ui_event		onPointerEnter;
-	t_ui_event		onPointerStay;
-	t_ui_event		onPointerExit;
-	t_ui_event		onPointerLeftButtonPressed;
-	t_ui_event		onPointerLeftButtonHold;
-	t_ui_event		onPointerLeftButtonReleased;
-	t_ui_event		onPointerRightButtonPressed;
-	t_ui_event		onPointerRightButtonHold;
-	t_ui_event		onPointerRightButtonReleased;
-	t_ui_event		onScrollUp;
-	t_ui_event		onScrollDown;
-	t_ui_event		onRender;
-	t_ui_event		onResize;
+	t_ui_event		*onPointerEnter;
+	t_ui_event		*onPointerStay;
+	t_ui_event		*onPointerExit;
+	t_ui_event		*onPointerLeftButtonPressed;
+	t_ui_event		*onPointerLeftButtonHold;
+	t_ui_event		*onPointerLeftButtonReleased;
+	t_ui_event		*onPointerRightButtonPressed;
+	t_ui_event		*onPointerRightButtonHold;
+	t_ui_event		*onPointerRightButtonReleased;
+	t_ui_event		*onScrollUp;
+	t_ui_event		*onScrollDown;
+	t_ui_event		*onRender;
+	t_ui_event		*onResize;
 }					t_ui_el_events;
+
+t_ui_el_events		*ui_el_events_init(void);
 
 # pragma endregion
 # pragma region		t_ui_el
@@ -178,18 +180,18 @@ typedef struct		s_ui_el
 {
 	SDL_Surface		*sdl_surface;
 	t_list			*sdl_textures;
-	size_t			current_texture;
 	SDL_Renderer	*sdl_renderer;
 	struct s_ui_el	*parent;
 	t_list			*children;
+	size_t			current_texture;
 	t_rect			rect;
 	t_rect			cut_rect;
 	t_frect			relative_rect;
-	t_ui_el_events	events;
+	t_vec2			ptr_rel_pos; // TODO it's mouse pos
 	Uint32			id;
-	Uint32			params;
-	t_vec2			ptr_rel_pos;
+	Uint32			params; // <- put there next parameters
 	t_ui_text		text;
+	t_ui_el_events	*events;
 	void			*data;
 }					t_ui_el;
 
@@ -198,21 +200,23 @@ typedef struct		s_ui_el
 
 typedef struct		s_ui_win_events
 {
-	t_ui_event		onPointerMoved;
-	t_ui_event		onPointerLeftButtonPressed;
-	t_ui_event		onPointerLeftButtonReleased;
-	t_ui_event		onPointerRightButtonPressed;
-	t_ui_event		onPointerRightButtonReleased;
-	t_ui_event		onScrollUp;
-	t_ui_event		onScrollDown;
-	t_ui_event		onFocusGained;
-	t_ui_event		onFocusLost;
-	t_ui_event		onResize;
-	t_ui_event		onClose;
-	t_ui_event		onMoved;
-	t_ui_event		onKeyDown[KEYS_COUNT];
-	t_ui_event		onKeyUp[KEYS_COUNT];
+	t_ui_event		*onPointerMoved;
+	t_ui_event		*onPointerLeftButtonPressed;
+	t_ui_event		*onPointerLeftButtonReleased;
+	t_ui_event		*onPointerRightButtonPressed;
+	t_ui_event		*onPointerRightButtonReleased;
+	t_ui_event		*onScrollUp;
+	t_ui_event		*onScrollDown;
+	t_ui_event		*onFocusGained;
+	t_ui_event		*onFocusLost;
+	t_ui_event		*onResize;
+	t_ui_event		*onClose;
+	t_ui_event		*onMoved;
+	t_ui_event		*onKeyDown[KEYS_COUNT];
+	t_ui_event		*onKeyUp[KEYS_COUNT];
 }					t_ui_win_events;
+
+t_ui_win_events		*ui_win_events_init(void);
 
 # pragma endregion
 # pragma region		t_ui_win
@@ -224,9 +228,9 @@ typedef struct		s_ui_win
 	Uint32			sdl_windowID;
 	char			*title;
 	t_vec2			size;
-	t_vec2			pos;
-	t_ui_el			canvas;
-	t_ui_win_events	events;
+	t_vec2			pos; //TODO for programs init
+	t_ui_el			*canvas;
+	t_ui_win_events	*events;
 	Uint32			params;
 }					t_ui_win;
 
@@ -235,6 +239,7 @@ typedef struct		s_ui_win
 
 typedef struct		s_ui_raycaster
 {
+	t_ui_win		*selected_win;
 	t_ui_el			*selected;
 }					t_ui_raycaster;
 
@@ -246,13 +251,13 @@ int					ui_el_is_pointer_inside(void *a1, void *a2);
 typedef struct		s_ui_main
 {
 	t_list			*windows;
-	SDL_Event		sdl_event;
-	t_ui_raycaster	raycaster;
-	Uint32			params;
-	t_vec2			ptr_pos;
+	SDL_Event		*sdl_event;
+	t_ui_raycaster	*raycaster;
 	t_list			*sdl_surfaces;
 	t_list			*sdl_fonts;
 	void			*data;
+	Uint32			params;
+	t_vec2			ptr_pos;
 }					t_ui_main;
 
 typedef struct		s_scroll_m_pref
@@ -293,9 +298,9 @@ typedef struct		s_text_params
 	int				render_param;
 }					t_text_params;
 
-t_ui_el				*ui_raycast(t_ui_main *m, Uint32 windowID);
+t_ui_el				*ui_raycast(t_ui_main *m, t_ui_win *w);
 
-void				ui_main_init(t_ui_main *m);
+t_ui_main			*ui_main_init(void);
 void				ui_main_loop(t_ui_main *m);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
 
@@ -387,8 +392,7 @@ void				ui_el_draw_event(void *el_v, void *arg);
 
 # pragma region		t_ui_el_func
 
-void				ui_el_init(t_ui_el *el);
-void				ui_el_setup_default(t_ui_el *el);
+t_ui_el				*ui_el_init(void);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 void				ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
@@ -421,8 +425,6 @@ int					ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id);
 void				ui_el_default_pointer_enter(void *a1, void *a2);
 void				ui_el_default_pointer_exit(void *a1, void *a2);
 
-void				ui_el_setup_default_scroll_menu(t_ui_el *el);
-void				ui_el_setup_default_scroll_menu_elem(t_ui_el *el, t_ui_el *el_parent);
 void				ui_el_scroll_menu_up(void *a1, void *a2);
 void				ui_el_scroll_menu_down(void *a1, void *a2);
 void				ui_el_scroll_child_menu_up(void *a1, void *a2);
@@ -430,8 +432,6 @@ void				ui_el_scroll_child_menu_down(void *a1, void *a2);
 
 void				ui_el_drag(void *a1, void *a2);
 void				ui_el_hor_slider_drug(void *a1, void *a2);
-void				ui_el_set_hor_draggable(t_ui_el *el);
-void				ui_el_set_default_draggable(t_ui_el *el);
 
 void				ui_el_set_default_texture(void *a1, void *a2);
 void				ui_el_set_focused_texture(void *a1, void *a2);
@@ -439,9 +439,7 @@ void				ui_el_set_active_texture(void *a1, void *a2);
 
 void				ui_el_resize_elems(void *a1, void *a2);
 void				ui_el_default_resize(void *a1, void *a2);
-void				ui_el_set_default_resize(t_ui_el *el);
 void				ui_el_menu_resize(void *a1, void *a2);
-void				ui_el_set_menu_resize(t_ui_el *el);
 void				ui_win_update_size(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
@@ -455,7 +453,7 @@ int					ui_el_update_text(t_ui_el *el, const char *text);
 
 void				ui_win_create(t_ui_win *w);
 void				ui_win_setup_default(t_ui_win *w);
-void				ui_win_init(t_ui_win *w);
+t_ui_win			*ui_win_init(void);
 void				ui_win_close(t_ui_win *w);
 t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);
 
@@ -480,5 +478,21 @@ int					ui_save_file_dialog(char **res);
 
 int					ui_el_add_texture_from_file_dialog(t_ui_el *el);
 int					ui_el_add_texture_from_file_dialog_with_size(t_ui_el *el, int w, int h);
+
+int					ui_main_from_json(t_ui_main *m, const char *p);
+int					ui_win_from_json(t_ui_main *m, t_jnode *n);
+int					ui_el_from_json(t_ui_main *m, t_ui_win *w, t_jnode *n);
+t_ui_event			*ui_el_from_json_get_event_by_name(t_ui_el *e, const char *n);
+
+void				ui_el_setup_default_draggable(t_ui_el *el);
+void				ui_el_setup_default_resizable(t_ui_el *el);
+void				ui_el_setup_default_scroll_menu_elem(t_ui_el *el);
+void				ui_el_setup_default_scroll_menu(t_ui_el *el);
+void				ui_el_setup_default(t_ui_el *el);
+void				ui_el_setup_horizontal_draggable(t_ui_el *el);
+void				ui_el_setup_menu_resizable(t_ui_el *el);
+
+void				ui_win_focus_lost(void *a1, void *a2);
+void				ui_win_focus_gained(void *a1, void *a2);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_scroll_menu.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 01:38:28 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/05 05:05:19 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/19 01:57:21 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ui_el_scroll_child_menu_down(void *a1, void *a2)
 	t_ui_el		*el;
 
 	el = (t_ui_el*)a2;
-	ui_event_invoke(&(el->parent->events.onScrollDown), a1, el->parent);
+	ui_event_invoke(el->parent->events->onScrollDown, a1, el->parent);
 }
 
 void	ui_el_scroll_child_menu_up(void *a1, void *a2)
@@ -25,7 +25,7 @@ void	ui_el_scroll_child_menu_up(void *a1, void *a2)
 	t_ui_el		*el;
 
 	el = (t_ui_el*)a2;
-	ui_event_invoke(&(el->parent->events.onScrollUp), a1, el->parent);
+	ui_event_invoke(el->parent->events->onScrollUp, a1, el->parent);
 }
 
 void	ui_el_scroll_menu_down(void *a1, void *a2)

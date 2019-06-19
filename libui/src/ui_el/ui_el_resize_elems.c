@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_find_dynamic_elements.c                         :+:      :+:    :+:   */
+/*   ui_el_resize_elems.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:04:46 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/31 20:50:51 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/19 01:23:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void		ui_el_resize_elems(void *a1, void *a2)
 	w = (t_ui_win *)a2;
 	(void)a1;
 	if (w != NULL)
-		bfs_for_resize(&(w->canvas), NULL);
+		bfs_for_resize(w->canvas, NULL);
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_set_default_resize.c                         :+:      :+:    :+:   */
+/*   ui_el_setup_default_draggable.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/01 19:51:18 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/01 19:51:23 by sbecker          ###   ########.fr       */
+/*   Created: 2019/06/01 19:49:49 by sbecker           #+#    #+#             */
+/*   Updated: 2019/06/19 01:58:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_set_default_resize(t_ui_el *el)
+void	ui_el_setup_default_draggable(t_ui_el *el)
 {
-	ui_event_add_listener(&(el->events.onResize), &ui_el_default_resize);
+	ui_event_add_listener(el->events->onPointerLeftButtonHold, ui_el_drag);
 }

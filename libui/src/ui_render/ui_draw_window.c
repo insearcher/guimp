@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_draw_window.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 05:49:45 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/06/12 06:50:29 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/19 16:32:12 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	bfs_iter_draw(const t_list *root, const void *arg)
 			if ((cur_el->params & EL_IS_DEPENDENT) && (!(check_border(cur_el))))
 				continue;
 			q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
-			ui_event_invoke(&(((t_ui_el *)tmp)->events.onRender), tmp, (void *)arg);
+			ui_event_invoke(((t_ui_el *)tmp)->events->onRender, tmp, (void *)arg);
 		}
 	}
 }
@@ -56,5 +56,5 @@ static void	bfs_iter_root_draw(const t_ui_el *root, const void *arg)
 
 void	ui_draw_window(t_ui_win *w, t_ui_main *m)
 {
-	bfs_iter_root_draw(&w->canvas, (void *)m);
+	bfs_iter_root_draw(w->canvas, (void *)m);
 }

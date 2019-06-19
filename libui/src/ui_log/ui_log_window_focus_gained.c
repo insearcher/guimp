@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_log_window_focus_gained.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:44:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/24 14:09:51 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 02:20:39 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@ void	ui_log_window_focus_gained(void *a1, void *a2)
 {
 	t_ui_main	*m;
 	t_ui_win	*w;
-	Uint32		windowID;
 
 	m = (t_ui_main *)a1;
-	windowID = *((Uint32 *)a2);
-	w = ui_main_find_window_by_id(m, windowID);
+	w = (t_ui_win *)a2;
 	if (w != NULL)
 	{
 		SDL_Log("%s%-15s%swindowID = %d\n",
 			KYEL,
 			"WIN FOCUSED",
 			KNRM,
-			m->sdl_event.window.windowID
+			m->sdl_event->window.windowID
 		);
 	}
 }

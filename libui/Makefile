@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/11 07:59:03 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/19 16:35:29 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,15 +36,11 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_get_current_texture.c \
 					ui_el_default_pointer_enter.c \
 					ui_el_default_pointer_exit.c \
-					ui_el_setup_default.c \
 					ui_el_resize_elems.c \
 					ui_el_get_texture_by_id.c \
 					ui_log_el_scroll_up.c \
 					ui_log_el_scroll_down.c \
 					ui_el_drag.c \
-					ui_el_set_default_draggable.c \
-					ui_el_setup_default_scroll_menu.c \
-					ui_el_setup_default_scroll_menu_elem.c \
 					ui_el_scroll_menu.c \
 					ui_el_set_texture.c \
 					ui_el_set_text.c \
@@ -52,16 +48,20 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_change_pos.c \
 					ui_el_change_size.c \
 					ui_el_add_texture_from_main_by_id.c \
-					ui_el_set_hor_draggable.c \
 					ui_el_set_pos.c \
 					ui_el_set_size.c \
 					ui_el_default_resize.c \
-					ui_el_set_default_resize.c \
 					ui_el_menu_resize.c \
-					ui_el_set_menu_resize.c \
 					ui_el_set_new_pos.c \
 					ui_el_set_new_size.c \
-					ui_el_add_texture_from_file_dialog.c
+					ui_el_add_texture_from_file_dialog.c \
+					ui_el_setup_default_draggable.c \
+					ui_el_setup_default_resizable.c \
+					ui_el_setup_default_scroll_menu_elem.c \
+					ui_el_setup_default_scroll_menu.c \
+					ui_el_setup_default.c \
+					ui_el_setup_horizontal_draggable.c \
+					ui_el_setup_menu_resizable.c \
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -132,7 +132,8 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_create.c \
 					ui_win_close.c \
 					ui_win_update_size.c \
-					ui_win_find_el_by_id.c
+					ui_win_find_el_by_id.c \
+					ui_win_focus.c
 
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
@@ -143,7 +144,9 @@ SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c \
 
 SRC_UTILITS		=	ui_get_rect_from_frect.c
 
-SRC_UI_JTOC		=	ui_main_from_json.c
+SRC_UI_JTOC		=	ui_main_from_json.c \
+					ui_win_from_json.c \
+					ui_el_from_json.c
 
 SRC_UI_FILE		=	ui_open_file_dialog.c \
 					ui_save_file_dialog.c \

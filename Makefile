@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/08 01:36:14 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/19 16:34:04 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,8 @@ LIBS			=	-L$(FT_DIR) -lft \
 					-L$(JTOC_DIR) -ljtoc
 
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -g
+# CFLAGS			=	-Wall -Wextra -Werror -g
+CFLAGS = -g
 
 all: $(NAME)
 

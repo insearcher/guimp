@@ -497,10 +497,6 @@
 				{
 					"id": 27,
 					"parent": 20,
-					"params":
-					[
-						"EL_IGNOR_RAYCAST"
-					],
 					"pos":
 					{
 						"x": 0.05,

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/19 16:35:29 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/19 17:50:04 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,9 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_get_surface_by_id.c \
 					ui_main_fill_default_surfaces.c \
 					ui_main_fill_default_fonts.c \
-					ui_main_set_font_params.c
+					ui_main_set_font_params.c \
+					ui_main_add_function_by_id.c \
+					ui_main_get_function_by_id.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c

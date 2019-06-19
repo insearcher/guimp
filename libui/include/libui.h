@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 17:49:37 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 19:44:05 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,8 @@ typedef struct		s_ui_main
 	t_list			*sdl_surfaces;
 	t_list			*sdl_fonts;
 	t_list			*functions;
+	t_ui_el			*focused_el;
+	unsigned int	letter;
 	void			*data;
 	Uint32			params;
 	t_vec2			ptr_pos;

@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 18:26:30 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 18:45:48 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1000,7 +1000,7 @@ int		main()
 	t_ui_el	*cur_el;
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
-	ui_el_add_empty_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
+	// ui_el_add_empty_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
 	g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
 	ui_event_clear(cur_el->events->onRender);
 	ui_event_add_listener(cur_el->events->onRender, draw_canvas_renderer);
@@ -1019,8 +1019,8 @@ int		main()
 	// ui_el_set_current_texture_by_id(cur_el, "onActive");
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63000);
-	ui_el_add_white_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
-	ui_el_set_current_texture_by_id(cur_el, "default");
+	// ui_el_add_white_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
+	// ui_el_set_current_texture_by_id(cur_el, "default");
 	g_main.layers.current_layer = cur_el;
 	t_list	*tmp;
 	tmp = ft_lstnew(NULL, 0);

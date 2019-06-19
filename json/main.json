@@ -17,6 +17,25 @@
 			{
 				"x": 800
 			},
+			"events":
+			[
+				{
+					"event_name": "onMoved",
+					"func_name": "move_windows"
+				},
+				{
+					"event_name": "onResize",
+					"func_name": "ui_win_update_size"
+				},
+				{
+					"event_name": "onScrollUp",
+					"func_name": "start_zoom_in"
+				},
+				{
+					"event_name": "onScrollDown",
+					"func_name": "start_zoom_out"
+				}
+			],
 			"elements":
 			[
 				{
@@ -26,6 +45,13 @@
 						{
 							"main_id": "flower",
 							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onRender",
+							"func_name": "ui_el_draw_event"
 						}
 					]
 				},
@@ -51,6 +77,47 @@
 						{
 							"main_id": "brush",
 							"el_id": "brush"
+						},
+						{
+							"type": "empty",
+							"width": 1920,
+							"height": 1080,
+							"el_id": "tmp_layer"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onRender",
+							"func_name": "clear"
+						},
+						{
+							"event_name": "onRender",
+							"func_name": "draw_canvas_renderer"
+						},
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "draw_with_selected_tool"
+						},
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "start_draw_with_selected_tool"
+						},
+						{
+							"event_name": "onPointerRightButtonPressed",
+							"func_name": "start_alt_with_selected_tool"
+						},
+						{
+							"event_name": "onPointerStay",
+							"func_name": "move_draw_canvas_with_zoom"
+						},
+						{
+							"event_name": "onPointerLeftButtonReleased",
+							"func_name": "start_draw_with_selected_tool_pointer_up"
+						},
+						{
+							"event_name": "onPointerStay",
+							"func_name": "scan_tool_position"
 						}
 					]
 				},
@@ -60,7 +127,7 @@
 					"type":
 					[
 						"SCROLL_MENU",
-						"RESIZABLE"
+						"MENU_RESIZABLE"
 					],
 					"pos":
 					{
@@ -111,6 +178,22 @@
 							"main_id": "layer_active",
 							"el_id": "onActive"
 						}
+					],
+					"current_texture": "onActive",
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "testOnPtrLBD"
+						},
+						{
+							"event_name": "onPointerEnter",
+							"func_name": "testOnPtrEnter"
+						},
+						{
+							"event_name": "onPointerExit",
+							"func_name": "testOnPtrExit"
+						}
 					]
 				},
 				{
@@ -130,7 +213,17 @@
 					{
 						"x": 0.8,
 						"y": 0.8
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "white",
+							"width": 1920,
+							"height": 1080,
+							"el_id": "default"
+						}
+					],
+					"current_texture": "default"
 				},
 				{
 					"id": 3,
@@ -154,6 +247,13 @@
 						{
 							"main_id": "priso",
 							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "test_add_layer"
 						}
 					]
 				},
@@ -180,6 +280,13 @@
 							"main_id": "priso",
 							"el_id": "default"
 						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "test_del_layer"
+						}
 					]
 				}
 			]
@@ -195,6 +302,13 @@
 			{
 				"x": 495
 			},
+			"events":
+			[
+				{
+					"event_name": "onMoved",
+					"func_name": "move_windows"
+				}
+			],
 			"elements":
 			[
 				{
@@ -204,6 +318,13 @@
 						{
 							"main_id": "flower",
 							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onRender",
+							"func_name": "ui_el_draw_event"
 						}
 					]
 				},
@@ -258,6 +379,13 @@
 						{
 							"main_id": "brush_icon",
 							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_brush"
 						}
 					]
 				},
@@ -317,6 +445,13 @@
 							"main_id": "zoom_icon",
 							"el_id": "default"
 						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_zoom"
+						}
 					]
 				},
 				{
@@ -346,6 +481,13 @@
 							"main_id": "hand_icon",
 							"el_id": "default"
 						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_hand"
+						}
 					]
 				},
 				{
@@ -374,6 +516,13 @@
 						{
 							"main_id": "prison",
 							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_line"
 						}
 					]
 				},
@@ -410,7 +559,26 @@
 					{
 						"x": 0.7,
 						"y": 0.15
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "gradient",
+							"color": "FF0000",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						},
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_color"
+						}
+					]
 				},
 				{
 					"id": 22,
@@ -428,7 +596,15 @@
 					{
 						"x": 0.06,
 						"y": 1
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "AAAAAA",
+							"el_id": "default"
+						}
+					]
 				},
 				{
 					"id": 23,
@@ -442,7 +618,26 @@
 					{
 						"x": 0.7,
 						"y": 0.15
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "gradient",
+							"color": "00FF00",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						},
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_color"
+						}
+					]
 				},
 				{
 					"id": 24,
@@ -460,7 +655,15 @@
 					{
 						"x": 0.06,
 						"y": 1
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "AAAAAA",
+							"el_id": "default"
+						}
+					]
 				},
 				{
 					"id": 25,
@@ -474,7 +677,26 @@
 					{
 						"x": 0.7,
 						"y": 0.15
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "gradient",
+							"color": "0000FF",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						},
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_color"
+						}
+					]
 				},
 				{
 					"id": 26,
@@ -492,7 +714,15 @@
 					{
 						"x": 0.06,
 						"y": 1
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "AAAAAA",
+							"el_id": "default"
+						}
+					]
 				},
 				{
 					"id": 27,
@@ -506,7 +736,26 @@
 					{
 						"x": 0.7,
 						"y": 0.15
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "gradient",
+							"color": "000000",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						},
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_color"
+						}
+					]
 				},
 				{
 					"id": 28,
@@ -524,7 +773,15 @@
 					{
 						"x": 0.06,
 						"y": 1
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "AAAAAA",
+							"el_id": "default"
+						}
+					]
 				},
 				{
 					"id": 29,
@@ -542,7 +799,26 @@
 						[
 							"PIXEL"
 						]
-					}
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "000000",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onRender",
+							"func_name": "clear"
+						},
+						{
+							"event_name": "onRender",
+							"func_name": "draw_color_rect"
+						}
+					]
 				}
 			]
 		}

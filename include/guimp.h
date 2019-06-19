@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 22:03:35 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/19 22:25:17 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,11 @@ void							gm_init(t_guimp *g_main);
 int								gm_generate_surf_id(int generate_flag);
 int								gm_generator_get_surf_count(void);
 int								gm_generator_get_surf_id_by_num(int surf_serial_num);
+
+void							ui_main_fill_default_functions(t_ui_main *m);
+
+void move_windows(void *a1, void *a2);
+void	start_zoom_in(void *m, void *wid);
+void	start_zoom_out(void *m, void *wid);
 
 #endif

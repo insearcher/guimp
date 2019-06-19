@@ -6,13 +6,13 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 22:15:21 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/19 22:27:54 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-static void move_windows(void *a1, void *a2)
+void move_windows(void *a1, void *a2)
 {
 	t_ui_main   *m;
 	t_ui_win    *w;
@@ -326,7 +326,7 @@ static void	start_alt_with_selected_tool(void *main, void *el_v)
 	}
 }
 
-static void	start_zoom_in(void *m, void *wid)
+void	start_zoom_in(void *m, void *wid)
 {
 	int			pt;
 	t_guimp		*g;
@@ -342,7 +342,7 @@ static void	start_zoom_in(void *m, void *wid)
 	g->draw_tool.tool = pt;
 }
 
-static void	start_zoom_out(void *m, void *wid)
+void	start_zoom_out(void *m, void *wid)
 {
 	int			pt;
 	t_guimp		*g;
@@ -512,6 +512,26 @@ int		main()
 		return (0);
 	}
 	ui_main_fill_default_surfaces(g_main.ui_main);
+	ui_main_fill_default_functions(g_main.ui_main);
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_draw_event, "ui_el_draw_event");
+	ui_main_add_function_by_id(g_main.ui_main, draw_canvas_renderer, "draw_canvas_renderer");
+	ui_main_add_function_by_id(g_main.ui_main, draw_with_selected_tool, "draw_with_selected_tool");
+	ui_main_add_function_by_id(g_main.ui_main, start_draw_with_selected_tool, "start_draw_with_selected_tool");
+	ui_main_add_function_by_id(g_main.ui_main, start_alt_with_selected_tool, "start_alt_with_selected_tool");
+	ui_main_add_function_by_id(g_main.ui_main, move_draw_canvas_with_zoom, "move_draw_canvas_with_zoom");
+	ui_main_add_function_by_id(g_main.ui_main, testOnPtrLBD, "testOnPtrLBD");
+	ui_main_add_function_by_id(g_main.ui_main, testOnPtrEnter, "testOnPtrEnter");
+	ui_main_add_function_by_id(g_main.ui_main, testOnPtrExit, "testOnPtrExit");
+	ui_main_add_function_by_id(g_main.ui_main, test_add_layer, "test_add_layer");
+	ui_main_add_function_by_id(g_main.ui_main, test_del_layer, "test_del_layer");
+	ui_main_add_function_by_id(g_main.ui_main, choose_brush, "choose_brush");
+	ui_main_add_function_by_id(g_main.ui_main, choose_zoom, "choose_zoom");
+	ui_main_add_function_by_id(g_main.ui_main, choose_hand, "choose_hand");
+	ui_main_add_function_by_id(g_main.ui_main, choose_line, "choose_line");
+	ui_main_add_function_by_id(g_main.ui_main, choose_color, "choose_color");
+	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
+	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
+	ui_main_add_function_by_id(g_main.ui_main, start_draw_with_selected_tool_pointer_up, "start_draw_with_selected_tool_pointer_up");
 	g_main.ui_main->data = (void *)(&g_main);
 	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
 	g_main.draw_tool.zoom = 1;
@@ -525,45 +545,46 @@ int		main()
 
 	ui_main_from_json(g_main.ui_main, "./json/main.json");
 
+
 	g_main.main_win = (t_ui_win *)(g_main.ui_main->windows->next->content);
 	g_main.tool_win = (t_ui_win *)(g_main.ui_main->windows->content);
 
 	// WINS
-	ui_event_add_listener(g_main.main_win->events->onResize, ui_win_update_size);
-	ui_event_add_listener(g_main.main_win->events->onMoved, move_windows);
-	ui_event_add_listener(g_main.main_win->events->onScrollUp, start_zoom_in);
-	ui_event_add_listener(g_main.main_win->events->onScrollDown, start_zoom_out);
-	ui_event_add_listener(g_main.main_win->canvas->events->onRender, ui_el_draw_event);
+	// ui_event_add_listener(g_main.main_win->events->onMoved, move_windows);
+	// ui_event_add_listener(g_main.main_win->events->onResize, ui_win_update_size);
+	// ui_event_add_listener(g_main.main_win->events->onScrollUp, start_zoom_in);
+	// ui_event_add_listener(g_main.main_win->events->onScrollDown, start_zoom_out);
+	// ui_event_add_listener(g_main.main_win->canvas->events->onRender, ui_el_draw_event);
 
-	ui_event_add_listener(g_main.tool_win->events->onMoved, move_windows);
-	ui_event_add_listener(g_main.tool_win->canvas->events->onRender, ui_el_draw_event);
+	// ui_event_add_listener(g_main.tool_win->events->onMoved, move_windows);
+	// ui_event_add_listener(g_main.tool_win->canvas->events->onRender, ui_el_draw_event);
 
 	t_ui_el	*cur_el;
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
-	ui_el_add_empty_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
+	// ui_el_add_empty_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
 	g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
-	ui_event_clear(cur_el->events->onRender);
-	ui_event_add_listener(cur_el->events->onRender, draw_canvas_renderer);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, draw_with_selected_tool);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, start_draw_with_selected_tool);
-	ui_event_add_listener(cur_el->events->onPointerRightButtonPressed, start_alt_with_selected_tool);
-	ui_event_add_listener(cur_el->events->onPointerStay, move_draw_canvas_with_zoom);
-	ui_event_add_listener(cur_el->events->onPointerStay, scan_tool_position);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonReleased, start_draw_with_selected_tool_pointer_up);
+		// ui_event_add_listener(cur_el->events->onPointerStay, scan_tool_position);
+		// ui_event_add_listener(cur_el->events->onPointerLeftButtonReleased, start_draw_with_selected_tool_pointer_up);
+	// ui_event_clear(cur_el->events->onRender);
+	// ui_event_add_listener(cur_el->events->onRender, draw_canvas_renderer);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, draw_with_selected_tool);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, start_draw_with_selected_tool);
+	// ui_event_add_listener(cur_el->events->onPointerRightButtonPressed, start_alt_with_selected_tool);
+	// ui_event_add_listener(cur_el->events->onPointerStay, move_draw_canvas_with_zoom);
 
 	// cur_el = ui_win_find_el_by_id(g_main.main_win, 2);
 	// g_main.layers.layers = cur_el->children;
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, testOnPtrLBD);
-	ui_event_add_listener(cur_el->events->onPointerEnter, testOnPtrEnter);
-	ui_event_add_listener(cur_el->events->onPointerExit, testOnPtrExit);
-	ui_el_set_current_texture_by_id(cur_el, "onActive");
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, testOnPtrLBD);
+	// ui_event_add_listener(cur_el->events->onPointerEnter, testOnPtrEnter);
+	// ui_event_add_listener(cur_el->events->onPointerExit, testOnPtrExit);
+	// ui_el_set_current_texture_by_id(cur_el, "onActive");
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63000);
-	ui_el_add_white_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
-	ui_el_set_current_texture_by_id(cur_el, "default");
+	// ui_el_add_white_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
+	// ui_el_set_current_texture_by_id(cur_el, "default");
 	g_main.layers.current_layer = cur_el;
 	t_list	*tmp;
 	tmp = ft_lstnew(NULL, 0);
@@ -572,60 +593,60 @@ int		main()
 	ft_lstadd(&(g_main.layers.layers), tmp);
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 3);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_add_layer);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_add_layer);
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 4);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_del_layer);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_del_layer);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_brush);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_brush);
 	cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_zoom);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_zoom);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_hand);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_hand);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_line);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_line);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 21);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
-	ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xFF0000, "default");
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
+	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xFF0000, "default");
 
 	t_ui_el *cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 22);
-	ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
+	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23);
-	ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x00FF00, "default");
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
+	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x00FF00, "default");
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
 
 	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 24);
-	ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
+	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 25);
-	ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x0000FF, "default");
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
+	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x0000FF, "default");
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
 
 	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 26);
-	ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
+	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 27);
-	ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
+	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
+	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
 
 	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 28);
-	ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
+	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 29);
-	ui_el_add_color_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
-	ui_event_clear(cur_el->events->onRender);
-	ui_event_add_listener(cur_el->events->onRender, draw_color_rect);
+	// ui_el_add_color_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
+	// ui_event_clear(cur_el->events->onRender);
+	// ui_event_add_listener(cur_el->events->onRender, draw_color_rect);
 
 	/*************/
 	/* MAIN_LOOP */

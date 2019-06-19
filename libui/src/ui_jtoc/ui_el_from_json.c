@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 18:53:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 19:36:19 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static int	ui_el_from_json_color_texture(t_ui_el *e, t_jnode *n)
 		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
 		!(el_id = jtoc_get_string(tmp)))
 		return (FUNCTION_FAILURE);
-	ui_el_add_color_texture(e, (t_vec2){e->rect.w, e->rect.h}, color, el_id);
+	ui_el_add_color_texture(e, (t_vec2){e->rect.w, e->rect.h}, ft_atoi_base(color, 16), el_id);
 	return (FUNCTION_SUCCESS);
 }
 
@@ -129,7 +129,7 @@ static int	ui_el_from_json_gradient_texture(t_ui_el *e, t_jnode *n)
 		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
 		!(el_id = jtoc_get_string(tmp)))
 		return (FUNCTION_FAILURE);
-	ui_el_add_gradient_texture(e, (t_vec2){e->rect.w, e->rect.h}, color, el_id);
+	ui_el_add_gradient_texture(e, (t_vec2){e->rect.w, e->rect.h}, ft_atoi_base(color, 16), el_id);
 	return (FUNCTION_SUCCESS);
 }
 
@@ -197,34 +197,30 @@ t_ui_event		*ui_el_from_json_get_event_by_name(t_ui_el *e, const char *n)
 // 	return (FUNCTION_SUCCESS);
 // }
 
-static int	ui_el_from_json_event(t_ui_el *e, t_jnode *n)
+static int	ui_el_from_json_event(t_ui_main *m, t_ui_el *e, t_jnode *n)
 {
-	t_jnode		*tmp;
-	char		*name;
+	char		*event_name;
+	char		*func_name;
 	t_ui_event	*ev;
-	// func_ptr	f;
+	func_ptr	f;
+	t_jnode		*tmp;
 
-	if (!(tmp = jtoc_node_get_by_path(n, "name")) || tmp->type != string ||
-		!(name = jtoc_get_string(tmp)) ||
-		!(ev = ui_el_from_json_get_event_by_name(e, name)) ||
-		!(tmp = jtoc_node_get_by_path(n, "functions")) || tmp->type != array)
-		{
-			printf("15");
-			return (FUNCTION_FAILURE);
-		}
-	tmp = tmp->down;
-	while (tmp)
-	{
-		// if (tmp->type != string || !(name = jtoc_get_string(tmp)) ||
-		// 	!(f = ui_el_from_json_get_function_by_name(name)))
-		// 	return (FUNCTION_FAILURE);
-		// ui_event_add_listener(ev, f);
-		tmp = tmp->right;
-	}
+	if (n->type != object ||
+		!(tmp = jtoc_node_get_by_path(n, "event_name")) || tmp->type != string ||
+		!(event_name  = jtoc_get_string(tmp)) ||
+		!(ev = ui_el_from_json_get_event_by_name(e, event_name)) ||
+		!(tmp = jtoc_node_get_by_path(n, "func_name")) || tmp->type != string ||
+		!(func_name  = jtoc_get_string(tmp)) ||
+		(ft_strcmp(func_name, "clear") && !(f = ui_main_get_function_by_id(m, func_name))))
+		return (FUNCTION_FAILURE);
+	if (!ft_strcmp(func_name, "clear"))
+		ui_event_clear(ev);
+	else
+		ui_event_add_listener(ev, f);
 	return (FUNCTION_SUCCESS);
 }
 
-static int	ui_el_from_json_events(t_ui_el *e, t_jnode *n)
+static int	ui_el_from_json_events(t_ui_main *m, t_ui_el *e, t_jnode *n)
 {
 	t_jnode	*tmp;
 
@@ -233,11 +229,12 @@ static int	ui_el_from_json_events(t_ui_el *e, t_jnode *n)
 		tmp = tmp->down;
 		while (tmp)
 		{
-			if (tmp->type != object || ui_el_from_json_event(e, tmp))
-				{
-			printf("14");
-			return (FUNCTION_FAILURE);
-		}
+			if (tmp->type != object || ui_el_from_json_event(m, e, tmp))
+			{
+				printf("14");
+				return (FUNCTION_FAILURE);
+			}
+			tmp = tmp->right;
 		}
 	}
 	return (FUNCTION_SUCCESS);
@@ -253,10 +250,10 @@ static int	ui_el_from_json_textures(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		while (tmp)
 		{
 			if (tmp->type != object || ui_el_from_json_texture(m, e, tmp))
-				{
-			printf("13");
-			return (FUNCTION_FAILURE);
-		}
+			{
+				printf("13");
+				return (FUNCTION_FAILURE);
+			}
 			tmp = tmp->right;
 		}
 	}
@@ -267,7 +264,7 @@ static int	ui_el_from_json_textures(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		printf("for el id %d set cur %s\n", e->id, jtoc_get_string(tmp));
 		ui_el_set_current_texture_by_id(e, jtoc_get_string(tmp));
 	}
-	return (ui_el_from_json_events(e, n));
+	return (ui_el_from_json_events(m, e, n));
 }
 
 static int	ui_parse_canvas(t_ui_main *m, t_ui_el *e, t_jnode *n)

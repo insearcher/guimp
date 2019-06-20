@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 17:06:58 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 20:16:30 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/20 20:11:49 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ int	ui_main_from_json(t_ui_main *m, const char *p)
 	t_jnode	*win;
 
 	if (!(root = jtoc_read(p)))
-		return (FUNCTION_FAILURE);
+		return (ui_sdl_log_error("JSON", -1));
 	if (!(win = jtoc_node_get_by_path(root, "windows")) || win->type != array)
-		return (ui_sdl_log_error("MAIN: WINDOWS/TYPE"));
+		return (ui_sdl_log_error("NODE WINDOWS", -1));
 	win = win->down;
 	while (win)
 	{
 		if (win->type != object)
-			return (ui_sdl_log_error("MAIN: TYPE"));
+			return (ui_sdl_log_error("NODE WINDOW (TYPE)", -1));
 		if (ui_win_from_json(m, win))
-			return (ui_sdl_log_error("MAIN: PARSING WINDOW"));
+			return (FUNCTION_FAILURE);
 		win = win->right;
 	}
 	jtoc_node_clear(root);

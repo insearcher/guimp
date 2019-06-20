@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/19 17:50:04 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/19 20:05:55 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,7 +148,9 @@ SRC_UTILITS		=	ui_get_rect_from_frect.c
 
 SRC_UI_JTOC		=	ui_main_from_json.c \
 					ui_win_from_json.c \
-					ui_el_from_json.c
+					ui_el_from_json.c \
+					ui_el_get_and_setup_json.c \
+					ui_jtoc_utils.c
 
 SRC_UI_FILE		=	ui_open_file_dialog.c \
 					ui_save_file_dialog.c \

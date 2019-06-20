@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/20 20:22:45 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/20 20:28:06 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ static int	ui_el_from_json_events(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		while (tmp)
 		{
 			if (tmp->type != object || ui_el_from_json_event(m, e, tmp))
-				return (ui_sdl_log_error("NODE EL (EVENTS)", e->id));
+				return (FUNCTION_FAILURE);
 			tmp = tmp->right;
 		}
 	}

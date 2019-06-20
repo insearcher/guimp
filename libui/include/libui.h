@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 20:12:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/20 20:07:05 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -505,6 +505,6 @@ int					ui_get_pos_size(const char *str);
 int					ui_el_setup_by_type(t_ui_el *e, t_jnode *n);
 int					ui_get_win_param_from_string(const char *str);
 
-int	ui_sdl_log_error(const char *p);
+int					ui_sdl_log_error(const char *p, const int id);
 
 #endif

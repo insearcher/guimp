@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 20:31:26 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/20 20:22:45 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ui_el_from_json_white_texture(t_ui_el *e, t_jnode *n)
 		(h = jtoc_get_int(tmp)) <= 0 ||
 		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
 		!(el_id = jtoc_get_string(tmp)))
-		return (ui_sdl_log_error("EL: PARSING WHITE TEXTURE"));
+		return (ui_sdl_log_error("NODE EL (WHITE TEXTURE)", e->id));
 	ui_el_add_white_texture(e, w, h, el_id);
 	return (FUNCTION_SUCCESS);
 }
@@ -43,7 +43,7 @@ static int	ui_el_from_json_empty_texture(t_ui_el *e, t_jnode *n)
 		(h = jtoc_get_int(tmp)) <= 0 ||
 		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
 		!(el_id = jtoc_get_string(tmp)))
-		return (ui_sdl_log_error("EL: PARSING EMPTY TEXTURE"));
+		return (ui_sdl_log_error("NODE EL (EMPTY TEXTURE)", e->id));
 	ui_el_add_empty_texture(e, w, h, el_id);
 	return (FUNCTION_SUCCESS);
 }
@@ -58,7 +58,7 @@ static int	ui_el_from_json_color_texture(t_ui_el *e, t_jnode *n)
 		!(color = jtoc_get_string(tmp)) ||
 		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
 		!(el_id = jtoc_get_string(tmp)))
-		return (ui_sdl_log_error("EL: PARSING COLOR TEXTURE"));
+		return (ui_sdl_log_error("NODE EL (COLOR TEXTURE)", e->id));
 	ui_el_add_color_texture(e, (t_vec2){e->rect.w, e->rect.h}, ft_atoi_base(color, 16), el_id);
 	return (FUNCTION_SUCCESS);
 }
@@ -73,7 +73,7 @@ static int	ui_el_from_json_gradient_texture(t_ui_el *e, t_jnode *n)
 		!(color = jtoc_get_string(tmp)) ||
 		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
 		!(el_id = jtoc_get_string(tmp)))
-		return (ui_sdl_log_error("EL: PARSING GRADIENT TEXTURE"));
+		return (ui_sdl_log_error("NODE EL (GRADIENT TEXTURE)", e->id));
 	ui_el_add_gradient_texture(e, (t_vec2){e->rect.w, e->rect.h}, ft_atoi_base(color, 16), el_id);
 	return (FUNCTION_SUCCESS);
 }
@@ -91,7 +91,7 @@ static int	ui_el_from_json_texture(t_ui_main *m, t_ui_el *e, t_jnode *n)
 			(!ft_strcmp(jtoc_get_string(tmp), "white") && ui_el_from_json_white_texture(e, n)) ||
 			(!ft_strcmp(jtoc_get_string(tmp), "color") && ui_el_from_json_color_texture(e, n)) ||
 			(!ft_strcmp(jtoc_get_string(tmp), "gradient") && ui_el_from_json_gradient_texture(e, n)))
-			return (ui_sdl_log_error("EL: TEXTURE TYPE"));
+			return (ui_sdl_log_error("NODE EL (TEXTURE TYPE)", e->id));
 	}
 	else
 	{
@@ -99,7 +99,7 @@ static int	ui_el_from_json_texture(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		!(main_id = jtoc_get_string(tmp)) ||
 		!(tmp = jtoc_node_get_by_path(n, "el_id")) || tmp->type != string ||
 		!(el_id = jtoc_get_string(tmp)))
-			return (ui_sdl_log_error("EL: TEXTURE"));
+			return (ui_sdl_log_error("NODE EL (TEXTURE)", e->id));
 		ui_el_add_texture_from_main_by_id(m, e, main_id, el_id);
 	}
 	return (FUNCTION_SUCCESS);
@@ -153,7 +153,7 @@ static int	ui_el_from_json_event(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		!(tmp = jtoc_node_get_by_path(n, "func_name")) || tmp->type != string ||
 		!(func_name  = jtoc_get_string(tmp)) ||
 		(ft_strcmp(func_name, "clear") && !(f = ui_main_get_function_by_id(m, func_name))))
-		return (ui_sdl_log_error("EL: EVENT"));
+		return (ui_sdl_log_error("NODE EL (EVENT)", e->id));
 	if (!ft_strcmp(func_name, "clear"))
 		ui_event_clear(ev);
 	else
@@ -171,7 +171,7 @@ static int	ui_el_from_json_events(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		while (tmp)
 		{
 			if (tmp->type != object || ui_el_from_json_event(m, e, tmp))
-				return (ui_sdl_log_error("EL: PARSING EVENTS"));
+				return (ui_sdl_log_error("NODE EL (EVENTS)", e->id));
 			tmp = tmp->right;
 		}
 	}
@@ -188,14 +188,14 @@ static int	ui_el_from_json_textures(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		while (tmp)
 		{
 			if (tmp->type != object || ui_el_from_json_texture(m, e, tmp))
-				return (ui_sdl_log_error("EL: PARSING TEXTURES"));
+				return (FUNCTION_FAILURE);
 			tmp = tmp->right;
 		}
 	}
 	if ((tmp = jtoc_node_get_by_path(n, "current_texture")))
 	{
 		if (tmp->type != string)
-			return (ui_sdl_log_error("EL: CURRENT TEXTURE"));
+			return (ui_sdl_log_error("NODE EL (CURRENT TEXTURE)", e->id));
 		ui_el_set_current_texture_by_id(e, jtoc_get_string(tmp));
 	}
 	return (ui_el_from_json_events(m, e, n));
@@ -204,7 +204,7 @@ static int	ui_el_from_json_textures(t_ui_main *m, t_ui_el *e, t_jnode *n)
 static int	ui_parse_canvas(t_ui_main *m, t_ui_el *e, t_jnode *n)
 {
 	if (ui_el_from_json_textures(m, e, n))
-		return (ui_sdl_log_error("EL: PARSING TEXTURES"));
+		return (FUNCTION_FAILURE);
 	return (FUNCTION_SUCCESS);
 }
 
@@ -216,10 +216,10 @@ static int	ui_el_from_json_size(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *
 	t_jnode	*tmp;
 
 	if (!(tmp = jtoc_node_get_by_path(n, "size.x")) || tmp->type != number)
-		return (ui_sdl_log_error("EL: SIZE.X"));
+		return (ui_sdl_log_error("NODE EL (SIZE.X)", e->id));
 	x = jtoc_get_float(tmp);
 	if (!(tmp = jtoc_node_get_by_path(n, "size.y")) || tmp->type != number)
-		return (ui_sdl_log_error("EL: SIZE.Y"));
+		return (ui_sdl_log_error("NODE EL (SIZE.Y)", e->id));
 	y = jtoc_get_float(tmp);
 	p = 0;
 	if ((tmp = jtoc_node_get_by_path(n, "size.params")))
@@ -228,7 +228,7 @@ static int	ui_el_from_json_size(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *
 		while (tmp)
 		{
 			if (tmp->type != string)
-				return (ui_sdl_log_error("EL: SIZE.PARAMS"));
+				return (ui_sdl_log_error("NODE EL (SIZE.PARAMS)", e->id));
 			p |= ui_get_pos_size(jtoc_get_string(tmp));
 			tmp = tmp->right;
 		}
@@ -246,10 +246,10 @@ static int	ui_el_from_json_pos(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *n
 	t_jnode	*tmp;
 
 	if (!(tmp = jtoc_node_get_by_path(n, "pos.x")) || tmp->type != number)
-		return (ui_sdl_log_error("EL: POS.X"));
+		return (ui_sdl_log_error("NODE EL (POS.X)", e->id));
 	x = jtoc_get_float(tmp);
 	if (!(tmp = jtoc_node_get_by_path(n, "pos.y")) || tmp->type != number)
-		return (ui_sdl_log_error("EL: POS.Y"));
+		return (ui_sdl_log_error("NODE EL (POS.Y)", e->id));
 	y = jtoc_get_float(tmp);
 	p = 0;
 	if ((tmp = jtoc_node_get_by_path(n, "pos.params")))
@@ -258,7 +258,7 @@ static int	ui_el_from_json_pos(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *n
 		while (tmp)
 		{
 			if (tmp->type != string)
-				return (ui_sdl_log_error("EL: POS.PARAMS TYPE"));
+				return (ui_sdl_log_error("NODE EL (POS.PARAMS)", e->id));
 			p |= ui_get_pos_size(jtoc_get_string(tmp));
 			tmp = tmp->right;
 		}
@@ -278,13 +278,13 @@ static int	ui_el_from_json_params(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode
 		while (tmp)
 		{
 			if (tmp->type != string)
-				return (ui_sdl_log_error("EL: PARAMS TYPE"));
+				return (ui_sdl_log_error("NODE EL (PARAMS)", e->id));
 			e->params |= ui_get_el_param_from_string(jtoc_get_string(tmp));
 			tmp = tmp->right;
 		}
 	}
 	if (ui_el_setup_by_type(e, n))
-		return (ui_sdl_log_error("EL: PARSING TYPE"));
+		return (FUNCTION_FAILURE);
 	return (ui_el_from_json_pos(m, w, e, n));
 }
 
@@ -295,7 +295,7 @@ int			ui_el_from_json(t_ui_main *m, t_ui_win *w, t_jnode *n)
 	t_jnode	*tmp;
 
 	if (!(tmp = jtoc_node_get_by_path(n, "id")) || tmp->type != number)
-		return (ui_sdl_log_error("EL: ID"));
+		return (ui_sdl_log_error("NODE EL (ID)", -1));
 	if (jtoc_get_int(tmp) == 0)
 		ui_parse_canvas(m, w->canvas, n);
 	else
@@ -305,10 +305,10 @@ int			ui_el_from_json(t_ui_main *m, t_ui_win *w, t_jnode *n)
 			!(tmp = jtoc_node_get_by_path(n, "parent")) ||
 			tmp->type != number ||
 			!(p = ui_win_find_el_by_id(w, jtoc_get_int(tmp))))
-			return (ui_sdl_log_error("EL: INIT/NO PARENT"));
+			return (ui_sdl_log_error("NODE EL (INIT/NO PARENT)", e->id));
 		ui_el_add_child(p, e);
 		if (ui_el_from_json_params(m, w, e, n))
-			return (ui_sdl_log_error("EL: PARSING PARAMS"));
+			return (FUNCTION_FAILURE);
 	}
 	return (FUNCTION_SUCCESS);
 }

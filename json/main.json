@@ -110,6 +110,14 @@
 						{
 							"event_name": "onPointerStay",
 							"func_name": "move_draw_canvas_with_zoom"
+						},
+						{
+							"event_name": "onPointerLeftButtonReleased",
+							"func_name": "start_draw_with_selected_tool_pointer_up"
+						},
+						{
+							"event_name": "onPointerStay",
+							"func_name": "scan_tool_position"
 						}
 					]
 				},

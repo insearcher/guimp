@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   guimp.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 17:55:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/19 22:25:17 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,17 @@
 # define GM_TOOL_LINE			4
 
 # define GM_TOOL_STATE_NONE		0
-# define GM_TOOL_STATE_DRAW		1
-# define GM_TOOL_STATE_END		2
+# define GM_TOOL_STATE_START	1
+# define GM_TOOL_STATE_DRAW		2
+# define GM_TOOL_STATE_END		3
 
 //id_generator flags
 # define ID_GENERATOR_GET		0
 # define ID_GENERATOR_ADD		1
 # define ID_GENERATOR_DEL		2
 # define ID_GENERATOR_START		63
+
+# define DEBUG_STATUS			0
 
 /* t_layers - struct for elems in layer win */
 typedef struct					s_layers

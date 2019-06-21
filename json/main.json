@@ -2,10 +2,10 @@
 	"windows":
 	[
 		{
+			"id": 0,
 			"title": "GUIMP",
 			"params":
 			[
-				"WIN_MAIN",
 				"WIN_RESIZABLE"
 			],
 			"size":
@@ -34,6 +34,10 @@
 				{
 					"event_name": "onScrollDown",
 					"func_name": "start_zoom_out"
+				},
+				{
+					"event_name": "onClose",
+					"func_name": "ui_main_close_program"
 				}
 			],
 			"elements":
@@ -292,6 +296,7 @@
 			]
 		},
 		{
+			"id": 1,
 			"title": "TOOLS",
 			"size":
 			{
@@ -307,6 +312,10 @@
 				{
 					"event_name": "onMoved",
 					"func_name": "move_windows"
+				},
+				{
+					"event_name": "onClose",
+					"func_name": "ui_main_close_program"
 				}
 			],
 			"elements":

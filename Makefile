@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/19 19:29:12 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/20 19:58:26 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,11 +55,10 @@ OBJ_DIR_TEST	=	./obj_test
 SRC_TEST		=	main_test.c \
 					draw_func.c \
 					draw_main_canvas_event.c \
-					initialization_m.c \
-					initialization_w1.c \
-					scroll_menu1.c \
-					el1.c \
-					el_text.c
+					#initialization_w1.c \
+					#scroll_menu1.c \
+					#el1.c \
+					#el_text.c
 
 OBJ_TEST		=	$(addprefix $(OBJ_DIR_TEST)/,$(SRC_TEST:.c=.o))
 
@@ -178,7 +177,7 @@ compile_test: $(OBJ_TEST)
 		fi;
 
 build_test:
-	$(CC) $(CFLAGS) $(OBJ_TEST) $(INCS) $(LIBS) $(FRAMEWORKS) -fsanitize=address -o $(NAME_TEST)
+	$(CC) $(CFLAGS) $(OBJ_TEST) $(INCS) $(LIBS) $(FRAMEWORKS) -o $(NAME_TEST) # -fsanitize=address 
 
 $(OBJ_DIR_TEST):
 	@mkdir $(OBJ_DIR_TEST)

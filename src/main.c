@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 22:27:54 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/21 19:59:42 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void move_windows(void *a1, void *a2)
 				continue;
 			}
 			SDL_GetWindowPosition(w->sdl_window, &pos.x, &pos.y);
-			if (cur_w->params & WIN_MAIN)
+			if (cur_w->id == 0)
 				pos.x = pos.x + GM_TOOL_WIN_W + 5;
 			else
 				pos.x = pos.x - GM_TOOL_WIN_W - 5;
@@ -207,8 +207,8 @@ static void	prepare_tmp_layer(t_guimp *g)
 	}
 	SDL_SetRenderTarget(g->main_win->sdl_renderer, NULL);
 	//printf("from prepare_tmp_layer out>>>>>>>>> %d\n", g->draw_tool.state);
-	printf("cur x: %d, cur y: %d\n", g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
-	printf("pre x: %d, pre y: %d\n", g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
+//	printf("cur x: %d, cur y: %d\n", g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
+//	printf("pre x: %d, pre y: %d\n", g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
 }
 
 static void	draw_canvas_renderer(void *el_v, void *main)
@@ -548,6 +548,9 @@ int		main()
 
 	g_main.main_win = (t_ui_win *)(g_main.ui_main->windows->next->content);
 	g_main.tool_win = (t_ui_win *)(g_main.ui_main->windows->content);
+
+	printf("w_main ID: %d\n", g_main.main_win->id);
+	printf("w_tool ID: %d\n", g_main.tool_win->id);
 
 	// WINS
 	// ui_event_add_listener(g_main.main_win->events->onMoved, move_windows);

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/19 20:05:55 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/21 18:52:56 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,11 +101,11 @@ SRC_UI_LOG		=	ui_log_mouse_motion.c \
 SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_init.c \
 					ui_main_add_window.c \
+					ui_main_closing_windows.c \
 					ui_main_handle_event.c \
 					ui_main_handle_mouse_event.c \
 					ui_main_handle_window_event.c \
 					ui_main_find_window_by_id.c \
-					ui_main_remove_window_by_id.c \
 					ui_main_handle_keyboard_event.c \
 					ui_main_handle_raycast.c \
 					ui_main_handle_continious_event.c \

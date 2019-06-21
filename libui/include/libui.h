@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/20 20:25:20 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/21 19:39:00 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 ** 7)
 */
 
+# define DEBUG_STATUS		1
+
 # define KNRM				"\x1B[0m"
 # define KRED				"\x1B[31m"
 # define KGRN				"\x1B[32m"
@@ -39,9 +41,6 @@
 # define KMAG				"\x1B[35m"
 # define KCYN				"\x1B[36m"
 # define KWHT				"\x1B[37m"
-
-# define WIN_W				640
-# define WIN_H				480
 
 # define KEYS_COUNT			285
 
@@ -84,8 +83,7 @@
 # define MAIN_ON_QUIT		(1 << 8)
 
 //win params
-# define WIN_MAIN			(1 << 0)
-# define WIN_RESIZABLE		(1 << 1)
+# define WIN_RESIZABLE		(1 << 0)
 
 //texture id`s
 // # define TID_DEFAULT		0
@@ -231,6 +229,7 @@ typedef struct		s_ui_win
 	t_vec2			pos; //TODO for programs init
 	t_ui_el			*canvas;
 	t_ui_win_events	*events;
+	Uint32			id;
 	Uint32			params;
 }					t_ui_win;
 
@@ -306,6 +305,8 @@ t_ui_el				*ui_raycast(t_ui_main *m, t_ui_win *w);
 t_ui_main			*ui_main_init(void);
 void				ui_main_loop(t_ui_main *m);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
+void				ui_main_close_window(void *a1, void *a2);
+void				ui_main_close_program(void *a1, void *a2);
 
 int					ui_main_add_font_by_path(t_ui_main *m, const char *path, const char *font_id);
 int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, const char *sur_id);
@@ -316,7 +317,6 @@ void				ui_main_fill_default_surfaces(t_ui_main *m);
 void				ui_main_fill_default_fonts(t_ui_main *m);
 
 t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
-void				ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_handle_event(t_ui_main *m);
 void				ui_main_handle_raycast(t_ui_main *m);

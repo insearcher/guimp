@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 07:13:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/11 07:51:41 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/21 17:39:32 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,23 @@ int	main()
 	t_guimp	guimp;
 
 	ui_sdl_init();
-	initialization_main_and_default_surfaces(&guimp);
-	ui_main_set_font_params(&guimp.m, "neco", (t_font_params){0, 0, 1, 0});
-	initialization_w1(&guimp);
-	el1(&guimp);
-	el_text(&guimp);
-	scroll_menu1(&guimp);
-//	initialization_flex_menu1(&guimp);
-//	initialization_popap_menu1(&guimp);
-	ui_main_add_window(&(guimp.m), &(guimp.w1));
-	ui_main_loop(&(guimp.m));
+//	ft_bzero((void *)(&guimp), sizeof(t_guimp));
+	if (!(guimp.m = ui_main_init()))
+	{
+		printf("ui_main malloc error in struct guimp\n");
+		return (0);
+	}
+	ui_main_fill_default_surfaces(guimp.m);
+//	ui_main_fill_default_fonts(guimp.m);
+//	ui_main_set_font_params(guimp.m, "neco", (t_font_params){0, 0, 1, 0});
+
+	ui_main_add_function_by_id(guimp.m, ui_el_draw_event, "ui_el_draw_event");
+	ui_main_add_function_by_id(guimp.m, draw_main_canvas_event, "draw_main_canvas_event");
+	ui_main_add_function_by_id(guimp.m, ui_win_update_size, "ui_win_update_size");
+	guimp.m->data = (void *)(&guimp);
+
+	ui_main_from_json(guimp.m, "./src/test/main.json");
+//	guimp.w = (t_ui_win *)(guimp.m->windows->content);
+//	ui_main_add_window(guimp.m, guimp.w);
+	ui_main_loop(guimp.m);
 }

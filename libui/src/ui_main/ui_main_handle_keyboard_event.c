@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 07:49:09 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 02:01:19 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/20 17:30:28 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ void	ui_main_handle_keyboard_event(t_ui_main *m)
 			return ;
 	event = NULL;
 	if (m->sdl_event->window.type == SDL_KEYDOWN && !m->sdl_event->key.repeat)
+	{
+		m->letter = m->sdl_event->key.keysym.scancode;
 		event = win->events->onKeyDown[m->sdl_event->key.keysym.scancode];
+	}
 	else if (m->sdl_event->window.type == SDL_KEYUP)
 		event = win->events->onKeyUp[m->sdl_event->key.keysym.scancode];
 	if (event != NULL)
-		ui_event_invoke(event, m, &windowID);
+		ui_event_invoke(event, m, win);
 }

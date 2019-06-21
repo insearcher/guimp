@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:19:27 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/20 20:17:00 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/21 20:05:42 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	ui_win_from_json_size(t_ui_main *m, t_ui_win *w, t_jnode *n)
 		if (tmp->type != array || ui_win_from_json_events(m, w, tmp))
 			return (FUNCTION_FAILURE);
 	}
+	w->events->onKeyDown[SDL_SCANCODE_ESCAPE] = w->events->onClose;
 	return (FUNCTION_SUCCESS);
 }
 
@@ -91,10 +92,13 @@ int			ui_win_from_json(t_ui_main *m, t_jnode *n)
 	t_ui_win	*w;
 	t_jnode		*tmp;
 
-	if (!(w = ui_win_init()) ||
-		!(tmp = jtoc_node_get_by_path(n, "title")) || tmp->type != string ||
+	if (!(w = ui_win_init()) || !(tmp = jtoc_node_get_by_path(n, "id"))
+			|| tmp->type != number)
+	   return (ui_sdl_log_error("NODE WINDOW (INIT/ID)", -1));
+	w->id = jtoc_get_int(tmp);
+	if (!(tmp = jtoc_node_get_by_path(n, "title")) || tmp->type != string ||
 			!(w->title = ft_strdup(jtoc_get_string(tmp))))
-		return (ui_sdl_log_error("NODE WINDOW (INIT/TYPE/TYPE)", -1));
+		return (ui_sdl_log_error("NODE WINDOW (TYPE/TYPE)", -1));
 	if ((tmp = jtoc_node_get_by_path(n, "params")) &&
 		(tmp = tmp->down))
 		while (tmp)

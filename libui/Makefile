@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/21 18:52:56 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/22 20:17:20 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -135,7 +135,8 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_close.c \
 					ui_win_update_size.c \
 					ui_win_find_el_by_id.c \
-					ui_win_focus.c
+					ui_win_focus.c \
+					ui_win_change_text_in_focused_el.c
 
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c

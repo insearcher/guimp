@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 19:39:00 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/22 20:19:02 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 
 //text params
 # define TEXT_IS_CENTERED	(1 << 0)
+# define TEXT_IS_BIG		(1 << 1)
 
 //text render_params
 # define TEXT_IS_SOLID		(1 << 0)
@@ -256,7 +257,7 @@ typedef struct		s_ui_main
 	t_list			*sdl_fonts;
 	t_list			*functions;
 	t_ui_el			*focused_el;
-	unsigned int	letter;
+	unsigned int	cur_keycode;
 	void			*data;
 	Uint32			params;
 	t_vec2			ptr_pos;
@@ -296,7 +297,7 @@ typedef struct		s_text_params
 	SDL_Color		text_color;
 	SDL_Color		bg_color;
 	int				max_text_size;
-	int				is_text_centered;
+	int				params;
 	int				render_param;
 }					t_text_params;
 
@@ -316,6 +317,7 @@ SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, const char *sur_id);
 void				ui_main_fill_default_surfaces(t_ui_main *m);
 void				ui_main_fill_default_fonts(t_ui_main *m);
 
+t_ui_win			*ui_main_find_window_by_sdl_id(t_ui_main *m, Uint32 windowID);
 t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_handle_event(t_ui_main *m);
@@ -456,6 +458,7 @@ int					ui_el_update_text(t_ui_el *el, const char *text);
 
 void				ui_win_create(t_ui_win *w);
 void				ui_win_setup_default(t_ui_win *w);
+void				ui_win_change_text_in_focused_el(void *a1, void *a2);
 t_ui_win			*ui_win_init(void);
 void				ui_win_close(t_ui_win *w);
 t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);

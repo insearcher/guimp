@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 05:38:36 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 20:06:04 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/22 18:45:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	ui_win_setup_default(t_ui_win *w)
 	register int	i;
 
 	i = SDL_SCANCODE_A;
-/*	while (i <= SDL_SCANCODE_0)
+	while (i <= SDL_SCANCODE_0)
 	{
-		ui_event_add_listener(&(w->events.onKeyDown[i]), ui_win_change_text_in_focused_el);
+		ui_event_add_listener(w->events->onKeyDown[i], ui_win_change_text_in_focused_el);
 		i++;
 	}
-	ui_event_add_listener(&(w->events.onKeyDown[SDL_SCANCODE_SPACE]), ui_win_change_text_in_focused_el);
-	ui_event_add_listener(&(w->events.onKeyDown[SDL_SCANCODE_BACKSPACE]), ui_win_change_text_in_focused_el); */
+	ui_event_add_listener(w->events->onKeyDown[SDL_SCANCODE_SPACE], ui_win_change_text_in_focused_el);
+	ui_event_add_listener(w->events->onKeyDown[SDL_SCANCODE_BACKSPACE], ui_win_change_text_in_focused_el);
 	ui_event_add_listener(w->events->onPointerMoved, ui_main_pointer_moved);
 	ui_event_add_listener(w->events->onPointerLeftButtonPressed, ui_main_lmb_pressed);
 	ui_event_add_listener(w->events->onPointerLeftButtonReleased, ui_main_lmb_released);

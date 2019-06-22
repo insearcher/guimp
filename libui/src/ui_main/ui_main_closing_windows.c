@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:21:44 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/21 18:56:33 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/22 18:39:39 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,6 @@ static void ft_lstdelones_without_cont(t_list **alst)
 	free(*alst);
 	*alst = NULL;
 }
-
-/*void        ui_main_remove_window_by_id(t_ui_main *m, Uint32 windowID)
-{
-	t_list      *prev;
-	t_list      *cur;
-	t_ui_win    *win;
-
-	prev = NULL;
-	cur = m->windows;
-	while (cur)
-	{
-		win = (t_ui_win *)(cur->content);
-		if (win->sdl_windowID == windowID)
-		{
-			if (prev == NULL)
-				m->windows = cur->next;
-			else
-				prev->next = cur->next;
-			ui_win_close(win);
-			ft_lstdelones_without_cont(&cur);
-			return ;
-		}
-		prev = cur;
-		cur = cur->next;
-	}
-}*/
 
 void	ui_main_close_window(void *a1, void *a2)
 {

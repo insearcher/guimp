@@ -22,6 +22,10 @@
 				{
 					"event_name": "onResize",
 					"func_name": "ui_win_update_size"
+				},
+				{
+					"event_name": "onClose",
+					"func_name": "ui_main_close_program"
 				}
 			],
 			"elements":
@@ -62,8 +66,8 @@
 					},
 					"size":
 					{
-						"x": 0.4,
-						"y": 0.4
+						"x": 0.9,
+						"y": 0.2
 					},
 					"textures":
 					[

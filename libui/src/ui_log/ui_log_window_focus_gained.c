@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:44:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 02:20:39 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 20:09:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ui_log_window_focus_gained(void *a1, void *a2)
 			KYEL,
 			"WIN FOCUSED",
 			KNRM,
-			m->sdl_event->window.windowID
+			m->raycaster->selected_win->id
 		);
 	}
 }

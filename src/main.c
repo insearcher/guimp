@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 19:59:42 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/21 22:08:18 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,13 +262,13 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	}
 	if (g->draw_tool.tool == GM_TOOL_LINE)
 	{
-		printf("from start_draw_with_selected_tool in>>>>>>>>> %d\n", g->draw_tool.state);
+		// printf("from start_draw_with_selected_tool in>>>>>>>>> %d\n", g->draw_tool.state);
 		if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
 			g->draw_tool.state = GM_TOOL_STATE_END;
 		else if (g->draw_tool.state == GM_TOOL_STATE_NONE)
 			g->draw_tool.state = GM_TOOL_STATE_START;
 
-		printf("from start_draw_with_selected_tool out>>>>>>>>> %d\n", g->draw_tool.state);
+		// printf("from start_draw_with_selected_tool out>>>>>>>>> %d\n", g->draw_tool.state);
 	}
 }
 
@@ -284,7 +284,7 @@ static void	scan_tool_position(void *main, void *el_v)
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
 	g->draw_tool.cur_point = (t_vec2){x, y};
-	printf(">>>>>>>>>>>>>>%d>>>>>>>>>>>>>>%d\n", g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
+	// printf(">>>>>>>>>>>>>>%d>>>>>>>>>>>>>>%d\n", g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
 }
 
 static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
@@ -293,11 +293,11 @@ static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
-	printf("from start_draw_with_selected_tool_pointer_up in>>>>>>>>> %d\n", g->draw_tool.state);
+	// printf("from start_draw_with_selected_tool_pointer_up in>>>>>>>>> %d\n", g->draw_tool.state);
 	if (g->draw_tool.tool == GM_TOOL_LINE)
 		if (g->draw_tool.state == GM_TOOL_STATE_START)
 			g->draw_tool.state = GM_TOOL_STATE_DRAW;
-	printf("from start_draw_with_selected_tool_pointer_up out>>>>>>>>> %d\n", g->draw_tool.state);
+	// printf("from start_draw_with_selected_tool_pointer_up out>>>>>>>>> %d\n", g->draw_tool.state);
 }
 
 static void	start_alt_with_selected_tool(void *main, void *el_v)
@@ -579,7 +579,7 @@ int		main()
 	// cur_el = ui_win_find_el_by_id(g_main.main_win, 2);
 	// g_main.layers.layers = cur_el->children;
 
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 63);
+	// cur_el = ui_win_find_el_by_id(g_main.main_win, 63);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, testOnPtrLBD);
 	// ui_event_add_listener(cur_el->events->onPointerEnter, testOnPtrEnter);
 	// ui_event_add_listener(cur_el->events->onPointerExit, testOnPtrExit);
@@ -595,58 +595,58 @@ int		main()
 	tmp->content_size = 63;
 	ft_lstadd(&(g_main.layers.layers), tmp);
 
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 3);
+	// cur_el = ui_win_find_el_by_id(g_main.main_win, 3);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_add_layer);
 
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 4);
+	// cur_el = ui_win_find_el_by_id(g_main.main_win, 4);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_del_layer);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_brush);
 	cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_zoom);
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_hand);
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_line);
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 21);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 21);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
 	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xFF0000, "default");
 
-	t_ui_el *cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 22);
+	// t_ui_el *cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 22);
 	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 23);
 	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x00FF00, "default");
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
 
-	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 24);
+	// cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 24);
 	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 25);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 25);
 	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x0000FF, "default");
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
 
-	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 26);
+	// cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 26);
 	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 27);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 27);
 	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
 
-	cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 28);
+	// cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 28);
 	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 29);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 29);
 	// ui_el_add_color_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
 	// ui_event_clear(cur_el->events->onRender);
 	// ui_event_add_listener(cur_el->events->onRender, draw_color_rect);

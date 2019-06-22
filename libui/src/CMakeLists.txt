@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.0)
+
+cmake_policy(SET CMP0076 NEW)
+
+add_subdirectory(bfs)
+add_subdirectory(ui_draw_events)
+add_subdirectory(ui_el)
+add_subdirectory(ui_event)
+add_subdirectory(ui_file)
+add_subdirectory(ui_jtoc)
+add_subdirectory(ui_log)
+add_subdirectory(ui_main)
+add_subdirectory(ui_prefab)
+add_subdirectory(ui_raycast)
+add_subdirectory(ui_render)
+add_subdirectory(ui_sdl)
+add_subdirectory(ui_win)
+add_subdirectory(utilits)

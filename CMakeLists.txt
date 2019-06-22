@@ -51,9 +51,10 @@ target_link_libraries(guimp
         ft
         jtoc
         ui
+        SDL2::Core
         SDL2::Main
         SDL2::Image
-        SDL2::Ttf)
+        SDL2::TTF)
 #        ${SDL2}
 #        ${SDL2_image}
 #        ${SDL2_ttf}

@@ -38,8 +38,6 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_default_pointer_exit.c \
 					ui_el_resize_elems.c \
 					ui_el_get_texture_by_id.c \
-					ui_log_el_scroll_up.c \
-					ui_log_el_scroll_down.c \
 					ui_el_drag.c \
 					ui_el_scroll_menu.c \
 					ui_el_set_texture.c \
@@ -61,7 +59,7 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_default_scroll_menu.c \
 					ui_el_setup_default.c \
 					ui_el_setup_horizontal_draggable.c \
-					ui_el_setup_menu_resizable.c \
+					ui_el_setup_menu_resizable.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -91,6 +89,8 @@ SRC_UI_LOG		=	ui_log_mouse_motion.c \
 					ui_log_el_pointer_exit.c \
 					ui_log_key_pressed.c \
 					ui_log_key_released.c \
+					ui_log_el_scroll_up.c \
+					ui_log_el_scroll_down.c \
 					ui_log_el_left_button_hold.c \
 					ui_log_el_left_button_pressed.c \
 					ui_log_el_left_button_released.c \

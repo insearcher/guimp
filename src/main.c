@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 22:55:00 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/22 23:58:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -564,6 +564,14 @@ int		main()
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
 	cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush"), 100, 100});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
+
+	// ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
+	ui_el_add_texture_from_file_dialog(cur_el);
 
 	ui_main_loop(g_main.ui_main);
 	return (0);

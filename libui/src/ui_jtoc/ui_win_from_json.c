@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_win_from_json.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:19:27 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 22:15:32 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 22:13:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			ui_win_from_json(t_ui_main *m, t_jnode *n)
 	w->id = jtoc_get_int(tmp);
 	if (!(tmp = jtoc_node_get_by_path(n, "title")) || tmp->type != string ||
 		!(w->title = ft_strdup(jtoc_get_string(tmp))))
-		return (ui_sdl_log_error("NODE WINDOW (TYPE/TYPE)", -1));
+		return (ui_sdl_log_error("NODE WINDOW (TITLE/TYPE)", -1));
 	if ((tmp = jtoc_node_get_by_path(n, "params")) &&
 		(tmp = tmp->down))
 		while (tmp)

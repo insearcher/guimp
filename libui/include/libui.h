@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 20:19:02 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/22 23:58:23 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,19 @@ typedef struct		s_ui_el
 	t_ui_el_events	*events;
 	void			*data;
 }					t_ui_el;
+
+typedef struct		s_cursor
+{
+	SDL_Surface		*s;
+	int				hot_x;
+	int				hor_y;
+}					t_cursor;
+
+t_cursor			*ui_cursor_init(void);
+
+void				ui_cursor_to_default(void *a1, void *a2);
+void				ui_cursor_from_el_data(void *a1, void *a2);
+void				ui_cursor_from(t_cursor *c);
 
 # pragma endregion
 # pragma region		t_ui_win_events

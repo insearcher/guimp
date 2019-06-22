@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/19 18:40:35 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/22 22:37:33 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,7 @@ SRC		= 	ft_memset.c \
 OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 CC 		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -O3
+CFLAGS	=	-Wall -Werror -Wextra -O3 -g
 
 all: $(NAME)
 

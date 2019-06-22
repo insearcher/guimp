@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 20:14:44 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 22:51:01 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -609,6 +609,9 @@ int		main()
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
+
+	// ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
+	ui_el_add_texture_from_file_dialog(cur_el);
 
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_zoom);
 

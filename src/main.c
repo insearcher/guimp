@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 22:08:18 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 20:14:44 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -604,8 +604,12 @@ int		main()
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_brush);
 	cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush"), 100, 100});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
 
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
+
 	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_zoom);
 
 	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
@@ -651,6 +655,8 @@ int		main()
 	// ui_event_clear(cur_el->events->onRender);
 	// ui_event_add_listener(cur_el->events->onRender, draw_color_rect);
 
+	// SDL_Cursor *cursor = SDL_CreateColorCursor(ui_main_get_surface_by_id(g_main.ui_main, "brush"), 0, 0);
+	// SDL_SetCursor(cursor);
 	/*************/
 	/* MAIN_LOOP */
 	/*************/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_win_from_json.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:19:27 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 20:05:42 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/21 22:15:32 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ int			ui_win_from_json(t_ui_main *m, t_jnode *n)
 	t_jnode		*tmp;
 
 	if (!(w = ui_win_init()) || !(tmp = jtoc_node_get_by_path(n, "id"))
-			|| tmp->type != number)
-	   return (ui_sdl_log_error("NODE WINDOW (INIT/ID)", -1));
+		|| tmp->type != number)
+		return (ui_sdl_log_error("NODE WINDOW (INIT/ID)", -1));
 	w->id = jtoc_get_int(tmp);
 	if (!(tmp = jtoc_node_get_by_path(n, "title")) || tmp->type != string ||
-			!(w->title = ft_strdup(jtoc_get_string(tmp))))
+		!(w->title = ft_strdup(jtoc_get_string(tmp))))
 		return (ui_sdl_log_error("NODE WINDOW (TYPE/TYPE)", -1));
 	if ((tmp = jtoc_node_get_by_path(n, "params")) &&
 		(tmp = tmp->down))

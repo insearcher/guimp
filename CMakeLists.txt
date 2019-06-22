@@ -19,7 +19,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/sdl2-cmake-modules)
 
 set_target_properties(guimp_cmake
         PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "/Users/frolov/Education/21school/guimp"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         )
 
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /Users/frolov/Education/21school/guimp)

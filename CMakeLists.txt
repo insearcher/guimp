@@ -4,7 +4,7 @@ cmake_policy(SET CMP0076 NEW)
 
 project(guimp VERSION 1.0.0 LANGUAGES C)
 
-add_executable(guimp)
+add_executable(guimp_cmake)
 
 #target_link_libraries(guimp
 #        "-framework SDL2"
@@ -16,6 +16,14 @@ add_executable(guimp)
 #        )
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/sdl2-cmake-modules)
+
+set_target_properties(guimp_cmake
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "/Users/frolov/Education/21school/guimp"
+        )
+
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /Users/frolov/Education/21school/guimp)
+#set(RUNTIME_OUTPUT_DIRECTORY /Users/frolov/Education/21school/guimp)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
@@ -47,7 +55,7 @@ add_subdirectory(libft)
 add_subdirectory(libjtoc)
 add_subdirectory(libui)
 
-target_link_libraries(guimp
+target_link_libraries(guimp_cmake
         ft
         jtoc
         ui
@@ -71,4 +79,4 @@ target_link_libraries(guimp
 #        ${Carbon}
 #        ${FreeType})
 
-install(TARGETS guimp DESTINATION .)
+install(TARGETS guimp_cmake DESTINATION .)

@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/22 23:56:28 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/24 22:17:54 by sbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_default_scroll_menu.c \
 					ui_el_setup_default.c \
 					ui_el_setup_horizontal_draggable.c \
-					ui_el_setup_menu_resizable.c
+					ui_el_setup_menu_resizable.c \
+					ui_el_show_child.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 

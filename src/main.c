@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 23:58:31 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/24 22:51:15 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_el_setup_default_scroll_menu_elem(tmp_el);
 	ui_el_add_child(layer_menu, tmp_el);
 	tmp_el->id = gm_generate_surf_id(ID_GENERATOR_ADD);
-	ui_el_set_pos(tmp_el, 0, 0,
+	ui_el_set_pos(tmp_el, 0,
 		(t_fvec2){0.1,
 			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.3 * (float)gm_generator_get_surf_count()});
-	ui_el_set_size(tmp_el, 0, 0, (t_fvec2){0.8, 0.25});
+	ui_el_set_size(tmp_el, 0, (t_fvec2){0.8, 0.25});
 	tmp_el->sdl_renderer = g->main_win->sdl_renderer;
 	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_place", "default");
 	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_onPtr", "onFocus");
@@ -122,8 +122,8 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	}
 	ui_el_setup_default(el);
 	ui_el_add_child(tmp_el, el);
-	ui_el_set_pos(el, 0, 0, (t_fvec2){0.1, 0.1});
-	ui_el_set_size(el, 0, 0, (t_fvec2){0.8, 0.8});
+	ui_el_set_pos(el, 0, (t_fvec2){0.1, 0.1});
+	ui_el_set_size(el, 0, (t_fvec2){0.8, 0.8});
 	el->id = tmp_el->id * 1000;
 	el->params |= EL_IGNOR_RAYCAST | EL_IS_DEPENDENT;
 	el->sdl_renderer = g->main_win->sdl_renderer;
@@ -509,6 +509,7 @@ int		main()
 	}
 	ui_main_fill_default_surfaces(g_main.ui_main);
 	ui_main_fill_default_functions(g_main.ui_main);
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_show_child, "ui_el_show_child");
 	ui_main_add_function_by_id(g_main.ui_main, ui_el_draw_event, "ui_el_draw_event");
 	ui_main_add_function_by_id(g_main.ui_main, draw_canvas_renderer, "draw_canvas_renderer");
 	ui_main_add_function_by_id(g_main.ui_main, draw_with_selected_tool, "draw_with_selected_tool");
@@ -540,7 +541,6 @@ int		main()
 
 
 	ui_main_from_json(g_main.ui_main, "./json/main.json");
-
 
 	g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
 	g_main.tool_win = ui_main_find_window_by_id(g_main.ui_main, 1);

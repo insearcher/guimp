@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/24 22:51:15 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 00:00:22 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -540,13 +540,13 @@ int		main()
 	g_main.zoom_rect.h = GM_IMAGE_SIZE_Y;
 
 
-	ui_main_from_json(g_main.ui_main, "./json/main.json");
+	if (ui_main_from_json(g_main.ui_main, "./json/main.json"))
+		return (0);
 
 	g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
 	g_main.tool_win = ui_main_find_window_by_id(g_main.ui_main, 1);
 
-	printf("w_main ID: %d\n", g_main.main_win->id);
-	printf("w_tool ID: %d\n", g_main.tool_win->id);
+
 	t_ui_el	*cur_el;
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
@@ -570,7 +570,7 @@ int		main()
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
 
 	// ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
-//	ui_el_add_texture_from_file_dialog(cur_el);
+	// ui_el_add_texture_from_file_dialog(cur_el);
 
 	ui_main_loop(g_main.ui_main);
 	return (0);

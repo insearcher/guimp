@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_set_pos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:45:47 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/05 04:15:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/24 21:23:56 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
+void	ui_el_set_pos(t_ui_el *el, int type, t_fvec2 v)
 {
+	t_ui_el	*p;
+
+	p = el;
+	while (p->parent)
+		p = p->parent;
 	if ((type & ABS) && (type & PIXEL))
 	{
 		el->rect.x = roundf(v.x);
@@ -21,8 +26,8 @@ void	ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
 	}
 	else if ((type & ABS))
 	{
-		el->rect.x = roundf((float)canvas->rect.w * v.x);
-		el->rect.y = roundf((float)canvas->rect.h * v.y);
+		el->rect.x = roundf((float)p->rect.w * v.x);
+		el->rect.y = roundf((float)p->rect.h * v.y);
 	}
 	else if ((type & PIXEL))
 	{

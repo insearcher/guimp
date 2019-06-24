@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_set_size.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:12:38 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/05 04:18:05 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/24 21:23:51 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
+void	ui_el_set_size(t_ui_el *el, int type, t_fvec2 v)
 {
+	t_ui_el	*p;
+
+	p = el;
+	while (p->parent)
+		p = p->parent;
 	if ((type & PIXEL))
 	{
 		el->rect.w = roundf(v.x);
@@ -21,8 +26,8 @@ void	ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
 	}
 	else if ((type & ABS))
 	{
-		el->rect.w = roundf((float)canvas->rect.w * v.x);
-		el->rect.h = roundf((float)canvas->rect.h * v.y);
+		el->rect.w = roundf((float)p->rect.w * v.x);
+		el->rect.h = roundf((float)p->rect.h * v.y);
 	}
 	else
 	{

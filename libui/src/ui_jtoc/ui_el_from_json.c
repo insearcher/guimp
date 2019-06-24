@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/20 20:28:06 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/24 21:24:43 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ static int	ui_el_from_json_size(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *
 		}
 	}
 	(void)w;
-	ui_el_set_size(e, 0, p, (t_fvec2){x, y});
+	ui_el_set_size(e, p, (t_fvec2){x, y});
 	return (ui_el_from_json_textures(m, e, n));
 }
 
@@ -263,7 +263,7 @@ static int	ui_el_from_json_pos(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode *n
 			tmp = tmp->right;
 		}
 	}
-	ui_el_set_pos(e, 0, p, (t_fvec2){x, y});
+	ui_el_set_pos(e, p, (t_fvec2){x, y});
 	return (ui_el_from_json_size(m, w, e, n));
 }
 

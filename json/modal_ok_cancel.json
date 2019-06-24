@@ -1,0 +1,169 @@
+{
+	"windows":
+	[
+		{
+			"id": 10,
+			"title": "OK_CANCEL",
+			"size":
+			{
+				"x": 400,
+				"y": 300
+			},
+			"pos":
+			{
+				"x": 495
+			},
+			"events":
+			[
+				{
+					"event_name": "onClose",
+					"func_name": "ui_main_close_program"
+				}
+			],
+			"elements":
+			[
+				{
+					"id": 0,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					]
+				},
+				{
+					"id": 1,
+					"parent": 0,
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 1,
+						"y": 1
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "AAAAAA",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 1,
+					"parent": 0,
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 1,
+						"y": 1
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "AAAAAA",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 10,
+					"parent": 1,
+					"pos":
+					{
+						"x": 20,
+						"y": 10,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 360,
+						"y": 210,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FF0000",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 11,
+					"parent": 1,
+					"pos":
+					{
+						"x": 20,
+						"y": 230,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 170,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "00FF00",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 12,
+					"parent": 1,
+					"pos":
+					{
+						"x": 210,
+						"y": 230,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 170,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "0000FF",
+							"el_id": "default"
+						}
+					]
+				}
+			]
+		}
+	]
+}

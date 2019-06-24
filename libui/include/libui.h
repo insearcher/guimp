@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 23:58:23 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/24 22:18:09 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,14 +412,16 @@ void				ui_el_draw_event(void *el_v, void *arg);
 
 t_ui_el				*ui_el_init(void);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
-void				ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
-void				ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_set_pos(t_ui_el *el, int type, t_fvec2 v);
+void				ui_el_set_size(t_ui_el *el, int type, t_fvec2 v);
 void				ui_el_change_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_pos_for_children(void *a1, void *a2);
 void				ui_el_set_new_size_for_children(void *a1, void *a2);
+
+void				ui_el_show_child(void *a1, void *a2);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 

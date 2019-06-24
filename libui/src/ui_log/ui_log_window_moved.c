@@ -25,7 +25,7 @@ void    ui_log_window_moved(void *a1, void *a2)
 				KYEL,
 				"WIN MOVED",
 				KNRM,
-				m->raycaster->selected_win->id
+				w->id
 			   );
 	}
 }

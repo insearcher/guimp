@@ -547,7 +547,6 @@ int		main()
 
 	printf("w_main ID: %d\n", g_main.main_win->id);
 	printf("w_tool ID: %d\n", g_main.tool_win->id);
-
 	t_ui_el	*cur_el;
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
@@ -571,7 +570,7 @@ int		main()
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
 
 	// ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
-	ui_el_add_texture_from_file_dialog(cur_el);
+//	ui_el_add_texture_from_file_dialog(cur_el);
 
 	ui_main_loop(g_main.ui_main);
 	return (0);

@@ -10,4 +10,5 @@ target_sources(ui PUBLIC
         ui_win_update_size.c
         ui_win_find_el_by_id.c
         ui_win_focus.c
+        ui_win_change_text_in_focused_el
         )

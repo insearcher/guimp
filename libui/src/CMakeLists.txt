@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 cmake_policy(SET CMP0076 NEW)
 
 add_subdirectory(bfs)
+add_subdirectory(ui_cursor)
 add_subdirectory(ui_draw_events)
 add_subdirectory(ui_el)
 add_subdirectory(ui_event)

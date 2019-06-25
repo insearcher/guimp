@@ -64,6 +64,7 @@
 //text params
 # define TEXT_IS_CENTERED	(1 << 0)
 # define TEXT_IS_BIG		(1 << 1)
+# define TEXT_IS_INPUTTING	(1 << 2)
 
 //text render_params
 # define TEXT_IS_SOLID		(1 << 0)

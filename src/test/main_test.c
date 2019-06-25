@@ -6,11 +6,11 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 07:13:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/25 19:47:53 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 22:26:09 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "guimp_test.h"iguuigqrwugirdukybw
+#include "guimp_test.h"
 
 int	main()
 {
@@ -39,9 +39,9 @@ int	main()
 	t_ui_el *cur_el = ui_win_find_el_by_id(guimp.w, 1);
 	cur_el->params |= EL_IS_TEXT;
 	cur_el->params |= EL_IS_DEPENDENT;
-	ui_el_set_text(guimp.m, cur_el, "Diablo",
-			(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 10, TEXT_IS_CENTERED, 0});
-	ui_el_update_text(cur_el, "");
+	ui_el_set_text(guimp.m, cur_el, "CavePaintings",
+			(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0},
+			10, TEXT_IS_CENTERED | TEXT_IS_INPUTTING, 0});
 
 	ui_main_loop(guimp.m);
 }

@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 07:13:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/22 21:29:36 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/24 23:17:53 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main()
 	cur_el->params |= EL_IS_TEXT;
 	cur_el->params |= EL_IS_DEPENDENT;
 	ui_el_set_text(guimp.m, cur_el, "Diablo",
-			(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+			(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 10, TEXT_IS_CENTERED, 0});
 	ui_el_update_text(cur_el, "");
 
 	ui_main_loop(guimp.m);

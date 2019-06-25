@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 20:52:04 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/25 08:11:26 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 	t_list		*n;
 	size_t		len;
 
+	if (text == NULL || *text == '\0')
+		return (FUNCTION_SUCCESS);
 	len = ft_strlen(text);
 	if (el->text.max_text_size == 0 || len <= el->text.max_text_size)
 	{

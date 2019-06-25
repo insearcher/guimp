@@ -38,4 +38,5 @@ target_sources(ui PUBLIC
         ui_el_setup_default.c
         ui_el_setup_horizontal_draggable.c
         ui_el_setup_menu_resizable.c
+        ui_el_show_child.c
         )

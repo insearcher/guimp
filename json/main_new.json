@@ -442,12 +442,12 @@
             },
             {
               "type": "color",
-              "color": "00FF00",
+              "color": "FF0000",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "00EE00",
+              "color": "EE0000",
               "el_id": "onActive"
             }
           ],
@@ -501,12 +501,12 @@
             },
             {
               "type": "color",
-              "color": "0000FF",
+              "color": "FF0000",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "0000EE",
+              "color": "EE0000",
               "el_id": "onActive"
             }
           ],
@@ -560,12 +560,12 @@
             },
             {
               "type": "color",
-              "color": "FF00FF",
+              "color": "FF0000",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "EE00EE",
+              "color": "EE0000",
               "el_id": "onActive"
             }
           ],
@@ -619,12 +619,12 @@
             },
             {
               "type": "color",
-              "color": "FFFF00",
+              "color": "00FF00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "EEEE00",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -682,12 +682,12 @@
             },
             {
               "type": "color",
-              "color": "00FFFF",
+              "color": "00FF00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "00EEEE",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -745,12 +745,12 @@
             },
             {
               "type": "color",
-              "color": "888822",
+              "color": "FF0000",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "777711",
+              "color": "DD0000",
               "el_id": "onActive"
             }
           ],
@@ -804,12 +804,12 @@
             },
             {
               "type": "color",
-              "color": "228888",
+              "color": "FF0000",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "117777",
+              "color": "DD0000",
               "el_id": "onActive"
             }
           ],
@@ -1070,7 +1070,7 @@
           },
           "size":
           {
-            "x": 276,
+            "x": 50,
             "y": 18,
             "params":
             [
@@ -1208,7 +1208,7 @@
           [
             {
               "type": "gradient",
-              "color": "FFFFFF",
+              "color": "DDDDDD",
               "el_id": "default"
             }
           ],

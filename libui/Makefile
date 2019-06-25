@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/25 20:42:36 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -152,7 +152,8 @@ SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c \
 					ui_prefab_get_pixel_pos.c \
 					ui_prefab_get_pixel_size.c
 
-SRC_UTILITS		=	ui_get_rect_from_frect.c
+SRC_UTILITS		=	ui_get_rect_from_frect.c \
+					ui_get_pixel_color_from_texture.c
 
 SRC_UI_JTOC		=	ui_main_from_json.c \
 					ui_win_from_json.c \

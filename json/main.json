@@ -528,6 +528,42 @@
 					]
 				},
 				{
+					"id": 17,
+					"parent": 11,
+					"type":
+					[
+						"SCROLL_MENU_ELEM"
+					],
+					"pos":
+					{
+						"x": 0.55,
+						"y": 0.6
+					},
+					"size":
+					{
+						"x": 105,
+						"y": 105,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"main_id": "prison",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "choose_pipette"
+						}
+					]
+				},
+				{
 					"id": 20,
 					"parent": 0,
 					"pos":

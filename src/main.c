@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 20:46:40 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,13 +262,17 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	}
 	if (g->draw_tool.tool == GM_TOOL_LINE)
 	{
-		// printf("from start_draw_with_selected_tool in>>>>>>>>> %d\n", g->draw_tool.state);
 		if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
 			g->draw_tool.state = GM_TOOL_STATE_END;
 		else if (g->draw_tool.state == GM_TOOL_STATE_NONE)
 			g->draw_tool.state = GM_TOOL_STATE_START;
-
-		// printf("from start_draw_with_selected_tool out>>>>>>>>> %d\n", g->draw_tool.state);
+	}
+	if (g->draw_tool.tool == GM_TOOL_PIPETTE)
+	{
+		int color = ui_get_pixel_color_from_texture(el->sdl_renderer, (t_texture *)(g->layers.layers->content), (t_vec2){x, y});
+		g->draw_tool.r = (color & 0xFF0000) >> 16;
+		g->draw_tool.g = (color & 0x00FF00) >> 8;
+		g->draw_tool.b = color & 0x0000FF;
 	}
 }
 
@@ -284,7 +288,6 @@ static void	scan_tool_position(void *main, void *el_v)
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
 	g->draw_tool.cur_point = (t_vec2){x, y};
-	// printf(">>>>>>>>>>>>>>%d>>>>>>>>>>>>>>%d\n", g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
 }
 
 static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
@@ -293,11 +296,9 @@ static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
-	// printf("from start_draw_with_selected_tool_pointer_up in>>>>>>>>> %d\n", g->draw_tool.state);
 	if (g->draw_tool.tool == GM_TOOL_LINE)
 		if (g->draw_tool.state == GM_TOOL_STATE_START)
 			g->draw_tool.state = GM_TOOL_STATE_DRAW;
-	// printf("from start_draw_with_selected_tool_pointer_up out>>>>>>>>> %d\n", g->draw_tool.state);
 }
 
 static void	start_alt_with_selected_tool(void *main, void *el_v)
@@ -416,6 +417,15 @@ static void choose_hand(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_HAND;
+}
+
+static void choose_pipette(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_PIPETTE;
 }
 
 static void choose_line(void *main, void *el_v)
@@ -550,6 +560,7 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, choose_zoom, "choose_zoom");
 	ui_main_add_function_by_id(g_main.ui_main, choose_hand, "choose_hand");
 	ui_main_add_function_by_id(g_main.ui_main, choose_line, "choose_line");
+	ui_main_add_function_by_id(g_main.ui_main, choose_pipette, "choose_pipette");
 	ui_main_add_function_by_id(g_main.ui_main, choose_color, "choose_color");
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
@@ -567,7 +578,7 @@ int		main()
 	g_main.zoom_rect.h = GM_IMAGE_SIZE_Y;
 
 
-	if (ui_main_from_json(g_main.ui_main, "./json/main_new.json"))
+	if (ui_main_from_json(g_main.ui_main, "./json/main.json"))
 		return (0);
 
 	 g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
@@ -579,7 +590,6 @@ int		main()
 
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
-
 	g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63000);
@@ -590,20 +600,20 @@ int		main()
 	tmp->content_size = 63;
 	ft_lstadd(&(g_main.layers.layers), tmp);
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "Diablo",
-		(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	cur_el->data = ui_win_find_el_by_id(g_main.main_win, 1);
-	ui_event_add_listener(cur_el->events->onRender, text_test);
+	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
+	// cur_el->params |= EL_IS_TEXT;
+	// ui_el_set_text(g_main.ui_main, cur_el, "Diablo",
+	// 	(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+	// cur_el->data = ui_win_find_el_by_id(g_main.main_win, 1);
+	// ui_event_add_listener(cur_el->events->onRender, text_test);
 
-//	 cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
-//	 cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
-//	 cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush"), 100, 100});
-//	 ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-//
-//	 cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
-//	 ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
+	 cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
+	 cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
+	 cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush"), 100, 100});
+	 ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	 cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+	 ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
 //
 //	 ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
 //	 ui_el_add_texture_from_file_dialog(cur_el);

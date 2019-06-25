@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 22:21:02 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static int	get_surface_from_text(t_ui_el *el)
 	}
 	else
 	{
-		if (!(el->sdl_surface = TTF_RenderText_Shaded(el->text.font, el->text.text, el->text.text_color,
-						el->text.bg_color)))
+		if (!(el->sdl_surface = TTF_RenderText_Shaded(el->text.font, el->text.text,
+						el->text.text_color, el->text.bg_color)))
 			return (FUNCTION_FAILURE);
 	}
 	return (FUNCTION_SUCCESS);
@@ -45,7 +45,7 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 	t_list		*n;
 	size_t		len;
 
-	if (text == NULL || *text == '\0')
+	if (text == NULL)
 		return (FUNCTION_SUCCESS);
 	len = ft_strlen(text);
 	if (el->text.max_text_size == 0 || len <= el->text.max_text_size)
@@ -63,15 +63,14 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 			el->text.text = ft_strsub(text, 0, el->text.max_text_size);
 		}
 	}
-	if (get_surface_from_text(el) == FUNCTION_FAILURE || !(n = ft_lstnew(NULL, 0)))
+	if (get_surface_from_text(el) == FUNCTION_FAILURE)
+		ui_el_add_empty_texture(el, el->rect.w, el->rect.h, "empty");
+	if (!(n = ft_lstnew(NULL, 0)))
 		return (FUNCTION_FAILURE);
+	SDL_Log("CHECK1\n");
 	n->content = ui_el_create_texture(el);
 	n->content_size = ft_strhash("default");
-/*	if (el->sdl_textures)
-	{
-		SDL_DestroyTexture((SDL_Texture *)el->sdl_textures->content);
-		free(el->sdl_textures);
-	}*/
+	SDL_Log("CHECK2\n");
 	ft_lstadd(&(el->sdl_textures), n);
 	return (FUNCTION_SUCCESS);
 }

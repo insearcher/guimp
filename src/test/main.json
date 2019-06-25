@@ -69,13 +69,6 @@
 						"x": 0.9,
 						"y": 0.2
 					},
-					"textures":
-					[
-						{
-							"main_id": "tomb",
-							"el_id": "default"
-						}
-					]
 				}
 			]
 		}

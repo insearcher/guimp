@@ -12,6 +12,17 @@ set_target_properties(guimp_cmake
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         )
+if (NOT SDL2_FOUND)
+    set(SDL2_PATH /Users/sbednar/.brew/Cellar/sdl2/2.0.9_1)
+endif()
+
+if (NOT SDL2_IMAGE_FOUND)
+    set(SDL2_IMAGE_PATH /Users/sbednar/.brew/Cellar/sdl2_image/2.0.4)
+endif()
+
+if (NOT SDL2_TTF_FOUND)
+    set(SDL2_TTF_PATH /Users/sbednar/.brew/Cellar/sdl2_ttf/2.0.15)
+endif()
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)

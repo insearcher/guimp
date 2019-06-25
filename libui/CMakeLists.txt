@@ -11,9 +11,10 @@ set(${PROJECT_NAME}_INCLUDE_DIRS
         ${LIBFT_INCLUDE_DIRS}
         ${LIBJTOC_INCLUDE_DIRS}
         ${SDL2_INCLUDE_DIRS}
-        ${SDL2_image_INCLUDE_DIRS}
-        ${SDL2_ttf_INCLUDE_DIRS}
+        ${SDL2_IMAGE_INCLUDE_DIRS}
+        ${SDL2_TTF_INCLUDE_DIRS}
         CACHE INTERNAL "${PROJECT_NAME}: Include Directories" FORCE)
+
 include_directories(${LIBUI_INCLUDE_DIRS})
 
 add_subdirectory(src)

@@ -803,6 +803,36 @@
 							"el_id": "default"
 						}
 					]
+				},
+				{
+					"id": 30,
+					"parent": 3,
+					"pos":
+					{
+						"x": 2,
+						"y": 2,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 100,
+						"y": 20,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "000000",
+							"el_id": "default"
+						}
+					]
 				}
 			]
 		}

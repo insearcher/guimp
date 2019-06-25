@@ -4,7 +4,7 @@ cmake_policy(SET CMP0076 NEW)
 
 project(LIBUI VERSION 1.0.0 LANGUAGES C)
 
-add_library(ui STATIC)
+add_library(ui STATIC src/ui_el/ui_el_children_set_default.c)
 
 set(${PROJECT_NAME}_INCLUDE_DIRS
         ${PROJECT_SOURCE_DIR}/include

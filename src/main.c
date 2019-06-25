@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 00:14:54 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -441,8 +441,6 @@ static void	choose_color(void *main, void *el_v)
 	chil = ((t_ui_el *)el->children->content);
 	max = (el->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
 	res = el->ptr_rel_pos.x - chil->rect.w / 2;
-	res = res < 0 ? 0 : res;
-	res = res > el->rect.x + el->rect.w - 20 - chil->rect.w / 2 ? el->rect.x + el->rect.w - chil->rect.w / 2 - 20 : res;
 	ui_el_set_new_pos(chil, 0, PIXEL, (t_fvec2){res, 0});
 	res = ((float)(el->ptr_rel_pos.x) / (float)el->rect.w) * (float)max;
 	if (chil->id == GM_TOOL_ID_SL_HEAD_RED)
@@ -499,6 +497,26 @@ static void	draw_color_rect(void *el_v, void *main)
 	SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
 }
 
+static void text_test(void *elv, void *arg)
+{
+	t_ui_el	*el;
+	t_ui_el	*dr;
+
+	el = (t_ui_el *)elv;
+	dr = (t_ui_el *)el->data;
+	(void)arg;
+	if (dr->params & EL_IS_PTR_INSIDE)
+	{
+		char *res = ft_strjoin("(", ft_itoa(dr->ptr_rel_pos.x));
+		res = ft_strjoin(res, ";");
+		res = ft_strjoin(res, ft_itoa(dr->ptr_rel_pos.y));
+		res = ft_strjoin(res, ")");
+		ui_el_update_text(el, res);
+	}
+	else
+		ui_el_update_text(el, " ");
+}
+
 int		main()
 {
 	t_guimp	g_main;
@@ -522,6 +540,10 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, testOnPtrLBD, "testOnPtrLBD");
 	ui_main_add_function_by_id(g_main.ui_main, testOnPtrEnter, "testOnPtrEnter");
 	ui_main_add_function_by_id(g_main.ui_main, testOnPtrExit, "testOnPtrExit");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_set_default_texture, "ui_el_set_default_texture");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_set_focused_texture, "ui_el_set_focused_texture");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_set_active_texture, "ui_el_set_active_texture");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_children_set_default, "ui_el_children_set_default");
 	ui_main_add_function_by_id(g_main.ui_main, test_add_layer, "test_add_layer");
 	ui_main_add_function_by_id(g_main.ui_main, test_del_layer, "test_del_layer");
 	ui_main_add_function_by_id(g_main.ui_main, choose_brush, "choose_brush");
@@ -532,6 +554,8 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
 	ui_main_add_function_by_id(g_main.ui_main, start_draw_with_selected_tool_pointer_up, "start_draw_with_selected_tool_pointer_up");
+	ui_main_fill_default_fonts(g_main.ui_main);
+	ui_main_set_font_params(g_main.ui_main, "neco", (t_font_params){0, 0, 1, 0});
 	g_main.ui_main->data = (void *)(&g_main);
 	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
 	g_main.draw_tool.zoom = 1;
@@ -543,37 +567,46 @@ int		main()
 	g_main.zoom_rect.h = GM_IMAGE_SIZE_Y;
 
 
-	if (ui_main_from_json(g_main.ui_main, "./json/tools.json"))
+	if (ui_main_from_json(g_main.ui_main, "./json/main_new.json"))
 		return (0);
 
-	// g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
-	// g_main.tool_win = ui_main_find_window_by_id(g_main.ui_main, 1);
+	 g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
+	 g_main.tool_win = ui_main_find_window_by_id(g_main.ui_main, 1);
 
 
-	// t_ui_el	*cur_el;
+	t_ui_el	*cur_el;
+//	cur_el = ui_win_find_el_by_id((t_ui_win *)g_main.ui_main->windows->content, 30);
 
-	// cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
 
-	// g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
 
-	// cur_el = ui_win_find_el_by_id(g_main.main_win, 63000);
-	// g_main.layers.current_layer = cur_el;
-	// t_list	*tmp;
-	// tmp = ft_lstnew(NULL, 0);
-	// tmp->content = cur_el->sdl_textures->content;
-	// tmp->content_size = 63;
-	// ft_lstadd(&(g_main.layers.layers), tmp);
+	g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
 
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
-	// cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
-	// cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush"), 100, 100});
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 63000);
+	g_main.layers.current_layer = cur_el;
+	t_list	*tmp;
+	tmp = ft_lstnew(NULL, 0);
+	tmp->content = cur_el->sdl_textures->content;
+	tmp->content_size = 63;
+	ft_lstadd(&(g_main.layers.layers), tmp);
 
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
+	cur_el->params |= EL_IS_TEXT;
+	ui_el_set_text(g_main.ui_main, cur_el, "Diablo",
+		(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+	cur_el->data = ui_win_find_el_by_id(g_main.main_win, 1);
+	ui_event_add_listener(cur_el->events->onRender, text_test);
 
-	// ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
-	// ui_el_add_texture_from_file_dialog(cur_el);
+//	 cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
+//	 cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
+//	 cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush"), 100, 100});
+//	 ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+//
+//	 cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+//	 ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_to_default);
+//
+//	 ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
+//	 ui_el_add_texture_from_file_dialog(cur_el);
 
 	ui_main_loop(g_main.ui_main);
 	return (0);

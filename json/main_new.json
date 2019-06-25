@@ -830,6 +830,10 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_pipette"
             }
           ]
         },
@@ -1648,7 +1652,7 @@
           [
             {
               "type": "color",
-              "color": "FFFFFF",
+              "color": "AAAAAA",
               "el_id": "default"
             }
           ]
@@ -1656,10 +1660,14 @@
         {
           "id": 30,
           "parent": 3,
+          "params":
+          [
+            "EL_IGNOR_RAYCAST"
+          ],
           "pos":
           {
-            "x": 2,
-            "y": 2,
+            "x": 12,
+            "y": 4,
             "params":
             [
               "PIXEL"
@@ -1667,12 +1675,42 @@
           },
           "size":
           {
-            "x": 100,
-            "y": 20,
+            "x": 64,
+            "y": 16,
             "params":
             [
               "PIXEL"
             ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 300,
+          "parent": 30,
+          "params":
+          [
+            "EL_IS_HIDDEN"
+          ],
+          "pos":
+          {
+            "x": 0,
+            "y": 0,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 1,
+            "y": 1
           },
           "textures":
           [

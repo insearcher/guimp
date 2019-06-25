@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 23:10:50 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 00:05:54 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ void move_windows(void *a1, void *a2)
 			list = list->next;
 		}
 	}
+}
+
+static int	get_value_from_slider(t_ui_el *s, t_ui_el *c)
+{
+	int	res;
+	int	max;
+
+	max = (c->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
+	res = s->ptr_rel_pos.x - c->rect.w / 2;
+	ui_el_set_new_pos(c, 0, PIXEL, (t_fvec2){res, 0});
+	res = ((float)(s->ptr_rel_pos.x) / (float)s->rect.w) * (float)max;
+	return (res);
 }
 
 static void	testOnPtrEnter(void *main, void *el_v)
@@ -268,13 +280,19 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 		else if (g->draw_tool.state == GM_TOOL_STATE_NONE)
 			g->draw_tool.state = GM_TOOL_STATE_START;
 	}
-	if (g->draw_tool.tool == GM_TOOL_PIPETTE)
-	{
-		int color = ui_get_pixel_color_from_texture(el->sdl_renderer, (t_texture *)(g->layers.layers->content), (t_vec2){x, y});
-		g->draw_tool.r = (color & 0xFF0000) >> 16;
-		g->draw_tool.g = (color & 0x00FF00) >> 8;
-		g->draw_tool.b = color & 0x0000FF;
-	}
+}
+
+static void	update_color_rect(t_guimp *gm, int r, int g, int b)
+{
+	t_ui_el	*el;
+
+	el = ui_win_find_el_by_id(gm->tool_win, GM_TOOL_ID_COLOR_RECT);
+	SDL_Texture *t = (SDL_Texture *)el->sdl_textures->content;
+	SDL_DestroyTexture(t);
+	free(el->sdl_textures);
+	el->sdl_textures = NULL;
+	ui_el_add_color_texture(el, (t_vec2){100, 20}, (r << 16) | (g << 8) | b, "default");
+//	el = ui_win_find_el_by_id(gm->tool_win, GM_TOOL_ID_COLOR_TEXT);
 }
 
 static void	scan_tool_position(void *main, void *el_v)
@@ -395,6 +413,20 @@ static void	draw_with_selected_tool(void *main, void *el_v)
 	}
 	if (g->draw_tool.tool == GM_TOOL_BRUSH)
 		g->draw_tool.prew_point = (t_vec2){x, y};
+	if (g->draw_tool.tool == GM_TOOL_PIPETTE)
+	{
+		int color = ui_get_pixel_color_from_texture(el->sdl_renderer, (t_texture *)(g->layers.layers->content), (t_vec2){x, y});
+		g->draw_tool.r = (color & 0xFF0000) >> 16;
+		g->draw_tool.g = (color & 0x00FF00) >> 8;
+		g->draw_tool.b = color & 0x0000FF;
+		el = ui_win_find_el_by_id(g->tool_win, GM_TOOL_ID_SL_HEAD_RED);
+		ui_el_set_new_pos(el, 0, PIXEL, (t_fvec2){-el->rect.w / 2 + g->draw_tool.r / 255.0f * el->parent->rect.w, 0});
+		el = ui_win_find_el_by_id(g->tool_win, GM_TOOL_ID_SL_HEAD_GR);
+		ui_el_set_new_pos(el, 0, PIXEL, (t_fvec2){-el->rect.w / 2 + g->draw_tool.g / 255.0f * el->parent->rect.w, 0});
+		el = ui_win_find_el_by_id(g->tool_win, GM_TOOL_ID_SL_HEAD_BL);
+		ui_el_set_new_pos(el, 0, PIXEL, (t_fvec2){-el->rect.w / 2 + g->draw_tool.b / 255.0f * el->parent->rect.w, 0});
+		update_color_rect(g, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b);
+	}
 }
 
 static void choose_brush(void *main, void *el_v)
@@ -454,11 +486,8 @@ static void	choose_red_color(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
 	chil = ((t_ui_el *)el->children->content);
-	max = (el->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
-	res = el->ptr_rel_pos.x - chil->rect.w / 2;
-	ui_el_set_new_pos(chil, 0, PIXEL, (t_fvec2){res, 0});
-	res = ((float)(el->ptr_rel_pos.x) / (float)el->rect.w) * (float)max;
-	g->draw_tool.r = res;
+	g->draw_tool.r = get_value_from_slider(el, chil);
+	update_color_rect(g, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b);
 }
 
 static void	choose_green_color(void *main, void *el_v)
@@ -472,11 +501,8 @@ static void	choose_green_color(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
 	chil = ((t_ui_el *)el->children->content);
-	max = (el->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
-	res = el->ptr_rel_pos.x - chil->rect.w / 2;
-	ui_el_set_new_pos(chil, 0, PIXEL, (t_fvec2){res, 0});
-	res = ((float)(el->ptr_rel_pos.x) / (float)el->rect.w) * (float)max;
-	g->draw_tool.g = res;
+	g->draw_tool.g = get_value_from_slider(el, chil);
+	update_color_rect(g, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b);
 }
 
 static void	choose_blue_color(void *main, void *el_v)
@@ -490,11 +516,8 @@ static void	choose_blue_color(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
 	chil = ((t_ui_el *)el->children->content);
-	max = (el->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
-	res = el->ptr_rel_pos.x - chil->rect.w / 2;
-	ui_el_set_new_pos(chil, 0, PIXEL, (t_fvec2){res, 0});
-	res = ((float)(el->ptr_rel_pos.x) / (float)el->rect.w) * (float)max;
-	g->draw_tool.b = res;
+	g->draw_tool.b = get_value_from_slider(el, chil);
+	update_color_rect(g, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b);
 }
 
 static void	choose_size(void *main, void *el_v)
@@ -508,11 +531,7 @@ static void	choose_size(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
 	chil = ((t_ui_el *)el->children->content);
-	max = (el->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
-	res = el->ptr_rel_pos.x - chil->rect.w / 2;
-	ui_el_set_new_pos(chil, 0, PIXEL, (t_fvec2){res, 0});
-	res = ((float)(el->ptr_rel_pos.x) / (float)el->rect.w) * (float)max;
-	g->draw_tool.brush_size = res;
+	g->draw_tool.brush_size = get_value_from_slider(el, chil);
 }
 
 static void	choose_alpha(void *main, void *el_v)
@@ -526,11 +545,7 @@ static void	choose_alpha(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
 	chil = ((t_ui_el *)el->children->content);
-	max = (el->id == GM_TOOL_ID_SL_HEAD_SZ) ? GM_BRUSH_MAX_SIZE : 255;
-	res = el->ptr_rel_pos.x - chil->rect.w / 2;
-	ui_el_set_new_pos(chil, 0, PIXEL, (t_fvec2){res, 0});
-	res = ((float)(el->ptr_rel_pos.x) / (float)el->rect.w) * (float)max;
-	g->draw_tool.a = res;
+	g->draw_tool.a = get_value_from_slider(el, chil);
 }
 
 static void	choose_color(void *main, void *el_v)
@@ -660,6 +675,7 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, choose_blue_color, "choose_blue_color");
 	ui_main_add_function_by_id(g_main.ui_main, choose_size, "choose_size");
 	ui_main_add_function_by_id(g_main.ui_main, choose_alpha, "choose_alpha");
+	ui_main_add_function_by_id(g_main.ui_main, choose_pipette, "choose_pipette");
 	ui_main_add_function_by_id(g_main.ui_main, choose_color, "choose_color");
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");

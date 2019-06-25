@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 20:55:27 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 23:46:24 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,18 @@
 # define GM_TOOL_ID_LINE		16
 # define GM_TOOL_ID_PIPETTE		17
 # define GM_TOOL_ID_SET_MENU	20
-# define GM_TOOL_ID_SL_ROOT_RED	21
-# define GM_TOOL_ID_SL_HEAD_RED	22
-# define GM_TOOL_ID_SL_ROOT_GR	23
-# define GM_TOOL_ID_SL_HEAD_GR	24
-# define GM_TOOL_ID_SL_ROOT_BL	25
-# define GM_TOOL_ID_SL_HEAD_BL	26
-# define GM_TOOL_ID_SL_ROOT_SZ	27
-# define GM_TOOL_ID_SL_HEAD_SZ	28
+# define GM_TOOL_ID_SL_ROOT_RED	20
+# define GM_TOOL_ID_SL_HEAD_RED	200
+# define GM_TOOL_ID_SL_ROOT_GR	21
+# define GM_TOOL_ID_SL_HEAD_GR	210
+# define GM_TOOL_ID_SL_ROOT_BL	22
+# define GM_TOOL_ID_SL_HEAD_BL	220
+# define GM_TOOL_ID_SL_ROOT_SZ	23
+# define GM_TOOL_ID_SL_HEAD_SZ	230
 # define GM_TOOL_ID_CL_RECT		29
 
+# define GM_TOOL_ID_COLOR_RECT	30
+# define GM_TOOL_ID_COLOR_TEXT	300
 
 # define GM_LAYER_WIN_W			300
 # define GM_LAYER_WIN_H			800

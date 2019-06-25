@@ -878,7 +878,7 @@
           "size":
           {
             "x": 276,
-            "y": 24,
+            "y": 16,
             "params":
             [
               "PIXEL"
@@ -896,7 +896,7 @@
           [
             {
               "event_name": "onPointerLeftButtonHold",
-              "func_name": "choose_color"
+              "func_name": "choose_red_color"
             }
           ]
         },
@@ -932,7 +932,7 @@
           "pos":
           {
             "x": 12,
-            "y": 48,
+            "y": 40,
             "params":
             [
               "PIXEL"
@@ -941,7 +941,7 @@
           "size":
           {
             "x": 276,
-            "y": 24,
+            "y": 16,
             "params":
             [
               "PIXEL"
@@ -959,7 +959,7 @@
           [
             {
               "event_name": "onPointerLeftButtonHold",
-              "func_name": "choose_color"
+              "func_name": "choose_green_color"
             }
           ]
         },
@@ -995,7 +995,7 @@
           "pos":
           {
             "x": 12,
-            "y": 84,
+            "y": 68,
             "params":
             [
               "PIXEL"
@@ -1004,7 +1004,7 @@
           "size":
           {
             "x": 276,
-            "y": 24,
+            "y": 16,
             "params":
             [
               "PIXEL"
@@ -1022,7 +1022,7 @@
           [
             {
               "event_name": "onPointerLeftButtonHold",
-              "func_name": "choose_color"
+              "func_name": "choose_blue_color"
             }
           ]
         },
@@ -1053,12 +1053,49 @@
           ]
         },
         {
+          "id": 23000,
+          "parent": 2,
+          "pos":
+          {
+            "x": 12,
+            "y": 100,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 100,
+            "y": 18,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "FFFFFF",
+              "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonHold",
+              "func_name": "choose_alpha"
+            }
+          ]
+        },
+        {
           "id": 23,
           "parent": 2,
           "pos":
           {
             "x": 12,
-            "y": 120,
+            "y": 122,
             "params":
             [
               "PIXEL"
@@ -1067,7 +1104,7 @@
           "size":
           {
             "x": 276,
-            "y": 24,
+            "y": 16,
             "params":
             [
               "PIXEL"
@@ -1085,7 +1122,7 @@
           [
             {
               "event_name": "onPointerLeftButtonHold",
-              "func_name": "choose_color"
+              "func_name": "choose_size"
             }
           ]
         },
@@ -1116,12 +1153,12 @@
           ]
         },
         {
-          "id": 24,
+          "id": 24000,
           "parent": 2,
           "pos":
           {
             "x": 12,
-            "y": 156,
+            "y": 142,
             "params":
             [
               "PIXEL"
@@ -1129,8 +1166,8 @@
           },
           "size":
           {
-            "x": 276,
-            "y": 24,
+            "x": 100,
+            "y": 18,
             "params":
             [
               "PIXEL"
@@ -1140,7 +1177,7 @@
           [
             {
               "type": "color",
-              "color": "000000",
+              "color": "FFFFFF",
               "el_id": "default"
             }
           ],
@@ -1148,7 +1185,44 @@
           [
             {
               "event_name": "onPointerLeftButtonHold",
-              "func_name": "choose_color"
+              "func_name": "choose_alpha"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "parent": 2,
+          "pos":
+          {
+            "x": 12,
+            "y": 164,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 276,
+            "y": 16,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "gradient",
+              "color": "FFFFFF",
+              "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonHold",
+              "func_name": "choose_alpha"
             }
           ]
         },

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 20:42:15 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ** 7)
 */
 
-# define DEBUG_STATUS		0
+# define DEBUG_STATUS		1
 
 # define KNRM				"\x1B[0m"
 # define KRED				"\x1B[31m"
@@ -198,7 +198,7 @@ typedef struct		s_cursor
 {
 	SDL_Surface		*s;
 	int				hot_x;
-	int				hor_y;
+	int				hot_y;
 }					t_cursor;
 
 t_cursor			*ui_cursor_init(void);

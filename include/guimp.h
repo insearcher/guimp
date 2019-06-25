@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 20:50:19 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:55:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct					s_draw_tool
 	Uint8						r;
 	Uint8						g;
 	Uint8						b;
+	Uint8						a;
 	int							zoom;
 	int							state;
 }								t_draw_tool;

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 21:24:13 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/22 20:50:19 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define GM_TOOL_ID_ERASER		13
 # define GM_TOOL_ID_ZOOM		14
 # define GM_TOOL_ID_HAND		15
+# define GM_TOOL_ID_LINE		16
+# define GM_TOOL_ID_PIPETTE		17
 # define GM_TOOL_ID_SET_MENU	20
 # define GM_TOOL_ID_SL_ROOT_RED	21
 # define GM_TOOL_ID_SL_HEAD_RED	22
@@ -59,7 +61,7 @@
 # define GM_BRUSH_MAX_SIZE		300
 # define GM_BRUSH_DEF_SIZE		10
 # define GM_ZOOM_MAX_SIZE		32
-# define GM_ZOOM_MOVE_ZONE		0.1
+# define GM_ZOOM_MOVE_ZONE		0.3
 # define GM_ZOOM_MOVE_SPEED		64
 # define GM_HAND_MOVE_SPEED		1
 # define GM_HAND_MIN_DIST		3
@@ -69,6 +71,7 @@
 # define GM_TOOL_ERASER			2
 # define GM_TOOL_HAND			3
 # define GM_TOOL_LINE			4
+# define GM_TOOL_PIPETTE		5
 
 # define GM_TOOL_STATE_NONE		0
 # define GM_TOOL_STATE_START	1

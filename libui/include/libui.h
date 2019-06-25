@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 19:39:00 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/25 18:52:12 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ** 7)
 */
 
-# define DEBUG_STATUS		1
+# define DEBUG_STATUS		0
 
 # define KNRM				"\x1B[0m"
 # define KRED				"\x1B[31m"
@@ -508,5 +508,8 @@ int					ui_el_setup_by_type(t_ui_el *e, t_jnode *n);
 int					ui_get_win_param_from_string(const char *str);
 
 int					ui_sdl_log_error(const char *p, const int id);
+
+Uint32				ui_get_pixel_color_from_texture(SDL_Renderer *renderer,
+						SDL_Texture *texture, t_vec2 coord);
 
 #endif

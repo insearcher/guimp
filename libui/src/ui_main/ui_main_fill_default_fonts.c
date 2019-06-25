@@ -24,4 +24,5 @@ void	ui_main_fill_default_fonts(t_ui_main *m)
 	ui_main_add_font_by_path(m, "fonts/DemocraticPeaceWarriors.ttf", "PeaceWarriors");
 	ui_main_add_font_by_path(m, "fonts/CavePaintings.ttf", "CavePaintings");
 	ui_main_add_font_by_path(m, "fonts/Crosses.ttf", "Crosses");
+	ui_main_add_font_by_path(m, "fonts/Microsoft Sans Serif.ttf", "SansSerif");
 }

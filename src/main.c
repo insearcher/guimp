@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 22:27:35 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 23:08:37 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -668,6 +668,7 @@ int		main()
 	ui_main_set_font_params(g_main.ui_main, "neco", (t_font_params){0, 0, 1, 0});
 	g_main.ui_main->data = (void *)(&g_main);
 	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
+	g_main.draw_tool.a = 255;
 	g_main.draw_tool.zoom = 1;
 	g_main.draw_tool.state = GM_TOOL_STATE_NONE;
 	g_main.draw_tool.tool = GM_TOOL_BRUSH;
@@ -701,21 +702,21 @@ int		main()
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
 	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "Diablo",
-		(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
+		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, TEXT_IS_CENTERED, 0});
 	cur_el->data = ui_win_find_el_by_id(g_main.main_win, 1);
 	ui_event_add_listener(cur_el->events->onRender, text_test);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23000);
 	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "Diablo",
-				   (t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
+		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, TEXT_IS_CENTERED | TEXT_IS_INPUTTING, 0});
 	ui_el_update_text(cur_el, "Size:");
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 24000);
 	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "Diablo",
-				   (t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
+			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, TEXT_IS_CENTERED, 0});
 	ui_el_update_text(cur_el, "Opacity:");
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 13);

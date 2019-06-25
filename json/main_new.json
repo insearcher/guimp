@@ -909,7 +909,7 @@
           ],
           "pos":
           {
-            "x": 0,
+            "x": -0.03,
             "y": 0
           },
           "size":
@@ -972,7 +972,7 @@
           ],
           "pos":
           {
-            "x": 0,
+            "x": -0.03,
             "y": 0
           },
           "size":
@@ -1035,7 +1035,7 @@
           ],
           "pos":
           {
-            "x": 0,
+            "x": -0.03,
             "y": 0
           },
           "size":
@@ -1055,6 +1055,10 @@
         {
           "id": 23000,
           "parent": 2,
+          "params":
+          [
+            "EL_IS_DEPENDENT"
+          ],
           "pos":
           {
             "x": 12,
@@ -1066,7 +1070,7 @@
           },
           "size":
           {
-            "x": 100,
+            "x": 276,
             "y": 18,
             "params":
             [
@@ -1079,13 +1083,6 @@
               "type": "color",
               "color": "FFFFFF",
               "el_id": "default"
-            }
-          ],
-          "events":
-          [
-            {
-              "event_name": "onPointerLeftButtonHold",
-              "func_name": "choose_alpha"
             }
           ]
         },
@@ -1135,7 +1132,7 @@
           ],
           "pos":
           {
-            "x": 0,
+            "x": -0.03,
             "y": 0
           },
           "size":
@@ -1155,6 +1152,10 @@
         {
           "id": 24000,
           "parent": 2,
+          "params":
+          [
+            "EL_IS_DEPENDENT"
+          ],
           "pos":
           {
             "x": 12,
@@ -1179,13 +1180,6 @@
               "type": "color",
               "color": "FFFFFF",
               "el_id": "default"
-            }
-          ],
-          "events":
-          [
-            {
-              "event_name": "onPointerLeftButtonHold",
-              "func_name": "choose_alpha"
             }
           ]
         },
@@ -1235,7 +1229,7 @@
           ],
           "pos":
           {
-            "x": 0,
+            "x": 0.97,
             "y": 0
           },
           "size":

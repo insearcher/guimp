@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:39:31 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 01:35:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 18:18:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ void	ui_log_mouse_button_down(void *a1, void *a2)
 {
 	t_ui_main	*m;
 	t_ui_win	*w;
-	Uint32		windowID;
 
 	m = (t_ui_main *)a1;
-	windowID = *((Uint32 *)a2);
-	w = ui_main_find_window_by_id(m, windowID);
+	w = (t_ui_win *)a2;
 	if (w != NULL)
 	{
-		SDL_Log("Mouse button %d DOWN on pixel (%d,%d) in win with ID=%d\n", m->sdl_event->button.button, m->ptr_pos.x, m->ptr_pos.y, windowID);
+		SDL_Log("Mouse button %d DOWN on pixel (%d,%d) in win with ID=%d\n",
+				m->sdl_event->button.button,
+				m->ptr_pos.x,
+				m->ptr_pos.y,
+				w->id);
 	}
 }

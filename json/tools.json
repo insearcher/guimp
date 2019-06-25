@@ -1,0 +1,840 @@
+{
+	"windows":
+	[
+		{
+			"id": 1,
+			"title": "TOOLS",
+			"size":
+			{
+				"x": 300,
+				"y": 800
+			},
+			"pos":
+			{
+				"x": 495
+			},
+			"events":
+			[
+				{
+					"event_name": "onMoved",
+					"func_name": "move_windows"
+				},
+				{
+					"event_name": "onClose",
+					"func_name": "ui_main_close_program"
+				}
+			],
+			"elements":
+			[
+				{
+					"id": 0,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					]
+				},
+				{
+					"id": 1,
+					"parent": 0,
+					"pos":
+					{
+						"x": 0,
+						"y": 0,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 300,
+						"y": 156,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "AAAAAA",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 10,
+					"parent": 1,
+					"pos":
+					{
+						"x": 12,
+						"y": 12,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 60,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FF0000",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "ui_el_show_child"
+						}
+					]
+				},
+				{
+					"id": 11,
+					"parent": 1,
+					"pos":
+					{
+						"x": 84,
+						"y": 12,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 60,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "00FF00",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "ui_el_show_child"
+						}
+					]
+				},
+				{
+					"id": 12,
+					"parent": 1,
+					"pos":
+					{
+						"x": 156,
+						"y": 12,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 60,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "0000FF",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonPressed",
+							"func_name": "ui_el_show_child"
+						}
+					]
+				},
+				{
+					"id": 13,
+					"parent": 1,
+					"pos":
+					{
+						"x": 228,
+						"y": 12,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 60,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FF00FF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 14,
+					"parent": 1,
+					"pos":
+					{
+						"x": 12,
+						"y": 84,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 60,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FFFF00",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 15,
+					"parent": 1,
+					"pos":
+					{
+						"x": 84,
+						"y": 84,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 60,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "00FFFF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 16,
+					"parent": 1,
+					"pos":
+					{
+						"x": 156,
+						"y": 84,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 60,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FFFFFF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 17,
+					"parent": 1,
+					"pos":
+					{
+						"x": 228,
+						"y": 84,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 60,
+						"y": 60,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "000000",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 2,
+					"parent": 0,
+					"pos":
+					{
+						"x": 0,
+						"y": 584,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 300,
+						"y": 192,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "AAAAAA",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 20,
+					"parent": 2,
+					"pos":
+					{
+						"x": 12,
+						"y": 12,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 276,
+						"y": 24,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "gradient",
+							"color": "FF0000",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						}
+					]
+				},
+				{
+					"id": 200,
+					"parent": 20,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FFFFFF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 21,
+					"parent": 2,
+					"pos":
+					{
+						"x": 12,
+						"y": 48,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 276,
+						"y": 24,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "gradient",
+							"color": "00FF00",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						}
+					]
+				},
+				{
+					"id": 210,
+					"parent": 21,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FFFFFF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 22,
+					"parent": 2,
+					"pos":
+					{
+						"x": 12,
+						"y": 84,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 276,
+						"y": 24,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "gradient",
+							"color": "0000FF",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						}
+					]
+				},
+				{
+					"id": 220,
+					"parent": 22,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FFFFFF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 23,
+					"parent": 2,
+					"pos":
+					{
+						"x": 12,
+						"y": 120,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 276,
+						"y": 24,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "000000",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						}
+					]
+				},
+				{
+					"id": 230,
+					"parent": 23,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FFFFFF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 24,
+					"parent": 2,
+					"pos":
+					{
+						"x": 12,
+						"y": 156,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 276,
+						"y": 24,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "000000",
+							"el_id": "default"
+						}
+					],
+					"events":
+					[
+						{
+							"event_name": "onPointerLeftButtonHold",
+							"func_name": "choose_color"
+						}
+					]
+				},
+				{
+					"id": 240,
+					"parent": 24,
+					"params":
+					[
+						"EL_IGNOR_RAYCAST"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 0
+					},
+					"size":
+					{
+						"x": 0.06,
+						"y": 1
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FFFFFF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 100,
+					"parent": 10,
+					"params":
+					[
+						"EL_IS_HIDDEN"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 156,
+						"params":
+						[
+							"PIXEL",
+							"ABS"
+						]
+					},
+					"size":
+					{
+						"x": 300,
+						"y": 428,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FF0000",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 110,
+					"parent": 11,
+					"params":
+					[
+						"EL_IS_HIDDEN"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 156,
+						"params":
+						[
+							"PIXEL",
+							"ABS"
+						]
+					},
+					"size":
+					{
+						"x": 300,
+						"y": 428,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "00FF00",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 120,
+					"parent": 12,
+					"params":
+					[
+						"EL_IS_HIDDEN"
+					],
+					"pos":
+					{
+						"x": 0,
+						"y": 156,
+						"params":
+						[
+							"PIXEL",
+							"ABS"
+						]
+					},
+					"size":
+					{
+						"x": 300,
+						"y": 428,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "0000FF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 3,
+					"parent": 0,
+					"pos":
+					{
+						"x": 0,
+						"y": 776,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 300,
+						"y": 24,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "FFFFFF",
+							"el_id": "default"
+						}
+					]
+				},
+				{
+					"id": 30,
+					"parent": 3,
+					"pos":
+					{
+						"x": 2,
+						"y": 2,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"size":
+					{
+						"x": 100,
+						"y": 20,
+						"params":
+						[
+							"PIXEL"
+						]
+					},
+					"textures":
+					[
+						{
+							"type": "color",
+							"color": "000000",
+							"el_id": "default"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -28,14 +28,6 @@
 					"func_name": "ui_win_update_size"
 				},
 				{
-					"event_name": "onScrollUp",
-					"func_name": "start_zoom_in"
-				},
-				{
-					"event_name": "onScrollDown",
-					"func_name": "start_zoom_out"
-				},
-				{
 					"event_name": "onClose",
 					"func_name": "ui_main_close_program"
 				}

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 18:52:12 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:42:15 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 
 //text params
 # define TEXT_IS_CENTERED	(1 << 0)
+# define TEXT_IS_BIG		(1 << 1)
 
 //text render_params
 # define TEXT_IS_SOLID		(1 << 0)
@@ -193,6 +194,19 @@ typedef struct		s_ui_el
 	void			*data;
 }					t_ui_el;
 
+typedef struct		s_cursor
+{
+	SDL_Surface		*s;
+	int				hot_x;
+	int				hor_y;
+}					t_cursor;
+
+t_cursor			*ui_cursor_init(void);
+
+void				ui_cursor_to_default(void *a1, void *a2);
+void				ui_cursor_from_el_data(void *a1, void *a2);
+void				ui_cursor_from(t_cursor *c);
+
 # pragma endregion
 # pragma region		t_ui_win_events
 
@@ -256,7 +270,7 @@ typedef struct		s_ui_main
 	t_list			*sdl_fonts;
 	t_list			*functions;
 	t_ui_el			*focused_el;
-	unsigned int	letter;
+	unsigned int	cur_keycode;
 	void			*data;
 	Uint32			params;
 	t_vec2			ptr_pos;
@@ -296,7 +310,7 @@ typedef struct		s_text_params
 	SDL_Color		text_color;
 	SDL_Color		bg_color;
 	int				max_text_size;
-	int				is_text_centered;
+	int				params;
 	int				render_param;
 }					t_text_params;
 
@@ -316,6 +330,7 @@ SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, const char *sur_id);
 void				ui_main_fill_default_surfaces(t_ui_main *m);
 void				ui_main_fill_default_fonts(t_ui_main *m);
 
+t_ui_win			*ui_main_find_window_by_sdl_id(t_ui_main *m, Uint32 windowID);
 t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 
 void				ui_main_handle_event(t_ui_main *m);
@@ -397,14 +412,16 @@ void				ui_el_draw_event(void *el_v, void *arg);
 
 t_ui_el				*ui_el_init(void);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
-void				ui_el_set_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
-void				ui_el_set_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
+void				ui_el_set_pos(t_ui_el *el, int type, t_fvec2 v);
+void				ui_el_set_size(t_ui_el *el, int type, t_fvec2 v);
 void				ui_el_change_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_pos_for_children(void *a1, void *a2);
 void				ui_el_set_new_size_for_children(void *a1, void *a2);
+
+void				ui_el_show_child(void *a1, void *a2);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 
@@ -456,6 +473,7 @@ int					ui_el_update_text(t_ui_el *el, const char *text);
 
 void				ui_win_create(t_ui_win *w);
 void				ui_win_setup_default(t_ui_win *w);
+void				ui_win_change_text_in_focused_el(void *a1, void *a2);
 t_ui_win			*ui_win_init(void);
 void				ui_win_close(t_ui_win *w);
 t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);
@@ -511,5 +529,6 @@ int					ui_sdl_log_error(const char *p, const int id);
 
 Uint32				ui_get_pixel_color_from_texture(SDL_Renderer *renderer,
 						SDL_Texture *texture, t_vec2 coord);
+void				ui_el_children_set_default(void *a1, void *a2);
 
 #endif

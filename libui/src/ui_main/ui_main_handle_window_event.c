@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 02:19:12 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 02:17:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 20:03:56 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ui_main_handle_window_event(t_ui_main *m)
 	t_ui_event	*event;
 
 	windowID = m->sdl_event->window.windowID;
-	if ((win = ui_main_find_window_by_id(m, windowID)) == NULL)
+	if ((win = ui_main_find_window_by_sdl_id(m, windowID)) == NULL)
 		return ;
 	event = NULL;
 	if (m->sdl_event->window.event == SDL_WINDOWEVENT_CLOSE)

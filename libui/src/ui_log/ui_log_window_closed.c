@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:51:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 18:04:34 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/22 18:36:32 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		ui_log_window_closed(void *a1, void *a2)
 			KYEL,
 			"WIN CLOSED",
 			KNRM,
-			m->sdl_event->window.windowID
+			m->raycaster->selected_win->id
 		);
 //	}
 }

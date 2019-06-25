@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 02:07:06 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 22:57:37 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 	t_ui_event	*event;
 
 	windowID = m->sdl_event->window.windowID;
-	if ((win = ui_main_find_window_by_id(m, windowID)) == NULL)
+	if ((win = ui_main_find_window_by_sdl_id(m, windowID)) == NULL)
 		return ;
 	event = NULL;
 	if (m->sdl_event->type == SDL_MOUSEMOTION)
@@ -40,5 +40,5 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 			event = win->events->onScrollDown;
 	}
 	if (event != NULL)
-		ui_event_invoke(event, m, &windowID);
+		ui_event_invoke(event, m, win);
 }

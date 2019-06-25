@@ -6,11 +6,19 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:03:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 16:49:50 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
+
+static void add_icons(t_ui_main *m)
+{
+	ui_main_add_surface_by_path(m, "images/brush_icon_2.png", "brush_icon2");
+	ui_main_add_surface_by_path(m, "images/fill_icon_2.png", "fill_icon2");
+	ui_main_add_surface_by_path(m, "images/zoom_icon_2.png", "zoom_icon2");
+	ui_main_add_surface_by_path(m, "images/eraser_icon_2.png", "eraser_icon2");
+}
 
 void	ui_main_fill_default_surfaces(t_ui_main *m)
 {
@@ -36,5 +44,8 @@ void	ui_main_fill_default_surfaces(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/eraser_icon.png", "eraser_icon");
 	ui_main_add_surface_by_path(m, "images/hand_icon.png", "hand_icon");
 	ui_main_add_surface_by_path(m, "images/zoom_icon.png", "zoom_icon");
-	//ui_main_add_surface_by_path(m, "images/frolushka-meme.png", "brush");
+	ui_main_add_surface_by_path(m, "images/pipette_icon.png", "pipette_icon");
+	ui_main_add_surface_by_path(m, "images/filler.png", "filler_icon");
+	ui_main_add_surface_by_path(m, "images/frolushka-meme.png", "frolushka_meme");
+	add_icons(m);
 }

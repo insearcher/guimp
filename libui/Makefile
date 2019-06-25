@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/22 20:41:07 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/06/25 20:42:36 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,11 @@ INC_DIR			=	./include
 SRC_BFS			=	bfs_iter.c \
 					bfs_for_resize.c \
 					queue.c
+
+SRC_UI_CURSOR	=	ui_cursor_init.c \
+					ui_cursor_to_default.c \
+					ui_cursor_from_el_data.c \
+					ui_cursor_from.c
 
 SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_init.c \
@@ -59,7 +64,9 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_default_scroll_menu.c \
 					ui_el_setup_default.c \
 					ui_el_setup_horizontal_draggable.c \
-					ui_el_setup_menu_resizable.c
+					ui_el_setup_menu_resizable.c \
+					ui_el_show_child.c \
+					ui_el_children_set_default.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -135,7 +142,8 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_close.c \
 					ui_win_update_size.c \
 					ui_win_find_el_by_id.c \
-					ui_win_focus.c
+					ui_win_focus.c \
+					ui_win_change_text_in_focused_el.c
 
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
@@ -159,6 +167,7 @@ SRC_UI_FILE		=	ui_open_file_dialog.c \
 					ui_find_last_slash.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_UI_CURSOR:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW:.c=.o)) \
@@ -208,6 +217,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_raycast/%.c
 	@echo "1" > ../$(TEMP)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/ui_el/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > ../$(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_cursor/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

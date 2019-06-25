@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 19:36:53 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 	t_list		*n;
 	size_t		len;
 
+	if (text == NULL || *text == '\0')
+		return (FUNCTION_SUCCESS);
 	len = ft_strlen(text);
 	if (el->text.max_text_size == 0 || len <= el->text.max_text_size)
 	{
@@ -65,11 +67,11 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 		return (FUNCTION_FAILURE);
 	n->content = ui_el_create_texture(el);
 	n->content_size = ft_strhash("default");
-	if (el->sdl_textures)
+/*	if (el->sdl_textures)
 	{
 		SDL_DestroyTexture((SDL_Texture *)el->sdl_textures->content);
 		free(el->sdl_textures);
-	}
+	}*/
 	ft_lstadd(&(el->sdl_textures), n);
 	return (FUNCTION_SUCCESS);
 }

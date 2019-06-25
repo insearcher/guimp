@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:44:23 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 02:20:49 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 20:02:51 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ void	ui_log_window_focus_lost(void *a1, void *a2)
 	w = (t_ui_win *)a2;
 	if (w != NULL)
 	{
-		SDL_Log("%s%-15s%swindowID = %d\n",
+		SDL_Log("%s%-15s%s\n",
 			KYEL,
 			"WIN DEFOCUSED",
-			KNRM,
-			m->sdl_event->window.windowID
+			KNRM
 		);
 	}
 }

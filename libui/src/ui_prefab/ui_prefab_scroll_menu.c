@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_prefab_scroll_menu.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:21:24 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/06 01:25:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/24 21:25:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ui_prefab_scroll_menu(t_ui_main *m, t_ui_el *canvas, t_ui_el *scroll_menu, 
 	while (list)
 	{
 		cur_el = (t_ui_el *)list->content;
-		ui_el_set_pos(cur_el, 0, PIXEL | ABS, scroll_data->begin_pos);
-		ui_el_set_size(cur_el, 0, PIXEL, scroll_data->size);
+		ui_el_set_pos(cur_el, PIXEL | ABS, scroll_data->begin_pos);
+		ui_el_set_size(cur_el, PIXEL, scroll_data->size);
 		cur_el->params |= scroll_data->params;
 		cur_el->id = scroll_data->begin_id;
 		cur_el->sdl_renderer = scroll_data->sdl_renderer;

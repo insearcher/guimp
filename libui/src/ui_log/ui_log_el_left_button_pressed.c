@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 05:29:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 01:35:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 18:28:45 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	ui_log_el_left_button_pressed(void *a1, void *a2)
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id,
-		m->sdl_event->window.windowID
+		m->raycaster->selected_win->id
 	);
 }

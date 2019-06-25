@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 03:40:52 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/19 02:20:56 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/22 18:36:43 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    ui_log_window_moved(void *a1, void *a2)
 				KYEL,
 				"WIN MOVED",
 				KNRM,
-				m->sdl_event->window.windowID
+				w->id
 			   );
 	}
 }

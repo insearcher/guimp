@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_log_el_left_button_released.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 05:30:35 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 01:35:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/24 21:16:22 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	ui_log_el_left_button_released(void *a1, void *a2)
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id,
-		m->sdl_event->window.windowID
+		m->raycaster->selected_win->id
 	);
 }

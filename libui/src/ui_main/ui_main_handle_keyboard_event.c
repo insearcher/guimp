@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 07:49:09 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/20 17:30:28 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/22 22:20:29 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ void	ui_main_handle_keyboard_event(t_ui_main *m)
 	t_ui_event		*event;
 
 	windowID = m->sdl_event->window.windowID;
-	if ((win = ui_main_find_window_by_id(m, windowID)) == NULL)
+	if ((win = ui_main_find_window_by_sdl_id(m, windowID)) == NULL)
 			return ;
 	event = NULL;
-	if (m->sdl_event->window.type == SDL_KEYDOWN && !m->sdl_event->key.repeat)
+//	if (m->sdl_event->window.type == SDL_KEYDOWN && !m->sdl_event->key.repeat)
+	if (m->sdl_event->window.type == SDL_KEYDOWN)
 	{
-		m->letter = m->sdl_event->key.keysym.scancode;
+		m->cur_keycode = m->sdl_event->key.keysym.scancode;
 		event = win->events->onKeyDown[m->sdl_event->key.keysym.scancode];
 	}
 	else if (m->sdl_event->window.type == SDL_KEYUP)

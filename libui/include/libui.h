@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 19:55:16 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@
 //text params
 # define TEXT_IS_CENTERED	(1 << 0)
 # define TEXT_IS_BIG		(1 << 1)
+# define TEXT_IS_INPUTTING	(1 << 2)
 
 //text render_params
 # define TEXT_IS_SOLID		(1 << 0)

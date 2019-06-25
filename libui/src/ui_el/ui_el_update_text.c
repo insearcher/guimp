@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 22:42:46 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 22:51:45 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 		ui_el_add_empty_texture(el, el->rect.w, el->rect.h, "empty");
 	if (!(n = ft_lstnew(NULL, 0)))
 		return (FUNCTION_FAILURE);
-	SDL_Log("CHECK1\n");
 	n->content = ui_el_create_texture(el);
 	n->content_size = ft_strhash("default");
-	SDL_Log("CHECK2\n");
 	ft_lstadd(&(el->sdl_textures), n);
 	return (FUNCTION_SUCCESS);
 }

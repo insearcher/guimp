@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:18:31 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/25 22:42:46 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 22:51:27 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ static char	*circumcision(t_ui_el *el)
 
 	if (el->text.text == NULL || *el->text.text == '\0')
 		return (ft_strnew(1));
-	SDL_Log("CHECK CIRCUMCISION\n");
 	str = ft_strsub(el->text.text, 0, ft_strlen(el->text.text) - 1);
-	SDL_Log("str: %s\n", str);
 	return (str);
 }
 
@@ -65,7 +63,6 @@ void	ui_win_change_text_in_focused_el(void *a1, void *a2)
 	m = (t_ui_main *)a1;
 	w = (t_ui_win *)a2;
 	el = m->focused_el;
-	SDL_Log("CHECK CHANGE TEXT\n");
 	if (!el || !(el->params & EL_IS_TEXT) || !(el->text.params & TEXT_IS_INPUTTING))
 		return ;
 	if (m->cur_keycode >= SDL_SCANCODE_A && m->cur_keycode <= SDL_SCANCODE_Z)

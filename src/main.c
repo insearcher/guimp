@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 22:08:18 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 20:01:06 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,13 +262,17 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	}
 	if (g->draw_tool.tool == GM_TOOL_LINE)
 	{
-		// printf("from start_draw_with_selected_tool in>>>>>>>>> %d\n", g->draw_tool.state);
 		if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
 			g->draw_tool.state = GM_TOOL_STATE_END;
 		else if (g->draw_tool.state == GM_TOOL_STATE_NONE)
 			g->draw_tool.state = GM_TOOL_STATE_START;
-
-		// printf("from start_draw_with_selected_tool out>>>>>>>>> %d\n", g->draw_tool.state);
+	}
+	if (g->draw_tool.tool == GM_TOOL_PIPETTE)
+	{
+		int color = ui_get_pixel_color_from_texture(el->sdl_renderer, (t_texture *)(g->layers.layers->content), (t_vec2){x, y});
+		g->draw_tool.r = (color & 0xFF0000) >> 16;
+		g->draw_tool.g = (color & 0x00FF00) >> 8;
+		g->draw_tool.b = color & 0x0000FF;
 	}
 }
 
@@ -284,7 +288,6 @@ static void	scan_tool_position(void *main, void *el_v)
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
 	g->draw_tool.cur_point = (t_vec2){x, y};
-	// printf(">>>>>>>>>>>>>>%d>>>>>>>>>>>>>>%d\n", g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
 }
 
 static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
@@ -293,11 +296,9 @@ static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
-	// printf("from start_draw_with_selected_tool_pointer_up in>>>>>>>>> %d\n", g->draw_tool.state);
 	if (g->draw_tool.tool == GM_TOOL_LINE)
 		if (g->draw_tool.state == GM_TOOL_STATE_START)
 			g->draw_tool.state = GM_TOOL_STATE_DRAW;
-	// printf("from start_draw_with_selected_tool_pointer_up out>>>>>>>>> %d\n", g->draw_tool.state);
 }
 
 static void	start_alt_with_selected_tool(void *main, void *el_v)
@@ -422,6 +423,15 @@ static void choose_hand(void *main, void *el_v)
 	g->draw_tool.tool = GM_TOOL_HAND;
 }
 
+static void choose_pipette(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_PIPETTE;
+}
+
 static void choose_line(void *main, void *el_v)
 {
 	t_guimp	*g;
@@ -528,6 +538,7 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, choose_zoom, "choose_zoom");
 	ui_main_add_function_by_id(g_main.ui_main, choose_hand, "choose_hand");
 	ui_main_add_function_by_id(g_main.ui_main, choose_line, "choose_line");
+	ui_main_add_function_by_id(g_main.ui_main, choose_pipette, "choose_pipette");
 	ui_main_add_function_by_id(g_main.ui_main, choose_color, "choose_color");
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
@@ -542,7 +553,6 @@ int		main()
 	g_main.zoom_rect.w = GM_IMAGE_SIZE_X;
 	g_main.zoom_rect.h = GM_IMAGE_SIZE_Y;
 
-
 	ui_main_from_json(g_main.ui_main, "./json/main.json");
 
 
@@ -552,42 +562,11 @@ int		main()
 	printf("w_main ID: %d\n", g_main.main_win->id);
 	printf("w_tool ID: %d\n", g_main.tool_win->id);
 
-	// WINS
-	// ui_event_add_listener(g_main.main_win->events->onMoved, move_windows);
-	// ui_event_add_listener(g_main.main_win->events->onResize, ui_win_update_size);
-	// ui_event_add_listener(g_main.main_win->events->onScrollUp, start_zoom_in);
-	// ui_event_add_listener(g_main.main_win->events->onScrollDown, start_zoom_out);
-	// ui_event_add_listener(g_main.main_win->canvas->events->onRender, ui_el_draw_event);
-
-	// ui_event_add_listener(g_main.tool_win->events->onMoved, move_windows);
-	// ui_event_add_listener(g_main.tool_win->canvas->events->onRender, ui_el_draw_event);
-
 	t_ui_el	*cur_el;
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
-	// ui_el_add_empty_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "tmp_layer");
 	g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
-		// ui_event_add_listener(cur_el->events->onPointerStay, scan_tool_position);
-		// ui_event_add_listener(cur_el->events->onPointerLeftButtonReleased, start_draw_with_selected_tool_pointer_up);
-	// ui_event_clear(cur_el->events->onRender);
-	// ui_event_add_listener(cur_el->events->onRender, draw_canvas_renderer);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, draw_with_selected_tool);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, start_draw_with_selected_tool);
-	// ui_event_add_listener(cur_el->events->onPointerRightButtonPressed, start_alt_with_selected_tool);
-	// ui_event_add_listener(cur_el->events->onPointerStay, move_draw_canvas_with_zoom);
-
-	// cur_el = ui_win_find_el_by_id(g_main.main_win, 2);
-	// g_main.layers.layers = cur_el->children;
-
-	// cur_el = ui_win_find_el_by_id(g_main.main_win, 63);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, testOnPtrLBD);
-	// ui_event_add_listener(cur_el->events->onPointerEnter, testOnPtrEnter);
-	// ui_event_add_listener(cur_el->events->onPointerExit, testOnPtrExit);
-	// ui_el_set_current_texture_by_id(cur_el, "onActive");
-
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63000);
-	// ui_el_add_white_texture(cur_el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
-	// ui_el_set_current_texture_by_id(cur_el, "default");
 	g_main.layers.current_layer = cur_el;
 	t_list	*tmp;
 	tmp = ft_lstnew(NULL, 0);
@@ -595,65 +574,9 @@ int		main()
 	tmp->content_size = 63;
 	ft_lstadd(&(g_main.layers.layers), tmp);
 
-	// cur_el = ui_win_find_el_by_id(g_main.main_win, 3);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_add_layer);
-
-	// cur_el = ui_win_find_el_by_id(g_main.main_win, 4);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, test_del_layer);
-
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_brush);
 	cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;
 
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_zoom);
-
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_hand);
-
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_line);
-
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 21);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
-	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xFF0000, "default");
-
-	// t_ui_el *cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 22);
-	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
-
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 23);
-	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x00FF00, "default");
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
-
-	// cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 24);
-	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
-
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 25);
-	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x0000FF, "default");
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
-
-	// cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 26);
-	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
-
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 27);
-	// ui_el_add_gradient_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonHold, choose_color);
-	// ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, choose_color);
-
-	// cur_el_2 = ui_win_find_el_by_id(g_main.tool_win, 28);
-	// ui_el_add_color_texture(cur_el_2, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0xAAAAAA, "default");
-
-	// cur_el = ui_win_find_el_by_id(g_main.tool_win, 29);
-	// ui_el_add_color_texture(cur_el, (t_vec2){cur_el->rect.w, cur_el->rect.h}, 0x000000, "default");
-	// ui_event_clear(cur_el->events->onRender);
-	// ui_event_add_listener(cur_el->events->onRender, draw_color_rect);
-
-	/*************/
-	/* MAIN_LOOP */
-	/*************/
 	ui_main_loop(g_main.ui_main);
 	return (0);
 }

@@ -25,6 +25,10 @@ void	ui_main_handle_window_event(t_ui_main *m)
 	if (m->sdl_event->window.event == SDL_WINDOWEVENT_CLOSE)
 		event = win->events->onClose;
 //	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_RESIZED)
+	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_ENTER)
+		event = win->events->onPointerEnter;
+	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_LEAVE)
+		event = win->events->onPointerExit;
 	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 		event = win->events->onResize;
 	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_FOCUS_GAINED)

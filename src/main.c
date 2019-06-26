@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/26 07:47:01 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/26 19:10:23 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void move_windows(void *a1, void *a2)
 				pos.x = pos.x - GM_TOOL_WIN_W - 5;
 			// printf("id: %d, (%d, %d)\n", windowID, pos.x, pos.y);
 			SDL_SetWindowPosition(cur_w->sdl_window, pos.x, pos.y);
+			cur_w->pos.x = pos.x;
+			cur_w->pos.y = pos.y;
 			list = list->next;
 		}
 	}
@@ -61,7 +63,7 @@ static void	testOnPtrEnter(void *main, void *el_v)
 {
 	main = NULL;
 	t_ui_el *el = (t_ui_el *)el_v;
-//	if (el->current_texture != (size_t)ft_strhash("onActive"))
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "onFocus");
 }
 
@@ -69,7 +71,7 @@ static void	testOnPtrExit(void *main, void *el_v)
 {
 	main = NULL;
 	t_ui_el *el = (t_ui_el *)el_v;
-//	if (el->current_texture != (size_t)ft_strhash("onActive"))
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "default");
 }
 
@@ -77,7 +79,7 @@ static void	PressedLBD(void *main, void *el_v)
 {
 	main = NULL;
 	t_ui_el *el = (t_ui_el *)el_v;
-//	if (el->current_texture != (size_t)ft_strhash("onActive"))
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "onPressedLBM");
 }
 
@@ -661,6 +663,7 @@ int		main()
 
 	 g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
 	 g_main.tool_win = ui_main_find_window_by_id(g_main.ui_main, 1);
+	SDL_RaiseWindow(g_main.main_win->sdl_window);
 
 
 	t_ui_el	*cur_el;
@@ -683,7 +686,7 @@ int		main()
 	cur_el->params |= EL_IS_TEXT;
 	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
 		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	cur_el->data = ui_win_find_el_by_id(g_main.main_win, 1);
+	cur_el->data = ui_win_find_el_by_id(g_main.main_win, GM_MAIN_ID_DRAW);
 	ui_event_add_listener(cur_el->events->onRender, text_test);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23000);
@@ -710,8 +713,28 @@ int		main()
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
 	ui_el_update_text(cur_el, "DEL LAYER");
 
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 10);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush_icon"), 26, 40});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "text_icon"), 23, 27});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 13);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "eraser_icon2"), 0, 0});
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "eraser_icon"), 21, 36});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "zoom_icon"), 23, 23});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "fill_icon"), 14, 39});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 17);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "pipette_icon"), 13, 38});
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
 
 //	 cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);

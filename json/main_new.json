@@ -15,7 +15,8 @@
       },
       "pos":
       {
-        "x": 800
+        "x": 800,
+        "y": 250
       },
       "events":
       [
@@ -443,42 +444,28 @@
               "main_id": "save_icon",
               "el_id": "default"
             }
-          ],
-/*          "events":
-          {
-						"event_name": "onPointerRightButtonPressed",
-						"func_name": "save_image"
-          }*/
+          ]
         },
         {
           "id": 9,
           "parent": 1,
-          "type":
-          [
+          "type": [
             "RESIZABLE"
           ],
-          "pos":
-          {
+          "pos": {
             "x": 0.925,
             "y": 0.005
           },
-          "size":
-          {
+          "size": {
             "x": 0.03,
             "y": 0.04
           },
-          "textures":
-          [
+          "textures": [
             {
               "main_id": "open_icon",
               "el_id": "default"
             }
-          ],
-       /*   "events":
-          {
-						"event_name": "onPointerRightButtonPressed",
-						"func_name": "open_image"
-					}*/
+          ]
         }
       ]
     },
@@ -492,7 +479,8 @@
       },
       "pos":
       {
-        "x": 495
+        "x": 495,
+        "y": 250
       },
       "events":
       [
@@ -1509,7 +1497,7 @@
           "textures":
           [
             {
-              "main_id": "brush_icon3",
+              "main_id": "brush_icon",
               "el_id": "default"
             }
           ],
@@ -1652,8 +1640,7 @@
           "textures":
           [
             {
-              "type": "color",
-              "color": "FFFFFF",
+              "main_id": "text_icon",
               "el_id": "default"
             }
           ]
@@ -1686,7 +1673,7 @@
           "textures":
           [
             {
-              "main_id": "eraser",
+              "main_id": "eraser_icon",
               "el_id": "default"
             }
           ]
@@ -1719,7 +1706,7 @@
           "textures":
           [
             {
-              "main_id": "lupa",
+              "main_id": "zoom_icon",
               "el_id": "default"
             }
           ]
@@ -1785,7 +1772,7 @@
           "textures":
           [
             {
-              "main_id": "fill_icon2",
+              "main_id": "fill_icon",
               "el_id": "default"
             }
           ]

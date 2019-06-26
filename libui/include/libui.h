@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/26 03:04:56 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/26 19:31:29 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ** 7)
 */
 
-# define DEBUG_STATUS		1
+# define DEBUG_STATUS
 
 # define KNRM				"\x1B[0m"
 # define KRED				"\x1B[31m"
@@ -214,6 +214,8 @@ void				ui_cursor_from(t_cursor *c);
 typedef struct		s_ui_win_events
 {
 	t_ui_event		*onPointerMoved;
+	t_ui_event		*onPointerEnter;
+	t_ui_event		*onPointerExit;
 	t_ui_event		*onPointerLeftButtonPressed;
 	t_ui_event		*onPointerLeftButtonReleased;
 	t_ui_event		*onPointerRightButtonPressed;
@@ -254,6 +256,7 @@ typedef struct		s_ui_win
 typedef struct		s_ui_raycaster
 {
 	t_ui_win		*selected_win;
+	t_ui_win		*focused_win;
 	t_ui_el			*selected;
 }					t_ui_raycaster;
 
@@ -531,5 +534,10 @@ int					ui_sdl_log_error(const char *p, const int id);
 Uint32				ui_get_pixel_color_from_texture(SDL_Renderer *renderer,
 						SDL_Texture *texture, t_vec2 coord);
 void				ui_el_children_set_default(void *a1, void *a2);
+
+void	ui_win_selection_lost(void *a1, void *a2);
+void	ui_win_selection_gained(void *a1, void *a2);
+void	ui_log_window_leave(void *a1, void *a2);
+void	ui_log_window_enter(void *a1, void *a2);
 
 #endif

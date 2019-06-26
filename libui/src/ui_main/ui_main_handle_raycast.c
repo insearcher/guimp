@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 23:04:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 19:26:18 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ui_main_handle_raycast(t_ui_main *m)
 {
-	t_ui_el		*prev;
-	t_ui_el		*cur;
+	t_ui_el *prev;
+	t_ui_el *cur;
 
 	prev = m->raycaster->selected;
-	cur = ui_raycast(m, m->raycaster->selected_win);
+	cur = ui_raycast(m, m->raycaster->focused_win);
 	if (prev != NULL && cur != NULL && prev->id != cur->id)
 	{
 		ui_event_invoke(prev->events->onPointerLeftButtonReleased, m, prev);

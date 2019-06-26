@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 05:38:36 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 18:45:31 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/26 19:36:30 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,16 @@ void	ui_win_setup_default(t_ui_win *w)
 	ui_event_add_listener(w->events->onPointerRightButtonReleased, ui_main_rmb_released);
 	ui_event_add_listener(w->events->onScrollUp, ui_main_scroll_up);
 	ui_event_add_listener(w->events->onScrollDown, ui_main_scroll_down);
-	ui_event_add_listener(w->events->onFocusGained, ui_win_focus_gained);
+	ui_event_add_listener(w->events->onFocusGained, ui_win_selection_gained);
 	ui_event_add_listener(w->events->onFocusGained, ui_log_window_focus_gained);
-	ui_event_add_listener(w->events->onFocusLost, ui_win_focus_lost);
+	ui_event_add_listener(w->events->onFocusLost, ui_win_selection_lost);
 	ui_event_add_listener(w->events->onFocusLost, ui_log_window_focus_lost);
+
+	ui_event_add_listener(w->events->onPointerEnter, ui_win_focus_gained);
+	ui_event_add_listener(w->events->onPointerExit, ui_win_focus_lost);
+	ui_event_add_listener(w->events->onPointerEnter, ui_log_window_enter);
+	ui_event_add_listener(w->events->onPointerExit, ui_log_window_leave);
+
 	ui_event_add_listener(w->events->onResize, ui_log_window_resized);
 	ui_event_add_listener(w->events->onClose, ui_log_window_closed);
 	ui_event_add_listener(w->events->onMoved, ui_log_window_moved);

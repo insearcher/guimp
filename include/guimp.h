@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   guimp.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 23:46:24 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 02:03:09 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define GM_MAIN_WIN_Y			SDL_WINDOWPOS_CENTERED //SDL!!!
 # define GM_MAIN_WIN_W			1200
 # define GM_MAIN_WIN_H			800
-# define GM_MAIN_ID_DRAW		1
+# define GM_MAIN_ID_DRAW		2
 
 # define GM_TOOL_WIN_W			300
 # define GM_TOOL_WIN_H			800
@@ -51,9 +51,9 @@
 
 # define GM_LAYER_WIN_W			300
 # define GM_LAYER_WIN_H			800
-# define GM_LAYER_ID_MENU		2
-# define GM_LAYER_ID_ADD		3
-# define GM_LAYER_ID_DEL		4
+# define GM_LAYER_ID_MENU		3
+# define GM_LAYER_ID_ADD		4
+# define GM_LAYER_ID_DEL		5
 # define GM_LAYER_ID_DEF_LAYER	ID_GENERATOR_START
 # define GM_LAYER_MAX_COUNT		100
 
@@ -121,6 +121,8 @@ typedef struct					s_guimp
 
 void							draw_dot(void *ui_main, void *ui_el);
 void							draw_main_canvas_event(void *el_v, void *arg);
+void							draw_with_selected_tool(void *main, void *el_v);
+void							update_color_rect(t_guimp *gm, int r, int g, int b);
 
 void							gm_init(t_guimp *g_main);
 int								gm_generate_surf_id(int generate_flag);

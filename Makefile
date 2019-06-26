@@ -6,7 +6,7 @@
 #    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/22 16:39:08 by sbecker          ###   ########.fr        #
+#    Updated: 2019/06/26 00:47:48 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC				=	main.c \
 					draw_main_canvas_event.c \
 					gm_init.c \
 					ui_main_fill_default_functions.c \
-					gm_generate_surfaces_id.c
+					gm_generate_surfaces_id.c \
+					draw_with_selected_tool.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

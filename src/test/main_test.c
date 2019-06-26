@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 07:13:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/25 22:42:46 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/25 23:06:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main()
 	cur_el->params |= EL_IS_DEPENDENT;
 	ui_el_set_text(guimp.m, cur_el, "CavePaintings",
 			(t_text_params){(SDL_Color){255, 0, 0, 0}, (SDL_Color){0, 0, 0, 0},
-			10, TEXT_IS_CENTERED | TEXT_IS_INPUTTING, 0});
+			10, TEXT_IS_INPUTTING, 0});
 
 	ui_main_loop(guimp.m);
 }

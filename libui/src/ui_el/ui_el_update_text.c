@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 23:04:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 03:03:42 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_surface_from_text(t_ui_el *el)
 		if (!(el->sdl_surface = TTF_RenderText_Solid(el->text.font, el->text.text, el->text.text_color)))
 			return (FUNCTION_FAILURE);
 	}
-	else if ((el->text.params & TEXT_IS_BLENDED) || el->text.params == 0)
+	else if ((el->text.params & TEXT_IS_BLENDED) || el->text.render_param == 0)
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Blended(el->text.font, el->text.text, el->text.text_color)))
 			return (FUNCTION_FAILURE);

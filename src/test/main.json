@@ -53,7 +53,7 @@
 					"type":
 					[
 						"DRAGGABLE",
-						"RESIZEBLE"
+						"RESIZABLE"
 					],
 					"pos":
 					{
@@ -66,8 +66,8 @@
 					},
 					"size":
 					{
-						"x": 0.9,
-						"y": 0.2
+						"x": 0.1,
+						"y": 0.02
 					},
 				}
 			]

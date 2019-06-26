@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 03:04:56 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 # define FPS				150 // NE TROGAY PLS
 
-# define SCROLL_SPEED		10
+# define SCROLL_SPEED		20
 
 //el params
 # define EL_IGNOR_RAYCAST	(1 << 0)

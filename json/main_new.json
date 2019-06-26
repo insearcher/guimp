@@ -10,7 +10,7 @@
       ],
       "size":
       {
-        "x": 1200,
+        "x": 1400,
         "y": 800
       },
       "pos":
@@ -36,19 +36,9 @@
       [
         {
           "id": 0,
-          "textures":
+          "params":
           [
-            {
-              "main_id": "flower",
-              "el_id": "default"
-            }
-          ],
-          "events":
-          [
-            {
-              "event_name": "onRender",
-              "func_name": "ui_el_draw_event"
-            }
+            "EL_IGNOR_RAYCAST"
           ]
         },
         {
@@ -60,13 +50,47 @@
           ],
           "pos":
           {
-            "x": 0.05,
-            "y": 0.05
+            "x": 0,
+            "y": 0,
+            "params":
+            [
+              "PIXEL"
+            ]
           },
           "size":
           {
-            "x": 0.69,
-            "y": 0.9
+            "x": 1400,
+            "y": 800,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "757575",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "parent": 1,
+          "type":
+          [
+            "RESIZABLE"
+          ],
+          "pos":
+          {
+            "x": 0.01,
+            "y": 0.015
+          },
+          "size":
+          {
+            "x": 0.73,
+            "y": 0.97
           },
           "textures":
           [
@@ -118,8 +142,8 @@
           ]
         },
         {
-          "id": 2,
-          "parent": 0,
+          "id": 3,
+          "parent": 1,
           "type":
           [
             "SCROLL_MENU",
@@ -128,24 +152,25 @@
           "pos":
           {
             "x": 0.75,
-            "y": 0.01
+            "y": 0.05
           },
           "size":
           {
             "x": 0.245,
-            "y": 0.89
+            "y": 0.85
           },
           "textures":
           [
             {
-              "main_id": "priso",
+              "type": "color",
+              "color": "505050",
               "el_id": "default"
             }
           ]
         },
         {
           "id": 63,
-          "parent": 2,
+          "parent": 3,
           "type":
           [
             "SCROLL_MENU_ELEM"
@@ -222,8 +247,8 @@
           "current_texture": "default"
         },
         {
-          "id": 3,
-          "parent": 0,
+          "id": 4,
+          "parent": 1,
           "type":
           [
             "RESIZABLE"
@@ -241,8 +266,24 @@
           "textures":
           [
             {
-              "main_id": "priso",
+              "type": "color",
+              "color": "AAAAAA",
               "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "A2A2A2",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "505050",
+              "el_id": "onPressedLBM"
+            },
+            {
+              "type": "color",
+              "color": "FFFFFF",
+              "el_id": "onActive"
             }
           ],
           "events":
@@ -250,12 +291,28 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "test_add_layer"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+            	"func_name": "PressedLBD"
+            },
+            {
+              "event_name": "onPointerLeftButtonReleased",
+            	"func_name": "testOnPtrEnter"
             }
           ]
         },
         {
-          "id": 4,
-          "parent": 0,
+          "id": 5,
+          "parent": 1,
           "type":
           [
             "RESIZABLE"
@@ -273,8 +330,24 @@
           "textures":
           [
             {
-              "main_id": "priso",
+              "type": "color",
+              "color": "AAAAAA",
               "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "A2A2A2",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "505050",
+              "el_id": "onPressedLBM"
+            },
+            {
+              "type": "color",
+              "color": "FFFFFF",
+              "el_id": "onActive"
             }
           ],
           "events":
@@ -282,8 +355,130 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "test_del_layer"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+            	"func_name": "PressedLBD"
+            },
+            {
+              "event_name": "onPointerLeftButtonReleased",
+            	"func_name": "testOnPtrEnter"
             }
           ]
+        },
+        {
+          "id": 6,
+          "parent": 4,
+          "params":
+          [
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_DEPENDENT"
+          ],
+          "type":
+          [
+            "RESIZABLE"
+          ],
+          "pos":
+          {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "size":
+          {
+            "x": 0.8,
+            "y": 0.8
+          }
+        },
+        {
+          "id": 7,
+          "parent": 5,
+          "params":
+          [
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_DEPENDENT"
+          ],
+          "type":
+          [
+            "RESIZABLE"
+          ],
+          "pos":
+          {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "size":
+          {
+            "x": 0.8,
+            "y": 0.8
+          }
+        },
+        {
+          "id": 8,
+          "parent": 1,
+          "type":
+          [
+            "RESIZABLE"
+          ],
+          "pos":
+          {
+            "x": 0.965,
+            "y": 0.005
+          },
+          "size":
+          {
+            "x": 0.03,
+            "y": 0.04
+          },
+          "textures":
+          [
+            {
+              "main_id": "save_icon",
+              "el_id": "default"
+            }
+          ],
+/*          "events":
+          {
+						"event_name": "onPointerRightButtonPressed",
+						"func_name": "save_image"
+          }*/
+        },
+        {
+          "id": 9,
+          "parent": 1,
+          "type":
+          [
+            "RESIZABLE"
+          ],
+          "pos":
+          {
+            "x": 0.925,
+            "y": 0.005
+          },
+          "size":
+          {
+            "x": 0.03,
+            "y": 0.04
+          },
+          "textures":
+          [
+            {
+              "main_id": "open_icon",
+              "el_id": "default"
+            }
+          ],
+       /*   "events":
+          {
+						"event_name": "onPointerRightButtonPressed",
+						"func_name": "open_image"
+					}*/
         }
       ]
     },
@@ -344,7 +539,7 @@
           [
             {
               "type": "color",
-              "color": "AAAAAA",
+              "color": "757575",
               "el_id": "default"
             }
           ]
@@ -408,7 +603,8 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "ui_el_show_child"
+
             }
           ]
         },
@@ -862,7 +1058,7 @@
           [
             {
               "type": "color",
-              "color": "AAAAAA",
+              "color": "757575",
               "el_id": "default"
             }
           ]
@@ -1313,7 +1509,7 @@
           "textures":
           [
             {
-              "main_id": "brush_icon2",
+              "main_id": "brush_icon3",
               "el_id": "default"
             }
           ],
@@ -1490,7 +1686,7 @@
           "textures":
           [
             {
-              "main_id": "eraser_icon2",
+              "main_id": "eraser",
               "el_id": "default"
             }
           ]
@@ -1523,7 +1719,7 @@
           "textures":
           [
             {
-              "main_id": "zoom_icon2",
+              "main_id": "lupa",
               "el_id": "default"
             }
           ]

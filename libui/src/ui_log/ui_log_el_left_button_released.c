@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 05:30:35 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/24 21:16:22 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 06:36:50 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ui_log_el_left_button_released(void *a1, void *a2)
 
 	m = (t_ui_main *)a1;
 	el = (t_ui_el *)a2;
-	SDL_Log("%s%-15s%sglobal = %3d;%-3d   local = %3d;%-3d   elementID = %-3d   windowID = %-3d\n",
+	SDL_Log("%s%-15s%sglobal = %3d;%-3d   local = %3d;%-3d   elementID = %-3d",   //windowID = %-3d\n",
 		KRED,
 		"LMB RELEASED",
 		KNRM,
@@ -27,7 +27,7 @@ void	ui_log_el_left_button_released(void *a1, void *a2)
 		m->ptr_pos.y,
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
-		el->id,
-		m->raycaster->selected_win->id
+		el->id
+//		m->raycaster->selected_win->id
 	);
 }

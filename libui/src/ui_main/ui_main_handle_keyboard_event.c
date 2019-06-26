@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 07:49:09 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 22:20:29 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/26 00:00:27 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ui_main_handle_keyboard_event(t_ui_main *m)
 	if ((win = ui_main_find_window_by_sdl_id(m, windowID)) == NULL)
 			return ;
 	event = NULL;
-//	if (m->sdl_event->window.type == SDL_KEYDOWN && !m->sdl_event->key.repeat)
+	SDL_Log("keycode: %d\n", m->sdl_event->key.keysym.scancode);
 	if (m->sdl_event->window.type == SDL_KEYDOWN)
 	{
 		m->cur_keycode = m->sdl_event->key.keysym.scancode;

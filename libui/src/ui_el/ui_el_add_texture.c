@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 04:27:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/06/25 21:37:04 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 02:25:14 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,12 +157,13 @@ int			ui_el_add_color_texture(t_ui_el *el, t_vec2 wh, int color, const char *tex
 	}
 	SDL_SetRenderTarget(el->sdl_renderer, tmp_texture);
 	SDL_SetRenderDrawColor(el->sdl_renderer,
-		((color & 0xFF0000) >> 16),
-		((color & 0x00FF00) >> 8),
-		(color & 0x0000FF), 255);
+		(Uint8)((color & 0xFF0000) >> 16),
+		(Uint8)((color & 0x00FF00) >> 8),
+		(Uint8)(color & 0x0000FF), 255);
+	SDL_Log("elid: %d\n", el->id);
 	SDL_RenderFillRect(el->sdl_renderer, NULL);
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
-	SDL_SetRenderDrawColor(el->sdl_renderer, 0, 0, 0, 255);
+//	SDL_SetRenderDrawColor(el->sdl_renderer, 0, 0, 0, 255);
 	tmp_lst->content_size = hash;
 	tmp_lst->content = (void *)tmp_texture;
 	ft_lstadd(&(el->sdl_textures), tmp_lst);

@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:18:31 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/25 23:04:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 00:12:37 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ static char	*join_with_number(t_ui_el *el, unsigned int keycode)
 	return(str);
 }
 
+static char	*join_with_other(t_ui_el *el, unsigned int keycode)
+{
+	char	*str_letter;
+	char	*str;
+
+	str_letter = ft_strnew(1);
+	if (keycode == SDL_SCANCODE_SLASH)
+		str_letter[0] = '/';
+	if (el->text.text == NULL)
+		return (str_letter);
+	str = ft_strjoin(el->text.text, str_letter);
+	free(str_letter);
+	return(str);
+}
+
 void	ui_win_change_text_in_focused_el(void *a1, void *a2)
 {
 	t_ui_main	*m;
@@ -82,6 +97,13 @@ void	ui_win_change_text_in_focused_el(void *a1, void *a2)
 	else if (m->cur_keycode == SDL_SCANCODE_BACKSPACE)
 	{
 		new_text = circumcision(el);
+		ui_el_update_text(el, new_text);
+		if (new_text != NULL)
+			free(new_text);
+	}
+	else if (m->cur_keycode == SDL_SCANCODE_SLASH)
+	{
+		new_text = join_with_other(el, m->cur_keycode);
 		ui_el_update_text(el, new_text);
 		if (new_text != NULL)
 			free(new_text);

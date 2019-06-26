@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/26 00:05:54 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 07:47:01 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	testOnPtrEnter(void *main, void *el_v)
 {
 	main = NULL;
 	t_ui_el *el = (t_ui_el *)el_v;
-	if (el->current_texture != (size_t)ft_strhash("onActive"))
+//	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "onFocus");
 }
 
@@ -69,8 +69,16 @@ static void	testOnPtrExit(void *main, void *el_v)
 {
 	main = NULL;
 	t_ui_el *el = (t_ui_el *)el_v;
-	if (el->current_texture != (size_t)ft_strhash("onActive"))
+//	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "default");
+}
+
+static void	PressedLBD(void *main, void *el_v)
+{
+	main = NULL;
+	t_ui_el *el = (t_ui_el *)el_v;
+//	if (el->current_texture != (size_t)ft_strhash("onActive"))
+		ui_el_set_current_texture_by_id(el, "onPressedLBM");
 }
 
 static void	testOnPtrLBD(void *main, void *el_v)
@@ -93,6 +101,11 @@ static void	testOnPtrLBD(void *main, void *el_v)
 		g->layers.current_layer = (t_ui_el *)(el->children->content);
 	}
 }
+
+/* static void	open_image(void *main, void *el_v)
+{
+
+}*/
 
 static void	test_add_layer(void *ui_main, void *el_v)
 {
@@ -125,6 +138,7 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_active", "onActive");
 	ui_event_add_listener(tmp_el->events->onPointerLeftButtonPressed, testOnPtrLBD);
 	ui_event_add_listener(tmp_el->events->onPointerEnter, testOnPtrEnter);
+	ui_event_add_listener(tmp_el->events->onPointerLeftButtonPressed, PressedLBD);
 	ui_event_add_listener(tmp_el->events->onPointerExit, testOnPtrExit);
 
 	if (!(el = ui_el_init()))
@@ -282,7 +296,7 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	}
 }
 
-static void	update_color_rect(t_guimp *gm, int r, int g, int b)
+void	update_color_rect(t_guimp *gm, int r, int g, int b)
 {
 	t_ui_el	*el;
 
@@ -375,58 +389,6 @@ void	start_zoom_out(void *m, void *win)
 	g->draw_tool.tool = GM_TOOL_ZOOM;
 	start_alt_with_selected_tool(m, ui_win_find_el_by_id(w, GM_MAIN_ID_DRAW));
 	g->draw_tool.tool = pt;
-}
-
-static void	draw_with_selected_tool(void *main, void *el_v)
-{
-	t_guimp	*g;
-	t_ui_el	*el;
-	int		x;
-	int		y;
-
-	g = (t_guimp *)(((t_ui_main *)main)->data);
-	el = (t_ui_el *)el_v;
-	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
-	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
-	g->draw_tool.cur_point = (t_vec2){x, y};
-	if (g->draw_tool.tool == GM_TOOL_BRUSH)
-	{
-		SDL_SetRenderTarget(el->sdl_renderer, (SDL_Texture *)(g->layers.current_layer->sdl_textures->content));
-		SDL_SetTextureColorMod(ui_el_get_texture_by_id(el, "brush"), g->draw_tool.r, g->draw_tool.g, g->draw_tool.b); //вместо ui_el_get_texture_by_id(el, "brush") нужно выбрать текстуру текущей кисти
-		SDL_SetTextureAlphaMod(ui_el_get_texture_by_id(el, "brush"), g->draw_tool.a);
-		SDL_RenderCopy(el->sdl_renderer, ui_el_get_texture_by_id(el, "brush"), NULL, &((t_rect){ //вместо ui_el_get_texture_by_id(el, "brush") нужно выбрать текстуру текущей кисти
-			x - g->draw_tool.brush_size / 2,
-			y - g->draw_tool.brush_size / 2,
-			g->draw_tool.brush_size,
-			g->draw_tool.brush_size
-		}));
-		SDL_SetRenderTarget(el->sdl_renderer, NULL);
-	}
-	if (g->draw_tool.tool == GM_TOOL_HAND)
-	{
-		g->zoom_rect.x += (abs(g->draw_tool.prew_point.x - g->draw_tool.cur_point.x) >= GM_HAND_MIN_DIST ? g->draw_tool.prew_point.x - g->draw_tool.cur_point.x : 0) * GM_HAND_MOVE_SPEED;
-		g->zoom_rect.y += (abs(g->draw_tool.prew_point.y - g->draw_tool.cur_point.y) >= GM_HAND_MIN_DIST ? g->draw_tool.prew_point.y - g->draw_tool.cur_point.y : 0) * GM_HAND_MOVE_SPEED;
-		g->zoom_rect.x = g->zoom_rect.x < 0 ? 0 : g->zoom_rect.x;
-		g->zoom_rect.x = g->zoom_rect.x + g->zoom_rect.w > GM_IMAGE_SIZE_X ? GM_IMAGE_SIZE_X - g->zoom_rect.w : g->zoom_rect.x;
-		g->zoom_rect.y = g->zoom_rect.y < 0 ? 0 : g->zoom_rect.y;
-		g->zoom_rect.y = g->zoom_rect.y + g->zoom_rect.h > GM_IMAGE_SIZE_Y ? GM_IMAGE_SIZE_Y - g->zoom_rect.h : g->zoom_rect.y;
-	}
-	if (g->draw_tool.tool == GM_TOOL_BRUSH)
-		g->draw_tool.prew_point = (t_vec2){x, y};
-	if (g->draw_tool.tool == GM_TOOL_PIPETTE)
-	{
-		int color = ui_get_pixel_color_from_texture(el->sdl_renderer, (t_texture *)(g->layers.layers->content), (t_vec2){x, y});
-		g->draw_tool.r = (color & 0xFF0000) >> 16;
-		g->draw_tool.g = (color & 0x00FF00) >> 8;
-		g->draw_tool.b = color & 0x0000FF;
-		el = ui_win_find_el_by_id(g->tool_win, GM_TOOL_ID_SL_HEAD_RED);
-		ui_el_set_new_pos(el, 0, PIXEL, (t_fvec2){-el->rect.w / 2 + g->draw_tool.r / 255.0f * el->parent->rect.w, 0});
-		el = ui_win_find_el_by_id(g->tool_win, GM_TOOL_ID_SL_HEAD_GR);
-		ui_el_set_new_pos(el, 0, PIXEL, (t_fvec2){-el->rect.w / 2 + g->draw_tool.g / 255.0f * el->parent->rect.w, 0});
-		el = ui_win_find_el_by_id(g->tool_win, GM_TOOL_ID_SL_HEAD_BL);
-		ui_el_set_new_pos(el, 0, PIXEL, (t_fvec2){-el->rect.w / 2 + g->draw_tool.b / 255.0f * el->parent->rect.w, 0});
-		update_color_rect(g, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b);
-	}
 }
 
 static void choose_brush(void *main, void *el_v)
@@ -658,6 +620,7 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, start_alt_with_selected_tool, "start_alt_with_selected_tool");
 	ui_main_add_function_by_id(g_main.ui_main, move_draw_canvas_with_zoom, "move_draw_canvas_with_zoom");
 	ui_main_add_function_by_id(g_main.ui_main, testOnPtrLBD, "testOnPtrLBD");
+	ui_main_add_function_by_id(g_main.ui_main, PressedLBD, "PressedLBD");
 	ui_main_add_function_by_id(g_main.ui_main, testOnPtrEnter, "testOnPtrEnter");
 	ui_main_add_function_by_id(g_main.ui_main, testOnPtrExit, "testOnPtrExit");
 	ui_main_add_function_by_id(g_main.ui_main, ui_el_set_default_texture, "ui_el_set_default_texture");
@@ -704,7 +667,7 @@ int		main()
 //	cur_el = ui_win_find_el_by_id((t_ui_win *)g_main.ui_main->windows->content, 30);
 
 
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 1);
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 2);
 
 	g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
 
@@ -734,6 +697,18 @@ int		main()
 	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
 	ui_el_update_text(cur_el, "Opacity:");
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 6);
+	cur_el->params |= EL_IS_TEXT;
+	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
+			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
+	ui_el_update_text(cur_el, "ADD LAYER");
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 7);
+	cur_el->params |= EL_IS_TEXT;
+	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
+			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
+	ui_el_update_text(cur_el, "DEL LAYER");
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 13);
 	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "eraser_icon2"), 0, 0});

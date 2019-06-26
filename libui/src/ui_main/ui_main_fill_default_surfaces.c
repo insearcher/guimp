@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:03:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/26 06:52:58 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ui_main_fill_default_surfaces(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/layer_place.png", "layer_place");
 	ui_main_add_surface_by_path(m, "images/layer_onPtr.png", "layer_onPtr");
 	ui_main_add_surface_by_path(m, "images/layer_active.png", "layer_active");
+	ui_main_add_surface_by_path(m, "images/new_layer.png", "new_layer_place");
 	ui_main_add_surface_by_path(m, "images/tomb.jpg", "tomb");
 	ui_main_add_surface_by_path(m, "images/brush.png", "brush");
 	ui_main_add_surface_by_path(m, "images/brush_icon.png", "brush_icon");
@@ -45,6 +46,12 @@ void	ui_main_fill_default_surfaces(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/hand_icon.png", "hand_icon");
 	ui_main_add_surface_by_path(m, "images/zoom_icon.png", "zoom_icon");
 	ui_main_add_surface_by_path(m, "images/pipette_icon.png", "pipette_icon");
+	ui_main_add_surface_by_path(m, "images/pupa.png", "lupa");
+	ui_main_add_surface_by_path(m, "images/pencil.png", "pencil");
+	ui_main_add_surface_by_path(m, "images/er.png", "eraser");
+	ui_main_add_surface_by_path(m, "images/save_icon.png", "save_icon");
+	ui_main_add_surface_by_path(m, "images/open_icon.png", "open_icon");
+	ui_main_add_surface_by_path(m, "images/brush_icon_3.png", "brush_icon3");
 	ui_main_add_surface_by_path(m, "images/filler.png", "filler_icon");
 	ui_main_add_surface_by_path(m, "images/frolushka-meme.png", "frolushka_meme");
 	add_icons(m);

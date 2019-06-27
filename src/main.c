@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/26 07:47:01 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/27 20:00:31 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	testOnPtrEnter(void *main, void *el_v)
 {
 	main = NULL;
 	t_ui_el *el = (t_ui_el *)el_v;
-//	if (el->current_texture != (size_t)ft_strhash("onActive"))
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "onFocus");
 }
 
@@ -69,7 +69,7 @@ static void	testOnPtrExit(void *main, void *el_v)
 {
 	main = NULL;
 	t_ui_el *el = (t_ui_el *)el_v;
-//	if (el->current_texture != (size_t)ft_strhash("onActive"))
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "default");
 }
 
@@ -77,7 +77,7 @@ static void	PressedLBD(void *main, void *el_v)
 {
 	main = NULL;
 	t_ui_el *el = (t_ui_el *)el_v;
-//	if (el->current_texture != (size_t)ft_strhash("onActive"))
+	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "onPressedLBM");
 }
 
@@ -427,6 +427,15 @@ static void choose_pipette(void *main, void *el_v)
 	g->draw_tool.tool = GM_TOOL_PIPETTE;
 }
 
+static void choose_eraser(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_ERASER;
+}
+
 static void choose_line(void *main, void *el_v)
 {
 	t_guimp	*g;
@@ -442,8 +451,6 @@ static void	choose_red_color(void *main, void *el_v)
 	t_guimp	*g;
 	t_ui_el	*el;
 	t_ui_el	*chil;
-	int		res;
-	int		max;
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
@@ -457,8 +464,6 @@ static void	choose_green_color(void *main, void *el_v)
 	t_guimp	*g;
 	t_ui_el	*el;
 	t_ui_el	*chil;
-	int		res;
-	int		max;
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
@@ -472,8 +477,6 @@ static void	choose_blue_color(void *main, void *el_v)
 	t_guimp	*g;
 	t_ui_el	*el;
 	t_ui_el	*chil;
-	int		res;
-	int		max;
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
@@ -487,8 +490,6 @@ static void	choose_size(void *main, void *el_v)
 	t_guimp	*g;
 	t_ui_el	*el;
 	t_ui_el	*chil;
-	int		res;
-	int		max;
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	el = (t_ui_el *)el_v;
@@ -630,6 +631,7 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, test_add_layer, "test_add_layer");
 	ui_main_add_function_by_id(g_main.ui_main, test_del_layer, "test_del_layer");
 	ui_main_add_function_by_id(g_main.ui_main, choose_brush, "choose_brush");
+	ui_main_add_function_by_id(g_main.ui_main, choose_eraser, "choose_eraser");
 	ui_main_add_function_by_id(g_main.ui_main, choose_zoom, "choose_zoom");
 	ui_main_add_function_by_id(g_main.ui_main, choose_hand, "choose_hand");
 	ui_main_add_function_by_id(g_main.ui_main, choose_line, "choose_line");
@@ -683,7 +685,7 @@ int		main()
 	cur_el->params |= EL_IS_TEXT;
 	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
 		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	cur_el->data = ui_win_find_el_by_id(g_main.main_win, 1);
+	cur_el->data = ui_win_find_el_by_id(g_main.main_win, 2);
 	ui_event_add_listener(cur_el->events->onRender, text_test);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23000);
@@ -710,9 +712,35 @@ int		main()
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
 	ui_el_update_text(cur_el, "DEL LAYER");
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 13);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "eraser_icon2"), 0, 0});
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 10);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush_icon"), 26, 39});
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 13);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "eraser_icon"), 21, 36});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "zoom_icon"), 23, 23});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "hand_icon"), 26, 27});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "fill_icon"), 14, 39});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 17);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "pipette_icon"), 14, 37});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	ui_set_pixel_color_to_texture(
+			g_main.main_win->sdl_renderer,
+//			ui_el_get_texture_by_id(ui_win_find_el_by_id(g_main.main_win, 2), "brush"),
+			(t_texture *)g_main.layers.current_layer->sdl_textures->content,
+			(t_vec2){10, 10}, (SDL_Color){0, 0, 255, 155});
 
 //	 cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
 //	 cur_el->sdl_renderer = g_main.tool_win->sdl_renderer;

@@ -443,12 +443,7 @@
               "main_id": "save_icon",
               "el_id": "default"
             }
-          ],
-/*          "events":
-          {
-						"event_name": "onPointerRightButtonPressed",
-						"func_name": "save_image"
-          }*/
+          ]
         },
         {
           "id": 9,
@@ -473,12 +468,7 @@
               "main_id": "open_icon",
               "el_id": "default"
             }
-          ],
-       /*   "events":
-          {
-						"event_name": "onPointerRightButtonPressed",
-						"func_name": "open_image"
-					}*/
+          ]
         }
       ]
     },
@@ -604,7 +594,10 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "ui_el_show_child"
-
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
             }
           ]
         },

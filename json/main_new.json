@@ -573,6 +573,7 @@
               "el_id": "onActive"
             }
           ],
+          "current_texture": "onActive",
           "events":
           [
             {
@@ -1446,10 +1447,6 @@
         {
           "id": 100,
           "parent": 10,
-          "params":
-          [
-            "EL_IS_HIDDEN"
-          ],
           "pos":
           {
             "x": 0,
@@ -1939,6 +1936,123 @@
             {
               "type": "color",
               "color": "000000",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1000,
+          "parent": 100,
+          "pos":
+          {
+            "x": 12,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+        "id": 10000,
+        "parent": 1000,
+        "pos":
+        {
+          "x": 2,
+          "y": 2,
+          "params":
+          [
+            "PIXEL"
+          ]
+        },
+        "size":
+        {
+          "x": 56,
+          "y": 56,
+          "params":
+          [
+            "PIXEL"
+          ]
+        },
+        "textures":
+        [
+          {
+            "main_id": "brush",
+            "el_id": "default"
+          }
+        ]
+      },
+        {
+          "id": 1001,
+          "parent": 100,
+          "pos":
+          {
+            "x": 84,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1002,
+          "parent": 100,
+          "pos":
+          {
+            "x": 156,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
               "el_id": "default"
             }
           ]

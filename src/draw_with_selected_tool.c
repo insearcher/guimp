@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 00:41:52 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/27 20:03:33 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/27 22:11:45 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,38 +33,38 @@ static void tool_brush(t_ui_el *el, t_guimp *g, int x, int y)
     SDL_SetRenderTarget(el->sdl_renderer, NULL);
 }
 
-//static void	ui_draw_circle(SDL_Renderer *ren, t_rect c, SDL_BlendMode b, SDL_Color color)
-//{
-//	SDL_BlendMode	bm;
-//
-//	SDL_GetRenderDrawBlendMode(ren, &bm);
-//	SDL_SetRenderDrawBlendMode(ren, b);
-//	SDL_SetRenderDrawColor(ren, color.r, color.g, color.b, color.a);
-//
-//	int	x = c.x - c.h - 1;
-//
-//	while (x <= c.x + c.h + 1)
-//	{
-//		int	y = c.y - c.h - 1;
-//		while (y <= c.y + c.h + 1)
-//		{
-//			if ((x - c.x) * (x - c.x) + (y - c.y) * (y - c.y) <= c.h * c.h)
-//			{
-//				SDL_Log("%d %d %d %d", x, y, c.x, c.y);
-//				SDL_RenderDrawPoint(ren, x, y);
-//			}
-//			++y;
-//		}
-//		++x;
-//	}
-//	SDL_SetRenderDrawBlendMode(ren, bm);
-//}
+static void	ui_draw_circle(SDL_Renderer *ren, t_rect c, SDL_BlendMode b, SDL_Color color)
+{
+	SDL_BlendMode	bm;
+
+	SDL_GetRenderDrawBlendMode(ren, &bm);
+	SDL_SetRenderDrawBlendMode(ren, b);
+	SDL_SetRenderDrawColor(ren, color.r, color.g, color.b, color.a);
+
+	int	x = c.x - c.h - 1;
+
+	while (x <= c.x + c.h + 1)
+	{
+		int	y = c.y - c.h - 1;
+		while (y <= c.y + c.h + 1)
+		{
+			if ((x - c.x) * (x - c.x) + (y - c.y) * (y - c.y) <= c.h * c.h)
+			{
+				SDL_RenderDrawPoint(ren, x, y);
+			}
+			++y;
+		}
+		++x;
+	}
+	SDL_SetRenderDrawBlendMode(ren, bm);
+}
 
 static void	tool_eraser(t_ui_el *el, t_guimp *g, int x, int y)
 {
 	SDL_BlendMode	bm;
 	int				s;
 
+//	ui_draw_circle(el->sdl_renderer, (t_rect){x, y, 0, 200}, SDL_BLENDMODE_NONE, (SDL_Color){255,255,0,255});
 	s = g->draw_tool.brush_size;
 	SDL_SetRenderTarget(el->sdl_renderer, (SDL_Texture *)(g->layers.current_layer->sdl_textures->content));
 	SDL_GetRenderDrawBlendMode(el->sdl_renderer, &bm);

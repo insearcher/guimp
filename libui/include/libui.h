@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/27 16:01:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/27 18:12:32 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,7 @@ typedef struct		s_ui_win
 typedef struct		s_ui_raycaster
 {
 	t_ui_win		*selected_win;
+	t_ui_win		*focused_win;
 	t_ui_el			*selected;
 }					t_ui_raycaster;
 

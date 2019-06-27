@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_with_selected_tool.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 00:41:52 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/26 01:10:33 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/27 15:37:18 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void draw_with_selected_tool(void *main, void *el_v)
         tool_hand(g);
     else if (g->draw_tool.tool == GM_TOOL_PIPETTE)
     {
-        int color = ui_get_pixel_color_from_texture(el->sdl_renderer, (t_texture *)(g->layers.layers->content), (t_vec2){x, y});
+        // int color = ui_get_pixel_color_from_texture(el->sdl_renderer, (t_texture *)(g->layers.layers->content), (t_vec2){x, y});
+        int color = ui_get_pixel_color_from_el(el->sdl_renderer, el, (t_vec2){el->ptr_rel_pos.x, el->ptr_rel_pos.y});
         g->draw_tool.r = (color & 0xFF0000) >> 16;
         g->draw_tool.g = (color & 0x00FF00) >> 8;
         g->draw_tool.b = color & 0x0000FF;

@@ -6,13 +6,13 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 15:19:29 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/06/27 15:24:08 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:37:49 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-Uint32	ui_get_pixel_color_from_texture(SDL_Renderer *renderer,
+Uint32	ui_get_pixel_color_from_el(SDL_Renderer *renderer,
 		t_ui_el *el, t_vec2 coord)
 {
 	Uint32		res;

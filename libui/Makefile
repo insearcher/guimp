@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/25 20:55:27 by sbednar          ###   ########.fr        #
+#    Updated: 2019/06/27 15:53:57 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -153,7 +153,9 @@ SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c \
 					ui_prefab_get_pixel_size.c
 
 SRC_UTILITS		=	ui_get_rect_from_frect.c \
-					ui_get_pixel_color_from_texture.c
+					ui_get_pixel_color_from_texture.c \
+					ui_get_pixel_color_from_el.c \
+					ui_set_pixel_color_to_texture.c
 
 SRC_UI_JTOC		=	ui_main_from_json.c \
 					ui_win_from_json.c \

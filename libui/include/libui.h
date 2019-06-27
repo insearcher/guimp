@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/26 03:04:56 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/27 15:53:01 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -530,6 +530,10 @@ int					ui_sdl_log_error(const char *p, const int id);
 
 Uint32				ui_get_pixel_color_from_texture(SDL_Renderer *renderer,
 						SDL_Texture *texture, t_vec2 coord);
+Uint32				ui_get_pixel_color_from_el(SDL_Renderer *renderer,
+						t_ui_el *el, t_vec2 coord);
 void				ui_el_children_set_default(void *a1, void *a2);
+void				ui_set_pixel_color_to_texture(SDL_Renderer *renderer,
+						SDL_Texture *texture, t_vec2 coord, SDL_Color color);
 
 #endif

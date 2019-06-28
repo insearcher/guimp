@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/27 15:53:01 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:11:26 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,13 @@
 # define ABS			(1 << 0)
 # define PIXEL			(1 << 1)
 
-typedef	void		(*func_ptr)(void *, void *);
-typedef	int			(*pred_ptr)(void *, void *);
-typedef	SDL_Rect	t_rect;
-typedef	SDL_Texture	t_texture;
-typedef	t_list		t_list_texture;
+typedef	void			(*func_ptr)(void *, void *);
+typedef	int				(*pred_ptr)(void *, void *);
+typedef	SDL_Rect		t_rect;
+typedef	SDL_Texture		t_texture;
+typedef	t_list			t_list_texture;
+typedef	SDL_Renderer	t_renderer;
+typedef	SDL_Color		t_color;
 
 /*
 ** Smart things:

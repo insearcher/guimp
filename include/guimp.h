@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   guimp.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/26 02:03:09 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/27 18:28:38 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@
 # define GM_TOOL_HAND			3
 # define GM_TOOL_LINE			4
 # define GM_TOOL_PIPETTE		5
+# define GM_TOOL_FILL			6
 
 # define GM_TOOL_STATE_NONE		0
 # define GM_TOOL_STATE_START	1
@@ -107,6 +108,12 @@ typedef struct					s_draw_tool
 	int							zoom;
 	int							state;
 }								t_draw_tool;
+
+typedef struct					s_cvec2
+{
+	Uint32						color1;
+	Uint32						color2;
+}								t_cvec2;
 
 
 typedef struct					s_guimp

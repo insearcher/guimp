@@ -960,6 +960,10 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_fill"
             }
           ]
         },

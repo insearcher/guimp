@@ -191,7 +191,7 @@
               "main_id": "layer_place",
               "el_id": "default"
             },
-            {
+        {
               "main_id": "layer_onPtr",
               "el_id": "onFocus"
             },
@@ -430,12 +430,12 @@
           "pos":
           {
             "x": 0.965,
-            "y": 0.005
+            "y": 0.003
           },
           "size":
           {
             "x": 0.03,
-            "y": 0.04
+            "y": 0.05
           },
           "textures":
           [
@@ -454,18 +454,43 @@
           ],
           "pos":
           {
-            "x": 0.925,
-            "y": 0.005
+            "x": 0.94,
+            "y": 0.001
           },
           "size":
           {
             "x": 0.03,
-            "y": 0.04
+            "y": 0.05
           },
           "textures":
           [
             {
               "main_id": "open_icon",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "parent": 1,
+          "type":
+          [
+            "RESIZABLE"
+          ],
+          "pos":
+          {
+            "x": 0.92,
+            "y": 0.012
+          },
+          "size":
+          {
+            "x": 0.02,
+            "y": 0.03
+          },
+          "textures":
+          [
+            {
+              "main_id": "question_icon",
               "el_id": "default"
             }
           ]

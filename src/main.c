@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/27 20:00:50 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/28 10:39:25 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void move_windows(void *a1, void *a2)
 		while (list)
 		{
 			cur_w = (t_ui_win *)list->content;
-			if (cur_w->id == w->id)
+			if (cur_w->id >= 2 || cur_w->id == w->id)
 			{
 				list = list->next;
 				continue;
@@ -36,7 +36,7 @@ void move_windows(void *a1, void *a2)
 			SDL_GetWindowPosition(w->sdl_window, &pos.x, &pos.y);
 			if (cur_w->id == 0)
 				pos.x = pos.x + GM_TOOL_WIN_W + 5;
-			else
+			else if (cur_w->id == 1)
 				pos.x = pos.x - GM_TOOL_WIN_W - 5;
 			// printf("id: %d, (%d, %d)\n", windowID, pos.x, pos.y);
 			SDL_SetWindowPosition(cur_w->sdl_window, pos.x, pos.y);
@@ -700,6 +700,23 @@ int		main()
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
 	ui_el_update_text(cur_el, "Opacity:");
 
+ 	SDL_Log("CHECK MAIN1\n");
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 10);
+	ui_main_add_window_opener_el(g_main.ui_main, cur_el);
+	cur_el->params |= EL_MODAL_OK;
+	cur_el->modal_win.w_id = 3;
+	cur_el->modal_win.w_pos.x = SDL_WINDOWPOS_CENTERED;
+	cur_el->modal_win.w_pos.y = SDL_WINDOWPOS_CENTERED;
+	cur_el->modal_win.w_size.x = 600;
+	cur_el->modal_win.w_size.y = 600;
+	cur_el->modal_win.title = ft_strdup("INSTRUCTION");
+	cur_el->modal_win.text = (char **)ft_memalloc(sizeof(char *) * 3);
+	cur_el->modal_win.text[0] = ft_strdup("ALL AH CULA");
+	cur_el->modal_win.text[1] = ft_strdup("BPAT");
+	ui_el_set_text_for_modal_window(g_main.ui_main, cur_el, "SansSerif",
+			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+	SDL_Log("CHECK MAIN2\n");
+
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 6);
 	cur_el->params |= EL_IS_TEXT;
 	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
@@ -754,6 +771,7 @@ int		main()
 //	 ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
 //	 ui_el_add_texture_from_file_dialog(cur_el);
 
+	SDL_Log("CHECK MAIN3\n");
 	ui_main_loop(g_main.ui_main);
 	return (0);
 }

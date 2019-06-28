@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/27 18:12:32 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/28 08:40:27 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@
 # define EL_IS_SCROLLABLE	(1 << 3)
 # define EL_IS_DEPENDENT	(1 << 4)
 # define EL_IS_TEXT			(1 << 5)
-// # define EL_IS_LMB_PRESSED	(1 << 6)
-// # define EL_IS_RMB_PRESSED	(1 << 7)
+# define EL_IS_INVOKE_WIN	(1 << 6)
+# define EL_MODAL_OK		(1 << 7)
+# define EL_MODAL_OK_CANCEL	(1 << 8)
+// # define EL_IS_LMB_PRESSED	(1 << 7)
+// # define EL_IS_RMB_PRESSED	(1 << 8)
 
 //text params
 # define TEXT_IS_CENTERED	(1 << 0)
@@ -176,6 +179,22 @@ typedef struct		s_ui_text
 	int				params;
 }					t_ui_text;
 
+typedef struct		s_ui_modal_win
+{
+	TTF_Font		*font;
+	SDL_Color		text_color;
+	SDL_Color		bg_color;
+	int				w_id;
+	t_vec2			w_pos;
+	t_vec2			w_size;
+	char			*title;
+	char			**text;
+	int				render_param;
+	int				params;
+	int				output;
+	char			*output_text;
+}					t_ui_modal_win;
+
 typedef struct		s_ui_el
 {
 	SDL_Surface		*sdl_surface;
@@ -191,6 +210,7 @@ typedef struct		s_ui_el
 	Uint32			id;
 	Uint32			params; // <- put there next parameters
 	t_ui_text		text;
+	t_ui_modal_win	modal_win;
 	t_ui_el_events	*events;
 	void			*data;
 }					t_ui_el;
@@ -246,6 +266,7 @@ typedef struct		s_ui_win
 	t_ui_win_events	*events;
 	Uint32			id;
 	Uint32			params;
+	t_ui_el			*output_el;
 }					t_ui_win;
 
 # pragma endregion
@@ -271,6 +292,7 @@ typedef struct		s_ui_main
 	t_list			*sdl_surfaces;
 	t_list			*sdl_fonts;
 	t_list			*functions;
+	t_list			*modal_win_els;
 	t_ui_el			*focused_el;
 	unsigned int	cur_keycode;
 	void			*data;
@@ -321,6 +343,7 @@ t_ui_el				*ui_raycast(t_ui_main *m, t_ui_win *w);
 t_ui_main			*ui_main_init(void);
 void				ui_main_loop(t_ui_main *m);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
+int					ui_main_add_window_opener_el(t_ui_main *m, t_ui_el *el);
 void				ui_main_close_window(void *a1, void *a2);
 void				ui_main_close_program(void *a1, void *a2);
 
@@ -469,6 +492,8 @@ int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 
 int					ui_main_set_font_params(t_ui_main *m, const char *font_id, t_font_params params);
 int					ui_el_set_text(t_ui_main *m, t_ui_el *el, const char *font_id, t_text_params params);
+int					ui_el_set_text_for_modal_window(t_ui_main *m, t_ui_el *el,
+		const char *font_id, t_text_params params);
 int					ui_el_update_text(t_ui_el *el, const char *text);
 
 # pragma endregion
@@ -479,6 +504,7 @@ void				ui_win_change_text_in_focused_el(void *a1, void *a2);
 t_ui_win			*ui_win_init(void);
 void				ui_win_close(t_ui_win *w);
 t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);
+void				ui_win_try_to_create_modal_window(t_ui_main *m);
 
 int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);
@@ -530,13 +556,16 @@ int					ui_get_win_param_from_string(const char *str);
 int					ui_sdl_log_error(const char *p, const int id);
 
 Uint32				ui_get_pixel_color_from_texture(SDL_Renderer *renderer,
-						SDL_Texture *texture, t_vec2 coord);
+		SDL_Texture *texture, t_vec2 coord);
 Uint32				ui_get_pixel_color_from_el(SDL_Renderer *renderer,
-						t_ui_el *el, t_vec2 coord);
+		t_ui_el *el, t_vec2 coord);
+void				ui_set_pixel_color_to_texture_replace(SDL_Renderer *renderer,
+		SDL_Texture *texture, t_vec2 coord, SDL_Color color);
 void				ui_el_children_set_default(void *a1, void *a2);
-void				ui_set_pixel_color_to_texture(SDL_Renderer *renderer,
-						SDL_Texture *texture, t_vec2 coord, SDL_Color color);
-void	ui_set_pixel_color_to_texture_replace(SDL_Renderer *renderer,
-											  SDL_Texture *texture, t_vec2 coord, SDL_Color color);
+
+/*void	ui_win_selection_lost(void *a1, void *a2);
+void	ui_win_selection_gained(void *a1, void *a2);
+void	ui_log_window_leave(void *a1, void *a2);
+void	ui_log_window_enter(void *a1, void *a2);*/
 
 #endif

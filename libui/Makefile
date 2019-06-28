@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/27 15:53:57 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/06/28 07:02:20 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,7 +131,8 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_fill_default_fonts.c \
 					ui_main_set_font_params.c \
 					ui_main_add_function_by_id.c \
-					ui_main_get_function_by_id.c
+					ui_main_get_function_by_id.c \
+					ui_main_add_window_opener_el.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c
@@ -143,7 +144,8 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_update_size.c \
 					ui_win_find_el_by_id.c \
 					ui_win_focus.c \
-					ui_win_change_text_in_focused_el.c
+					ui_win_change_text_in_focused_el.c \
+					ui_win_try_to_create_modal_window.c
 
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c

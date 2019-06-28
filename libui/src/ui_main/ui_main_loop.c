@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:26:26 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 16:32:18 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/06/28 07:45:25 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ void		ui_main_loop(t_ui_main *m)
 
 	thread = SDL_CreateThread(ui_main_loop_non_sdl, "ui_main_loop_non_sdl", (void *)m);
 	SDL_DetachThread(thread);
+	SDL_Log("CHECK LOOP1\n");
 	while (1)
 	{
 		if (SDL_PollEvent(m->sdl_event))
 			ui_main_handle_event(m);
+		ui_win_try_to_create_modal_window(m);
 	}
 }

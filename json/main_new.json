@@ -191,7 +191,7 @@
               "main_id": "layer_place",
               "el_id": "default"
             },
-            {
+        {
               "main_id": "layer_onPtr",
               "el_id": "onFocus"
             },
@@ -430,12 +430,12 @@
           "pos":
           {
             "x": 0.965,
-            "y": 0.005
+            "y": 0.003
           },
           "size":
           {
             "x": 0.03,
-            "y": 0.04
+            "y": 0.05
           },
           "textures":
           [
@@ -454,18 +454,43 @@
           ],
           "pos":
           {
-            "x": 0.925,
-            "y": 0.005
+            "x": 0.94,
+            "y": 0.001
           },
           "size":
           {
             "x": 0.03,
-            "y": 0.04
+            "y": 0.05
           },
           "textures":
           [
             {
               "main_id": "open_icon",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "parent": 1,
+          "type":
+          [
+            "RESIZABLE"
+          ],
+          "pos":
+          {
+            "x": 0.92,
+            "y": 0.012
+          },
+          "size":
+          {
+            "x": 0.02,
+            "y": 0.03
+          },
+          "textures":
+          [
+            {
+              "main_id": "question_icon",
               "el_id": "default"
             }
           ]
@@ -573,6 +598,7 @@
               "el_id": "onActive"
             }
           ],
+          "current_texture": "onActive",
           "events":
           [
             {
@@ -749,12 +775,12 @@
             },
             {
               "type": "color",
-              "color": "FF0000",
+              "color": "00FF00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "EE0000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -775,6 +801,10 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_eraser"
             }
           ]
         },
@@ -997,12 +1027,12 @@
             },
             {
               "type": "color",
-              "color": "FF0000",
+              "color": "00FF00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "DD0000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -1446,10 +1476,6 @@
         {
           "id": 100,
           "parent": 10,
-          "params":
-          [
-            "EL_IS_HIDDEN"
-          ],
           "pos":
           {
             "x": 0,
@@ -1506,7 +1532,7 @@
           "textures":
           [
             {
-              "main_id": "brush_icon3",
+              "main_id": "brush_icon",
               "el_id": "default"
             }
           ],
@@ -1649,8 +1675,7 @@
           "textures":
           [
             {
-              "type": "color",
-              "color": "FFFFFF",
+              "main_id": "text_icon",
               "el_id": "default"
             }
           ]
@@ -1683,7 +1708,7 @@
           "textures":
           [
             {
-              "main_id": "eraser",
+              "main_id": "eraser_icon",
               "el_id": "default"
             }
           ]
@@ -1716,7 +1741,7 @@
           "textures":
           [
             {
-              "main_id": "lupa",
+              "main_id": "zoom_icon",
               "el_id": "default"
             }
           ]
@@ -1782,7 +1807,7 @@
           "textures":
           [
             {
-              "main_id": "fill_icon2",
+              "main_id": "fill_icon",
               "el_id": "default"
             }
           ]
@@ -1940,6 +1965,123 @@
             {
               "type": "color",
               "color": "000000",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1000,
+          "parent": 100,
+          "pos":
+          {
+            "x": 12,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+        "id": 10000,
+        "parent": 1000,
+        "pos":
+        {
+          "x": 2,
+          "y": 2,
+          "params":
+          [
+            "PIXEL"
+          ]
+        },
+        "size":
+        {
+          "x": 56,
+          "y": 56,
+          "params":
+          [
+            "PIXEL"
+          ]
+        },
+        "textures":
+        [
+          {
+            "main_id": "brush",
+            "el_id": "default"
+          }
+        ]
+      },
+        {
+          "id": 1001,
+          "parent": 100,
+          "pos":
+          {
+            "x": 84,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1002,
+          "parent": 100,
+          "pos":
+          {
+            "x": 156,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
               "el_id": "default"
             }
           ]

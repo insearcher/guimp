@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 02:19:12 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 20:03:56 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/06/27 15:24:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ui_main_handle_window_event(t_ui_main *m)
 	event = NULL;
 	if (m->sdl_event->window.event == SDL_WINDOWEVENT_CLOSE)
 		event = win->events->onClose;
-//	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_RESIZED)
 	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 		event = win->events->onResize;
 	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_FOCUS_GAINED)

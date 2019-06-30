@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/28 17:06:00 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/01 00:16:36 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -812,12 +812,15 @@ int		main()
 	cur_el->modal_win.w_id = 3;
 	cur_el->modal_win.w_pos.x = SDL_WINDOWPOS_CENTERED;
 	cur_el->modal_win.w_pos.y = SDL_WINDOWPOS_CENTERED;
-	cur_el->modal_win.w_size.x = 600;
+	cur_el->modal_win.w_size.x = 800;
 	cur_el->modal_win.w_size.y = 600;
 	cur_el->modal_win.title = ft_strdup("INSTRUCTION");
-	cur_el->modal_win.text = (char **)ft_memalloc(sizeof(char *) * 3);
+	cur_el->modal_win.text = (char **)ft_memalloc(sizeof(char *) * 6);
 	cur_el->modal_win.text[0] = ft_strdup("ALL AH CULA");
 	cur_el->modal_win.text[1] = ft_strdup("BPAT");
+	cur_el->modal_win.text[2] = ft_strdup("AAAAAAA");
+	cur_el->modal_win.text[3] = ft_strdup("AAAAAAA");
+	cur_el->modal_win.text[4] = ft_strdup("AAAAAAA");
 	ui_el_set_text_for_modal_window(g_main.ui_main, cur_el, "SansSerif",
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
 	SDL_Log("CHECK MAIN2\n");

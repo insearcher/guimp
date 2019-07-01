@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
+#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/27 15:24:57 by sbednar          ###   ########.fr        #
+#    Updated: 2019/07/01 20:11:14 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRC				=	main.c \
 					gm_init.c \
 					ui_main_fill_default_functions.c \
 					gm_generate_surfaces_id.c \
-					draw_with_selected_tool.c
+					draw_with_selected_tool.c \
+					draw_fat_line.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
@@ -174,7 +175,7 @@ compile_test: $(OBJ_TEST)
 		fi;
 
 build_test:
-	$(CC) $(CFLAGS) $(OBJ_TEST) $(INCS) $(LIBS) $(FRAMEWORKS) -o $(NAME_TEST) # -fsanitize=address 
+	$(CC) $(CFLAGS) $(OBJ_TEST) $(INCS) $(LIBS) $(FRAMEWORKS) -o $(NAME_TEST) # -fsanitize=address
 
 $(OBJ_DIR_TEST):
 	@mkdir $(OBJ_DIR_TEST)

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/28 17:12:11 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/01 20:42:38 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,14 +221,18 @@ static void	prepare_tmp_layer(t_guimp *g)
 	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b, 255);
 	if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
 	{
-		SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
-			g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
+		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
+		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
+		draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
+			(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
 	}
 	if (g->draw_tool.state == GM_TOOL_STATE_END)
 	{
 		SDL_SetRenderTarget(g->main_win->sdl_renderer, (t_texture *)(g->layers.current_layer->sdl_textures->content));
-		SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
-			g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
+		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
+		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
+		draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
+			(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
 		g->draw_tool.state = GM_TOOL_STATE_NONE;
 	}
 	SDL_SetRenderTarget(g->main_win->sdl_renderer, NULL);
@@ -799,12 +803,15 @@ int		main()
 	cur_el->modal_win.w_id = 3;
 	cur_el->modal_win.w_pos.x = SDL_WINDOWPOS_CENTERED;
 	cur_el->modal_win.w_pos.y = SDL_WINDOWPOS_CENTERED;
-	cur_el->modal_win.w_size.x = 600;
+	cur_el->modal_win.w_size.x = 800;
 	cur_el->modal_win.w_size.y = 600;
 	cur_el->modal_win.title = ft_strdup("INSTRUCTION");
-	cur_el->modal_win.text = (char **)ft_memalloc(sizeof(char *) * 3);
+	cur_el->modal_win.text = (char **)ft_memalloc(sizeof(char *) * 6);
 	cur_el->modal_win.text[0] = ft_strdup("ALL AH CULA");
 	cur_el->modal_win.text[1] = ft_strdup("BPAT");
+	cur_el->modal_win.text[2] = ft_strdup("AAAAAAA");
+	cur_el->modal_win.text[3] = ft_strdup("AAAAAAA");
+	cur_el->modal_win.text[4] = ft_strdup("AAAAAAA");
 	ui_el_set_text_for_modal_window(g_main.ui_main, cur_el, "SansSerif",
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
 	SDL_Log("CHECK MAIN2\n");

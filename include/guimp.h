@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/28 16:19:54 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/01 20:10:47 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct					s_guimp
 void							draw_dot(void *ui_main, void *ui_el);
 void							draw_main_canvas_event(void *el_v, void *arg);
 void							draw_with_selected_tool(void *main, void *el_v);
+void							draw_fat_line(t_guimp *g, t_vec2 start, t_vec2 end);
 void							update_color_rect(t_guimp *gm, int r, int g, int b);
 
 void							gm_init(t_guimp *g_main);

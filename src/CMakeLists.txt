@@ -10,4 +10,5 @@ target_sources(guimp_cmake PUBLIC
         gm_init.c
         ui_main_fill_default_functions.c
         gm_generate_surfaces_id.c
+        draw_fat_line.c
         )

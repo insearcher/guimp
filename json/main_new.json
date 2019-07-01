@@ -2026,6 +2026,13 @@
             "main_id": "brush",
             "el_id": "default"
           }
+        ],
+        "events":
+        [
+          {
+            "event_name": "onPointerLeftButtonPressed",
+            "func_name": "choose_brush"
+          }
         ]
       },
         {
@@ -2054,6 +2061,13 @@
             {
               "main_id": "brush",
               "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_line"
             }
           ]
         },

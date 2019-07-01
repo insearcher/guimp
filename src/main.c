@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/28 17:06:00 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/06/28 17:12:11 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,19 +329,6 @@ static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec
 			q_push(&q, tmp);
 		}
 	}
-	// if (ui_get_pixel_color_from_texture(rend, texture, coord) != color.color2)
-	// 	return;
-	// ui_set_pixel_color_to_texture(rend, texture, coord,
-	// 	(t_color){(color.color1 & 0xFF0000) >> 16, (color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255});
-	// if (++coord.x < GM_IMAGE_SIZE_X)
-	// 	fill_tool(rend, texture, color, coord);
-	// if ((coord.x -= 2) >= 0)
-	// 	fill_tool(rend, texture, color, coord);
-	// coord.x++;
-	// if (--coord.y >= 0)
-	// 	fill_tool(rend, texture, color, coord);
-	// if ((coord.y += 2) < GM_IMAGE_SIZE_Y)
-	// 	fill_tool(rend, texture, color, coord);
 }
 
 static void	start_draw_with_selected_tool(void *main, void *el_v)

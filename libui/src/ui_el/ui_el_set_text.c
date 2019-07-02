@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 01:55:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/30 22:47:35 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/02 10:08:44 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ int ui_el_set_text_for_modal_window(t_ui_main *m, t_ui_el *el,
 	if (text_params.params & TEXT_IS_INPUTTING)
 		el->modal_win.params |= TEXT_IS_INPUTTING;
 	el->modal_win.bg_color = text_params.bg_color;
-	el->params |= EL_IS_TEXT;
-	el->params |= EL_IS_DEPENDENT;
-//	ui_el_update_text(el, "");
 	return (FUNCTION_SUCCESS);
 }
 

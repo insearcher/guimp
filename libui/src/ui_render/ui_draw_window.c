@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 05:49:45 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/06/19 16:32:12 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/02 07:53:45 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	bfs_iter_draw(const t_list *root, const void *arg)
 	{
 		tmp = q_pop(&q);
 		cur_el = (t_ui_el *)tmp;
-		if (!(cur_el->params & EL_IS_HIDDEN))
+		if (!(cur_el->params & EL_IS_HIDDEN) && (cur_el->params & EL_IS_READY))
 		{
 			if ((cur_el->params & EL_IS_DEPENDENT) && (!(check_border(cur_el))))
 				continue;

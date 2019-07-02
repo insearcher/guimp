@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_log_el_right_button_pressed.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 07:54:58 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/27 15:24:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/02 14:46:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	ui_log_el_right_button_pressed(void *a1, void *a2)
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id
-//		m->raycaster->selected_win->id
+//		m->raycaster->focused_win->id
 	);
 }

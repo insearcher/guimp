@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:37:32 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/23 05:51:04 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/02 07:54:09 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	ui_el_is_pointer_inside(void *a1, void *a2)
 
 	m = (t_ui_main *)a1;
 	el = (t_ui_el *)a2;
-	if (el->params & EL_IGNOR_RAYCAST)
-		return (0);
 	x = m->ptr_pos.x;
 	y = m->ptr_pos.y;
 	if (el->params & EL_IS_DEPENDENT)

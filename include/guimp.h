@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   guimp.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/01 20:10:47 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/02 09:25:38 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define GM_MAIN_WIN_Y			SDL_WINDOWPOS_CENTERED //SDL!!!
 # define GM_MAIN_WIN_W			1200
 # define GM_MAIN_WIN_H			800
-# define GM_MAIN_ID_DRAW		2
+# define GM_MAIN_ID_DRAW		3
 
 # define GM_TOOL_WIN_W			300
 # define GM_TOOL_WIN_H			800
@@ -51,9 +51,9 @@
 
 # define GM_LAYER_WIN_W			300
 # define GM_LAYER_WIN_H			800
-# define GM_LAYER_ID_MENU		3
-# define GM_LAYER_ID_ADD		4
-# define GM_LAYER_ID_DEL		5
+# define GM_LAYER_ID_MENU		4
+# define GM_LAYER_ID_ADD		5
+# define GM_LAYER_ID_DEL		6
 # define GM_LAYER_ID_DEF_LAYER	ID_GENERATOR_START
 # define GM_LAYER_MAX_COUNT		100
 

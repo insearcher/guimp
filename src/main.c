@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/01 20:42:38 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/02 07:27:05 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void move_windows(void *a1, void *a2)
 				pos.x = pos.x - GM_TOOL_WIN_W - 5;
 			// printf("id: %d, (%d, %d)\n", windowID, pos.x, pos.y);
 			SDL_SetWindowPosition(cur_w->sdl_window, pos.x, pos.y);
+			cur_w->pos.x = pos.x;
+			cur_w->pos.y = pos.y;
 			list = list->next;
 		}
 	}
@@ -160,6 +162,8 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	tmp->content = el->sdl_textures->content;
 	tmp->content_size = tmp_el->id;
 	ft_lstadd_back(&(g->layers.layers), tmp);
+	el->params |= EL_IS_READY;
+	tmp_el->params |= EL_IS_READY;
 }
 
 static void	test_del_layer(void *main, void *el_v)
@@ -759,13 +763,14 @@ int		main()
 
 	 g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
 	 g_main.tool_win = ui_main_find_window_by_id(g_main.ui_main, 1);
+	SDL_RaiseWindow(g_main.main_win->sdl_window);
 
 
 	t_ui_el	*cur_el;
 //	cur_el = ui_win_find_el_by_id((t_ui_win *)g_main.ui_main->windows->content, 30);
 
 
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 2);
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 3);
 
 	g_main.layers.tmp_texture = ui_el_get_texture_by_id(cur_el, "tmp_layer");
 
@@ -781,7 +786,7 @@ int		main()
 	cur_el->params |= EL_IS_TEXT;
 	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
 		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	cur_el->data = ui_win_find_el_by_id(g_main.main_win, 2);
+	cur_el->data = ui_win_find_el_by_id(g_main.main_win, GM_MAIN_ID_DRAW);
 	ui_event_add_listener(cur_el->events->onRender, text_test);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23000);
@@ -796,8 +801,7 @@ int		main()
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
 	ui_el_update_text(cur_el, "Opacity:");
 
- 	SDL_Log("CHECK MAIN1\n");
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 10);
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 11);
 	ui_main_add_window_opener_el(g_main.ui_main, cur_el);
 	cur_el->params |= EL_MODAL_OK;
 	cur_el->modal_win.w_id = 3;
@@ -814,24 +818,32 @@ int		main()
 	cur_el->modal_win.text[4] = ft_strdup("AAAAAAA");
 	ui_el_set_text_for_modal_window(g_main.ui_main, cur_el, "SansSerif",
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	SDL_Log("CHECK MAIN2\n");
-
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 6);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "ADD LAYER");
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 7);
 	cur_el->params |= EL_IS_TEXT;
 	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
+	ui_el_update_text(cur_el, "ADD LAYER");
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 8);
+	cur_el->params |= EL_IS_TEXT;
+	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
+			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
 	ui_el_update_text(cur_el, "DEL LAYER");
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 10);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush_icon"), 26, 39});
+//	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush_icon"), 26, 39});
+//	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+//	ui_cursor_from_el_data(NULL, cur_el);
+
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush_icon"), 26, 40});
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-	ui_cursor_from_el_data(NULL, cur_el);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "text_icon"), 23, 27});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 13);
 	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "eraser_icon"), 21, 36});
@@ -839,6 +851,14 @@ int		main()
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
 	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "zoom_icon"), 23, 23});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "fill_icon"), 14, 39});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 17);
+	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "pipette_icon"), 13, 38});
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
@@ -869,7 +889,6 @@ int		main()
 //	 ui_el_add_texture_from_file(cur_el, "/home_sbednar/21school/guimp_json/images/bl.png", "default");
 //	 ui_el_add_texture_from_file_dialog(cur_el);
 
-	SDL_Log("CHECK MAIN3\n");
 	ui_main_loop(g_main.ui_main);
 	return (0);
 }

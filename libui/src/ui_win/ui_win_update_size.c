@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:01:55 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 17:59:17 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/02 14:50:21 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	ui_win_update_size(void *a1, void *a2)
 	t_ui_win	*w;
 
 	m = (t_ui_main *)a1;
-	(void)a2;
-	w = m->raycaster->selected_win;
+	w = (t_ui_win *)a2;
 	if (w != NULL)
 	{
 //		SDL_GetWindowSize(w->sdl_window, &(w->size.x), &(w->size.y));

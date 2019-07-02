@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_handle_raycast.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/28 07:45:03 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/02 07:32:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ui_main_handle_raycast(t_ui_main *m)
 {
-	t_ui_el		*prev;
-	t_ui_el		*cur;
+	t_ui_el *prev;
+	t_ui_el *cur;
 
 	prev = m->raycaster->selected;
-	cur = ui_raycast(m, m->raycaster->selected_win);
+	cur = ui_raycast(m, m->raycaster->focused_win);
 	if (prev != NULL && cur != NULL && prev->id != cur->id)
 	{
 		ui_event_invoke(prev->events->onPointerLeftButtonReleased, m, prev);

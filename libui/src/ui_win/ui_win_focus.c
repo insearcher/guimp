@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_win_focus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 02:27:11 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/27 15:24:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/02 09:07:18 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ui_win_focus_lost(void *a1, void *a2)
 
 	m = (t_ui_main *)a1;
 	(void)a2;
-	m->raycaster->selected_win = NULL;
+	m->raycaster->focused_win = NULL;
 }
 
 void	ui_win_focus_gained(void *a1, void *a2)
@@ -28,6 +28,6 @@ void	ui_win_focus_gained(void *a1, void *a2)
 
 	m = (t_ui_main *)a1;
 	w = (t_ui_win *)a2;
-	m->raycaster->selected_win = w;
+	m->raycaster->focused_win = w;
 	m->focused_el = NULL;
 }

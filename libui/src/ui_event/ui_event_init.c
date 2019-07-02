@@ -55,6 +55,8 @@ t_ui_win_events	*ui_win_events_init(void)
 		return (NULL);
 	ft_bzero(w, sizeof(t_ui_win_events));
 	if (!(w->onPointerMoved = ui_event_init()) ||
+		!(w->onPointerEnter = ui_event_init()) ||
+		!(w->onPointerExit = ui_event_init()) ||
 		!(w->onPointerLeftButtonPressed = ui_event_init()) ||
 		!(w->onPointerLeftButtonReleased = ui_event_init()) ||
 		!(w->onPointerRightButtonPressed = ui_event_init()) ||

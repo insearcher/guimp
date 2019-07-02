@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_log_el_pointer_enter.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:10:01 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/27 15:24:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/02 14:47:35 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	ui_log_el_pointer_enter(void *a1, void *a2)
 		el->ptr_rel_pos.x,
 		el->ptr_rel_pos.y,
 		el->id
-//		m->raycaster->selected_win->id
+//		m->raycaster->focused_win->id
 	);
 }

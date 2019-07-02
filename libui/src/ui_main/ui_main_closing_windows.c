@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_win_closing_windows.c                           :+:      :+:    :+:   */
+/*   ui_main_closing_windows.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:21:44 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/22 18:39:39 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/02 07:18:46 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 static void ft_lstdelones_without_cont(t_list **alst)
 {
+	t_list	*tmp;
+
 	if (!alst)
 		return ;
-	free(*alst);
+	tmp = *alst;
 	*alst = NULL;
+	free(tmp);
 }
 
 void	ui_main_close_window(void *a1, void *a2)
@@ -37,13 +40,14 @@ void	ui_main_close_window(void *a1, void *a2)
 		cur_w = (t_ui_win *)(cur->content);
 		if (w->sdl_windowID == cur_w->sdl_windowID)
 		{
+			w->params &= ~WIN_IS_READY;
+			ui_win_close(cur_w);
 			if (prev == NULL)
 				m->windows = cur->next;
 			else
 				prev->next = cur->next;
-			ui_win_close(cur_w);
-			ft_lstdelones_without_cont(&cur);
 			return ;
+			ft_lstdelones_without_cont(&cur);
 		}
 		prev = cur;
 		cur = cur->next;

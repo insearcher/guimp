@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:26:26 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/01 00:20:08 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/02 06:16:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	ui_main_loop_non_sdl(void *d)
 	t_ui_main	*m;
 
 	m = (t_ui_main *)d;
+//	SDL_Delay((Uint32)(2000.0f));
 	while (1)
 	{
 		if (m->params & MAIN_ON_QUIT)
@@ -34,7 +35,6 @@ void		ui_main_loop(t_ui_main *m)
 
 	thread = SDL_CreateThread(ui_main_loop_non_sdl, "ui_main_loop_non_sdl", (void *)m);
 	SDL_DetachThread(thread);
-	SDL_Log("CHECK LOOP1\n");
 	while (1)
 	{
 		if (SDL_PollEvent(m->sdl_event))

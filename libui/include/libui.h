@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/28 16:07:24 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:45:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ** 7)
 */
 
-# define DEBUG_STATUS		1
+# define DEBUG_STATUS
 
 # define KNRM				"\x1B[0m"
 # define KRED				"\x1B[31m"
@@ -61,6 +61,7 @@
 # define EL_IS_INVOKE_WIN	(1 << 6)
 # define EL_MODAL_OK		(1 << 7)
 # define EL_MODAL_OK_CANCEL	(1 << 8)
+# define EL_IS_READY		(1 << 9)
 // # define EL_IS_LMB_PRESSED	(1 << 7)
 // # define EL_IS_RMB_PRESSED	(1 << 8)
 
@@ -89,6 +90,7 @@
 
 //win params
 # define WIN_RESIZABLE		(1 << 0)
+# define WIN_IS_READY		(1 << 1)
 
 //texture id`s
 // # define TID_DEFAULT		0
@@ -147,24 +149,6 @@ void				ui_event_clear(t_ui_event *e);
 # pragma endregion
 # pragma region		t_ui_el_events
 
-typedef struct		s_ui_el_events
-{
-	t_ui_event		*onPointerEnter;
-	t_ui_event		*onPointerStay;
-	t_ui_event		*onPointerExit;
-	t_ui_event		*onPointerLeftButtonPressed;
-	t_ui_event		*onPointerLeftButtonHold;
-	t_ui_event		*onPointerLeftButtonReleased;
-	t_ui_event		*onPointerRightButtonPressed;
-	t_ui_event		*onPointerRightButtonHold;
-	t_ui_event		*onPointerRightButtonReleased;
-	t_ui_event		*onScrollUp;
-	t_ui_event		*onScrollDown;
-	t_ui_event		*onRender;
-	t_ui_event		*onResize;
-}					t_ui_el_events;
-
-t_ui_el_events		*ui_el_events_init(void);
 
 # pragma endregion
 # pragma region		t_ui_el
@@ -196,6 +180,25 @@ typedef struct		s_ui_modal_win
 	int				output;
 	char			*output_text;
 }					t_ui_modal_win;
+
+typedef struct		s_ui_el_events
+{
+	t_ui_event		*onPointerEnter;
+	t_ui_event		*onPointerStay;
+	t_ui_event		*onPointerExit;
+	t_ui_event		*onPointerLeftButtonPressed;
+	t_ui_event		*onPointerLeftButtonHold;
+	t_ui_event		*onPointerLeftButtonReleased;
+	t_ui_event		*onPointerRightButtonPressed;
+	t_ui_event		*onPointerRightButtonHold;
+	t_ui_event		*onPointerRightButtonReleased;
+	t_ui_event		*onScrollUp;
+	t_ui_event		*onScrollDown;
+	t_ui_event		*onRender;
+	t_ui_event		*onResize;
+}					t_ui_el_events;
+
+t_ui_el_events		*ui_el_events_init(void);
 
 typedef struct		s_ui_el
 {
@@ -236,6 +239,8 @@ void				ui_cursor_from(t_cursor *c);
 typedef struct		s_ui_win_events
 {
 	t_ui_event		*onPointerMoved;
+	t_ui_event		*onPointerEnter;
+	t_ui_event		*onPointerExit;
 	t_ui_event		*onPointerLeftButtonPressed;
 	t_ui_event		*onPointerLeftButtonReleased;
 	t_ui_event		*onPointerRightButtonPressed;
@@ -276,7 +281,6 @@ typedef struct		s_ui_win
 
 typedef struct		s_ui_raycaster
 {
-	t_ui_win		*selected_win;
 	t_ui_win		*focused_win;
 	t_ui_el			*selected;
 }					t_ui_raycaster;
@@ -564,10 +568,5 @@ Uint32				ui_get_pixel_color_from_el(SDL_Renderer *renderer,
 void				ui_set_pixel_color_to_texture_replace(SDL_Renderer *renderer,
 		SDL_Texture *texture, t_vec2 coord, SDL_Color color);
 void				ui_el_children_set_default(void *a1, void *a2);
-
-/*void	ui_win_selection_lost(void *a1, void *a2);
-void	ui_win_selection_gained(void *a1, void *a2);
-void	ui_log_window_leave(void *a1, void *a2);
-void	ui_log_window_enter(void *a1, void *a2);*/
 
 #endif

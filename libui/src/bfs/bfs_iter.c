@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 12:15:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/06/02 22:23:12 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/02 07:51:19 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void			*bfs(t_ui_main *m, const t_list *root, pred_ptr p)
 	QUEUE	*q;
 	void	*tmp;
 	void	*res;
+	t_ui_el	*cur_el;
 
 	q = NULL;
 	res = NULL;
@@ -51,7 +52,8 @@ void			*bfs(t_ui_main *m, const t_list *root, pred_ptr p)
 	while (q)
 	{
 		tmp = q_pop(&q);
-		if (!(((t_ui_el *)tmp)->params & EL_IGNOR_RAYCAST))
+		cur_el = (t_ui_el *)tmp;
+		if (!(cur_el->params & EL_IGNOR_RAYCAST) && (cur_el->params & EL_IS_READY))
 		{
 			q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
 			if (p && p(m, tmp))

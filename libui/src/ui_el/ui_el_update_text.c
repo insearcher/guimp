@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_update_text.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/27 15:24:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/02 12:54:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,32 @@
 
 static int	get_surface_from_text(t_ui_el *el)
 {
+	if (el->sdl_surface != NULL)
+		SDL_FreeSurface(el->sdl_surface);
 	if (el->text.params & TEXT_IS_SOLID)
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Solid(el->text.font, el->text.text, el->text.text_color)))
+		{
+			SDL_Log("get_surface_from_text ERROR, el id: %d\n", el->id);
 			return (FUNCTION_FAILURE);
+		}
 	}
 	else if ((el->text.params & TEXT_IS_BLENDED) || el->text.render_param == 0)
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Blended(el->text.font, el->text.text, el->text.text_color)))
+		{
+			SDL_Log("get_surface_from_text ERROR, el id: %d\n", el->id);
 			return (FUNCTION_FAILURE);
+		}
 	}
 	else
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Shaded(el->text.font, el->text.text,
 						el->text.text_color, el->text.bg_color)))
-			return (FUNCTION_FAILURE);
+			{
+				SDL_Log("get_surface_from_text ERROR, el id: %d\n", el->id);
+				return (FUNCTION_FAILURE);
+			}
 	}
 	return (FUNCTION_SUCCESS);
 }
@@ -69,6 +80,8 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 		return (FUNCTION_FAILURE);
 	n->content = ui_el_create_texture(el);
 	n->content_size = ft_strhash("default");
+	if (el->sdl_textures != NULL && (SDL_Texture *)el->sdl_textures->content != NULL)
+		SDL_DestroyTexture((SDL_Texture *)el->sdl_textures->content);
 	ft_lstadd(&(el->sdl_textures), n);
 	return (FUNCTION_SUCCESS);
 }

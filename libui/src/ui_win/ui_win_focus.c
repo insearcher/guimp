@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 02:27:11 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/22 17:03:48 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/02 02:06:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	ui_win_selection_gained(void *a1, void *a2)
 	m = (t_ui_main *)a1;
 	w = (t_ui_win *)a2;
 	m->raycaster->selected_win = w;
+	m->focused_el = NULL;
 }

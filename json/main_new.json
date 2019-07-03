@@ -2122,8 +2122,124 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "prison",
               "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_rect"
+            }
+          ]
+        },
+        {
+          "id": 1003,
+          "parent": 100,
+          "pos":
+          {
+            "x": 228,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "prison",
+              "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_fill_mode"
+            }
+          ]
+        },
+        {
+          "id": 1004,
+          "parent": 100,
+          "pos":
+          {
+            "x": 12,
+            "y": 84,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "prison",
+              "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_empty_mode"
+            }
+          ]
+        },
+        {
+          "id": 1200,
+          "parent": 120,
+          "pos":
+          {
+            "x": 12,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "FFFFFF",
+              "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_rect"
             }
           ]
         }

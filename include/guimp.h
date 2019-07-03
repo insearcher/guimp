@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/02 09:25:38 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:41:07 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define GM_TOOL_ID_HAND		15
 # define GM_TOOL_ID_LINE		16
 # define GM_TOOL_ID_PIPETTE		17
+# define GM_TOOL_ID_RECT		18
 # define GM_TOOL_ID_SET_MENU	20
 # define GM_TOOL_ID_SL_ROOT_RED	20
 # define GM_TOOL_ID_SL_HEAD_RED	200
@@ -68,13 +69,17 @@
 # define GM_HAND_MOVE_SPEED		1
 # define GM_HAND_MIN_DIST		3
 
-# define GM_TOOL_BRUSH			0
-# define GM_TOOL_ZOOM			1
-# define GM_TOOL_ERASER			2
-# define GM_TOOL_HAND			3
-# define GM_TOOL_LINE			4
-# define GM_TOOL_PIPETTE		5
-# define GM_TOOL_FILL			6
+# define GM_TOOL_BRUSH			(1 << 0)
+# define GM_TOOL_ZOOM			(1 << 1)
+# define GM_TOOL_ERASER			(1 << 2)
+# define GM_TOOL_HAND			(1 << 3)
+# define GM_TOOL_LINE			(1 << 4)
+# define GM_TOOL_PIPETTE		(1 << 5)
+# define GM_TOOL_FILL			(1 << 6)
+# define GM_TOOL_RECT			(1 << 7)
+
+# define GM_TOOL_MODE_FILL		(1 << 0)
+# define GM_TOOL_MODE_EMPTY		(1 << 1)
 
 # define GM_TOOL_STATE_NONE		0
 # define GM_TOOL_STATE_START	1
@@ -100,6 +105,7 @@ typedef struct					s_draw_tool
 	t_vec2						prew_point;
 	t_vec2						cur_point;
 	int							tool;
+	int							tool_mode;
 	int							brush_size;
 	Uint8						r;
 	Uint8						g;

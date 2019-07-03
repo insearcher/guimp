@@ -30,4 +30,5 @@ target_sources(ui PUBLIC
         ui_main_set_font_params.c
         ui_main_add_function_by_id.c
         ui_main_get_function_by_id.c
+        ui_main_add_window_opener_el.c
         )

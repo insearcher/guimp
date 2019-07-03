@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/02 07:27:05 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/03 15:27:52 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,11 +223,50 @@ static void	prepare_tmp_layer(t_guimp *g)
 	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, 0, 0, 0, 0);
 	SDL_RenderClear(g->main_win->sdl_renderer);
 	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b, 255);
+	int px = g->draw_tool.prew_point.x > g->draw_tool.cur_point.x ? g->draw_tool.cur_point.x : g->draw_tool.prew_point.x;
+	int py = g->draw_tool.prew_point.y > g->draw_tool.cur_point.y ? g->draw_tool.cur_point.y : g->draw_tool.prew_point.y;
+	int cx = g->draw_tool.prew_point.x + g->draw_tool.cur_point.x - px;
+	int cy = g->draw_tool.prew_point.y + g->draw_tool.cur_point.y - py;
 	if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
 	{
 		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
 		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
-		draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
+		if (g->draw_tool.tool == GM_TOOL_RECT)
+		{
+			if (g->draw_tool.tool_mode & GM_TOOL_MODE_EMPTY)
+			{
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						px,
+						py,
+						g->draw_tool.brush_size,
+						cy - py});
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						px,
+						py,
+						cx - px,
+						g->draw_tool.brush_size});
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						px,
+						cy - g->draw_tool.brush_size,
+						cx - px,
+						g->draw_tool.brush_size});
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						cx - g->draw_tool.brush_size,
+						py,
+						g->draw_tool.brush_size,
+						cy - py});
+			}
+			else if (g->draw_tool.tool_mode & GM_TOOL_MODE_FILL)
+			{
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						g->draw_tool.prew_point.x,
+						g->draw_tool.prew_point.y,
+						g->draw_tool.cur_point.x - g->draw_tool.prew_point.x,
+						g->draw_tool.cur_point.y - g->draw_tool.prew_point.y});
+			}
+		}
+		else if (g->draw_tool.tool == GM_TOOL_LINE)
+			draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
 			(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
 	}
 	if (g->draw_tool.state == GM_TOOL_STATE_END)
@@ -235,7 +274,42 @@ static void	prepare_tmp_layer(t_guimp *g)
 		SDL_SetRenderTarget(g->main_win->sdl_renderer, (t_texture *)(g->layers.current_layer->sdl_textures->content));
 		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
 		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
-		draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
+		if (g->draw_tool.tool == GM_TOOL_RECT)
+		{
+			if (g->draw_tool.tool_mode & GM_TOOL_MODE_EMPTY)
+			{
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						px,
+						py,
+						g->draw_tool.brush_size,
+						cy - py});
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						px,
+						py,
+						cx - px,
+						g->draw_tool.brush_size});
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						px,
+						cy - g->draw_tool.brush_size,
+						cx - px,
+						g->draw_tool.brush_size});
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						cx - g->draw_tool.brush_size,
+						py,
+						g->draw_tool.brush_size,
+						cy - py});
+			}
+			else if (g->draw_tool.tool_mode & GM_TOOL_MODE_FILL)
+			{
+				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+						g->draw_tool.prew_point.x,
+						g->draw_tool.prew_point.y,
+						g->draw_tool.cur_point.x - g->draw_tool.prew_point.x,
+						g->draw_tool.cur_point.y - g->draw_tool.prew_point.y});
+			}
+		}
+		else if (g->draw_tool.tool == GM_TOOL_LINE)
+			draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
 			(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
 		g->draw_tool.state = GM_TOOL_STATE_NONE;
 	}
@@ -350,7 +424,7 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	el = (t_ui_el *)el_v;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
-	if (g->draw_tool.tool != GM_TOOL_LINE || (g->draw_tool.state == GM_TOOL_STATE_NONE && g->draw_tool.tool == GM_TOOL_LINE))
+	if (g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT) == 0 || (g->draw_tool.state == GM_TOOL_STATE_NONE && g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT)))
 		g->draw_tool.prew_point = (t_vec2){x, y};
 	if (g->draw_tool.tool == GM_TOOL_ZOOM && g->draw_tool.zoom < GM_ZOOM_MAX_SIZE)
 	{
@@ -364,7 +438,7 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 		g->zoom_rect.x = x < 0 ? 0 : x;
 		g->zoom_rect.y = y < 0 ? 0 : y;
 	}
-	if (g->draw_tool.tool == GM_TOOL_LINE)
+	if (g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT))
 	{
 		// printf("from start_draw_with_selected_tool in>>>>>>>>> %d\n", g->draw_tool.state);
 		if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
@@ -421,7 +495,7 @@ static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	// printf("from start_draw_with_selected_tool_pointer_up in>>>>>>>>> %d\n", g->draw_tool.state);
-	if (g->draw_tool.tool == GM_TOOL_LINE)
+	if (g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT))
 		if (g->draw_tool.state == GM_TOOL_STATE_START)
 			g->draw_tool.state = GM_TOOL_STATE_DRAW;
 	// printf("from start_draw_with_selected_tool_pointer_up out>>>>>>>>> %d\n", g->draw_tool.state);
@@ -543,6 +617,35 @@ static void choose_line(void *main, void *el_v)
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_LINE;
 	g->draw_tool.state = GM_TOOL_STATE_NONE;
+}
+
+static void choose_rect(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_RECT;
+	g->draw_tool.tool_mode = GM_TOOL_MODE_EMPTY;
+	g->draw_tool.state = GM_TOOL_STATE_NONE;
+}
+
+static void choose_fill_mode(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool_mode = GM_TOOL_MODE_FILL;
+}
+
+static void choose_empty_mode(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool_mode = GM_TOOL_MODE_EMPTY;
 }
 
 static void	choose_red_color(void *main, void *el_v)
@@ -742,6 +845,9 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, choose_pipette, "choose_pipette");
 	ui_main_add_function_by_id(g_main.ui_main, choose_fill, "choose_fill");
 	ui_main_add_function_by_id(g_main.ui_main, choose_color, "choose_color");
+	ui_main_add_function_by_id(g_main.ui_main, choose_rect, "choose_rect");
+	ui_main_add_function_by_id(g_main.ui_main, choose_fill_mode, "choose_fill_mode");
+	ui_main_add_function_by_id(g_main.ui_main, choose_empty_mode, "choose_empty_mode");
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
 	ui_main_add_function_by_id(g_main.ui_main, start_draw_with_selected_tool_pointer_up, "start_draw_with_selected_tool_pointer_up");

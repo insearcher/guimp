@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:33:23 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/01 22:15:16 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:25:51 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,6 @@ static t_fvec2	get_normal(int x1, int y1, int x2, int y2)
 		res.y *= -1;
 	return (res);
 }
-
-// static float	lerp(int k, int max_val, int val)
-// {
-// 	int	res;
-
-// 	res = (float)k / (float)max_val * val * 0.5;
-// 	return (res * (k < 0 ? -1 : 1));
-// }
-
-// static float	lerp_lerp(int k, int max_val, float k1, float k2)
-// {
-// 	float res;
-
-
-// }
 
 void			draw_fat_line(t_guimp *g, t_vec2 start, t_vec2 end)
 {

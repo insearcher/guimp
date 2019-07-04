@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/02 07:27:05 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/04 21:37:26 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,16 +225,16 @@ static void	prepare_tmp_layer(t_guimp *g)
 	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b, 255);
 	if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
 	{
-		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
-		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
-		draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
-			(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
+		// draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
+		// 	(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
+		// draw_elipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
+		// 	(t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
+		draw_empty_elipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
+			(t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
 	}
 	if (g->draw_tool.state == GM_TOOL_STATE_END)
 	{
 		SDL_SetRenderTarget(g->main_win->sdl_renderer, (t_texture *)(g->layers.current_layer->sdl_textures->content));
-		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
-		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
 		draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
 			(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
 		g->draw_tool.state = GM_TOOL_STATE_NONE;

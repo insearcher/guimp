@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_log_window_closed.c                             :+:      :+:    :+:   */
+/*   ui_main_open_texture.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/04 00:51:02 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Created: 2019/07/05 16:35:28 by sbednar           #+#    #+#             */
+/*   Updated: 2019/07/05 16:46:46 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void		ui_log_window_closed(void *a1, void *a2)
+void	ui_main_open_texture(t_ui_el *e, const char *path)
 {
-	t_ui_main	*m;
-	t_ui_win	*w;
+	t_list	*l;
 
-	m = (t_ui_main *)a1;
-	w = (t_ui_win *)a2;
-//	if (w != NULL)
-//	{
-		SDL_Log("%s%-15s%swindowID = %d\n",
-			KYEL,
-			"WIN CLOSED",
-			KNRM,
-			w->id
-		);
-//	}
+	SDL_DestroyTexture((SDL_Texture *)e->sdl_textures->content);
+	ui_el_add_texture_from_file(e, path, "default1");
+	e->sdl_textures->content = ui_el_get_texture_by_id(e, "default1");
 }

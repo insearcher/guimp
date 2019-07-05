@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 15:27:52 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/04 21:37:26 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,12 @@ static void	prepare_tmp_layer(t_guimp *g)
 	int cy = g->draw_tool.prew_point.y + g->draw_tool.cur_point.y - py;
 	if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
 	{
+		// draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
+		// 	(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
+		// draw_elipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
+		// 	(t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
+		draw_empty_elipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
+			(t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
 		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
 		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
 		if (g->draw_tool.tool == GM_TOOL_RECT)

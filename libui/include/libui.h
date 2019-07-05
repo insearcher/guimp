@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/02 14:45:13 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/05 16:41:10 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@
 //win params
 # define WIN_RESIZABLE		(1 << 0)
 # define WIN_IS_READY		(1 << 1)
+
+# define IMG_TYPE_PNG		0
 
 //texture id`s
 // # define TID_DEFAULT		0
@@ -568,5 +570,10 @@ Uint32				ui_get_pixel_color_from_el(SDL_Renderer *renderer,
 void				ui_set_pixel_color_to_texture_replace(SDL_Renderer *renderer,
 		SDL_Texture *texture, t_vec2 coord, SDL_Color color);
 void				ui_el_children_set_default(void *a1, void *a2);
+
+SDL_Texture			*ui_main_merge_layers(SDL_Renderer *r, t_list *l);
+void				ui_main_save_texture(SDL_Renderer *r, SDL_Texture *t, const char *path, int type);
+void				ui_main_open_texture(t_ui_el *e, const char *path);
+
 
 #endif

@@ -471,6 +471,13 @@
               "main_id": "save_icon",
               "el_id": "default"
             }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_save_test"
+            }
           ]
         },
         {
@@ -493,6 +500,13 @@
             {
               "main_id": "open_icon",
               "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_open_test"
             }
           ]
         },

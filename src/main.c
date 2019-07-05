@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/04 21:37:26 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:43:02 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,26 @@ static void	test_del_layer(void *main, void *el_v)
 	//del el
 	//del texture
 	gm_generate_surf_id(ID_GENERATOR_DEL);
+}
+
+static void	ui_save_test(void *main, void *el_v)
+{
+	t_guimp		*g;
+	t_texture	*t;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	t = ui_main_merge_layers(g->main_win->sdl_renderer, g->layers.layers);
+	ui_main_save_texture(g->main_win->sdl_renderer, t, "/Users/sbednar/Desktop/test.png", IMG_TYPE_PNG);
+}
+
+static void	ui_open_test(void *main, void *el_v)
+{
+	t_guimp		*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	ui_main_open_texture(g->layers.current_layer, "/Users/sbednar/Desktop/test.png");
 }
 
 static void	prepare_tmp_layer(t_guimp *g)
@@ -856,6 +876,9 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, choose_empty_mode, "choose_empty_mode");
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
+
+	ui_main_add_function_by_id(g_main.ui_main, ui_save_test, "ui_save_test");
+	ui_main_add_function_by_id(g_main.ui_main, ui_open_test, "ui_open_test");
 	ui_main_add_function_by_id(g_main.ui_main, start_draw_with_selected_tool_pointer_up, "start_draw_with_selected_tool_pointer_up");
 	ui_main_fill_default_fonts(g_main.ui_main);
 	ui_main_set_font_params(g_main.ui_main, "neco", (t_font_params){0, 0, 1, 0});

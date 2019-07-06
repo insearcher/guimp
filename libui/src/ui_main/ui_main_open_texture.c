@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 16:35:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/05 16:46:46 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 20:19:52 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ui_main_open_texture(SDL_Renderer *r, t_ui_el *e, const char *path)
 {
-	t_list		*l;
 	SDL_Texture	*t;
 
 	SDL_SetRenderTarget(r, (SDL_Texture *)e->sdl_textures->content);

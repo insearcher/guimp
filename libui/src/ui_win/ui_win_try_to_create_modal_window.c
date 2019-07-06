@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 06:37:48 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/06 18:22:10 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/06 20:36:26 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
 	ui_el_setup_default(el_text);
 	el_text->params |= EL_IGNOR_RAYCAST;
 
-	h = 0.2;
+	h = 0.1;
 	y = 0.05;
 	while (modal_win->text[i])
 	{

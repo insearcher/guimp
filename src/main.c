@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 19:45:45 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/06 20:20:23 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,46 @@ static void	testOnPtrLBD(void *main, void *el_v)
 
 }*/
 
+static void	clear_layer(void *ui_main, void *el_v)
+{
+	SDL_Texture	*t;
+	t_guimp		*g;
+
+	g = (t_guimp *)(((t_ui_main *)ui_main)->data);
+	t = (t_texture *)((t_ui_el *)el_v)->data;
+	SDL_SetRenderTarget(g->main_win->sdl_renderer, t);
+	SDL_SetRenderDrawBlendMode(g->main_win->sdl_renderer, SDL_BLENDMODE_NONE);
+	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, 255, 255, 255, 0);
+	SDL_RenderFillRect(g->main_win->sdl_renderer, NULL);
+	SDL_SetRenderTarget(g->main_win->sdl_renderer, NULL);
+}
+
+static void	clear_all_layers(void *ui_main, void *el_v)
+{
+	SDL_Texture	*t;
+	t_list		*l;
+	t_guimp		*g;
+
+	g = (t_guimp *)(((t_ui_main *)ui_main)->data);
+	(void)el_v;
+	l = g->layers.layers;
+	while (l)
+	{
+		t = (t_texture *)l->content;
+		SDL_SetRenderTarget(g->main_win->sdl_renderer, t);
+		SDL_SetRenderDrawBlendMode(g->main_win->sdl_renderer, SDL_BLENDMODE_NONE);
+		SDL_SetRenderDrawColor(g->main_win->sdl_renderer, 255, 255, 255, 0);
+		SDL_RenderFillRect(g->main_win->sdl_renderer, NULL);
+		l = l->next;
+	}
+	SDL_SetRenderTarget(g->main_win->sdl_renderer, NULL);
+}
+
 static void	test_add_layer(void *ui_main, void *el_v)
 {
 	t_ui_main	*m;
 	t_ui_el		*el;
+	t_ui_el		*tmp2;
 	t_ui_el		*layer_menu;
 	t_ui_el		*tmp_el;
 	t_guimp		*g;
@@ -131,13 +167,16 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_el_add_child(layer_menu, tmp_el);
 	tmp_el->id = gm_generate_surf_id(ID_GENERATOR_ADD);
 	ui_el_set_pos(tmp_el, 0,
-		(t_fvec2){0.1,
-			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.3 * (float)gm_generator_get_surf_count()});
-	ui_el_set_size(tmp_el, 0, (t_fvec2){0.8, 0.25});
+		(t_fvec2){0.05,
+			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.27 * (float)gm_generator_get_surf_count()});
+	ui_el_set_size(tmp_el, 0, (t_fvec2){0.9, 0.25});
 	tmp_el->sdl_renderer = g->main_win->sdl_renderer;
-	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_place", "default");
-	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_onPtr", "onFocus");
-	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_active", "onActive");
+	ui_el_add_color_texture(tmp_el, (t_vec2){1920, 1080}, 0x888888, "default");
+	ui_el_add_color_texture(tmp_el, (t_vec2){1920, 1080}, 0xFF5050, "onActive");
+	ui_el_add_color_texture(tmp_el, (t_vec2){1920, 1080}, 0x5050FF, "onFocus");
+//	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_place", "default");
+//	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_onPtr", "onFocus");
+//	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_active", "onActive");
 	ui_event_add_listener(tmp_el->events->onPointerLeftButtonPressed, testOnPtrLBD);
 	ui_event_add_listener(tmp_el->events->onPointerEnter, testOnPtrEnter);
 	ui_event_add_listener(tmp_el->events->onPointerLeftButtonPressed, PressedLBD);
@@ -150,8 +189,8 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	}
 	ui_el_setup_default(el);
 	ui_el_add_child(tmp_el, el);
-	ui_el_set_pos(el, 0, (t_fvec2){0.1, 0.1});
-	ui_el_set_size(el, 0, (t_fvec2){0.8, 0.8});
+	ui_el_set_pos(el, 0, (t_fvec2){0.04, 0.05});
+	ui_el_set_size(el, 0, (t_fvec2){0.92, 0.782});
 	el->id = tmp_el->id * 1000;
 	el->params |= EL_IGNOR_RAYCAST | EL_IS_DEPENDENT;
 	el->sdl_renderer = g->main_win->sdl_renderer;
@@ -162,6 +201,40 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	tmp->content = el->sdl_textures->content;
 	tmp->content_size = tmp_el->id;
 	ft_lstadd_back(&(g->layers.layers), tmp);
+
+	tmp2 = el;
+
+	if (!(el = ui_el_init()))
+	{
+		printf("layer texture malloc error in scrollable menu in layer_win\n");
+		return ;
+	}
+
+	ui_el_setup_default(el);
+	el->params |= EL_IS_DEPENDENT;
+	ui_el_add_child(tmp_el, el);
+	ui_el_set_pos(el, 0, (t_fvec2){0.04, 0.85});
+	ui_el_set_size(el, 0, (t_fvec2){0.45, 0.1});
+	el->id = tmp_el->id * 1000 + 1;
+	ui_el_add_color_texture(el, (t_vec2){GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y}, 0x00FF00, "default");
+	ui_event_add_listener(el->events->onPointerLeftButtonPressed, clear_layer);
+	el->data = ui_el_get_texture_by_id(tmp2, "default");
+
+	if (!(el = ui_el_init()))
+	{
+		printf("layer texture malloc error in scrollable menu in layer_win\n");
+		return ;
+	}
+
+	ui_el_setup_default(el);
+	el->params |= EL_IS_DEPENDENT;
+	ui_el_add_child(tmp_el, el);
+	ui_el_set_pos(el, 0, (t_fvec2){0.51, 0.85});
+	ui_el_set_size(el, 0, (t_fvec2){0.45, 0.1});
+	el->id = tmp_el->id * 1000 + 2;
+	ui_el_add_white_texture(el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
+	el->data = ui_el_get_texture_by_id(tmp2, "default");
+	ui_event_add_listener(el->events->onPointerLeftButtonPressed, clear_layer);
 }
 
 static void	test_del_layer(void *main, void *el_v)
@@ -369,10 +442,14 @@ static void	draw_canvas_renderer(void *el_v, void *main)
 
 static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec2 coord)
 {
+	char 	*field;
 	t_list	*tmp;
 	t_vec2	*tmp_vec;
 	QUEUE	*q;
 
+	field = (char *)malloc(1920 * 1080);
+	for (int i = 0; i < 1920 * 1080; i++)
+		field[i] = 0;
 	tmp_vec = (t_vec2 *)malloc(sizeof(t_vec2));
 	*tmp_vec = coord;
 	q = NULL;
@@ -385,22 +462,14 @@ static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec
 		tmp_vec = (t_vec2 *)q_pop(&q);
 		coord = *tmp_vec;
 		free(tmp_vec);
-		if (ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2)
-			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
-				(t_color){(color.color1 & 0xFF0000) >> 16,
-					(color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255});
-		if (++coord.x < GM_IMAGE_SIZE_X && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2)
+		if (ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
 		{
-			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
-				(t_color){(color.color1 & 0xFF0000) >> 16,
-					(color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255});
-			tmp_vec = (t_vec2 *)malloc(sizeof(t_vec2));
-			*tmp_vec = coord;
-			tmp = ft_lstnew(NULL, 0);
-			tmp->content = (void *)tmp_vec;
-			q_push(&q, tmp);
+			ui_set_pixel_color_to_texture_replace(rend, texture, coord, (t_color) {
+					(color.color1 & 0xFF0000) >> 16, (color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255
+			});
+			field[coord.y * 1920 + coord.x] = '1';
 		}
-		if ((coord.x -= 2) >= 0 && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2)
+		if (++coord.x < GM_IMAGE_SIZE_X && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
 		{
 			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
 				(t_color){(color.color1 & 0xFF0000) >> 16,
@@ -410,9 +479,22 @@ static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec
 			tmp = ft_lstnew(NULL, 0);
 			tmp->content = (void *)tmp_vec;
 			q_push(&q, tmp);
+			field[coord.y * 1920 + coord.x] = '1';
+		}
+		if ((coord.x -= 2) >= 0 && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
+		{
+			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
+				(t_color){(color.color1 & 0xFF0000) >> 16,
+					(color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255});
+			tmp_vec = (t_vec2 *)malloc(sizeof(t_vec2));
+			*tmp_vec = coord;
+			tmp = ft_lstnew(NULL, 0);
+			tmp->content = (void *)tmp_vec;
+			q_push(&q, tmp);
+			field[coord.y * 1920 + coord.x] = '1';
 		}
 		coord.x++;
-		if (--coord.y >= 0 && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2)
+		if (--coord.y >= 0 && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
 		{
 			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
 				(t_color){(color.color1 & 0xFF0000) >> 16,
@@ -422,8 +504,9 @@ static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec
 			tmp = ft_lstnew(NULL, 0);
 			tmp->content = (void *)tmp_vec;
 			q_push(&q, tmp);
+			field[coord.y * 1920 + coord.x] = '1';
 		}
-		if ((coord.y += 2) < GM_IMAGE_SIZE_Y && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2)
+		if ((coord.y += 2) < GM_IMAGE_SIZE_Y && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
 		{
 			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
 				(t_color){(color.color1 & 0xFF0000) >> 16,
@@ -433,6 +516,7 @@ static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec
 			tmp = ft_lstnew(NULL, 0);
 			tmp->content = (void *)tmp_vec;
 			q_push(&q, tmp);
+			field[coord.y * 1920 + coord.x] = '1';
 		}
 	}
 }
@@ -1005,6 +1089,13 @@ int		main()
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 17);
 	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "pipette_icon"), 14, 37});
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 32);
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, clear_all_layers);
+
+	cur_el = ui_win_find_el_by_id(g_main.main_win, 63001);
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, clear_layer);
+	cur_el->data = ui_el_get_texture_by_id(ui_win_find_el_by_id(g_main.main_win, 63000), "default");
 
 	// ui_set_pixel_color_to_texture(
 	// 		g_main.main_win->sdl_renderer,

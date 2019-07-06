@@ -22,7 +22,7 @@
 # define FUNCTION_SUCCESS	0
 # define FUNCTION_FAILURE	-1
 
-# define BUF_SIZE			(1 << 16)
+# define BUF_SIZE			(1 << 18)
 
 # define F_RIGHT			(1 << 0)
 # define F_ONLY_SPACES		(1 << 1)

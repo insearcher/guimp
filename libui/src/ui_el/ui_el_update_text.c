@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 19:50:24 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/06 20:28:12 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,14 @@ static int	get_surface_from_text(t_ui_el *el)
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Solid(el->text.font, el->text.text, el->text.text_color)))
 		{
-			ui_sdl_deinit(EXIT_FAILURE);
-	//		return (FUNCTION_FAILURE);
+			return (FUNCTION_FAILURE);
 		}
 	}
 	else if ((el->text.render_param & TEXT_IS_BLENDED) || el->text.render_param == 0)
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Blended(el->text.font, el->text.text, el->text.text_color)))
 		{
-			ui_sdl_deinit(EXIT_FAILURE);
-	//		return (FUNCTION_FAILURE);
+			return (FUNCTION_FAILURE);
 		}
 	}
 	else
@@ -40,8 +38,7 @@ static int	get_surface_from_text(t_ui_el *el)
 		if (!(el->sdl_surface = TTF_RenderText_Shaded(el->text.font, el->text.text,
 						el->text.text_color, el->text.bg_color)))
 		{
-			ui_sdl_deinit(EXIT_FAILURE);
-	//		return (FUNCTION_FAILURE);
+			return (FUNCTION_FAILURE);
 		}
 	}
 	return (FUNCTION_SUCCESS);

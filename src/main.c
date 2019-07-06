@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 20:03:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 20:36:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,6 +443,25 @@ static void	draw_canvas_renderer(void *el_v, void *main)
 			SDL_RenderCopy(el->sdl_renderer, g->layers.tmp_texture, &g->zoom_rect, &el->rect);
 		}
 		layer = layer->next;
+	}
+}
+
+static void	fill_tool2(t_renderer *rend, t_texture *texture, t_cvec2 *color, t_vec2 *coord)
+{
+	if (ui_get_pixel_color_from_texture(rend, texture, *coord) == color->color2)
+	{
+		ui_set_pixel_color_to_texture_replace(rend, texture, *coord, (t_color) {
+				(color->color1 & 0xFF0000) >> 16, (color->color1 & 0x00FF00) >> 8, color->color1 & 0x0000FF, 255
+		});
+		coord->x += 1;
+		fill_tool2(rend, texture, color, coord);
+		coord->x -= 2;
+		fill_tool2(rend, texture, color, coord);
+		coord->x += 1;
+		coord->y += 1;
+		fill_tool2(rend, texture, color, coord);
+		coord->y -= 2;
+		fill_tool2(rend, texture, color, coord);
 	}
 }
 

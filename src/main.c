@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/04 21:37:26 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:26:50 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,6 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	tmp->content = el->sdl_textures->content;
 	tmp->content_size = tmp_el->id;
 	ft_lstadd_back(&(g->layers.layers), tmp);
-	el->params |= EL_IS_READY;
-	tmp_el->params |= EL_IS_READY;
 }
 
 static void	test_del_layer(void *main, void *el_v)
@@ -802,20 +800,20 @@ int		main()
 	ui_el_update_text(cur_el, "Opacity:");
 
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 11);
+	ui_el_init_opener_el(cur_el, EL_MODAL_OK);
 	ui_main_add_window_opener_el(g_main.ui_main, cur_el);
-	cur_el->params |= EL_MODAL_OK;
-	cur_el->modal_win.w_id = 3;
-	cur_el->modal_win.w_pos.x = SDL_WINDOWPOS_CENTERED;
-	cur_el->modal_win.w_pos.y = SDL_WINDOWPOS_CENTERED;
-	cur_el->modal_win.w_size.x = 800;
-	cur_el->modal_win.w_size.y = 600;
-	cur_el->modal_win.title = ft_strdup("INSTRUCTION");
-	cur_el->modal_win.text = (char **)ft_memalloc(sizeof(char *) * 6);
-	cur_el->modal_win.text[0] = ft_strdup("ALL AH CULA");
-	cur_el->modal_win.text[1] = ft_strdup("BPAT");
-	cur_el->modal_win.text[2] = ft_strdup("AAAAAAA");
-	cur_el->modal_win.text[3] = ft_strdup("AAAAAAA");
-	cur_el->modal_win.text[4] = ft_strdup("AAAAAAA");
+	cur_el->modal_win->w_id = 3;
+	cur_el->modal_win->w_pos.x = SDL_WINDOWPOS_CENTERED;
+	cur_el->modal_win->w_pos.y = SDL_WINDOWPOS_CENTERED;
+	cur_el->modal_win->w_size.x = 800;
+	cur_el->modal_win->w_size.y = 600;
+	cur_el->modal_win->title = ft_strdup("INSTRUCTION");
+	cur_el->modal_win->text = (char **)ft_memalloc(sizeof(char *) * 6);
+	cur_el->modal_win->text[0] = ft_strdup("ALL AH CULA");
+	cur_el->modal_win->text[1] = ft_strdup("BPAT");
+	cur_el->modal_win->text[2] = ft_strdup("AAAAAAA");
+	cur_el->modal_win->text[3] = ft_strdup("AAAAAAA");
+	cur_el->modal_win->text[4] = ft_strdup("AAAAAAA");
 	ui_el_set_text_for_modal_window(g_main.ui_main, cur_el, "SansSerif",
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
 

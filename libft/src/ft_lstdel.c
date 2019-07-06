@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 01:39:32 by sbednar           #+#    #+#             */
-/*   Updated: 2018/11/27 23:37:43 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/05 17:14:53 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	if (!alst || !del)
+	if (!alst || !(*alst) || !del)
 		return ;
 	if ((*alst)->next)
 		ft_lstdel(&(*alst)->next, del);

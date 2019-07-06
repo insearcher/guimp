@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:19:27 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/02 07:14:52 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/06 18:19:55 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,5 @@ int			ui_win_from_json(t_ui_main *m, t_jnode *n)
 	if (ui_win_from_json_pos(m, w, n))
 		return (FUNCTION_FAILURE);
 	ui_main_add_window(m, w);
-	w->params |= WIN_IS_READY;
 	return (FUNCTION_SUCCESS);
 }

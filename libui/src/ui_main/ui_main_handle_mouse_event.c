@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/02 07:13:15 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/06 18:20:30 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 
 	windowID = m->sdl_event->window.windowID;
 	if ((win = ui_main_find_window_by_sdl_id(m, windowID)) == NULL)
-		return ;
-	if (!(win->params & WIN_IS_READY))
 		return ;
 	event = NULL;
 	if (m->sdl_event->type == SDL_MOUSEMOTION)

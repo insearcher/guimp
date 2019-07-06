@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 12:15:05 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/02 07:51:19 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/06 16:01:33 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			*bfs(t_ui_main *m, const t_list *root, pred_ptr p)
 	{
 		tmp = q_pop(&q);
 		cur_el = (t_ui_el *)tmp;
-		if (!(cur_el->params & EL_IGNOR_RAYCAST) && (cur_el->params & EL_IS_READY))
+		if (!(cur_el->params & EL_IGNOR_RAYCAST))
 		{
 			q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
 			if (p && p(m, tmp))

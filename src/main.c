@@ -224,7 +224,7 @@ static void	ui_save_test(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	t = ui_main_merge_layers(g->main_win->sdl_renderer, g->layers.layers);
-	ui_main_save_texture(g->main_win->sdl_renderer, t, "/Users/sbednar/Desktop/test.png", IMG_TYPE_PNG);
+	ui_main_save_texture(g->main_win->sdl_renderer, t, "/Users/frolov/Desktop/test.png", IMG_TYPE_PNG);
 }
 
 static void	ui_open_test(void *main, void *el_v)
@@ -233,7 +233,7 @@ static void	ui_open_test(void *main, void *el_v)
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
-	ui_main_open_texture(g->layers.current_layer, "/Users/sbednar/Desktop/test.png");
+	ui_main_open_texture(g->main_win->sdl_renderer, g->layers.current_layer, "/Users/frolov/Desktop/test.png");
 }
 
 static void	prepare_tmp_layer(t_guimp *g)

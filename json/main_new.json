@@ -85,13 +85,21 @@
           ],
           "pos":
           {
-            "x": 0.01,
-            "y": 0.015
+            "x": 12,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
           },
           "size":
           {
-            "x": 0.73,
-            "y": 0.97
+            "x": 1022,
+            "y": 572,
+            "params":
+            [
+              "PIXEL"
+            ]
           },
           "textures":
           [
@@ -331,10 +339,6 @@
             {
               "event_name": "onPointerLeftButtonPressed",
             	"func_name": "PressedLBD"
-            },
-            {
-              "event_name": "onPointerLeftButtonReleased",
-            	"func_name": "testOnPtrEnter"
             }
           ]
         },
@@ -1550,7 +1554,8 @@
           "parent": 10,
           "params":
           [
-            "EL_IGNOR_RAYCAST"
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_ICON"
           ],
           "pos":
           {
@@ -1590,6 +1595,7 @@
           "parent": 11,
           "params":
           [
+            "EL_IGNOR_RAYCAST",
             "EL_IS_HIDDEN"
           ],
           "pos":
@@ -1625,7 +1631,8 @@
           "parent": 11,
           "params":
           [
-            "EL_IGNOR_RAYCAST"
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_ICON"
           ],
           "pos":
           {
@@ -1658,6 +1665,7 @@
           "parent": 12,
           "params":
           [
+            "EL_IGNOR_RAYCAST",
             "EL_IS_HIDDEN"
           ],
           "pos":
@@ -1693,7 +1701,8 @@
           "parent": 12,
           "params":
           [
-            "EL_IGNOR_RAYCAST"
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_ICON"
           ],
           "pos":
           {
@@ -1726,7 +1735,8 @@
           "parent": 13,
           "params":
           [
-            "EL_IGNOR_RAYCAST"
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_ICON"
           ],
           "pos":
           {
@@ -1759,7 +1769,8 @@
           "parent": 14,
           "params":
           [
-            "EL_IGNOR_RAYCAST"
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_ICON"
           ],
           "pos":
           {
@@ -1792,7 +1803,8 @@
           "parent": 15,
           "params":
           [
-            "EL_IGNOR_RAYCAST"
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_ICON"
           ],
           "pos":
           {
@@ -1825,7 +1837,8 @@
           "parent": 16,
           "params":
           [
-            "EL_IGNOR_RAYCAST"
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_ICON"
           ],
           "pos":
           {
@@ -1858,7 +1871,8 @@
           "parent": 17,
           "params":
           [
-            "EL_IGNOR_RAYCAST"
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_ICON"
           ],
           "pos":
           {
@@ -2035,14 +2049,46 @@
           [
             {
               "type": "color",
-              "color": "000000",
+              "color": "AAAAAA",
               "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
             }
           ]
         },
         {
         "id": 10000,
         "parent": 1000,
+        "params": [
+          "EL_IGNOR_RAYCAST"
+        ],
         "pos":
         {
           "x": 2,
@@ -2066,13 +2112,6 @@
           {
             "main_id": "brush",
             "el_id": "default"
-          }
-        ],
-        "events":
-        [
-          {
-            "event_name": "onPointerLeftButtonPressed",
-            "func_name": "choose_brush"
           }
         ]
       },
@@ -2100,15 +2139,70 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "type": "color",
+              "color": "AAAAAA",
               "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
             }
           ],
           "events":
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_line"
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 10010,
+          "parent": 1001,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
             }
           ]
         },
@@ -2136,15 +2230,70 @@
           "textures":
           [
             {
-              "main_id": "prison",
+              "type": "color",
+              "color": "AAAAAA",
               "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
             }
           ],
           "events":
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_rect"
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 10020,
+          "parent": 1002,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
             }
           ]
         },
@@ -2172,15 +2321,70 @@
           "textures":
           [
             {
-              "main_id": "prison",
+              "type": "color",
+              "color": "AAAAAA",
               "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
             }
           ],
           "events":
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_fill_mode"
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 10030,
+          "parent": 1003,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
             }
           ]
         },
@@ -2208,15 +2412,343 @@
           "textures":
           [
             {
-              "main_id": "prison",
+              "type": "color",
+              "color": "AAAAAA",
               "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
             }
           ],
           "events":
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_empty_mode"
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 10040,
+          "parent": 1004,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1005,
+          "parent": 100,
+          "pos":
+          {
+            "x": 84,
+            "y": 84,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 10050,
+          "parent": 1005,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1006,
+          "parent": 100,
+          "pos":
+          {
+            "x": 156,
+            "y": 84,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 10060,
+          "parent": 1006,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1007,
+          "parent": 100,
+          "pos":
+          {
+            "x": 228,
+            "y": 84,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 10070,
+          "parent": 1007,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
             }
           ]
         },
@@ -2245,15 +2777,342 @@
           [
             {
               "type": "color",
-              "color": "FFFFFF",
+              "color": "AAAAAA",
               "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
             }
           ],
           "events":
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_rect"
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 12000,
+          "parent": 1200,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "empty_circle_icon",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1201,
+          "parent": 120,
+          "pos":
+          {
+            "x": 84,
+            "y": 12,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 12010,
+          "parent": 1201,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1202,
+          "parent": 120,
+          "pos":
+          {
+            "x": 12,
+            "y": 84,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 12020,
+          "parent": 1202,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 1203,
+          "parent": 120,
+          "pos":
+          {
+            "x": 84,
+            "y": 84,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "999999",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "onActive"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_brush"
+            }
+          ]
+        },
+        {
+          "id": 12030,
+          "parent": 1203,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "brush",
+              "el_id": "default"
             }
           ]
         }

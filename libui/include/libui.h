@@ -62,6 +62,7 @@
 # define EL_MODAL_OK		(1 << 7)
 # define EL_MODAL_OK_CANCEL	(1 << 8)
 # define EL_IS_READY		(1 << 9)
+# define EL_IS_ICON			(1 << 10)
 // # define EL_IS_LMB_PRESSED	(1 << 7)
 // # define EL_IS_RMB_PRESSED	(1 << 8)
 
@@ -573,7 +574,7 @@ void				ui_el_children_set_default(void *a1, void *a2);
 
 SDL_Texture			*ui_main_merge_layers(SDL_Renderer *r, t_list *l);
 void				ui_main_save_texture(SDL_Renderer *r, SDL_Texture *t, const char *path, int type);
-void				ui_main_open_texture(t_ui_el *e, const char *path);
+void				ui_main_open_texture(SDL_Renderer *r, t_ui_el *e, const char *path);
 
 
 #endif

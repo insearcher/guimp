@@ -26,6 +26,7 @@ static void add_icons(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/brush_icon_3.png", "brush_icon3");
 	ui_main_add_surface_by_path(m, "images/filler.png", "filler_icon");
 	ui_main_add_surface_by_path(m, "images/question_icon.png", "question_icon");
+	ui_main_add_surface_by_path(m, "images/empty_circle_icon.png", "empty_circle_icon");
 }
 
 void	ui_main_fill_default_surfaces(t_ui_main *m)

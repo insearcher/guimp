@@ -12,11 +12,16 @@
 
 #include "libui.h"
 
-void	ui_main_open_texture(t_ui_el *e, const char *path)
+void	ui_main_open_texture(SDL_Renderer *r, t_ui_el *e, const char *path)
 {
-	t_list	*l;
+	t_list		*l;
+	SDL_Texture	*t;
 
-	SDL_DestroyTexture((SDL_Texture *)e->sdl_textures->content);
-	ui_el_add_texture_from_file(e, path, "default1");
-	e->sdl_textures->content = ui_el_get_texture_by_id(e, "default1");
+	SDL_SetRenderTarget(r, (SDL_Texture *)e->sdl_textures->content);
+	SDL_RenderClear(r);
+	if (ui_el_load_surface_from(e, path) ||
+		!(t = ui_el_create_texture(e)))
+		return ;
+	SDL_RenderCopy(r, t, NULL, NULL);
+	SDL_SetRenderTarget(r, NULL);
 }

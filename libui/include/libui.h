@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 17:06:57 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 20:01:25 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,14 @@
 //el params
 # define EL_IGNOR_RAYCAST	(1 << 0)
 # define EL_IS_HIDDEN		(1 << 1)
-# define EL_IS_PTR_INSIDE	(1 << 2) // Smart using of params (replace BUTTON_OFF & ON)
+# define EL_IS_PTR_INSIDE	(1 << 2)
 # define EL_IS_SCROLLABLE	(1 << 3)
 # define EL_IS_DEPENDENT	(1 << 4)
 # define EL_IS_TEXT			(1 << 5)
 # define EL_IS_INVOKE_WIN	(1 << 6)
 # define EL_MODAL_OK		(1 << 7)
 # define EL_MODAL_OK_CANCEL	(1 << 8)
-# define EL_IS_READY		(1 << 9)
-# define EL_IS_ICON			(1 << 10)
-// # define EL_IS_LMB_PRESSED	(1 << 7)
-// # define EL_IS_RMB_PRESSED	(1 << 8)
+# define EL_IS_ICON			(1 << 9)
 
 //text params
 # define TEXT_IS_CENTERED	(1 << 0)
@@ -75,9 +72,6 @@
 # define TEXT_IS_SOLID		(1 << 0)
 # define TEXT_IS_SHADED		(1 << 1)
 # define TEXT_IS_BLENDED	(1 << 2)
-
-// KOSTIL
-// # define EL_NOT_RELEASED	(1 << 31)
 
 # define MAIN_LMB_PRESSED	(1 << 0)
 # define MAIN_RMB_PRESSED	(1 << 1)
@@ -91,15 +85,14 @@
 
 //win params
 # define WIN_RESIZABLE		(1 << 0)
-# define WIN_IS_READY		(1 << 1)
 
 # define IMG_TYPE_PNG		0
 # define IMG_TYPE_JPG		1
 
 //texture id`s
 // # define TID_DEFAULT		0
-// # define TID_ONFOCUSED		1
-// # define TID_ONACTIVE		2
+// # define TID_ONFOCUSED	1
+// # define TID_ONACTIVE	2
 
 //button status
 # define BUTTON_OFF			0 // TODO: remove
@@ -219,7 +212,7 @@ typedef struct		s_ui_el
 	Uint32			id;
 	Uint32			params; // <- put there next parameters
 	t_ui_text		text;
-	t_ui_modal_win	modal_win;
+	t_ui_modal_win	*modal_win;
 	t_ui_el_events	*events;
 	void			*data;
 }					t_ui_el;
@@ -447,6 +440,7 @@ void				ui_el_draw_event(void *el_v, void *arg);
 # pragma region		t_ui_el_func
 
 t_ui_el				*ui_el_init(void);
+int					ui_el_init_opener_el(t_ui_el *el, int type);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 void				ui_el_set_pos(t_ui_el *el, int type, t_fvec2 v);
 void				ui_el_set_size(t_ui_el *el, int type, t_fvec2 v);

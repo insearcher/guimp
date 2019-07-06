@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_win_create.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 21:00:14 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 19:59:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ui_win_create(t_ui_win *w)
 	w->canvas->sdl_renderer = w->sdl_renderer;
 	w->canvas->rect = (t_rect){0, 0, w->size.x, w->size.y};
 	w->canvas->cut_rect = w->canvas->rect;
-	w->canvas->params |= EL_IS_READY;
 	SDL_SetWindowResizable(w->sdl_window, (w->params) & WIN_RESIZABLE ? SDL_TRUE : SDL_FALSE);
 	SDL_RaiseWindow(w->sdl_window);
 }

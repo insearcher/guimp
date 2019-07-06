@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_from_json.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 19:56:40 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,6 @@ int			ui_el_from_json(t_ui_main *m, t_ui_win *w, t_jnode *n)
 		ui_el_add_child(p, e);
 		if (ui_el_from_json_params(m, w, e, n))
 			return (FUNCTION_FAILURE);
-		e->params |= EL_IS_READY;
 	}
 	return (FUNCTION_SUCCESS);
 }

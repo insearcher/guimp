@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_handle_mouse_event.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:47:51 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 19:45:27 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ui_main_handle_mouse_event(t_ui_main *m)
 
 	windowID = m->sdl_event->window.windowID;
 	if ((win = ui_main_find_window_by_sdl_id(m, windowID)) == NULL)
-		return ;
-	if (!(win->params & WIN_IS_READY))
 		return ;
 	event = NULL;
 	if (m->sdl_event->type == SDL_MOUSEMOTION)

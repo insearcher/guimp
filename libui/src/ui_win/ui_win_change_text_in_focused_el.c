@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:18:31 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 19:59:32 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	ui_win_change_text_in_focused_el(void *a1, void *a2)
 		ui_el_update_text(el, new_text);
 		if (new_text != NULL)
 			free(new_text);
+		new_text = NULL;
 	}
 	else if (m->cur_keycode >= SDL_SCANCODE_1 && m->cur_keycode <= SDL_SCANCODE_9)
 	{
@@ -93,6 +94,7 @@ void	ui_win_change_text_in_focused_el(void *a1, void *a2)
 		ui_el_update_text(el, new_text);
 		if (new_text != NULL)
 			free(new_text);
+		new_text = NULL;
 	}
 	else if (m->cur_keycode == SDL_SCANCODE_BACKSPACE)
 	{
@@ -100,6 +102,7 @@ void	ui_win_change_text_in_focused_el(void *a1, void *a2)
 		ui_el_update_text(el, new_text);
 		if (new_text != NULL)
 			free(new_text);
+		new_text = NULL;
 	}
 	else if (m->cur_keycode == SDL_SCANCODE_SLASH)
 	{
@@ -107,6 +110,7 @@ void	ui_win_change_text_in_focused_el(void *a1, void *a2)
 		ui_el_update_text(el, new_text);
 		if (new_text != NULL)
 			free(new_text);
+		new_text = NULL;
 	}
 	SDL_Log("%s\n", el->text.text);
 }

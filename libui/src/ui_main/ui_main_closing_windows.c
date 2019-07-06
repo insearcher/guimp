@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:21:44 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 19:45:38 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ui_main_close_window(void *a1, void *a2)
 		cur_w = (t_ui_win *)(cur->content);
 		if (w->sdl_windowID == cur_w->sdl_windowID)
 		{
-			w->params &= ~WIN_IS_READY;
 			ui_win_close(cur_w);
 			if (prev == NULL)
 				m->windows = cur->next;

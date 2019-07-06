@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/05 16:01:36 by sbednar          ###   ########.fr        #
+#    Updated: 2019/07/06 19:45:41 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_UI_CURSOR	=	ui_cursor_init.c \
 
 SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_init.c \
+					ui_el_init_opener_el.c \
 					ui_el_create_texture.c \
 					ui_el_load_surface_from.c \
 					ui_el_set_current_texture_by_id.c \

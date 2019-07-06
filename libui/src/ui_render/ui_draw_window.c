@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_draw_window.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 05:49:45 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 20:00:25 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	bfs_iter_draw(const t_list *root, const void *arg)
 	{
 		tmp = q_pop(&q);
 		cur_el = (t_ui_el *)tmp;
-		if (!(cur_el->params & EL_IS_HIDDEN) && (cur_el->params & EL_IS_READY))
+		if (!(cur_el->params & EL_IS_HIDDEN))
 		{
 			if ((cur_el->params & EL_IS_DEPENDENT) && (!(check_border(cur_el))))
 				continue;

@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_show_windows.c                                  :+:      :+:    :+:   */
+/*   ui_el_init_opener_el.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/04 06:26:19 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/06 18:28:10 by sbecker          ###   ########.fr       */
+/*   Created: 2019/07/05 14:44:28 by sbecker           #+#    #+#             */
+/*   Updated: 2019/07/05 14:51:48 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_show_windows(t_ui_main *m)
+int	ui_el_init_opener_el(t_ui_el *el, int type)
 {
-	t_list	*node;
-
-	node = m->windows;
-	while (node)
-	{
-		ui_show_window((t_ui_win *)node->content);
-		node = node->next;
-	}
+	if ((type & EL_MODAL_OK) || type == 0)
+		el->params |= EL_MODAL_OK;
+	if (!(el->modal_win = (t_ui_modal_win *)ft_memalloc(sizeof(t_ui_modal_win))))
+		return (FUNCTION_FAILURE);
+	return (FUNCTION_SUCCESS);
 }

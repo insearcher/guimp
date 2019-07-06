@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 00:41:52 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/27 22:11:45 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/03 15:23:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ static void tool_brush(t_ui_el *el, t_guimp *g, int x, int y)
     SDL_SetRenderTarget(el->sdl_renderer, NULL);
 }
 
+//static void	ui_draw_circle_2(int xc, int yc, int x, int y)
+//{
+//	putpixel(xc+x, yc+y, RED);
+//	putpixel(xc-x, yc+y, RED);
+//	putpixel(xc+x, yc-y, RED);
+//	putpixel(xc-x, yc-y, RED);
+//	putpixel(xc+y, yc+x, RED);
+//	putpixel(xc-y, yc+x, RED);
+//	putpixel(xc+y, yc-x, RED);
+//	putpixel(xc-y, yc-x, RED);
+//}
+
 static void	ui_draw_circle(SDL_Renderer *ren, t_rect c, SDL_BlendMode b, SDL_Color color)
 {
 	SDL_BlendMode	bm;
@@ -40,6 +52,30 @@ static void	ui_draw_circle(SDL_Renderer *ren, t_rect c, SDL_BlendMode b, SDL_Col
 	SDL_GetRenderDrawBlendMode(ren, &bm);
 	SDL_SetRenderDrawBlendMode(ren, b);
 	SDL_SetRenderDrawColor(ren, color.r, color.g, color.b, color.a);
+
+//	int x = 0, y = r;
+//	int d = 3 - 2 * r;
+//	drawCircle(xc, yc, x, y);
+//	while (y >= x)
+//	{
+//		// for each pixel we will
+//		// draw all eight pixels
+//
+//		x++;
+//
+//		// check for decision parameter
+//		// and correspondingly
+//		// update d, x, y
+//		if (d > 0)
+//		{
+//			y--;
+//			d = d + 4 * (x - y) + 10;
+//		}
+//		else
+//			d = d + 4 * x + 6;
+//		drawCircle(xc, yc, x, y);
+//		delay(50);
+//	}
 
 	int	x = c.x - c.h - 1;
 

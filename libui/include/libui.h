@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 18:22:21 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/06 20:01:25 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@
 # define EL_IS_INVOKE_WIN	(1 << 6)
 # define EL_MODAL_OK		(1 << 7)
 # define EL_MODAL_OK_CANCEL	(1 << 8)
+# define EL_IS_ICON			(1 << 9)
 
 //text params
 # define TEXT_IS_CENTERED	(1 << 0)
@@ -84,6 +85,9 @@
 
 //win params
 # define WIN_RESIZABLE		(1 << 0)
+
+# define IMG_TYPE_PNG		0
+# define IMG_TYPE_JPG		1
 
 //texture id`s
 // # define TID_DEFAULT		0
@@ -287,6 +291,7 @@ typedef struct		s_ui_main
 {
 	t_list			*windows;
 	SDL_Event		*sdl_event;
+	SDL_mutex		*mutex;
 	t_ui_raycaster	*raycaster;
 	t_list			*sdl_surfaces;
 	t_list			*sdl_fonts;
@@ -562,5 +567,10 @@ Uint32				ui_get_pixel_color_from_el(SDL_Renderer *renderer,
 void				ui_set_pixel_color_to_texture_replace(SDL_Renderer *renderer,
 		SDL_Texture *texture, t_vec2 coord, SDL_Color color);
 void				ui_el_children_set_default(void *a1, void *a2);
+
+SDL_Texture			*ui_main_merge_layers(SDL_Renderer *r, t_list *l);
+void				ui_main_save_texture(SDL_Renderer *r, SDL_Texture *t, const char *path, int type);
+void				ui_main_open_texture(SDL_Renderer *r, t_ui_el *e, const char *path);
+
 
 #endif

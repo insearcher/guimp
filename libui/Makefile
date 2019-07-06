@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/05 14:51:20 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/06 19:45:41 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,7 +133,10 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_set_font_params.c \
 					ui_main_add_function_by_id.c \
 					ui_main_get_function_by_id.c \
-					ui_main_add_window_opener_el.c
+					ui_main_add_window_opener_el.c \
+					ui_main_merge_layers.c \
+					ui_main_save_texture.c \
+					ui_main_open_texture.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c

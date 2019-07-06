@@ -45,6 +45,7 @@ int				ui_get_el_param_from_string(const char *str)
 	i |= (hash == ft_strhash("EL_IS_HIDDEN") ? EL_IS_HIDDEN : 0);
 	i |= (hash == ft_strhash("EL_IS_SCROLLABLE") ? EL_IS_SCROLLABLE : 0);
 	i |= (hash == ft_strhash("EL_IS_DEPENDENT") ? EL_IS_DEPENDENT : 0);
+	i |= (hash == ft_strhash("EL_IS_ICON") ? EL_IS_ICON : 0);
 	return (i);
 }
 

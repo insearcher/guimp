@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 19:28:03 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/06 19:50:24 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 			el->text.text = ft_strsub(text, 0, el->text.max_text_size);
 		}
 	}
-//	ft_lstdel(&el->sdl_textures, &free_sdl_texture);
-//	el->sdl_textures = NULL;
+	//	ft_lstdel(&el->sdl_textures, &free_sdl_texture);
+	//	el->sdl_textures = NULL;
 	if (get_surface_from_text(el) == FUNCTION_FAILURE)
 		ui_el_add_empty_texture(el, el->rect.w, el->rect.h, "default");
 	else
 	{
-		SDL_Rect	*rect = (SDL_Rect *)malloc(sizeof(SDL_Rect));
+		SDL_Rect *rect = (SDL_Rect *)malloc(sizeof(SDL_Rect));
 
 		SDL_GetClipRect(el->sdl_surface, rect);
 		SDL_Log("rect: (%d, %d)\n", rect->w, rect->h);
@@ -105,7 +105,5 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 		n->content_size = ft_strhash("default");
 		ft_lstadd(&(el->sdl_textures), n);
 	}
-	//	if (el->sdl_textures != NULL && (SDL_Texture *)el->sdl_textures->content != NULL)
-	//		SDL_DestroyTexture((SDL_Texture *)el->sdl_textures->content);
 	return (FUNCTION_SUCCESS);
 }

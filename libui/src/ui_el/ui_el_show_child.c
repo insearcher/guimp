@@ -30,8 +30,8 @@ static void	ui_el_hide_element(t_ui_el *el)
 	while (node)
 	{
 		el = (t_ui_el *)node->content;
-		if (!(el->params & EL_IGNOR_RAYCAST))
-			el->params |= EL_IS_HIDDEN;
+		if (!(el->params & EL_IS_ICON))
+			el->params |= (EL_IS_HIDDEN | EL_IGNOR_RAYCAST);
 		node = node->next;
 	}
 }
@@ -53,7 +53,8 @@ void	ui_el_show_child(void *a1, void *a2)
 	while (node)
 	{
 		el = (t_ui_el *)node->content;
-		el->params &= ~EL_IS_HIDDEN;
+		if (!(el->params & EL_IS_ICON))
+			el->params &= ~(EL_IS_HIDDEN | EL_IGNOR_RAYCAST);
 		node = node->next;
 	}
 }

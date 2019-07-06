@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/05 16:41:10 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 17:06:57 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,7 @@ typedef struct		s_ui_main
 {
 	t_list			*windows;
 	SDL_Event		*sdl_event;
+	SDL_mutex		*mutex;
 	t_ui_raycaster	*raycaster;
 	t_list			*sdl_surfaces;
 	t_list			*sdl_fonts;

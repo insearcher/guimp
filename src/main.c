@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/05 16:43:02 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/06 16:57:29 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ static void	ui_save_test(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	t = ui_main_merge_layers(g->main_win->sdl_renderer, g->layers.layers);
-	ui_main_save_texture(g->main_win->sdl_renderer, t, "/Users/frolov/Desktop/test.jpg", IMG_TYPE_JPG);
+	ui_main_save_texture(g->main_win->sdl_renderer, t, "/Users/sbednar/Desktop/test.jpg", IMG_TYPE_JPG);
 }
 
 static void	ui_open_test(void *main, void *el_v)
@@ -233,7 +233,7 @@ static void	ui_open_test(void *main, void *el_v)
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
-	ui_main_open_texture(g->main_win->sdl_renderer, g->layers.current_layer, "/Users/frolov/Desktop/test.png");
+	ui_main_open_texture(g->main_win->sdl_renderer, g->layers.current_layer, "/Users/sbednar/Desktop/test.png");
 }
 
 static void	prepare_tmp_layer(t_guimp *g)

@@ -76,6 +76,19 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 	}
 	if (get_surface_from_text(el) == FUNCTION_FAILURE)
 		ui_el_add_empty_texture(el, el->rect.w, el->rect.h, "empty");
+	else
+	{
+		SDL_Rect *rect = (SDL_Rect *)malloc(sizeof(SDL_Rect));
+		SDL_GetClipRect(el->sdl_surface, rect);
+		SDL_Log("rect: (%d, %d)\n", rect->w, rect->h);
+		if (rect->w > 6000 || rect->h > 3000)
+			return (FUNCTION_SUCCESS);
+		if (!(n = ft_lstnew(NULL, 0)))
+			return (FUNCTION_FAILURE);
+		n->content = ui_el_create_texture(el);
+		n->content_size = ft_strhash("default");
+		ft_lstadd(&(el->sdl_textures), n);
+		}
 	if (!(n = ft_lstnew(NULL, 0)))
 		return (FUNCTION_FAILURE);
 	n->content = ui_el_create_texture(el);

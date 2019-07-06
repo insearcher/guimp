@@ -94,6 +94,7 @@
 # define WIN_IS_READY		(1 << 1)
 
 # define IMG_TYPE_PNG		0
+# define IMG_TYPE_JPG		1
 
 //texture id`s
 // # define TID_DEFAULT		0

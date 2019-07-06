@@ -23,5 +23,7 @@ void	ui_main_save_texture(SDL_Renderer *r, SDL_Texture *t, const char *path, int
 	SDL_RenderReadPixels(r, NULL, s->format->format, s->pixels, s->pitch);
 	if (type == IMG_TYPE_PNG)
 		IMG_SavePNG(s, path);
+	else if (type == IMG_TYPE_JPG)
+		IMG_SaveJPG(s, path, 100);
 	SDL_SetRenderTarget(r, p);
 }

@@ -224,7 +224,7 @@ static void	ui_save_test(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	t = ui_main_merge_layers(g->main_win->sdl_renderer, g->layers.layers);
-	ui_main_save_texture(g->main_win->sdl_renderer, t, "/Users/frolov/Desktop/test.png", IMG_TYPE_PNG);
+	ui_main_save_texture(g->main_win->sdl_renderer, t, "/Users/frolov/Desktop/test.jpg", IMG_TYPE_JPG);
 }
 
 static void	ui_open_test(void *main, void *el_v)

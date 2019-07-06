@@ -10,7 +10,7 @@
       ],
       "size":
       {
-        "x": 1400,
+        "x": 1704,
         "y": 800
       },
       "pos":
@@ -60,7 +60,7 @@
           },
           "size":
           {
-            "x": 1400,
+            "x": 1704,
             "y": 800,
             "params":
             [
@@ -94,8 +94,8 @@
           },
           "size":
           {
-            "x": 1022,
-            "y": 572,
+            "x": 1380,
+            "y": 776,
             "params":
             [
               "PIXEL"
@@ -187,12 +187,12 @@
           ],
           "pos":
           {
-            "x": 0.75,
+            "x": 0.825,
             "y": 0.05
           },
           "size":
           {
-            "x": 0.245,
+            "x": 0.1675,
             "y": 0.85
           },
           "textures":
@@ -213,27 +213,30 @@
           ],
           "pos":
           {
-            "x": 0.1,
-            "y": 0.05
+            "x": 0.05,
+            "y": 0.02
           },
           "size":
           {
-            "x": 0.8,
+            "x": 0.9,
             "y": 0.25
           },
           "textures":
           [
             {
-              "main_id": "layer_place",
+              "type": "color",
+              "color": "505050",
               "el_id": "default"
             },
-        {
-              "main_id": "layer_onPtr",
-              "el_id": "onFocus"
+            {
+              "type": "color",
+              "color": "FF5050",
+              "el_id": "onActive"
             },
             {
-              "main_id": "layer_active",
-              "el_id": "onActive"
+              "type": "color",
+              "color": "5050FF",
+              "el_id": "onFocus"
             }
           ],
           "current_texture": "onActive",
@@ -263,18 +266,73 @@
           ],
           "pos":
           {
-            "x": 0.1,
-            "y": 0.1
+            "x": 0.04,
+            "y": 0.05
           },
           "size":
           {
-            "x": 0.8,
-            "y": 0.8
+            "x": 0.92,
+            "y": 0.782
           },
          "textures":
           [
             {
-              "type": "empty",
+              "type": "white",
+              "width": 1920,
+              "height": 1080,
+              "el_id": "default"
+            }
+          ],
+          "current_texture": "default"
+        },
+        {
+          "id": 63001,
+          "parent": 63,
+          "params":
+          [
+            "EL_IS_DEPENDENT"
+          ],
+          "pos":
+          {
+            "x": 0.04,
+            "y": 0.85
+          },
+          "size":
+          {
+            "x": 0.45,
+            "y": 0.1
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "00FF00",
+              "el_id": "default"
+            }
+          ],
+          "current_texture": "default"
+        },
+        {
+          "id": 63002,
+          "parent": 63,
+          "params":
+          [
+            "EL_IS_DEPENDENT"
+          ],
+          "pos":
+          {
+            "x": 0.51,
+            "y": 0.85
+          },
+          "size":
+          {
+            "x": 0.45,
+            "y": 0.1
+          },
+          "textures":
+          [
+            {
+              "type": "white",
               "width": 1920,
               "height": 1080,
               "el_id": "default"
@@ -291,12 +349,12 @@
           ],
           "pos":
           {
-            "x": 0.75,
+            "x": 0.825,
             "y": 0.91
           },
           "size":
           {
-            "x": 0.12,
+            "x": 0.0775,
             "y": 0.08
           },
           "textures":
@@ -351,12 +409,12 @@
           ],
           "pos":
           {
-            "x": 0.875,
+            "x": 0.915,
             "y": 0.91
           },
           "size":
           {
-            "x": 0.12,
+            "x": 0.0775,
             "y": 0.08
           },
           "textures":
@@ -2020,6 +2078,36 @@
             {
               "type": "color",
               "color": "000000",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "parent": 3,
+          "pos":
+          {
+            "x": 88,
+            "y": 4,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 64,
+            "y": 16,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "FF0000",
               "el_id": "default"
             }
           ]

@@ -18,7 +18,7 @@ void	ui_main_save_texture(SDL_Renderer *r, SDL_Texture *t, const char *path, int
 	SDL_Surface	*s;
 
 	p = SDL_GetRenderTarget(r);
-	s = SDL_CreateRGBSurface(0, 1400, 800, 32, 0, 0, 0, 0);
+	s = SDL_CreateRGBSurface(0, 1920, 1080, 32, 0, 0, 0, 0);
 	SDL_SetRenderTarget(r, t);
 	SDL_RenderReadPixels(r, NULL, s->format->format, s->pixels, s->pitch);
 	if (type == IMG_TYPE_PNG)

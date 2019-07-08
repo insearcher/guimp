@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 05:24:38 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 21:12:04 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,8 @@ static void	test_del_layer(void *main, void *el_v)
 		if (next_active->id > el->id)
 		{
 			next_active->id--;
-			ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -(next_active->relative_rect.h + 0.05)});
+			t_ui_el *prev_active = (t_ui_el *)prev->content;
+			ui_el_change_pos(next_active, g->main_win->canvas, ABS & PIXEL, (t_fvec2){prev_active->rect.x, prev_active->rect.y});
 		}
 		prev = tmp;
 		tmp = tmp->next;
@@ -577,7 +578,7 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 	}				/* switch */
 }
 
-static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec2 coord)
+static void	fill_tool(t_ui_win *w, t_texture *texture, t_cvec2 color, t_vec2 coord)
 {
 	char 	*field;
 	int f = 0;
@@ -585,16 +586,18 @@ static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec
 	int *queue;
 	int x, y;
 
-	field = (char *)malloc(1704 * 800);
-	for (int i = 0; i < 1704 * 800; i++)
+	x = w->size.x * w->size.y;
+	field = (char *)malloc(x);
+	for (int i = 0; i < x; i++)
 		field[i] = 0;
-	queue = (int *)malloc(1704 * 800 * sizeof(int));
-	SDL_Texture *t = SDL_CreateTexture(rend, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 1704, 800);
-	SDL_SetRenderTarget(rend, t);
-	SDL_RenderCopy(rend, texture, NULL, NULL);
-	SDL_Surface *s = SDL_CreateRGBSurface(0, 1704, 800, 32, 0, 0, 0, 0);
-	SDL_RenderReadPixels(rend, NULL, s->format->format, s->pixels, s->pitch);
-	for (int i = 0; i < 1704 * 800; i++)
+	queue = (int *)malloc(x * sizeof(int));
+	SDL_RenderClear(w->sdl_renderer);
+	SDL_Texture *t = SDL_CreateTexture(w->sdl_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, w->size.x, w->size.y);
+	SDL_SetRenderTarget(w->sdl_renderer, t);
+	SDL_RenderCopy(w->sdl_renderer, texture, NULL, NULL);
+	SDL_Surface *s = SDL_CreateRGBSurface(0, w->size.x, w->size.y, 32, 0, 0, 0, 1);
+	SDL_RenderReadPixels(w->sdl_renderer, NULL, s->format->format, s->pixels, s->pitch);
+	for (int i = 0; i < x; i++)
 		queue[i] = 0;
 	queue[l++] = coord.x * 10000 + coord.y;
 	while (f < l)
@@ -602,44 +605,46 @@ static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec
 //		SDL_Log("%d %d", color.color2, getpixel(s, x, y));
 		x = queue[f] / 10000;
 		y = queue[f++] % 10000;
-		if (field[y * 1704 + x] <= '2' && getpixel(s, x, y) == color.color2)
+		if (field[y * w->size.x + x] <= '2' && getpixel(s, x, y) == color.color2)
 		{
 			putpixel(s, x, y, color.color1);
 //			ui_set_pixel_color_to_texture_replace_abs(rend, texture, x, y, (t_color) {
 //					(color.color1 & 0xFF0000) >> 16, (color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255
 //			});
-			field[y * 1704 + x] = '2';
+			field[y * w->size.x + x] = '2';
 		}
 //		SDL_Log("%d %d %d %d %d", x + 1, GM_IMAGE_SIZE_X, field[y * 1704 + x + 1], ui_get_pixel_color_from_texture_abs(rend, texture, x, y), color.color2);
 //		SDL_Delay(5000);
-		if (x + 1 < 1704 && !field[y * 1704 + x + 1] && getpixel(s, x + 1, y) == color.color2)
+		if (x + 1 < w->size.x && !field[y * w->size.x + x + 1] && getpixel(s, x + 1, y) == color.color2)
 		{
 			queue[l++] = (x + 1) * 10000 + y;
-			field[y * 1704 + x + 1] = '1';
+			field[y * w->size.x + x + 1] = '1';
 		}
-		if (x - 1 >= 0 && !field[y * 1704 + x - 1] && getpixel(s, x - 1, y) == color.color2)
+		if (x - 1 >= 0 && !field[y * w->size.x + x - 1] && getpixel(s, x - 1, y) == color.color2)
 		{
 			queue[l++] = (x - 1) * 10000 + y;
-			field[y * 1704 + x - 1] = '1';
+			field[y * w->size.x + x - 1] = '1';
 		}
-		if (y - 1 >= 0 && !field[(y - 1) * 1704 + x] && getpixel(s, x, y - 1) == color.color2)
+		if (y - 1 >= 0 && !field[(y - 1) * w->size.x + x] && getpixel(s, x, y - 1) == color.color2)
 		{
 			queue[l++] = x * 10000 + y - 1;
-			field[(y - 1) * 1704 + x] = '1';
+			field[(y - 1) * w->size.x + x] = '1';
 		}
-		if (y + 1 < 800 && !field[(y + 1) * 1704 + x] && getpixel(s, x, y + 1) == color.color2)
+		if (y + 1 < w->size.y && !field[(y + 1) * w->size.x + x] && getpixel(s, x, y + 1) == color.color2)
 		{
 			queue[l++] = x * 10000 + y + 1;
-			field[(y + 1) * 1704 + x] = '1';
+			field[(y + 1) * w->size.x + x] = '1';
 		}
 	}
-	SDL_Texture *tmp = SDL_CreateTextureFromSurface(rend, s);
-	SDL_SetRenderTarget(rend, texture);
-	SDL_RenderCopy(rend, tmp, NULL, NULL);
-	SDL_SetRenderTarget(rend, NULL);
+	SDL_Texture *tmp = SDL_CreateTextureFromSurface(w->sdl_renderer, s);
+	SDL_SetRenderTarget(w->sdl_renderer, texture);
+	SDL_SetTextureColorMod(w->sdl_renderer, 255, 255, 255);
+	SDL_RenderCopy(w->sdl_renderer, tmp, NULL, NULL);
+	SDL_SetRenderTarget(w->sdl_renderer, NULL);
 	free(field);
 	free(queue);
-//	ui_sdl_deinit(0);
+	SDL_DestroyTexture(tmp);
+	SDL_DestroyTexture(t);
 }
 
 static void	start_draw_with_selected_tool(void *main, void *el_v)
@@ -682,10 +687,10 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 			(t_texture *)g->layers.current_layer->sdl_textures->content,
 			(t_vec2){x, y});
 		if (color1 != color2)
-			fill_tool(el->sdl_renderer,
+			fill_tool(g->main_win,
 				(t_texture *)g->layers.current_layer->sdl_textures->content,
 				(t_cvec2){color1, color2},
-				(t_vec2){(int)(x / 1920.0f * 1704), (int)(y / 1080.0f * 800)});
+				(t_vec2){(int)(x * 1.0f / GM_IMAGE_SIZE_X * g->main_win->size.x), (int)(y * 1.0f / GM_IMAGE_SIZE_Y * g->main_win->size.y)});
 	}
 }
 

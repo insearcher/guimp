@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 23:29:01 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/09 23:38:09 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:17 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ui_save_surface(SDL_Surface *sur)
 
 	path = NULL;
 	if (ui_open_file_dialog(&path) < 0)
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	IMG_SaveJPG(sur, path, 0);
 	free(path);
 	return (FUNCTION_SUCCESS);

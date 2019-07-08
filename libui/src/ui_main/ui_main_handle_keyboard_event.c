@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 07:49:09 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 19:45:35 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 21:13:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ui_main_handle_keyboard_event(t_ui_main *m)
 	if ((win = ui_main_find_window_by_sdl_id(m, windowID)) == NULL)
 			return ;
 	event = NULL;
-	SDL_Log("keycode: %d\n", m->sdl_event->key.keysym.scancode);
+	//SDL_Log("keycode: %d\n", m->sdl_event->key.keysym.scancode);
 	if (m->sdl_event->window.type == SDL_KEYDOWN)
 	{
 		m->cur_keycode = m->sdl_event->key.keysym.scancode;

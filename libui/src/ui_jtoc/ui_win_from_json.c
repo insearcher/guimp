@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:19:27 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 19:57:20 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static int	ui_win_from_json_size(t_ui_main *m, t_ui_win *w, t_jnode *n)
 	while (tmp)
 	{
 		if (ui_el_from_json(m, w, tmp))
-			return (FUNCTION_FAILURE);
+			ui_sdl_deinit(228);
 		tmp = tmp->right;
 	}
 	if ((tmp = jtoc_node_get_by_path(n, "events")))
 	{
 		if (tmp->type != array || ui_win_from_json_events(m, w, tmp))
-			return (FUNCTION_FAILURE);
+			ui_sdl_deinit(228);
 	}
 	w->events->onKeyDown[SDL_SCANCODE_ESCAPE] = w->events->onClose;
 	return (FUNCTION_SUCCESS);
@@ -109,7 +109,7 @@ int			ui_win_from_json(t_ui_main *m, t_jnode *n)
 			tmp = tmp->right;
 		}
 	if (ui_win_from_json_pos(m, w, n))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	ui_main_add_window(m, w);
 	return (FUNCTION_SUCCESS);
 }

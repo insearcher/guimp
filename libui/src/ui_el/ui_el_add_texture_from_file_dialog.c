@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 23:16:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/09 23:53:20 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:17 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ui_el_add_texture_from_file_dialog(t_ui_el *el)
 
 	path = NULL;
 	if (ui_open_file_dialog(&path) < 0)
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	ui_el_add_texture_from_file(el, path, "default");
 	free(path);
 	return (FUNCTION_SUCCESS);
@@ -37,7 +37,7 @@ int	ui_el_add_texture_from_file_dialog_with_size(t_ui_el *el, int w, int h)
 		SDL_TEXTUREACCESS_TARGET, w, h)) ||
 		ui_el_load_surface_from(el, path) < 0 ||
 		!(tmp_src = ui_el_create_texture(el)))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	SDL_SetRenderTarget(el->sdl_renderer, tmp);
 	SDL_RenderCopy(el->sdl_renderer, tmp_src, NULL, NULL);
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);

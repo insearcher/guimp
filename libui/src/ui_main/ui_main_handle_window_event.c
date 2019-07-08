@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 02:19:12 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 19:45:24 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:39:48 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,9 @@ void	ui_main_handle_window_event(t_ui_main *m)
 	else if (m->sdl_event->window.event == SDL_WINDOWEVENT_MOVED)
 		event = win->events->onMoved;
 	if (event != NULL)
+	{
+		SDL_LockMutex(m->mutex);
 		ui_event_invoke(event, m, win);
+		SDL_UnlockMutex(m->mutex);
+	}
 }

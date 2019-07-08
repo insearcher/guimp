@@ -19,7 +19,7 @@ int	ui_main_add_font_by_path(t_ui_main *m, const char *path, const char *font_id
 	int			hash;
 
 	if (!(font = TTF_OpenFont(path, 128)) || !(lst = ft_lstnew(NULL, 0)))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	hash = ft_strhash(font_id);
 	lst->content = (void *)font;
 	lst->content_size = hash;

@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 04:53:16 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 21:13:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ** 7)
 */
 
-# define DEBUG_STATUS
+//# define DEBUG_STATUS
 
 # define KNRM				"\x1B[0m"
 # define KRED				"\x1B[31m"

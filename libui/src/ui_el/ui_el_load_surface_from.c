@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:32:52 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/05/23 05:33:26 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ui_el_load_surface_from(t_ui_el *el, const char *path)
 	SDL_Surface	*tmp;
 
 	if (!(tmp = IMG_Load(path)))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	SDL_FreeSurface(el->sdl_surface);
 	el->sdl_surface = tmp;
 	return (FUNCTION_SUCCESS);

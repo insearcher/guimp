@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/07 22:14:38 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ static int	ui_el_from_json_events(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		while (tmp)
 		{
 			if (tmp->type != object || ui_el_from_json_event(m, e, tmp))
-				return (FUNCTION_FAILURE);
+				ui_sdl_deinit(228);
 			tmp = tmp->right;
 		}
 	}
@@ -188,7 +188,7 @@ static int	ui_el_from_json_textures(t_ui_main *m, t_ui_el *e, t_jnode *n)
 		while (tmp)
 		{
 			if (tmp->type != object || ui_el_from_json_texture(m, e, tmp))
-				return (FUNCTION_FAILURE);
+				ui_sdl_deinit(228);
 			tmp = tmp->right;
 		}
 	}
@@ -204,7 +204,7 @@ static int	ui_el_from_json_textures(t_ui_main *m, t_ui_el *e, t_jnode *n)
 static int	ui_parse_canvas(t_ui_main *m, t_ui_el *e, t_jnode *n)
 {
 	if (ui_el_from_json_textures(m, e, n))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	return (FUNCTION_SUCCESS);
 }
 
@@ -284,11 +284,11 @@ static int	ui_el_from_json_params(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode
 		}
 	}
 	if (ui_el_setup_by_type(e, n))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	if (ui_el_pref_text(m, e, n))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	if (ui_el_pref_modal_win(m, e, n))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	return (ui_el_from_json_pos(m, w, e, n));
 }
 
@@ -312,7 +312,7 @@ int			ui_el_from_json(t_ui_main *m, t_ui_win *w, t_jnode *n)
 			return (ui_sdl_log_error("NODE EL (INIT/NO PARENT)", e->id));
 		ui_el_add_child(p, e);
 		if (ui_el_from_json_params(m, w, e, n))
-			return (FUNCTION_FAILURE);
+			ui_sdl_deinit(228);
 	}
 	return (FUNCTION_SUCCESS);
 }

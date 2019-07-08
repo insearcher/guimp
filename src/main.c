@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 21:12:04 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 21:22:14 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	tmp_el->id = gm_generate_surf_id(ID_GENERATOR_ADD);
 	ui_el_set_pos(tmp_el, 0,
 		(t_fvec2){0.05,
-			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.27 * (float)gm_generator_get_surf_count()});
+			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.27f * g->main_win->size.x / 1704 * (float)gm_generator_get_surf_count()});
 	ui_el_set_size(tmp_el, 0, (t_fvec2){0.9, 0.25});
 	tmp_el->sdl_renderer = g->main_win->sdl_renderer;
 	ui_el_add_color_texture(tmp_el, (t_vec2){1704, 800}, 0x888888, "default");
@@ -264,8 +264,7 @@ static void	test_del_layer(void *main, void *el_v)
 		if (next_active->id > el->id)
 		{
 			next_active->id--;
-			t_ui_el *prev_active = (t_ui_el *)prev->content;
-			ui_el_change_pos(next_active, g->main_win->canvas, ABS & PIXEL, (t_fvec2){prev_active->rect.x, prev_active->rect.y});
+			ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -0.2695f * g->main_win->size.x / 1704});
 		}
 		prev = tmp;
 		tmp = tmp->next;
@@ -1016,8 +1015,18 @@ static void	draw_color_rect(void *el_v, void *main)
 	SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
 }
 
+static void	ft_strjoin_free(char **to, char *what)
+{
+	char	*tmp;
+
+	tmp = *to;
+	*to = ft_strjoin(*to, what);
+	free(tmp);
+}
+
 static void text_test(void *elv, void *arg)
 {
+	char	*tmp;
 	t_ui_el	*el;
 	t_ui_el	*dr;
 
@@ -1027,9 +1036,9 @@ static void text_test(void *elv, void *arg)
 	if (dr->params & EL_IS_PTR_INSIDE)
 	{
 		char *res = ft_strjoin("(", ft_itoa(dr->ptr_rel_pos.x));
-		res = ft_strjoin(res, ";");
-		res = ft_strjoin(res, ft_itoa(dr->ptr_rel_pos.y));
-		res = ft_strjoin(res, ")");
+		ft_strjoin_free(&res, ";");
+		ft_strjoin_free(&res, ft_itoa(dr->ptr_rel_pos.y));
+		ft_strjoin_free(&res, ")");
 		ui_el_update_text(el, res);
 	}
 	else
@@ -1089,7 +1098,7 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, ui_open_test, "ui_open_test");
 	ui_main_add_function_by_id(g_main.ui_main, start_draw_with_selected_tool_pointer_up, "start_draw_with_selected_tool_pointer_up");
 	ui_main_fill_default_fonts(g_main.ui_main);
-	ui_main_set_font_params(g_main.ui_main, "neco", (t_font_params){0, 0, 1, 0});
+	ui_main_set_font_params(g_main.ui_main, "Neco", (t_font_params){0, 0, 1, 0});
 	g_main.ui_main->data = (void *)(&g_main);
 	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
 	g_main.draw_tool.a = 255;

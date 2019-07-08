@@ -663,7 +663,7 @@
           "size":
           {
             "x": 300,
-            "y": 156,
+            "y": 800,
             "params":
             [
               "PIXEL"
@@ -1423,14 +1423,6 @@
               "PIXEL"
             ]
           },
-          "textures":
-          [
-            {
-              "type": "color",
-              "color": "FFFFFF",
-              "el_id": "default"
-            }
-          ],
           "text_area":
           {
             "text": "Size:",
@@ -1529,14 +1521,6 @@
               "PIXEL"
             ]
           },
-          "textures":
-          [
-            {
-              "type": "color",
-              "color": "FFFFFF",
-              "el_id": "default"
-            }
-          ],
           "text_area":
           {
             "text": "Opacity:",
@@ -2106,14 +2090,6 @@
               "PIXEL"
             ]
           },
-          "textures":
-          [
-            {
-              "type": "color",
-              "color": "000000",
-              "el_id": "default"
-            }
-          ],
           "text_area":
           {
             "text": " ",

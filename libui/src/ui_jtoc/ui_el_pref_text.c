@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 23:00:31 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/08 04:30:56 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	get_font_color(t_ui_main *m, t_ui_el *e, t_jnode *n)
 	if ((tmp = jtoc_node_get_by_path(n, "text_area.font")) && tmp->type == string)
 	{
 		if (!(e->text_area->font = ui_main_get_font_by_id(m, jtoc_get_string(tmp))))
-			return (FUNCTION_FAILURE);
+			ui_sdl_deinit(228);
 	}
 	else
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	if ((tmp = jtoc_node_get_by_path(n, "text_area.color")) && tmp->type == string)
 	{
 		color = ft_atoi_base(jtoc_get_string(tmp), 16);
@@ -31,7 +31,7 @@ int	get_font_color(t_ui_main *m, t_ui_el *e, t_jnode *n)
 			(Uint8)((color & 0x00FF00) >> 8), (Uint8)(color & 0x0000FF), 255};
 	}
 	else
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	if ((tmp = jtoc_node_get_by_path(n, "text_area.bg_color")) && tmp->type == string)
 	{
 		color = ft_atoi_base(jtoc_get_string(tmp), 16);
@@ -74,14 +74,14 @@ int ui_el_pref_text(t_ui_main *m, t_ui_el *e, t_jnode *n)
 	if ((jtoc_node_get_by_path(n, "text_area")))
 	{
 		e->text_area = (t_ui_text *)ft_memalloc(sizeof(t_ui_text));
-		if (get_font_color(m, e, n) == FUNCTION_FAILURE)
-			return (FUNCTION_FAILURE);
-		if (get_text_params(e, n) == FUNCTION_FAILURE)
-			return (FUNCTION_FAILURE);
+		if (get_font_color(m, e, n))
+			ui_sdl_deinit(228);
+		if (get_text_params(e, n))
+			ui_sdl_deinit(228);
 		if ((tmp = jtoc_node_get_by_path(n, "text_area.text")) && tmp->type == string)
 			tmp_text = ft_strdup(jtoc_get_string(tmp));
 		else
-			return (FUNCTION_FAILURE);
+			ui_sdl_deinit(228);
 		e->params |= EL_IS_TEXT;
 		ui_el_update_text(e, tmp_text);
 		free(tmp_text);

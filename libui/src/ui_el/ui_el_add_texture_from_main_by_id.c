@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:08:46 by sbednar           #+#    #+#             */
-/*   Updated: 2019/05/27 14:42:15 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 	s = ui_main_get_surface_by_id(m, id);
 	t = ui_el_create_texture_from_surface(el, s);
 	if (!(n = ft_lstnew(NULL, 0)))
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	h = ft_strhash(texture_id);
 	if (h == ft_strhash("default"))
 		el->current_texture = h;

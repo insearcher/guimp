@@ -6,7 +6,7 @@
 #    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/06 19:45:41 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/08 04:34:43 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRC_UI_CURSOR	=	ui_cursor_init.c \
 
 SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_init.c \
-					ui_el_init_opener_el.c \
 					ui_el_create_texture.c \
 					ui_el_load_surface_from.c \
 					ui_el_set_current_texture_by_id.c \
@@ -67,7 +66,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_horizontal_draggable.c \
 					ui_el_setup_menu_resizable.c \
 					ui_el_show_child.c \
-					ui_el_children_set_default.c
+					ui_el_children_set_default.c \
+					ui_el_create_modal_window.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -133,7 +133,6 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_set_font_params.c \
 					ui_main_add_function_by_id.c \
 					ui_main_get_function_by_id.c \
-					ui_main_add_window_opener_el.c \
 					ui_main_merge_layers.c \
 					ui_main_save_texture.c \
 					ui_main_open_texture.c
@@ -148,8 +147,7 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_update_size.c \
 					ui_win_find_el_by_id.c \
 					ui_win_focus.c \
-					ui_win_change_text_in_focused_el.c \
-					ui_win_try_to_create_modal_window.c
+					ui_win_change_text_in_focused_el.c 
 
 SRC_UI_RAYCAST	=	ui_raycast.c \
 					ui_el_is_pointer_inside.c
@@ -167,6 +165,7 @@ SRC_UI_JTOC		=	ui_main_from_json.c \
 					ui_win_from_json.c \
 					ui_el_from_json.c \
 					ui_el_get_and_setup_json.c \
+					ui_el_pref_text.c \
 					ui_jtoc_utils.c
 
 SRC_UI_FILE		=	ui_open_file_dialog.c \

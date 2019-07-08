@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 18:23:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 23:05:28 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 05:21:25 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	get_texture_y_and_height(t_ui_el *el, t_rect *srect, t_rect *tmp_rec
 	}
 	else if (el->rect.y < el->parent->cut_rect.y)
 	{
-		tmp_rect->y = el->parent->cut_rect.y;
+	tmp_rect->y = el->parent->cut_rect.y;
 		tmp_rect->h = el->rect.h - (el->parent->cut_rect.y - el->rect.y);
 		srect->y = roundf((float)(el->parent->cut_rect.y - el->rect.y) * ((float)height / (float)el->rect.h));
 		srect->h = roundf((float)tmp_rect->h * ((float)height / (float)el->rect.h));
@@ -83,14 +83,19 @@ static void	cutting_texture_and_draw(t_ui_el *el, SDL_Texture *texture)
 
 	tmp_rect = el->rect;
 	get_texture_params(texture, &srect, &width, &height);
-	if ((el->params & EL_IS_TEXT) && width < tmp_rect.w)
+	if ((el->params & EL_IS_TEXT) && (el->text_area->params & TEXT_IS_REGULAR))
+		tmp_rect.w = roundf(((float)width * tmp_rect.h) / (float)height);
+	else if ((el->params & EL_IS_TEXT) && width < tmp_rect.w)
 	{
-		if (el->text.params & TEXT_IS_CENTERED)
+//		tmp_rect.w = ((float)width * tmp_rect.h) / (float)height;
+		if (el->text_area->params & TEXT_IS_CENTERED)
 		{
 			tmp_rect.x = tmp_rect.x + ((tmp_rect.w - width) + 0.5) / 2;
+//			tmp_rect.w = ((float)width * tmp_rect.h) / (float)height;
 			tmp_rect.w = width;
 		}
 		else
+//			tmp_rect.w = ((float)width * tmp_rect.h) / (float)height;
 			tmp_rect.w = width;
 	}
 	get_texture_x_and_width(el, &srect, &tmp_rect, width);

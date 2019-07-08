@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 20:20:23 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 05:24:38 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -980,7 +980,7 @@ int		main()
 
 	 g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
 	 g_main.tool_win = ui_main_find_window_by_id(g_main.ui_main, 1);
-	SDL_RaiseWindow(g_main.main_win->sdl_window);
+	SDL_RaiseWindow(g_main.main_win->sdl_window);   //TODO SDL FUNCTIONS FORBIDDEN
 
 
 	t_ui_el	*cur_el;
@@ -999,28 +999,13 @@ int		main()
 	tmp->content_size = 63;
 	ft_lstadd(&(g_main.layers.layers), tmp);
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+ 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
 	cur_el->data = ui_win_find_el_by_id(g_main.main_win, GM_MAIN_ID_DRAW);
 	ui_event_add_listener(cur_el->events->onRender, text_test);
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23000);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "Size:");
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 24000);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "Opacity:");
-
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 11);
-	ui_el_init_opener_el(cur_el, EL_MODAL_OK);
-	ui_main_add_window_opener_el(g_main.ui_main, cur_el);
+ 	cur_el = ui_win_find_el_by_id(g_main.main_win, 11);
+	cur_el->modal_win = (t_ui_modal_win *)ft_memalloc(sizeof(t_ui_modal_win));
+	cur_el->params |= EL_MODAL_OK;
 	cur_el->modal_win->w_id = 3;
 	cur_el->modal_win->w_pos.x = SDL_WINDOWPOS_CENTERED;
 	cur_el->modal_win->w_pos.y = SDL_WINDOWPOS_CENTERED;
@@ -1028,25 +1013,15 @@ int		main()
 	cur_el->modal_win->w_size.y = 600;
 	cur_el->modal_win->title = ft_strdup("INSTRUCTION");
 	cur_el->modal_win->text = (char **)ft_memalloc(sizeof(char *) * 6);
-	cur_el->modal_win->text[0] = ft_strdup("ALL AH CULA");
-	cur_el->modal_win->text[1] = ft_strdup("BPAT");
-	cur_el->modal_win->text[2] = ft_strdup("AAAAAAA");
-	cur_el->modal_win->text[3] = ft_strdup("AAAAAAA");
-	cur_el->modal_win->text[4] = ft_strdup("AAAAAAA");
+	cur_el->modal_win->text[0] = ft_strdup("asjsf asdgkjhsadg asghgalkjgsg asdg");
+	cur_el->modal_win->text[1] = ft_strdup("sdgsgfsdgj dfgfhg sdfgsdfg dsfgfg");
+	cur_el->modal_win->text[2] = ft_strdup("sdfgsdfgrg wertrtert ujy f");
+	cur_el->modal_win->text[3] = ft_strdup("AAAAAAAsafdfdgfgfg");
+	cur_el->modal_win->text[4] = ft_strdup("AA A A  AAA    Asdfg");
 	ui_el_set_text_for_modal_window(g_main.ui_main, cur_el, "SansSerif",
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 7);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "ADD LAYER");
-
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 8);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "DEL LAYER");
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_el_create_modal_window);
+	
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 10);

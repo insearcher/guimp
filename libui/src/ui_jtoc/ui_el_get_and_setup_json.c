@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:40:39 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/21 22:30:45 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/07 23:32:02 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,26 @@ int	ui_get_pos_size(const char *str)
 	return (i);
 }
 
+int	ui_el_pref_modal_win(t_ui_main *m, t_ui_el *e, t_jnode *n)
+{
+	//	int		hash;
+	t_jnode	*tmp;
+
+	e->id = e->id;
+	m->params = m->params;
+	if ((tmp = jtoc_node_get_by_path(n, "modal_win")))
+	{
+		tmp = tmp->down;
+		while (tmp)
+		{
+			if ((tmp = jtoc_node_get_by_path(n, "modal_win.text")) && tmp->type == string)
+				SDL_Log("NAAAAICE WIN\n");
+			tmp = tmp->right;
+		}
+	}
+	return (FUNCTION_SUCCESS);
+}
+
 int	ui_el_setup_by_type(t_ui_el *e, t_jnode *n)
 {
 	int		hash;
@@ -73,10 +93,10 @@ int	ui_el_setup_by_type(t_ui_el *e, t_jnode *n)
 		while (tmp)
 		{
 			if (tmp->type != string)
-				{
-			printf("17");
-			return (FUNCTION_FAILURE);
-		}
+			{
+				printf("17");
+				return (FUNCTION_FAILURE);
+			}
 			hash = ft_strhash(jtoc_get_string(tmp));
 			(hash == ft_strhash("DRAGGABLE") ? ui_el_setup_default_draggable(e) : 0);
 			(hash == ft_strhash("RESIZABLE") ? ui_el_setup_default_resizable(e) : 0);

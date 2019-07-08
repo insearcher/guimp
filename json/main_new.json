@@ -478,13 +478,21 @@
           ],
           "pos":
           {
-            "x": 0.1,
-            "y": 0.1
+            "x": 0.05,
+            "y": 0.05
           },
           "size":
           {
-            "x": 0.8,
-            "y": 0.8
+            "x": 0.9,
+            "y": 0.9
+          },
+          "text_area":
+          {
+            "text": "ADD LAYER",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "max_text_size": 0,
+            "font": "SansSerif"
           }
         },
         {
@@ -501,13 +509,21 @@
           ],
           "pos":
           {
-            "x": 0.1,
-            "y": 0.1
+            "x": 0.05,
+            "y": 0.05
           },
           "size":
           {
-            "x": 0.8,
-            "y": 0.8
+            "x": 0.9,
+            "y": 0.9
+          },
+          "text_area":
+          {
+            "text": "DEL LAYER",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "max_text_size": 0,
+            "font": "SansSerif"
           }
         },
         {
@@ -1414,7 +1430,16 @@
               "color": "FFFFFF",
               "el_id": "default"
             }
-          ]
+          ],
+          "text_area":
+          {
+            "text": "Size:",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "params": "TEXT_IS_INPUTTING",
+            "max_text_size": 0,
+            "font": "SansSerif"
+          }
         },
         {
           "id": 23,
@@ -1511,7 +1536,15 @@
               "color": "FFFFFF",
               "el_id": "default"
             }
-          ]
+          ],
+          "text_area":
+          {
+            "text": "Opacity:",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "max_text_size": 0,
+            "font": "SansSerif"
+          }
         },
         {
           "id": 24,
@@ -2080,7 +2113,15 @@
               "color": "000000",
               "el_id": "default"
             }
-          ]
+          ],
+          "text_area":
+          {
+            "text": " ",
+            "color": "FFFFFF",
+            "render_param": "TEXT_IS_BLENDED",
+            "max_text_size": 0,
+            "font": "SansSerif"
+          }
         },
         {
           "id": 32,

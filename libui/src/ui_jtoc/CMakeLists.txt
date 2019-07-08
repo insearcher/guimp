@@ -8,4 +8,5 @@ target_sources(ui PUBLIC
         ui_el_from_json.c
         ui_el_get_and_setup_json.c
         ui_jtoc_utils.c
+        ui_el_pref_text.c
         )

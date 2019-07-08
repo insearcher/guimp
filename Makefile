@@ -6,7 +6,7 @@
 #    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr        #
+#    Updated: 2019/07/08 01:32:02 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRC_DIR_TEST	=	./src/test
 
 OBJ_DIR_TEST	=	./obj_test
 
-SRC_TEST		=	main_test.c \
+SRC_TEST		=	main.c \
 					draw_func.c \
 					draw_main_canvas_event.c \
 

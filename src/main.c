@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 20:36:27 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 05:24:38 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,9 +171,9 @@ static void	test_add_layer(void *ui_main, void *el_v)
 			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.27 * (float)gm_generator_get_surf_count()});
 	ui_el_set_size(tmp_el, 0, (t_fvec2){0.9, 0.25});
 	tmp_el->sdl_renderer = g->main_win->sdl_renderer;
-	ui_el_add_color_texture(tmp_el, (t_vec2){1920, 1080}, 0x888888, "default");
-	ui_el_add_color_texture(tmp_el, (t_vec2){1920, 1080}, 0xFF5050, "onActive");
-	ui_el_add_color_texture(tmp_el, (t_vec2){1920, 1080}, 0x5050FF, "onFocus");
+	ui_el_add_color_texture(tmp_el, (t_vec2){1704, 800}, 0x888888, "default");
+	ui_el_add_color_texture(tmp_el, (t_vec2){1704, 800}, 0xFF5050, "onActive");
+	ui_el_add_color_texture(tmp_el, (t_vec2){1704, 800}, 0x5050FF, "onFocus");
 //	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_place", "default");
 //	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_onPtr", "onFocus");
 //	ui_el_add_texture_from_main_by_id(g->ui_main, tmp_el, "layer_active", "onActive");
@@ -201,8 +201,6 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	tmp->content = el->sdl_textures->content;
 	tmp->content_size = tmp_el->id;
 	ft_lstadd_back(&(g->layers.layers), tmp);
-	el->params |= EL_IS_READY;
-	tmp_el->params |= EL_IS_READY;
 
 	tmp2 = el;
 
@@ -221,8 +219,6 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_el_add_color_texture(el, (t_vec2){GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y}, 0x00FF00, "default");
 	ui_event_add_listener(el->events->onPointerLeftButtonPressed, clear_layer);
 	el->data = ui_el_get_texture_by_id(tmp2, "default");
-	el->params |= EL_IS_READY;
-	tmp_el->params |= EL_IS_READY;
 
 	if (!(el = ui_el_init()))
 	{
@@ -239,8 +235,6 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_el_add_white_texture(el, GM_IMAGE_SIZE_X, GM_IMAGE_SIZE_Y, "default");
 	el->data = ui_el_get_texture_by_id(tmp2, "default");
 	ui_event_add_listener(el->events->onPointerLeftButtonPressed, clear_layer);
-	el->params |= EL_IS_READY;
-	tmp_el->params |= EL_IS_READY;
 }
 
 static void	test_del_layer(void *main, void *el_v)
@@ -446,85 +440,206 @@ static void	draw_canvas_renderer(void *el_v, void *main)
 	}
 }
 
+Uint32	ui_get_pixel_color_from_texture_abs(SDL_Renderer *renderer,
+										  SDL_Texture *texture, int x, int y)
+{
+	Uint32		res;
+	SDL_Surface	*surf;
+	Uint8		*p;
+
+	surf = SDL_CreateRGBSurfaceWithFormat(0, 1, 1, 24, SDL_PIXELFORMAT_RGBA8888);
+	res = 0;
+	SDL_SetRenderTarget(renderer, texture);
+	SDL_RenderReadPixels(renderer, &((t_rect){x, y, 1, 1}), 0, surf->pixels, surf->pitch);
+	SDL_SetRenderTarget(renderer, NULL);
+	p = (Uint8 *)surf->pixels;
+	//printf("r: %d, g: %d, b: %d\n", p[2], p[1], p[0]);
+	res = (p[2] << 16 & 0xFF0000) + (p[1] << 8 & 0x00FF00) + (p[0] & 0x0000FF);
+	SDL_FreeSurface(surf);
+	return (res);
+}
+
+static void	ui_set_pixel_color_to_texture_replace_abs(SDL_Renderer *renderer,
+													 SDL_Texture *texture, int x, int y, SDL_Color color)
+{
+	SDL_BlendMode	pb;
+
+	SDL_GetRenderDrawBlendMode(renderer, &pb);
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+	SDL_SetRenderTarget(renderer, texture);
+	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderDrawPoint(renderer, x, y);
+	SDL_SetRenderTarget(renderer, NULL);
+	SDL_SetRenderDrawBlendMode(renderer, pb);
+}
+
+Uint32 getpixel(SDL_Surface *surface, int x, int y)
+{
+//	int bpp = surface->format->BytesPerPixel;
+//	/* Here p is the address to the pixel we want to retrieve */
+//	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+//
+//	switch(bpp) {
+//		case 1:
+//			return *p;
+//			break;
+//
+//		case 2:
+//			return *(Uint16 *)p;
+//			break;
+//
+//		case 3:
+//			if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
+//				return p[0] << 16 | p[1] << 8 | p[2];
+//			else
+//				return p[0] | p[1] << 8 | p[2] << 16;
+//			break;
+//
+//		case 4:
+//			return *(Uint32 *)p;
+//			break;
+//
+//		default:
+//			return 0;       /* shouldn't happen, but avoids warnings */
+//	}
+	int bpp;
+	Uint8 *p;
+
+	/*
+	* Get destination format
+	*/
+	bpp = surface->format->BytesPerPixel;
+	p = (Uint8 *) surface->pixels + y * surface->pitch + x * bpp;
+	return
+			*(Uint32 *) p;
+}
+
+void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
+{
+//	int bpp = surface->format->BytesPerPixel;
+//	/* Here p is the address to the pixel we want to set */
+//	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp * 8;
+//
+//	switch(bpp) {
+//		case 1:
+//			*p = pixel;
+//			break;
+//
+//		case 2:
+//			*(Uint16 *)p = pixel;
+//			break;
+//
+//		case 3:
+//			if(SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+//				p[0] = (pixel >> 16) & 0xff;
+//				p[1] = (pixel >> 8) & 0xff;
+//				p[2] = pixel & 0xff;
+//			} else {
+//				p[0] = pixel & 0xff;
+//				p[1] = (pixel >> 8) & 0xff;
+//				p[2] = (pixel >> 16) & 0xff;
+//			}
+//			break;
+//
+//		case 4:
+//			*(Uint32 *)p = pixel;
+//			break;
+//	}
+	int bpp;
+	Uint8 *p;
+
+	/*
+	* Get destination format
+	*/
+	bpp = surface->format->BytesPerPixel;
+	p = (Uint8 *) surface->pixels + y * surface->pitch + x * bpp;
+	switch (bpp) {
+		case 1:
+			*p = pixel;
+			break;
+		case 2:
+			*(Uint16 *) p = pixel;
+			break;
+		case 3:
+			if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+				p[0] = (pixel >> 16) & 0xff;
+				p[1] = (pixel >> 8) & 0xff;
+				p[2] = pixel & 0xff;
+			} else {
+				p[0] = pixel & 0xff;
+				p[1] = (pixel >> 8) & 0xff;
+				p[2] = (pixel >> 16) & 0xff;
+			}
+			break;
+		case 4:
+			*(Uint32 *) p = pixel;
+			break;
+	}				/* switch */
+}
+
 static void	fill_tool(t_renderer *rend, t_texture *texture, t_cvec2 color, t_vec2 coord)
 {
 	char 	*field;
-	t_list	*tmp;
-	t_vec2	*tmp_vec;
-	QUEUE	*q;
+	int f = 0;
+	int l = 0;
+	int *queue;
+	int x, y;
 
-	field = (char *)malloc(1920 * 1080);
-	for (int i = 0; i < 1920 * 1080; i++)
+	field = (char *)malloc(1704 * 800);
+	for (int i = 0; i < 1704 * 800; i++)
 		field[i] = 0;
-	tmp_vec = (t_vec2 *)malloc(sizeof(t_vec2));
-	*tmp_vec = coord;
-	q = NULL;
-	tmp = ft_lstnew(NULL, 0);
-	ft_bzero((void *)tmp, sizeof(tmp));
-	tmp->content = (void *)tmp_vec;
-	q_push(&q, tmp);
-	while (q)
+	queue = (int *)malloc(1704 * 800 * sizeof(int));
+	SDL_Texture *t = SDL_CreateTexture(rend, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 1704, 800);
+	SDL_SetRenderTarget(rend, t);
+	SDL_RenderCopy(rend, texture, NULL, NULL);
+	SDL_Surface *s = SDL_CreateRGBSurface(0, 1704, 800, 32, 0, 0, 0, 0);
+	SDL_RenderReadPixels(rend, NULL, s->format->format, s->pixels, s->pitch);
+	for (int i = 0; i < 1704 * 800; i++)
+		queue[i] = 0;
+	queue[l++] = coord.x * 10000 + coord.y;
+	while (f < l)
 	{
-		tmp_vec = (t_vec2 *)q_pop(&q);
-		coord = *tmp_vec;
-		free(tmp_vec);
-		if (ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
+//		SDL_Log("%d %d", color.color2, getpixel(s, x, y));
+		x = queue[f] / 10000;
+		y = queue[f++] % 10000;
+		if (field[y * 1704 + x] <= '2' && getpixel(s, x, y) == color.color2)
 		{
-			ui_set_pixel_color_to_texture_replace(rend, texture, coord, (t_color) {
-					(color.color1 & 0xFF0000) >> 16, (color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255
-			});
-			field[coord.y * 1920 + coord.x] = '1';
+			putpixel(s, x, y, color.color1);
+//			ui_set_pixel_color_to_texture_replace_abs(rend, texture, x, y, (t_color) {
+//					(color.color1 & 0xFF0000) >> 16, (color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255
+//			});
+			field[y * 1704 + x] = '2';
 		}
-		if (++coord.x < GM_IMAGE_SIZE_X && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
+//		SDL_Log("%d %d %d %d %d", x + 1, GM_IMAGE_SIZE_X, field[y * 1704 + x + 1], ui_get_pixel_color_from_texture_abs(rend, texture, x, y), color.color2);
+//		SDL_Delay(5000);
+		if (x + 1 < 1704 && !field[y * 1704 + x + 1] && getpixel(s, x + 1, y) == color.color2)
 		{
-			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
-				(t_color){(color.color1 & 0xFF0000) >> 16,
-					(color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255});
-			tmp_vec = (t_vec2 *)malloc(sizeof(t_vec2));
-			*tmp_vec = coord;
-			tmp = ft_lstnew(NULL, 0);
-			tmp->content = (void *)tmp_vec;
-			q_push(&q, tmp);
-			field[coord.y * 1920 + coord.x] = '1';
+			queue[l++] = (x + 1) * 10000 + y;
+			field[y * 1704 + x + 1] = '1';
 		}
-		if ((coord.x -= 2) >= 0 && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
+		if (x - 1 >= 0 && !field[y * 1704 + x - 1] && getpixel(s, x - 1, y) == color.color2)
 		{
-			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
-				(t_color){(color.color1 & 0xFF0000) >> 16,
-					(color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255});
-			tmp_vec = (t_vec2 *)malloc(sizeof(t_vec2));
-			*tmp_vec = coord;
-			tmp = ft_lstnew(NULL, 0);
-			tmp->content = (void *)tmp_vec;
-			q_push(&q, tmp);
-			field[coord.y * 1920 + coord.x] = '1';
+			queue[l++] = (x - 1) * 10000 + y;
+			field[y * 1704 + x - 1] = '1';
 		}
-		coord.x++;
-		if (--coord.y >= 0 && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
+		if (y - 1 >= 0 && !field[(y - 1) * 1704 + x] && getpixel(s, x, y - 1) == color.color2)
 		{
-			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
-				(t_color){(color.color1 & 0xFF0000) >> 16,
-					(color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255});
-			tmp_vec = (t_vec2 *)malloc(sizeof(t_vec2));
-			*tmp_vec = coord;
-			tmp = ft_lstnew(NULL, 0);
-			tmp->content = (void *)tmp_vec;
-			q_push(&q, tmp);
-			field[coord.y * 1920 + coord.x] = '1';
+			queue[l++] = x * 10000 + y - 1;
+			field[(y - 1) * 1704 + x] = '1';
 		}
-		if ((coord.y += 2) < GM_IMAGE_SIZE_Y && ui_get_pixel_color_from_texture(rend, texture, coord) == color.color2 && !field[coord.y * 1920 + coord.x])
+		if (y + 1 < 800 && !field[(y + 1) * 1704 + x] && getpixel(s, x, y + 1) == color.color2)
 		{
-			ui_set_pixel_color_to_texture_replace(rend, texture, coord,
-				(t_color){(color.color1 & 0xFF0000) >> 16,
-					(color.color1 & 0x00FF00) >> 8, color.color1 & 0x0000FF, 255});
-			tmp_vec = (t_vec2 *)malloc(sizeof(t_vec2));
-			*tmp_vec = coord;
-			tmp = ft_lstnew(NULL, 0);
-			tmp->content = (void *)tmp_vec;
-			q_push(&q, tmp);
-			field[coord.y * 1920 + coord.x] = '1';
+			queue[l++] = x * 10000 + y + 1;
+			field[(y + 1) * 1704 + x] = '1';
 		}
 	}
+	SDL_Texture *tmp = SDL_CreateTextureFromSurface(rend, s);
+	SDL_SetRenderTarget(rend, texture);
+	SDL_RenderCopy(rend, tmp, NULL, NULL);
+	SDL_SetRenderTarget(rend, NULL);
+	free(field);
+	free(queue);
+//	ui_sdl_deinit(0);
 }
 
 static void	start_draw_with_selected_tool(void *main, void *el_v)
@@ -570,7 +685,7 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 			fill_tool(el->sdl_renderer,
 				(t_texture *)g->layers.current_layer->sdl_textures->content,
 				(t_cvec2){color1, color2},
-				(t_vec2){x, y});
+				(t_vec2){(int)(x / 1920.0f * 1704), (int)(y / 1080.0f * 800)});
 	}
 }
 
@@ -986,7 +1101,7 @@ int		main()
 
 	 g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);
 	 g_main.tool_win = ui_main_find_window_by_id(g_main.ui_main, 1);
-	SDL_RaiseWindow(g_main.main_win->sdl_window);
+	SDL_RaiseWindow(g_main.main_win->sdl_window);   //TODO SDL FUNCTIONS FORBIDDEN
 
 
 	t_ui_el	*cur_el;
@@ -1005,28 +1120,13 @@ int		main()
 	tmp->content_size = 63;
 	ft_lstadd(&(g_main.layers.layers), tmp);
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+ 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
 	cur_el->data = ui_win_find_el_by_id(g_main.main_win, GM_MAIN_ID_DRAW);
 	ui_event_add_listener(cur_el->events->onRender, text_test);
 
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 23000);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-		(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "Size:");
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 24000);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "Opacity:");
-
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 11);
-	ui_el_init_opener_el(cur_el, EL_MODAL_OK);
-	ui_main_add_window_opener_el(g_main.ui_main, cur_el);
+ 	cur_el = ui_win_find_el_by_id(g_main.main_win, 11);
+	cur_el->modal_win = (t_ui_modal_win *)ft_memalloc(sizeof(t_ui_modal_win));
+	cur_el->params |= EL_MODAL_OK;
 	cur_el->modal_win->w_id = 3;
 	cur_el->modal_win->w_pos.x = SDL_WINDOWPOS_CENTERED;
 	cur_el->modal_win->w_pos.y = SDL_WINDOWPOS_CENTERED;
@@ -1034,25 +1134,15 @@ int		main()
 	cur_el->modal_win->w_size.y = 600;
 	cur_el->modal_win->title = ft_strdup("INSTRUCTION");
 	cur_el->modal_win->text = (char **)ft_memalloc(sizeof(char *) * 6);
-	cur_el->modal_win->text[0] = ft_strdup("ALL AH CULA");
-	cur_el->modal_win->text[1] = ft_strdup("BPAT");
-	cur_el->modal_win->text[2] = ft_strdup("AAAAAAA");
-	cur_el->modal_win->text[3] = ft_strdup("AAAAAAA");
-	cur_el->modal_win->text[4] = ft_strdup("AAAAAAA");
+	cur_el->modal_win->text[0] = ft_strdup("asjsf asdgkjhsadg asghgalkjgsg asdg");
+	cur_el->modal_win->text[1] = ft_strdup("sdgsgfsdgj dfgfhg sdfgsdfg dsfgfg");
+	cur_el->modal_win->text[2] = ft_strdup("sdfgsdfgrg wertrtert ujy f");
+	cur_el->modal_win->text[3] = ft_strdup("AAAAAAAsafdfdgfgfg");
+	cur_el->modal_win->text[4] = ft_strdup("AA A A  AAA    Asdfg");
 	ui_el_set_text_for_modal_window(g_main.ui_main, cur_el, "SansSerif",
 			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){0, 0, 0, 0}, 0, 0, 0});
+	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_el_create_modal_window);
 
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 7);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "ADD LAYER");
-
-	cur_el = ui_win_find_el_by_id(g_main.main_win, 8);
-	cur_el->params |= EL_IS_TEXT;
-	ui_el_set_text(g_main.ui_main, cur_el, "SansSerif",
-			(t_text_params){(SDL_Color){0, 0, 0, 0}, (SDL_Color){170, 170, 170, 0}, 0, 0, 0});
-	ui_el_update_text(cur_el, "DEL LAYER");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 10);

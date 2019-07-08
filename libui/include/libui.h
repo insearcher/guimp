@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 20:01:25 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 04:53:16 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,14 @@
 # define EL_IS_SCROLLABLE	(1 << 3)
 # define EL_IS_DEPENDENT	(1 << 4)
 # define EL_IS_TEXT			(1 << 5)
-# define EL_IS_INVOKE_WIN	(1 << 6)
-# define EL_MODAL_OK		(1 << 7)
-# define EL_MODAL_OK_CANCEL	(1 << 8)
-# define EL_IS_ICON			(1 << 9)
+# define EL_MODAL_OK		(1 << 6)
+# define EL_MODAL_OK_CANCEL	(1 << 7)
+# define EL_IS_ICON			(1 << 8)
 
 //text params
 # define TEXT_IS_CENTERED	(1 << 0)
-# define TEXT_IS_BIG		(1 << 1)
-# define TEXT_IS_INPUTTING	(1 << 2)
+# define TEXT_IS_INPUTTING	(1 << 1)
+# define TEXT_IS_REGULAR	(1 << 2)
 
 //text render_params
 # define TEXT_IS_SOLID		(1 << 0)
@@ -158,8 +157,8 @@ typedef struct		s_ui_text
 	char			*text;
 	size_t			max_text_size;
 	size_t			cursor_pos;
-	int				render_param;
-	int				params;
+	Uint32			render_param;
+	Uint32			params;
 }					t_ui_text;
 
 typedef struct		s_ui_modal_win
@@ -172,9 +171,9 @@ typedef struct		s_ui_modal_win
 	t_vec2			w_size;
 	char			*title;
 	char			**text;
-	int				render_param;
-	int				params;
-	int				output;
+	Uint32			render_param;
+	Uint32			params;
+	Uint32			output;
 	char			*output_text;
 }					t_ui_modal_win;
 
@@ -208,10 +207,10 @@ typedef struct		s_ui_el
 	t_rect			rect;
 	t_rect			cut_rect;
 	t_frect			relative_rect;
-	t_vec2			ptr_rel_pos; // TODO it's mouse pos
+	t_vec2			ptr_rel_pos;
 	Uint32			id;
 	Uint32			params; // <- put there next parameters
-	t_ui_text		text;
+	t_ui_text		*text_area;
 	t_ui_modal_win	*modal_win;
 	t_ui_el_events	*events;
 	void			*data;
@@ -347,7 +346,6 @@ t_ui_el				*ui_raycast(t_ui_main *m, t_ui_win *w);
 t_ui_main			*ui_main_init(void);
 void				ui_main_loop(t_ui_main *m);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
-int					ui_main_add_window_opener_el(t_ui_main *m, t_ui_el *el);
 void				ui_main_close_window(void *a1, void *a2);
 void				ui_main_close_program(void *a1, void *a2);
 
@@ -440,7 +438,6 @@ void				ui_el_draw_event(void *el_v, void *arg);
 # pragma region		t_ui_el_func
 
 t_ui_el				*ui_el_init(void);
-int					ui_el_init_opener_el(t_ui_el *el, int type);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
 void				ui_el_set_pos(t_ui_el *el, int type, t_fvec2 v);
 void				ui_el_set_size(t_ui_el *el, int type, t_fvec2 v);
@@ -491,6 +488,7 @@ void				ui_el_resize_elems(void *a1, void *a2);
 void				ui_el_default_resize(void *a1, void *a2);
 void				ui_el_menu_resize(void *a1, void *a2);
 void				ui_win_update_size(void *a1, void *a2);
+void				ui_el_create_modal_window(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 		const char *id, const char *texture_id);
@@ -509,7 +507,6 @@ void				ui_win_change_text_in_focused_el(void *a1, void *a2);
 t_ui_win			*ui_win_init(void);
 void				ui_win_close(t_ui_win *w);
 t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);
-void				ui_win_try_to_create_modal_window(t_ui_main *m);
 
 int					ui_sdl_init(void);
 void				ui_sdl_deinit(int exit_status);
@@ -557,6 +554,8 @@ int					ui_get_el_param_from_string(const char *str);
 int					ui_get_pos_size(const char *str);
 int					ui_el_setup_by_type(t_ui_el *e, t_jnode *n);
 int					ui_get_win_param_from_string(const char *str);
+int					ui_el_pref_text(t_ui_main *m, t_ui_el *e, t_jnode *n);
+int					ui_el_pref_modal_win(t_ui_main *m, t_ui_el *e, t_jnode *n);
 
 int					ui_sdl_log_error(const char *p, const int id);
 

@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:47:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 19:56:40 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/07 22:14:38 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,10 @@ static int	ui_el_from_json_params(t_ui_main *m, t_ui_win *w, t_ui_el *e, t_jnode
 		}
 	}
 	if (ui_el_setup_by_type(e, n))
+		return (FUNCTION_FAILURE);
+	if (ui_el_pref_text(m, e, n))
+		return (FUNCTION_FAILURE);
+	if (ui_el_pref_modal_win(m, e, n))
 		return (FUNCTION_FAILURE);
 	return (ui_el_from_json_pos(m, w, e, n));
 }

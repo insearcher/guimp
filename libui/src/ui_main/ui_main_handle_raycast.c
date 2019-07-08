@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:48 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 00:09:34 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ void	ui_main_handle_raycast(t_ui_main *m)
 		}
 		else if (m->params & MAIN_LMB_PRESSED)
 		{
-			if ((cur->params & EL_IS_TEXT) && (cur->text.params & TEXT_IS_INPUTTING))
+			if ((cur->params & EL_IS_TEXT) && (cur->text_area->params & TEXT_IS_INPUTTING))
 				m->focused_el = cur;
-			cur->params |= EL_IS_INVOKE_WIN;
 			ui_event_invoke(cur->events->onPointerLeftButtonPressed, m, cur);
 			m->params &= ~MAIN_LMB_PRESSED;
 		}

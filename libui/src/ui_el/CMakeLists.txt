@@ -41,4 +41,8 @@ target_sources(ui PUBLIC
         ui_el_show_child.c
         ui_el_children_set_default.c
         ui_el_create_modal_window.c
+        ui_el_destroy.c
+        ui_el_destroy_children.c
+        ui_text_destroy.c
+        ui_modal_win_destroy.c
         )

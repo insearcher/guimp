@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 19:39:40 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 22:32:28 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,12 +256,18 @@ static void	test_del_layer(void *main, void *el_v)
 	g->layers.current_layer = (t_ui_el *)(next_active->children->content);
 	tmp = el->parent->children;
 	prev = tmp;
+	t_list *tmp2;
 	while (tmp)
 	{
 		next_active = (t_ui_el *)(tmp->content);
 		if (next_active->id == el->id)
+		{
+			ui_el_destroy(next_active);
+			tmp2 = tmp;
 			prev->next = tmp->next;
-		if (next_active->id > el->id)
+			free(tmp2);
+		}
+		else if (next_active->id > el->id)
 		{
 			next_active->id--;
 			ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -0.2695f * g->main_win->size.x / 1704});
@@ -275,8 +281,15 @@ static void	test_del_layer(void *main, void *el_v)
 	while (tmp)
 	{
 		if ((Uint32)(tmp->content_size) == el->id)
+		{
+			SDL_DestroyTexture(tmp->content);
+			tmp2 = tmp;
 			prev->next = tmp->next;
-		if ((Uint32)(tmp->content_size) > el->id)
+			tmp = tmp->next;
+			free(tmp2);
+			continue ;
+		}
+		else if ((Uint32)(tmp->content_size) > el->id)
 			tmp->content_size--;
 		prev = tmp;
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 20:13:05 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 21:58:32 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ typedef struct		s_ui_el
 	t_frect			relative_rect;
 	t_vec2			ptr_rel_pos;
 	Uint32			id;
-	Uint32			params; // <- put there next parameters
+	Uint32			params;
 	t_ui_text		*text_area;
 	t_ui_modal_win	*modal_win;
 	t_ui_el_events	*events;
@@ -264,12 +264,11 @@ typedef struct		s_ui_win
 	Uint32			sdl_windowID;
 	char			*title;
 	t_vec2			size;
-	t_vec2			pos; //TODO for programs init
+	t_vec2			pos;
 	t_ui_el			*canvas;
 	t_ui_win_events	*events;
 	Uint32			id;
 	Uint32			params;
-	t_ui_el			*output_el;
 }					t_ui_win;
 
 # pragma endregion
@@ -571,5 +570,13 @@ SDL_Texture			*ui_main_merge_layers(SDL_Renderer *r, t_list *l);
 void				ui_main_save_texture(SDL_Renderer *r, SDL_Texture *t, const char *path, int type);
 void				ui_main_open_texture(SDL_Renderer *r, t_ui_el *e, const char *path);
 
+void	ui_el_destroy(t_ui_el *e);
+void	ui_el_destroy_children(t_list *c);
+void	ui_win_destroy(t_ui_win *w);
+void	ui_win_events_destroy(t_ui_win_events *we);
+void	ui_event_destroy(t_ui_event *e);
+void	ui_el_events_destroy(t_ui_el_events *ee);
+void	ui_text_destroy(t_ui_text *t);
+void	ui_modal_win_destroy(t_ui_modal_win *mw);
 
 #endif

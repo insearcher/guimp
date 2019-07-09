@@ -8,4 +8,5 @@ target_sources(ui PUBLIC
         ui_event_add_listener_front.c
         ui_event_clear.c
         ui_event_invoke.c
+        ui_event_destroy.c
         )

@@ -36,7 +36,11 @@ static void		*bfs_find_el_by_id(const t_list *root, Uint32 id)
 		tmp = q_pop(&q);
 		q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
 		if (ui_win_check_el_by_id(tmp, id))
+		{
+			while (q)
+				q_pop(&q);
 			return (tmp);
+		}
 	}
 	return (NULL);
 }

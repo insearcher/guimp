@@ -2890,7 +2890,7 @@
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "550000",
               "el_id": "onActive"
             }
           ],
@@ -2910,7 +2910,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_line"
             }
           ]
         },

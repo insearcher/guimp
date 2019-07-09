@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:01:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/05 15:56:39 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 21:31:08 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ void	draw_empty_elipse(t_guimp *g, t_vec2 s, t_vec2 e)
 		s = e;
 		e = d;
 	}
-	// if (s.x > e.x)
-	// {
-	// 	d.x = s.x;
-	// 	s.x = e.x;
-	// 	e.x = s.x;
-	// }
+	if (s.x > e.x)
+	{
+		d.x = s.x;
+		s.x = e.x;
+		e.x = d.x;
+	}
 	draw_elipse(g, s, e);
 	if (g->draw_tool.brush_size >= abs(e.x - s.x) / 2 || g->draw_tool.brush_size >= abs(e.y - s.y) / 2)
 		return ;

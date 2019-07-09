@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 18:19:27 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 20:15:33 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	ui_win_from_json_size(t_ui_main *m, t_ui_win *w, t_jnode *n)
 		if (tmp->type != array || ui_win_from_json_events(m, w, tmp))
 			ui_sdl_deinit(228);
 	}
+	free(w->events->onKeyDown[SDL_SCANCODE_ESCAPE]);
 	w->events->onKeyDown[SDL_SCANCODE_ESCAPE] = w->events->onClose;
 	return (FUNCTION_SUCCESS);
 }

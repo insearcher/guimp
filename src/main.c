@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 21:18:09 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/09 23:50:58 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,109 +324,50 @@ static void	ui_open_test(void *main, void *el_v)
 	ui_main_open_texture(g->main_win->sdl_renderer, g->layers.current_layer, "/Users/sbednar/Desktop/test.png");
 }
 
+static void	process_tool_state_draw(t_guimp *g)
+{
+	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b, 255);
+	if (g->draw_tool.tool == GM_TOOL_RECT)
+		(g->draw_tool.tool_mode == GM_TOOL_MODE_FILL ?
+			draw_rect(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y}, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y}) :
+		 	draw_empty_rect(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y}, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y}));
+	else if (g->draw_tool.tool == GM_TOOL_ELLIPSE)
+		(g->draw_tool.tool_mode == GM_TOOL_MODE_FILL ?
+		 draw_ellipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y}, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y}) :
+		 draw_empty_ellipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y}, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y}));
+	else if (g->draw_tool.tool == GM_TOOL_LINE)
+		 draw_fat_line(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
+					   (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
+}
+
+static void	process_tool_state_end(t_guimp *g)
+{
+	SDL_SetRenderTarget(g->main_win->sdl_renderer, (t_texture *)(g->layers.current_layer->sdl_textures->content));
+	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b, 255);
+	if (g->draw_tool.tool == GM_TOOL_RECT)
+		(g->draw_tool.tool_mode == GM_TOOL_MODE_FILL ?
+		 draw_rect(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y}, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y}) :
+		 draw_empty_rect(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y}, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y}));
+	else if (g->draw_tool.tool == GM_TOOL_ELLIPSE)
+		(g->draw_tool.tool_mode == GM_TOOL_MODE_FILL ?
+		 draw_ellipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y}, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y}) :
+		 draw_empty_ellipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y}, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y}));
+	else if (g->draw_tool.tool == GM_TOOL_LINE)
+		draw_fat_line(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
+					  (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
+	g->draw_tool.state = GM_TOOL_STATE_NONE;
+}
+
 static void	prepare_tmp_layer(t_guimp *g)
 {
 	//printf("from prepare_tmp_layer in>>>>>>>>> %d\n", g->draw_tool.state);
 	SDL_SetRenderTarget(g->main_win->sdl_renderer, g->layers.tmp_texture);
 	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, 0, 0, 0, 0);
 	SDL_RenderClear(g->main_win->sdl_renderer);
-	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b, 255);
-	int px = g->draw_tool.prew_point.x > g->draw_tool.cur_point.x ? g->draw_tool.cur_point.x : g->draw_tool.prew_point.x;
-	int py = g->draw_tool.prew_point.y > g->draw_tool.cur_point.y ? g->draw_tool.cur_point.y : g->draw_tool.prew_point.y;
-	int cx = g->draw_tool.prew_point.x + g->draw_tool.cur_point.x - px;
-	int cy = g->draw_tool.prew_point.y + g->draw_tool.cur_point.y - py;
 	if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
-	{
-		// draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
-		// 	(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
-		// draw_elipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
-		// 	(t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
-		draw_empty_elipse(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
-			(t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
-		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
-		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
-		if (g->draw_tool.tool == GM_TOOL_RECT)
-		{
-			if (g->draw_tool.tool_mode & GM_TOOL_MODE_EMPTY)
-			{
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						px,
-						py,
-						g->draw_tool.brush_size,
-						cy - py});
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						px,
-						py,
-						cx - px,
-						g->draw_tool.brush_size});
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						px,
-						cy - g->draw_tool.brush_size,
-						cx - px,
-						g->draw_tool.brush_size});
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						cx - g->draw_tool.brush_size,
-						py,
-						g->draw_tool.brush_size,
-						cy - py});
-			}
-			else if (g->draw_tool.tool_mode & GM_TOOL_MODE_FILL)
-			{
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						g->draw_tool.prew_point.x,
-						g->draw_tool.prew_point.y,
-						g->draw_tool.cur_point.x - g->draw_tool.prew_point.x,
-						g->draw_tool.cur_point.y - g->draw_tool.prew_point.y});
-			}
-		}
-		else if (g->draw_tool.tool == GM_TOOL_LINE)
-			draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
-			(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
-	}
+		process_tool_state_draw(g);
 	if (g->draw_tool.state == GM_TOOL_STATE_END)
-	{
-		SDL_SetRenderTarget(g->main_win->sdl_renderer, (t_texture *)(g->layers.current_layer->sdl_textures->content));
-		// SDL_RenderDrawLine(g->main_win->sdl_renderer, g->draw_tool.cur_point.x, g->draw_tool.cur_point.y,
-		// 	g->draw_tool.prew_point.x, g->draw_tool.prew_point.y);
-		if (g->draw_tool.tool == GM_TOOL_RECT)
-		{
-			if (g->draw_tool.tool_mode & GM_TOOL_MODE_EMPTY)
-			{
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						px,
-						py,
-						g->draw_tool.brush_size,
-						cy - py});
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						px,
-						py,
-						cx - px,
-						g->draw_tool.brush_size});
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						px,
-						cy - g->draw_tool.brush_size,
-						cx - px,
-						g->draw_tool.brush_size});
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						cx - g->draw_tool.brush_size,
-						py,
-						g->draw_tool.brush_size,
-						cy - py});
-			}
-			else if (g->draw_tool.tool_mode & GM_TOOL_MODE_FILL)
-			{
-				SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-						g->draw_tool.prew_point.x,
-						g->draw_tool.prew_point.y,
-						g->draw_tool.cur_point.x - g->draw_tool.prew_point.x,
-						g->draw_tool.cur_point.y - g->draw_tool.prew_point.y});
-			}
-		}
-		else if (g->draw_tool.tool == GM_TOOL_LINE)
-			draw_fat_line(g, (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
-			(t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y});
-		g->draw_tool.state = GM_TOOL_STATE_NONE;
-	}
+		process_tool_state_end(g);
 	SDL_SetRenderTarget(g->main_win->sdl_renderer, NULL);
 	//printf("from prepare_tmp_layer out>>>>>>>>> %d\n", g->draw_tool.state);
 //	printf("cur x: %d, cur y: %d\n", g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
@@ -455,39 +396,6 @@ static void	draw_canvas_renderer(void *el_v, void *main)
 		}
 		layer = layer->next;
 	}
-}
-
-Uint32	ui_get_pixel_color_from_texture_abs(SDL_Renderer *renderer,
-										  SDL_Texture *texture, int x, int y)
-{
-	Uint32		res;
-	SDL_Surface	*surf;
-	Uint8		*p;
-
-	surf = SDL_CreateRGBSurfaceWithFormat(0, 1, 1, 24, SDL_PIXELFORMAT_RGBA8888);
-	res = 0;
-	SDL_SetRenderTarget(renderer, texture);
-	SDL_RenderReadPixels(renderer, &((t_rect){x, y, 1, 1}), 0, surf->pixels, surf->pitch);
-	SDL_SetRenderTarget(renderer, NULL);
-	p = (Uint8 *)surf->pixels;
-	//printf("r: %d, g: %d, b: %d\n", p[2], p[1], p[0]);
-	res = (p[2] << 16 & 0xFF0000) + (p[1] << 8 & 0x00FF00) + (p[0] & 0x0000FF);
-	SDL_FreeSurface(surf);
-	return (res);
-}
-
-static void	ui_set_pixel_color_to_texture_replace_abs(SDL_Renderer *renderer,
-													 SDL_Texture *texture, int x, int y, SDL_Color color)
-{
-	SDL_BlendMode	pb;
-
-	SDL_GetRenderDrawBlendMode(renderer, &pb);
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
-	SDL_SetRenderTarget(renderer, texture);
-	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderDrawPoint(renderer, x, y);
-	SDL_SetRenderTarget(renderer, NULL);
-	SDL_SetRenderDrawBlendMode(renderer, pb);
 }
 
 Uint32 getpixel(SDL_Surface *surface, int x, int y)
@@ -677,7 +585,7 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	el = (t_ui_el *)el_v;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
-	if ((g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT)) == 0 || (g->draw_tool.state == GM_TOOL_STATE_NONE && g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT)))
+	if ((g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_ELLIPSE | GM_TOOL_RECT)) == 0 || (g->draw_tool.state == GM_TOOL_STATE_NONE && g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_ELLIPSE | GM_TOOL_RECT)))
 		g->draw_tool.prew_point = (t_vec2){x, y};
 	if (g->draw_tool.tool == GM_TOOL_ZOOM && g->draw_tool.zoom < GM_ZOOM_MAX_SIZE)
 	{
@@ -691,7 +599,7 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 		g->zoom_rect.x = x < 0 ? 0 : x;
 		g->zoom_rect.y = y < 0 ? 0 : y;
 	}
-	if (g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT))
+	if (g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_ELLIPSE | GM_TOOL_RECT))
 	{
 		// printf("from start_draw_with_selected_tool in>>>>>>>>> %d\n", g->draw_tool.state);
 		if (g->draw_tool.state == GM_TOOL_STATE_DRAW)
@@ -748,7 +656,7 @@ static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	// printf("from start_draw_with_selected_tool_pointer_up in>>>>>>>>> %d\n", g->draw_tool.state);
-	if (g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT))
+	if (g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_ELLIPSE | GM_TOOL_RECT))
 		if (g->draw_tool.state == GM_TOOL_STATE_START)
 			g->draw_tool.state = GM_TOOL_STATE_DRAW;
 	// printf("from start_draw_with_selected_tool_pointer_up out>>>>>>>>> %d\n", g->draw_tool.state);
@@ -879,7 +787,16 @@ static void choose_rect(void *main, void *el_v)
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_RECT;
-	g->draw_tool.tool_mode = GM_TOOL_MODE_EMPTY;
+	g->draw_tool.state = GM_TOOL_STATE_NONE;
+}
+
+static void choose_ellipse(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_ELLIPSE;
 	g->draw_tool.state = GM_TOOL_STATE_NONE;
 }
 
@@ -1102,7 +1019,6 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, choose_eraser, "choose_eraser");
 	ui_main_add_function_by_id(g_main.ui_main, choose_zoom, "choose_zoom");
 	ui_main_add_function_by_id(g_main.ui_main, choose_hand, "choose_hand");
-	ui_main_add_function_by_id(g_main.ui_main, choose_line, "choose_line");
 	ui_main_add_function_by_id(g_main.ui_main, choose_red_color, "choose_red_color");
 	ui_main_add_function_by_id(g_main.ui_main, choose_green_color, "choose_green_color");
 	ui_main_add_function_by_id(g_main.ui_main, choose_blue_color, "choose_blue_color");
@@ -1111,11 +1027,14 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, choose_pipette, "choose_pipette");
 	ui_main_add_function_by_id(g_main.ui_main, choose_fill, "choose_fill");
 	ui_main_add_function_by_id(g_main.ui_main, choose_color, "choose_color");
-	ui_main_add_function_by_id(g_main.ui_main, choose_rect, "choose_rect");
 	ui_main_add_function_by_id(g_main.ui_main, choose_fill_mode, "choose_fill_mode");
 	ui_main_add_function_by_id(g_main.ui_main, choose_empty_mode, "choose_empty_mode");
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
+
+	ui_main_add_function_by_id(g_main.ui_main, choose_rect, "choose_rect");
+	ui_main_add_function_by_id(g_main.ui_main, choose_ellipse, "choose_ellipse");
+	ui_main_add_function_by_id(g_main.ui_main, choose_line, "choose_line");
 
 	ui_main_add_function_by_id(g_main.ui_main, ui_save_test, "ui_save_test");
 	ui_main_add_function_by_id(g_main.ui_main, ui_open_test, "ui_open_test");

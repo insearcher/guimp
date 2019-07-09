@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 04:01:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/09 21:31:08 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/10 00:02:15 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,44 @@ static t_vec2	calc_el_dot(t_vec2 *d, float k)
 	return (res);
 }
 
-void	draw_elipse(t_guimp *g, t_vec2 s, t_vec2 e)
+void	draw_rect(t_guimp *g, t_vec2 s, t_vec2 e)
+{
+	SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
+			s.x,
+			s.y,
+			e.x - s.x,
+			e.y - s.y});
+}
+
+void	draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e)
+{
+	int px = s.x > e.x ? e.x : s.x;
+	int py = s.y > e.y ? e.y : s.y;
+	int cx = s.x + e.x - px;
+	int cy = s.y + e.y - py;
+	if (g->draw_tool.tool_mode & GM_TOOL_MODE_EMPTY)
+	{
+		SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect) {
+				px, py, g->draw_tool.brush_size, cy - py
+		});
+		SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect) {
+				px, py, cx - px, g->draw_tool.brush_size
+		});
+		SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect) {
+				px, cy - g->draw_tool.brush_size, cx - px,
+				g->draw_tool.brush_size
+		});
+		SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect) {
+				cx - g->draw_tool.brush_size, py, g->draw_tool.brush_size,
+				cy - py
+		});
+	}
+	//SDL_SetRenderDrawColor(g->main_win->sdl_renderer, 0, 0, 0, 0);
+	//SDL_SetRenderDrawBlendMode(g->main_win->sdl_renderer, SDL_BLENDMODE_NONE);
+	//draw_rect(g, s, e);
+}
+
+void	draw_ellipse(t_guimp *g, t_vec2 s, t_vec2 e)
 {
 	t_vec2	d[6];
 	float	k;
@@ -82,7 +119,7 @@ void	draw_elipse(t_guimp *g, t_vec2 s, t_vec2 e)
 	}
 }
 
-void	draw_empty_elipse(t_guimp *g, t_vec2 s, t_vec2 e)
+void	draw_empty_ellipse(t_guimp *g, t_vec2 s, t_vec2 e)
 {
 	t_vec2	d;
 
@@ -98,12 +135,12 @@ void	draw_empty_elipse(t_guimp *g, t_vec2 s, t_vec2 e)
 		s.x = e.x;
 		e.x = d.x;
 	}
-	draw_elipse(g, s, e);
+	draw_ellipse(g, s, e);
 	if (g->draw_tool.brush_size >= abs(e.x - s.x) / 2 || g->draw_tool.brush_size >= abs(e.y - s.y) / 2)
 		return ;
 	s = (t_vec2){s.x + g->draw_tool.brush_size, s.y + g->draw_tool.brush_size};
 	e = (t_vec2){e.x - g->draw_tool.brush_size, e.y - g->draw_tool.brush_size};
 	SDL_SetRenderDrawColor(g->main_win->sdl_renderer, 0, 0, 0, 0);
 	SDL_SetRenderDrawBlendMode(g->main_win->sdl_renderer, SDL_BLENDMODE_NONE);
-	draw_elipse(g, s, e);
+	draw_ellipse(g, s, e);
 }

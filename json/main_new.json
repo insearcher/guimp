@@ -2273,7 +2273,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_line"
             }
           ]
         },
@@ -2364,7 +2364,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_rect"
             }
           ]
         },
@@ -2455,7 +2455,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_ellipse"
             }
           ]
         },
@@ -2546,7 +2546,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_empty_mode"
             }
           ]
         },
@@ -2637,7 +2637,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_fill_mode"
             }
           ]
         },

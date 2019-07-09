@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_add_texture_from_file_dialog.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 23:16:17 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 23:15:17 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 18:47:26 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int	ui_el_add_texture_from_file_dialog_with_size(t_ui_el *el, int w, int h)
 	t_list		*tmp_lst;
 
 	path = NULL;
+	tmp_src = NULL;
+	tmp_lst = NULL;
+	tmp = NULL;
 	if (ui_open_file_dialog(&path) < 0 || !(tmp_lst = ft_lstnew(NULL, 0)) ||
 		!(tmp = SDL_CreateTexture(el->sdl_renderer, SDL_PIXELFORMAT_RGBA8888,
 		SDL_TEXTUREACCESS_TARGET, w, h)) ||

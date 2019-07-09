@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 21:22:14 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 19:00:16 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -590,6 +590,7 @@ static void	fill_tool(t_ui_win *w, t_texture *texture, t_cvec2 color, t_vec2 coo
 	for (int i = 0; i < x; i++)
 		field[i] = 0;
 	queue = (int *)malloc(x * sizeof(int));
+	SDL_SetRenderDrawColor(w->sdl_renderer, 255, 255, 255, 0);
 	SDL_RenderClear(w->sdl_renderer);
 	SDL_Texture *t = SDL_CreateTexture(w->sdl_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, w->size.x, w->size.y);
 	SDL_SetRenderTarget(w->sdl_renderer, t);
@@ -635,9 +636,10 @@ static void	fill_tool(t_ui_win *w, t_texture *texture, t_cvec2 color, t_vec2 coo
 			field[(y + 1) * w->size.x + x] = '1';
 		}
 	}
+	//SDL_SetRenderDrawColor(w->sdl_renderer, 255, 255, 255, 0);
 	SDL_Texture *tmp = SDL_CreateTextureFromSurface(w->sdl_renderer, s);
 	SDL_SetRenderTarget(w->sdl_renderer, texture);
-	SDL_SetTextureColorMod(w->sdl_renderer, 255, 255, 255);
+	//SDL_SetTextureColorMod(w->sdl_renderer, 255, 255, 255);
 	SDL_RenderCopy(w->sdl_renderer, tmp, NULL, NULL);
 	SDL_SetRenderTarget(w->sdl_renderer, NULL);
 	free(field);
@@ -657,7 +659,7 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	el = (t_ui_el *)el_v;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
-	if (g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT) == 0 || (g->draw_tool.state == GM_TOOL_STATE_NONE && g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT)))
+	if ((g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT)) == 0 || (g->draw_tool.state == GM_TOOL_STATE_NONE && g->draw_tool.tool & (GM_TOOL_LINE | GM_TOOL_RECT)))
 		g->draw_tool.prew_point = (t_vec2){x, y};
 	if (g->draw_tool.tool == GM_TOOL_ZOOM && g->draw_tool.zoom < GM_ZOOM_MAX_SIZE)
 	{

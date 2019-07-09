@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_save_file_dialog.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 22:21:06 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 18:51:15 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ui_save_file_dialog(char **res)
 	int		len;
 	char	buf[BUF_SIZE + 1];
 
+	fd = 0;
 	if (system("touch buf; osascript -e 'set theNewFilePath to choose file name with prompt \"SAVE IMAGE AS:\"' >> buf") < 0 ||
 		(fd = open("buf", O_RDONLY)) < 0)
 		ui_sdl_deinit(228);

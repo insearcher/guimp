@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_open_file_dialog.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 23:11:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 18:51:00 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int			ui_open_file_dialog(char **res)
 	int		len;
 	char	buf[BUF_SIZE + 1];
 
+	fd = 0;
 	if (system("touch buf; osascript -e 'set theImage to choose file with prompt \"OPEN IMAGE:\" of type {\"public.image\"}' >> buf") < 0 ||
 		(fd = open("buf", O_RDONLY)) < 0)
 		ui_sdl_deinit(228);

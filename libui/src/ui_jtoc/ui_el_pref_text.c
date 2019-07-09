@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_pref_text.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 23:00:31 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 18:50:18 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int ui_el_pref_text(t_ui_main *m, t_ui_el *e, t_jnode *n)
 	char	*tmp_text;
 	t_jnode	*tmp;
 
+	tmp_text = NULL;
 	if ((jtoc_node_get_by_path(n, "text_area")))
 	{
 		e->text_area = (t_ui_text *)ft_memalloc(sizeof(t_ui_text));

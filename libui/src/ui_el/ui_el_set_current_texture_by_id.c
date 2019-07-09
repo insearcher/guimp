@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_set_current_texture_by_id.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 05:06:00 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/08 23:15:17 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 18:33:06 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ int	ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id)
 		tmp = tmp->next;
 	}
 	ui_sdl_deinit(228);
+	return(FUNCTION_FAILURE);
 }

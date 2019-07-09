@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_add_texture.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 04:27:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 18:46:25 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,19 @@ int			ui_el_add_texture_from_file(t_ui_el *el, const char *path, const char *tex
 	int				hash;
 
 	hash = ft_strhash(texture_id);
+	tmp_lst = NULL;
+	tmp_texture = NULL;
 	if (check_texture_id(el->sdl_textures, hash) || !(tmp_lst = ft_lstnew(NULL, 0)))
+	{
 		ui_sdl_deinit(228);
+		return (FUNCTION_FAILURE);
+	}
 	if (ui_el_load_surface_from(el, path) == FUNCTION_FAILURE
 		|| (tmp_texture = ui_el_create_texture(el)) == NULL)
+	{
 		ui_sdl_deinit(228);
+		return (FUNCTION_FAILURE);
+	}
 	tmp_lst->content_size = hash;
 	tmp_lst->content = (void *)tmp_texture;
 	ft_lstadd(&(el->sdl_textures), tmp_lst);
@@ -52,6 +60,8 @@ int			ui_el_add_empty_texture(t_ui_el *el, int w, int h, const char *texture_id)
 	int				hash;
 
 	hash = ft_strhash(texture_id);
+	tmp_lst = NULL;
+	tmp_texture = NULL;
 	if (check_texture_id(el->sdl_textures, hash) || !(tmp_lst = ft_lstnew(NULL, 0)))
 		ui_sdl_deinit(228);
 	if ((tmp_texture = SDL_CreateTexture(el->sdl_renderer, SDL_PIXELFORMAT_RGBA8888,
@@ -78,6 +88,8 @@ int			ui_el_add_white_texture(t_ui_el *el, int w, int h, const char *texture_id)
 	int				hash;
 
 	hash = ft_strhash(texture_id);
+	tmp_lst = NULL;
+	tmp_texture = NULL;
 	if (check_texture_id(el->sdl_textures, hash) || !(tmp_lst = ft_lstnew(NULL, 0)))
 		ui_sdl_deinit(228);
 	if ((tmp_texture = SDL_CreateTexture(el->sdl_renderer, SDL_PIXELFORMAT_RGBA8888,
@@ -106,6 +118,8 @@ int			ui_el_add_gradient_texture(t_ui_el *el, t_vec2 wh, int color, const char *
 
 	hash = ft_strhash(texture_id);
 	i = -1;
+	tmp_lst = NULL;
+	tmp_texture = NULL;
 	if (check_texture_id(el->sdl_textures, hash) || !(tmp_lst = ft_lstnew(NULL, 0)))
 		ui_sdl_deinit(228);
 	if ((tmp_texture = SDL_CreateTexture(el->sdl_renderer, SDL_PIXELFORMAT_RGBA8888,
@@ -135,6 +149,8 @@ int			ui_el_add_color_texture(t_ui_el *el, t_vec2 wh, int color, const char *tex
 	int				hash;
 
 	hash = ft_strhash(texture_id);
+	tmp_lst = NULL;
+	tmp_texture = NULL;
 	if (check_texture_id(el->sdl_textures, hash) || !(tmp_lst = ft_lstnew(NULL, 0)))
 		ui_sdl_deinit(228);
 	if ((tmp_texture = SDL_CreateTexture(el->sdl_renderer, SDL_PIXELFORMAT_RGBA8888,

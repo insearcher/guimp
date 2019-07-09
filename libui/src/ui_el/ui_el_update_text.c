@@ -86,11 +86,11 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 		ui_el_add_empty_texture(el, el->rect.w, el->rect.h, "default");
 	else
 	{
-		SDL_Rect *rect = (SDL_Rect *)malloc(sizeof(SDL_Rect));
+		SDL_Rect	rect;
 
-		SDL_GetClipRect(el->sdl_surface, rect);
+		SDL_GetClipRect(el->sdl_surface, &rect);
 //		SDL_Log("rect: (%d, %d)\n", rect->w, rect->h);
-		if (rect->w > 6000 || rect->h > 3000)
+		if (rect.w > 6000 || rect.h > 3000)
 			return (FUNCTION_SUCCESS);
 		if (!(n = ft_lstnew(NULL, 0)))
 			ui_sdl_deinit(228);

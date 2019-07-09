@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 21:13:33 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 20:13:05 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,8 +248,8 @@ typedef struct		s_ui_win_events
 	t_ui_event		*onResize;
 	t_ui_event		*onClose;
 	t_ui_event		*onMoved;
-	t_ui_event		*onKeyDown[KEYS_COUNT];
-	t_ui_event		*onKeyUp[KEYS_COUNT];
+	t_ui_event		**onKeyDown;
+	t_ui_event		**onKeyUp;
 }					t_ui_win_events;
 
 t_ui_win_events		*ui_win_events_init(void);

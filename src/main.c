@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 00:13:26 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 19:39:40 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -646,6 +646,7 @@ static void	fill_tool(t_ui_win *w, t_texture *texture, t_cvec2 color, t_vec2 coo
 	free(queue);
 	SDL_DestroyTexture(tmp);
 	SDL_DestroyTexture(t);
+	SDL_FreeSurface(s);
 }
 
 static void	start_draw_with_selected_tool(void *main, void *el_v)
@@ -1017,16 +1018,14 @@ static void	draw_color_rect(void *el_v, void *main)
 	SDL_RenderCopy(el->sdl_renderer, ui_el_get_current_texture(el), NULL, &el->rect);
 }
 
-static void	ft_strjoin_free(char **to, char *what, int f)
+static void	ft_strjoin_free(char **to, char *what)
 {
 	char	*tmp;
 
 	tmp = *to;
 	*to = ft_strjoin(*to, what);
-	if (f & 1)
-		free(tmp);
-	if (f & 2)
-		free(what);
+	free(tmp);
+	free(what);
 }
 
 static void text_test(void *elv, void *arg)
@@ -1041,11 +1040,12 @@ static void text_test(void *elv, void *arg)
 	if (dr->params & EL_IS_PTR_INSIDE)
 	{
 		char *res = ft_strdup("(");
-		ft_strjoin_free(&res, ft_itoa(dr->ptr_rel_pos.x), 3);
-		ft_strjoin_free(&res, ";", 1);
-		ft_strjoin_free(&res, ft_itoa(dr->ptr_rel_pos.y), 3);
-		ft_strjoin_free(&res, ")", 1);
+		ft_strjoin_free(&res, ft_itoa(dr->ptr_rel_pos.x));
+		ft_strjoin_free(&res, ft_strdup(";"));
+		ft_strjoin_free(&res, ft_itoa(dr->ptr_rel_pos.y));
+		ft_strjoin_free(&res, ft_strdup(")"));
 		ui_el_update_text(el, res);
+		free(res);
 	}
 	else
 		ui_el_update_text(el, " ");

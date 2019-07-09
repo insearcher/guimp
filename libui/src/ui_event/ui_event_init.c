@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:13:44 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 20:01:00 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_ui_event	*ui_event_init(void)
 	t_ui_event	*e;
 
 	if (!(e = (t_ui_event *)malloc(sizeof(t_ui_event))))
-		return (NULL);
+		ui_sdl_deinit(228);
 	ft_bzero(e, sizeof(t_ui_event));
 	return (e);
 }
@@ -27,7 +27,7 @@ t_ui_el_events	*ui_el_events_init(void)
 	t_ui_el_events *e;
 
 	if (!(e = (t_ui_el_events *)malloc(sizeof(t_ui_el_events))))
-		return (NULL);
+		ui_sdl_deinit(228);
 	ft_bzero(e, sizeof(t_ui_el_events));
 	if (!(e->onPointerEnter = ui_event_init()) ||
 		!(e->onPointerStay = ui_event_init()) ||
@@ -42,7 +42,7 @@ t_ui_el_events	*ui_el_events_init(void)
 		!(e->onScrollDown = ui_event_init()) ||
 		!(e->onRender = ui_event_init()) ||
 		!(e->onResize = ui_event_init()))
-		return (NULL);
+		ui_sdl_deinit(228);
 	return (e);
 }
 
@@ -52,7 +52,7 @@ t_ui_win_events	*ui_win_events_init(void)
 	int				i;
 
 	if (!(w = (t_ui_win_events *)malloc(sizeof(t_ui_win_events))))
-		return (NULL);
+		ui_sdl_deinit(228);
 	ft_bzero(w, sizeof(t_ui_win_events));
 	if (!(w->onPointerMoved = ui_event_init()) ||
 		!(w->onPointerEnter = ui_event_init()) ||
@@ -68,13 +68,16 @@ t_ui_win_events	*ui_win_events_init(void)
 		!(w->onResize = ui_event_init()) ||
 		!(w->onClose = ui_event_init()) ||
 		!(w->onMoved = ui_event_init()))
-		return (NULL);
+		ui_sdl_deinit(228);
 	i = KEYS_COUNT;
+	if (!(w->onKeyUp = (t_ui_event **)malloc(KEYS_COUNT * sizeof(t_ui_event *))) ||
+		!(w->onKeyDown = (t_ui_event **)malloc(KEYS_COUNT * sizeof(t_ui_event *))))
+		ui_sdl_deinit(228);
 	while (--i >= 0)
 	{
 		if (!(w->onKeyDown[i] = ui_event_init()) ||
 			!(w->onKeyUp[i] = ui_event_init()))
-			return (NULL);
+			ui_sdl_deinit(228);
 	}
 	return (w);
 }

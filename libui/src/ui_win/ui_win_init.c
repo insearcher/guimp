@@ -17,11 +17,11 @@ t_ui_win	*ui_win_init(void)
 	t_ui_win	*win;
 
 	if (!(win = (t_ui_win *)malloc(sizeof(t_ui_win))))
-		return (NULL);
+		ui_sdl_deinit(228);
 	ft_bzero(win, sizeof(t_ui_win));
 	if (!(win->canvas = ui_el_init()))
-		return (NULL);
+		ui_sdl_deinit(228);
 	if (!(win->events = ui_win_events_init()))
-		return (NULL);
+		ui_sdl_deinit(228);
 	return (win);
 }

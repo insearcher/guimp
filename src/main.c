@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 16:24:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/10 16:54:45 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -574,26 +574,9 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, ui_el_children_set_default, "ui_el_children_set_default");
 	ui_main_add_function_by_id(g_main.ui_main, test_add_layer, "test_add_layer");
 	ui_main_add_function_by_id(g_main.ui_main, test_del_layer, "test_del_layer");
-	ui_main_add_function_by_id(g_main.ui_main, choose_brush, "choose_brush");
-	ui_main_add_function_by_id(g_main.ui_main, choose_eraser, "choose_eraser");
-	ui_main_add_function_by_id(g_main.ui_main, choose_zoom, "choose_zoom");
-	ui_main_add_function_by_id(g_main.ui_main, choose_hand, "choose_hand");
-	ui_main_add_function_by_id(g_main.ui_main, choose_red_color, "choose_red_color");
-	ui_main_add_function_by_id(g_main.ui_main, choose_green_color, "choose_green_color");
-	ui_main_add_function_by_id(g_main.ui_main, choose_blue_color, "choose_blue_color");
-	ui_main_add_function_by_id(g_main.ui_main, choose_size, "choose_size");
-	ui_main_add_function_by_id(g_main.ui_main, choose_alpha, "choose_alpha");
-	ui_main_add_function_by_id(g_main.ui_main, choose_pipette, "choose_pipette");
-	ui_main_add_function_by_id(g_main.ui_main, choose_fill, "choose_fill");
-	ui_main_add_function_by_id(g_main.ui_main, choose_fill_mode, "choose_fill_mode");
-	ui_main_add_function_by_id(g_main.ui_main, choose_empty_mode, "choose_empty_mode");
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
 
-	ui_main_add_function_by_id(g_main.ui_main, choose_rect, "choose_rect");
-	ui_main_add_function_by_id(g_main.ui_main, choose_square, "choose_square");
-	ui_main_add_function_by_id(g_main.ui_main, choose_ellipse, "choose_ellipse");
-	ui_main_add_function_by_id(g_main.ui_main, choose_line, "choose_line");
 
 	ui_main_add_function_by_id(g_main.ui_main, ui_save_test, "ui_save_test");
 	ui_main_add_function_by_id(g_main.ui_main, ui_open_test, "ui_open_test");
@@ -638,48 +621,6 @@ int		main()
  	cur_el = ui_win_find_el_by_id(g_main.tool_win, 31);
 	cur_el->data = ui_win_find_el_by_id(g_main.main_win, GM_MAIN_ID_DRAW);
 	ui_event_add_listener(cur_el->events->onRender, text_test);
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 10);
-//	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush_icon"), 26, 39});
-//	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-//	ui_cursor_from_el_data(NULL, cur_el);
-
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "brush_icon"), 26, 40});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 12);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "text_icon"), 23, 27});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 13);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "eraser_icon"), 21, 36});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 14);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "zoom_icon"), 23, 23});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "fill_icon"), 14, 39});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 17);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "pipette_icon"), 13, 38});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 15);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "hand_icon"), 26, 27});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 16);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "fill_icon"), 14, 39});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
-
-	cur_el = ui_win_find_el_by_id(g_main.tool_win, 17);
-	cur_el->data = (void *)(&(t_cursor){ui_main_get_surface_by_id(g_main.ui_main, "pipette_icon"), 14, 37});
-	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
 
 	cur_el = ui_win_find_el_by_id(g_main.tool_win, 32);
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, clear_all_layers);

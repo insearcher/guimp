@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/04 21:36:56 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/09 23:41:29 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@
 # define GM_TOOL_LINE			(1 << 4)
 # define GM_TOOL_PIPETTE		(1 << 5)
 # define GM_TOOL_FILL			(1 << 6)
-# define GM_TOOL_RECT			(1 << 7)
+# define GM_TOOL_ELLIPSE		(1 << 7)
+# define GM_TOOL_RECT			(1 << 8)
+
 
 # define GM_TOOL_MODE_FILL		(1 << 0)
 # define GM_TOOL_MODE_EMPTY		(1 << 1)
@@ -136,8 +138,6 @@ void							draw_dot(void *ui_main, void *ui_el);
 void							draw_main_canvas_event(void *el_v, void *arg);
 void							draw_with_selected_tool(void *main, void *el_v);
 void							draw_fat_line(t_guimp *g, t_vec2 start, t_vec2 end);
-void							draw_elipse(t_guimp *g, t_vec2 start, t_vec2 end);
-void							draw_empty_elipse(t_guimp *g, t_vec2 s, t_vec2 e);
 void							update_color_rect(t_guimp *gm, int r, int g, int b);
 
 void							gm_init(t_guimp *g_main);
@@ -150,5 +150,10 @@ void							ui_main_fill_default_functions(t_ui_main *m);
 void							move_windows(void *a1, void *a2);
 void							start_zoom_in(void *m, void *wid);
 void							start_zoom_out(void *m, void *wid);
+
+void							draw_ellipse(t_guimp *g, t_vec2 start, t_vec2 end);
+void							draw_empty_ellipse(t_guimp *g, t_vec2 s, t_vec2 e);
+void							draw_rect(t_guimp *g, t_vec2 s, t_vec2 e);
+void							draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e);
 
 #endif

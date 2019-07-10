@@ -17,9 +17,9 @@ t_ui_el	*ui_el_init(void)
 	t_ui_el	*el;
 
 	if (!(el = (t_ui_el *)malloc(sizeof(t_ui_el))))
-		return (NULL);
+		ui_sdl_deinit(228);
 	ft_bzero(el, sizeof(t_ui_el));
 	if (!(el->events = ui_el_events_init()))
-		return (NULL);
+		ui_sdl_deinit(228);
 	return (el);
 }

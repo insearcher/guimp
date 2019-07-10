@@ -21,8 +21,7 @@ int	ui_main_add_function_by_id(t_ui_main *m, func_ptr f, const char *func_id)
 	ptr = (long)f;
 	hash = ft_strhash(func_id);
 	if ((node = ft_lstnew((void *)&ptr, sizeof(ptr))) == NULL)
-	//if ((node = ft_lstnew(NULL, 0)) == NULL)
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	node->content_size = hash;
 	ft_lstadd(&(m->functions), node);
 	return (FUNCTION_SUCCESS);

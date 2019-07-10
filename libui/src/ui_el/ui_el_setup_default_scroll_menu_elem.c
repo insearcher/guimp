@@ -17,7 +17,9 @@ void	ui_el_setup_default_scroll_menu_elem(t_ui_el *el)
 	el->params |= EL_IS_SCROLLABLE;
 	el->params |= EL_IS_DEPENDENT;
 	ui_event_add_listener(el->events->onScrollUp, ui_el_scroll_child_menu_up);
-	ui_event_add_listener(el->events->onScrollUp, ui_log_el_scroll_up);
 	ui_event_add_listener(el->events->onScrollDown, ui_el_scroll_child_menu_down);
+#ifdef DEBUG_STATUS
+	ui_event_add_listener(el->events->onScrollUp, ui_log_el_scroll_up);
 	ui_event_add_listener(el->events->onScrollDown, ui_log_el_scroll_down);
+#endif
 }

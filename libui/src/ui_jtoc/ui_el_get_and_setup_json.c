@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_get_and_setup_json.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:40:39 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 23:30:47 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/10 04:42:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,7 @@ int	ui_el_setup_by_type(t_ui_el *e, t_jnode *n)
 		while (tmp)
 		{
 			if (tmp->type != string)
-			{
-				printf("17");
-				return (FUNCTION_FAILURE);
-			}
+				ui_sdl_deinit(228);
 			hash = ft_strhash(jtoc_get_string(tmp));
 			(hash == ft_strhash("DRAGGABLE") ? ui_el_setup_default_draggable(e) : 0);
 			(hash == ft_strhash("RESIZABLE") ? ui_el_setup_default_resizable(e) : 0);

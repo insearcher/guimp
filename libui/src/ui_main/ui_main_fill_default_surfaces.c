@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_main_fill_default_surfaces.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:03:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 19:38:18 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void add_icons(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/pipette_icon.png", "pipette_icon");
 	ui_main_add_surface_by_path(m, "images/save_icon.png", "save_icon");
 	ui_main_add_surface_by_path(m, "images/open_file_icon.png", "open_icon");
-	ui_main_add_surface_by_path(m, "images/brush_icon_3.png", "brush_icon3");
 	ui_main_add_surface_by_path(m, "images/filler.png", "filler_icon");
 	ui_main_add_surface_by_path(m, "images/question_icon.png", "question_icon");
 	ui_main_add_surface_by_path(m, "images/empty_circle_icon.png", "empty_circle_icon");
@@ -52,5 +51,6 @@ void	ui_main_fill_default_surfaces(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/brush.png", "brush");
 	ui_main_add_surface_by_path(m, "images/pencil.png", "pencil_icon");
 	ui_main_add_surface_by_path(m, "images/frolushka-meme.png", "frolushka_meme");
+	ui_main_add_surface_by_path(m, "images/background.png", "background");
 	add_icons(m);
 }

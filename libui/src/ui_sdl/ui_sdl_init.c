@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 22:39:47 by sbednar           #+#    #+#             */
-/*   Updated: 2019/03/31 00:00:01 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ui_sdl_init(void)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
 			"Couldn't initialize enviroment: %s", SDL_GetError());
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	}
 	return (FUNCTION_SUCCESS);
 }

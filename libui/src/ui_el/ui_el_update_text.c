@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 02:31:29 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/10 04:46:35 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,19 @@ static int	get_surface_from_text(t_ui_el *el)
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Solid(el->text_area->font,
 						el->text_area->text, el->text_area->text_color)))
-		{
 			return (FUNCTION_FAILURE);
-		}
 	}
 	else if ((el->text_area->render_param & TEXT_IS_BLENDED) || el->text_area->render_param == 0)
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Blended(el->text_area->font,
 						el->text_area->text, el->text_area->text_color)))
-		{
 			return (FUNCTION_FAILURE);
-		}
 	}
 	else
 	{
 		if (!(el->sdl_surface = TTF_RenderText_Shaded(el->text_area->font,
 			el->text_area->text, el->text_area->text_color, el->text_area->bg_color)))
-		{
 			return (FUNCTION_FAILURE);
-		}
 	}
 	return (FUNCTION_SUCCESS);
 }
@@ -88,18 +82,18 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 	}
 	//	ft_lstdel(&el->sdl_textures, &free_sdl_texture);
 	//	el->sdl_textures = NULL;
-	if (get_surface_from_text(el) == FUNCTION_FAILURE)
+	if (get_surface_from_text(el))
 		ui_el_add_empty_texture(el, el->rect.w, el->rect.h, "default");
 	else
 	{
-		SDL_Rect *rect = (SDL_Rect *)malloc(sizeof(SDL_Rect));
+		SDL_Rect	rect;
 
-		SDL_GetClipRect(el->sdl_surface, rect);
+		SDL_GetClipRect(el->sdl_surface, &rect);
 //		SDL_Log("rect: (%d, %d)\n", rect->w, rect->h);
-		if (rect->w > 16384 || rect->h > 4000)
+		if (rect.w > 16384 || rect.h > 4000)
 			return (FUNCTION_SUCCESS);
 		if (!(n = ft_lstnew(NULL, 0)))
-			return (FUNCTION_FAILURE);
+			ui_sdl_deinit(228);
 		n->content = ui_el_create_texture(el);
 		n->content_size = ft_strhash("default");
 		ft_lstadd(&(el->sdl_textures), n);

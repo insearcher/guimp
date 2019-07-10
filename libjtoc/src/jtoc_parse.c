@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 00:22:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/05 23:17:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/09 19:22:46 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int				jtoc_parse_number(t_jnode *p, const char *str, int b, int e)
 	}
 	jtoc_atof(sub, data);
 	p->data = (void *)data;
+	free(sub);
 	return (FUNCTION_SUCCESS);
 }
 

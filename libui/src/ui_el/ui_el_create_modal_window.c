@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 04:32:18 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/10 04:09:30 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/10 04:43:58 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ui_el_create_modal_window(void *a1, void *a2)
 	ui_el_add_color_texture(win_el, (t_vec2){win_el->rect.w, win_el->rect.h},
 			ft_atoi_base("757575", 16), "default");
 	ui_event_add_listener(w->events->onClose, ui_main_close_window);
+	free(w->events->onKeyDown[SDL_SCANCODE_ESCAPE]);
 	w->events->onKeyDown[SDL_SCANCODE_ESCAPE] = w->events->onClose;
 	if (el->params & EL_MODAL_OK)
 		modal_ok(m, el->modal_win, win_el);

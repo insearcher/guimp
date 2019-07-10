@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 08:02:31 by sbednar           #+#    #+#             */
-/*   Updated: 2019/04/22 08:02:49 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:15:16 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ui_event_add_listener_front(t_ui_event *e, func_ptr f)
 
 	ptr = (long)f;
 	if ((node = ft_lstnew((void *)&ptr, sizeof(ptr))) == NULL)
-		return (FUNCTION_FAILURE);
+		ui_sdl_deinit(228);
 	if (e->events == NULL)
 	{
 		e->events = node;

@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_fat_line.c                                    :+:      :+:    :+:   */
+/*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/01 19:33:23 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/05 15:56:39 by sbednar          ###   ########.fr       */
+/*   Created: 2019/07/10 15:52:48 by sbednar           #+#    #+#             */
+/*   Updated: 2019/07/10 16:25:43 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
+
+void	choose_line(void *main, void *el_v)
+{
+	t_guimp	*g;
+
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_LINE;
+	g->draw_tool.state = GM_TOOL_STATE_NONE;
+}
 
 static t_fvec2	get_normal(int x1, int y1, int x2, int y2)
 {
@@ -42,7 +52,7 @@ static t_fvec2	get_normal(int x1, int y1, int x2, int y2)
 	return (res);
 }
 
-void			draw_fat_line(t_guimp *g, t_vec2 start, t_vec2 end)
+void			draw_line(t_guimp *g, t_vec2 start, t_vec2 end)
 {
 	t_fvec2	norm;
 	int		i;

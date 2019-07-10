@@ -1096,12 +1096,12 @@
             },
             {
               "type": "color",
-              "color": "FF0000",
+              "color": "00FF00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "DD0000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2750,7 +2750,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_square"
             }
           ]
         },

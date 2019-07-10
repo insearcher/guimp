@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_func.c                                        :+:      :+:    :+:   */
+/*   ellipse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/22 04:01:11 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/10 00:02:15 by sbednar          ###   ########.fr       */
+/*   Created: 2019/07/10 15:53:23 by sbednar           #+#    #+#             */
+/*   Updated: 2019/07/10 15:53:42 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,55 +27,28 @@ static t_vec2	calc_el_dot(t_vec2 *d, float k)
 
 	res = lerp(
 			lerp(
-				lerp(d[0], d[1], k),
-				lerp(d[1], d[2], k),
-				k
+					lerp(d[0], d[1], k),
+					lerp(d[1], d[2], k),
+					k
 			),
 			lerp(
-				lerp(d[1], d[2], k),
-				lerp(d[2], d[3], k),
-				k
+					lerp(d[1], d[2], k),
+					lerp(d[2], d[3], k),
+					k
 			),
 			k
-		);
+	);
 	return (res);
 }
 
-void	draw_rect(t_guimp *g, t_vec2 s, t_vec2 e)
+void	choose_ellipse(void *main, void *el_v)
 {
-	SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect){
-			s.x,
-			s.y,
-			e.x - s.x,
-			e.y - s.y});
-}
+	t_guimp	*g;
 
-void	draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e)
-{
-	int px = s.x > e.x ? e.x : s.x;
-	int py = s.y > e.y ? e.y : s.y;
-	int cx = s.x + e.x - px;
-	int cy = s.y + e.y - py;
-	if (g->draw_tool.tool_mode & GM_TOOL_MODE_EMPTY)
-	{
-		SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect) {
-				px, py, g->draw_tool.brush_size, cy - py
-		});
-		SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect) {
-				px, py, cx - px, g->draw_tool.brush_size
-		});
-		SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect) {
-				px, cy - g->draw_tool.brush_size, cx - px,
-				g->draw_tool.brush_size
-		});
-		SDL_RenderFillRect(g->main_win->sdl_renderer, &(t_rect) {
-				cx - g->draw_tool.brush_size, py, g->draw_tool.brush_size,
-				cy - py
-		});
-	}
-	//SDL_SetRenderDrawColor(g->main_win->sdl_renderer, 0, 0, 0, 0);
-	//SDL_SetRenderDrawBlendMode(g->main_win->sdl_renderer, SDL_BLENDMODE_NONE);
-	//draw_rect(g, s, e);
+	g = (t_guimp *)(((t_ui_main *)main)->data);
+	(void)el_v;
+	g->draw_tool.tool = GM_TOOL_ELLIPSE;
+	g->draw_tool.state = GM_TOOL_STATE_NONE;
 }
 
 void	draw_ellipse(t_guimp *g, t_vec2 s, t_vec2 e)

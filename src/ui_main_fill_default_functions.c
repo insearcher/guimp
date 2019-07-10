@@ -18,6 +18,6 @@ void	ui_main_fill_default_functions(t_ui_main *m)
 	ui_main_add_function_by_id(m, ui_win_update_size, "ui_win_update_size");
 	ui_main_add_function_by_id(m, ui_main_close_program, "ui_main_close_program");
 	ui_main_add_function_by_id(m, ui_main_close_window, "ui_main_close_window");
-	ui_main_add_function_by_id(m, start_zoom_in, "start_zoom_in");
-	ui_main_add_function_by_id(m, start_zoom_out, "start_zoom_out");
+	//ui_main_add_function_by_id(m, start_zoom_in, "start_zoom_in");
+	//ui_main_add_function_by_id(m, start_zoom_out, "start_zoom_out");
 }

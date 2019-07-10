@@ -15,8 +15,8 @@
       },
       "pos":
       {
-        "x": 800,
-        "y": 250
+        "x": 600,
+        "y": 300
       },
       "events":
       [
@@ -491,7 +491,7 @@
             "text": "ADD LAYER",
             "color": "000000",
             "render_param": "TEXT_IS_BLENDED",
-            "max_text_size": 0,
+            "string_len": 0,
             "font": "SansSerif"
           }
         },
@@ -522,7 +522,7 @@
             "text": "DEL LAYER",
             "color": "000000",
             "render_param": "TEXT_IS_BLENDED",
-            "max_text_size": 0,
+            "string_len": 0,
             "font": "SansSerif"
           }
         },
@@ -611,7 +611,22 @@
               "main_id": "question_icon",
               "el_id": "default"
             }
-          ]
+          ],
+          "modal_win":
+          {
+            "win_id": 3,
+            "win_type": "MODAL_OK",
+            "title": "INFO",
+            "text_area":
+            {
+              "text": "Created by: edraugr- sbednar sbecker",
+              "color": "FFFFFF",
+              "bg_color": "FF0000",
+              "render_param": "TEXT_IS_SHADED",
+              "string_len": 12,
+              "font": "SansSerif"
+            }
+          }
         }
       ]
     },
@@ -625,8 +640,8 @@
       },
       "pos":
       {
-        "x": 495,
-        "y": 250
+        "x": 295,
+        "y": 300
       },
       "events":
       [
@@ -1416,8 +1431,8 @@
           },
           "size":
           {
-            "x": 50,
-            "y": 18,
+            "x": 200,
+            "y": 22,
             "params":
             [
               "PIXEL"
@@ -1436,8 +1451,11 @@
             "text": "Size:",
             "color": "000000",
             "render_param": "TEXT_IS_BLENDED",
-            "params": "TEXT_IS_INPUTTING",
-            "max_text_size": 0,
+            "params":
+            [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
             "font": "SansSerif"
           }
         },
@@ -1514,7 +1532,7 @@
           "pos":
           {
             "x": 12,
-            "y": 142,
+            "y": 140,
             "params":
             [
               "PIXEL"
@@ -1523,7 +1541,7 @@
           "size":
           {
             "x": 100,
-            "y": 18,
+            "y": 22,
             "params":
             [
               "PIXEL"
@@ -1542,7 +1560,11 @@
             "text": "Opacity:",
             "color": "000000",
             "render_param": "TEXT_IS_BLENDED",
-            "max_text_size": 0,
+            "params":
+            [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
             "font": "SansSerif"
           }
         },
@@ -2119,7 +2141,7 @@
             "text": " ",
             "color": "FFFFFF",
             "render_param": "TEXT_IS_BLENDED",
-            "max_text_size": 0,
+            "string_len": 0,
             "font": "SansSerif"
           }
         },

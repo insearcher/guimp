@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:40:39 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/07 23:32:02 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:30:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,6 @@ int	ui_get_pos_size(const char *str)
 	i |= (hash == ft_strhash("ABS") ? ABS: 0);
 	i |= (hash == ft_strhash("PIXEL") ? PIXEL : 0);
 	return (i);
-}
-
-int	ui_el_pref_modal_win(t_ui_main *m, t_ui_el *e, t_jnode *n)
-{
-	//	int		hash;
-	t_jnode	*tmp;
-
-	e->id = e->id;
-	m->params = m->params;
-	if ((tmp = jtoc_node_get_by_path(n, "modal_win")))
-	{
-		tmp = tmp->down;
-		while (tmp)
-		{
-			if ((tmp = jtoc_node_get_by_path(n, "modal_win.text")) && tmp->type == string)
-				SDL_Log("NAAAAICE WIN\n");
-			tmp = tmp->right;
-		}
-	}
-	return (FUNCTION_SUCCESS);
 }
 
 int	ui_el_setup_by_type(t_ui_el *e, t_jnode *n)

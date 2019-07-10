@@ -6,7 +6,7 @@
 #    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/06/22 22:37:33 by sbednar          ###   ########.fr        #
+#    Updated: 2019/07/10 03:36:38 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC		= 	ft_memset.c \
 			ft_strjoin.c \
 			ft_strtrim.c \
 			ft_strsplit.c \
+			ft_strsplit_on_size.c \
 			ft_itoa.c \
 			ft_putchar.c \
 			ft_putstr.c \

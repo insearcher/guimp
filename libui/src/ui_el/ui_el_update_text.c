@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:38:20 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 03:47:24 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/10 02:31:29 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 	if (text == NULL)
 		return (FUNCTION_SUCCESS);
 	len = ft_strlen(text);
-	if (el->text_area->max_text_size == 0 || len <= el->text_area->max_text_size)
+	if (el->text_area->string_len == 0 || len <= el->text_area->string_len)
 	{
 		clear_el_text(el);
 		el->text_area->text = ft_strdup(text);
@@ -83,7 +83,7 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 		else
 		{
 			clear_el_text(el);
-			el->text_area->text = ft_strsub(text, 0, el->text_area->max_text_size);
+			el->text_area->text = ft_strsub(text, 0, el->text_area->string_len);
 		}
 	}
 	//	ft_lstdel(&el->sdl_textures, &free_sdl_texture);
@@ -96,7 +96,7 @@ int	ui_el_update_text(t_ui_el *el, const char *text)
 
 		SDL_GetClipRect(el->sdl_surface, rect);
 //		SDL_Log("rect: (%d, %d)\n", rect->w, rect->h);
-		if (rect->w > 6000 || rect->h > 3000)
+		if (rect->w > 16384 || rect->h > 4000)
 			return (FUNCTION_SUCCESS);
 		if (!(n = ft_lstnew(NULL, 0)))
 			return (FUNCTION_FAILURE);

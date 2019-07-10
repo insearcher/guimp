@@ -6,7 +6,7 @@
 #    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/08 04:34:43 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/08 20:38:54 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -166,6 +166,7 @@ SRC_UI_JTOC		=	ui_main_from_json.c \
 					ui_el_from_json.c \
 					ui_el_get_and_setup_json.c \
 					ui_el_pref_text.c \
+					ui_el_pref_modal_win.c \
 					ui_jtoc_utils.c
 
 SRC_UI_FILE		=	ui_open_file_dialog.c \

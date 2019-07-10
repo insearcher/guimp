@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:54:15 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/06 18:54:58 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/10 02:34:52 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ SDL_Texture	*ui_el_create_texture(t_ui_el *el)
 	if (!el->sdl_surface || !el->sdl_renderer)
 		ui_sdl_deinit(EXIT_FAILURE);
 	SDL_GetClipRect(el->sdl_surface, &rect);
-	if (rect.w > 6000 || rect.h > 3000)
+	if (rect.w > 16384 || rect.h > 4000)
 		return (ui_el_create_empty_texture(el));
 	if (!(tmp = SDL_CreateTextureFromSurface(el->sdl_renderer, el->sdl_surface)))
 		ui_sdl_deinit(EXIT_FAILURE);

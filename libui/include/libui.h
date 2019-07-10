@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 04:53:16 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/08 23:59:29 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ typedef struct		s_ui_text
 	SDL_Color		text_color;
 	SDL_Color		bg_color;
 	char			*text;
-	size_t			max_text_size;
+	size_t			string_len;
 	size_t			cursor_pos;
 	Uint32			render_param;
 	Uint32			params;
@@ -163,13 +163,14 @@ typedef struct		s_ui_text
 
 typedef struct		s_ui_modal_win
 {
+	int				w_id;
+	t_vec2			pos;
+	t_vec2			size;
+	char			*title;
 	TTF_Font		*font;
 	SDL_Color		text_color;
 	SDL_Color		bg_color;
-	int				w_id;
-	t_vec2			w_pos;
-	t_vec2			w_size;
-	char			*title;
+	size_t			string_len;
 	char			**text;
 	Uint32			render_param;
 	Uint32			params;
@@ -336,7 +337,7 @@ typedef struct		s_text_params
 {
 	SDL_Color		text_color;
 	SDL_Color		bg_color;
-	int				max_text_size;
+	int				string_len;
 	int				params;
 	int				render_param;
 }					t_text_params;

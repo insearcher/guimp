@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 01:35:42 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/10 05:19:41 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/10 15:28:18 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ static size_t	*get_lens_arr(const char *s, size_t num_words)
 		if (s[i] != ' ')
 		{
 			len_arr[++j] = ft_wordlen(&s[i], ' ');
-//			printf("%zu ", len_arr[j]);
 			i += len_arr[j];
 		}
 		if (!s[i])
-			break;
+			break ;
 	}
 	return (len_arr);
 }
@@ -94,13 +93,6 @@ static size_t	*get_num_words_in_strs(size_t *len_arr,
 			}
 		}
 	}
-/*	i = -1;
-	printf("\nnum strs: %zu\n", *num_strs);
-	while (++i < *num_strs)
-	{
-		printf("%zu ", num_words_in_strs[i]);
-	}
-	printf("\n");*/
 	return (num_words_in_strs);
 }
 
@@ -147,8 +139,6 @@ char			*cut_str_by_num_words(const char *s, size_t num_words)
 		}
 	}
 	res[k] = '\0';
-//	printf("num words: %zu, len: %zu\n", num_words, new_len_str + 2);
-//	printf("res: %s\n", res);
 	return (res);
 }
 
@@ -167,7 +157,6 @@ char			**get_strs(const char *s, size_t num_strs,
 	while (s[++i])
 	{
 		strs[++j] = cut_str_by_num_words(&(s[i]), num_words_in_strs[++k]);
-//		printf("STRS: %s, j: %zu\n", strs[j], j);
 		while (num_words_in_strs[k])
 		{
 			num_words_in_strs[k]--;
@@ -179,10 +168,6 @@ char			**get_strs(const char *s, size_t num_strs,
 		if (!s[i])
 			break;
 	}
-/*	i = -1;
-	printf("strings: \n");
-	while (strs[++i])
-		printf("%s, i: %zu\n", strs[i], i);*/
 	return (strs);
 }
 

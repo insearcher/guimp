@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 23:41:29 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/10 16:25:43 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@
 # define GM_TOOL_ZOOM			(1 << 1)
 # define GM_TOOL_ERASER			(1 << 2)
 # define GM_TOOL_HAND			(1 << 3)
-# define GM_TOOL_LINE			(1 << 4)
-# define GM_TOOL_PIPETTE		(1 << 5)
-# define GM_TOOL_FILL			(1 << 6)
+# define GM_TOOL_PIPETTE		(1 << 4)
+# define GM_TOOL_FILL			(1 << 5)
+# define GM_TOOL_LINE			(1 << 6)
 # define GM_TOOL_ELLIPSE		(1 << 7)
 # define GM_TOOL_RECT			(1 << 8)
-
+# define GM_TOOL_SQUARE			(1 << 9)
 
 # define GM_TOOL_MODE_FILL		(1 << 0)
 # define GM_TOOL_MODE_EMPTY		(1 << 1)
@@ -137,7 +137,6 @@ typedef struct					s_guimp
 void							draw_dot(void *ui_main, void *ui_el);
 void							draw_main_canvas_event(void *el_v, void *arg);
 void							draw_with_selected_tool(void *main, void *el_v);
-void							draw_fat_line(t_guimp *g, t_vec2 start, t_vec2 end);
 void							update_color_rect(t_guimp *gm, int r, int g, int b);
 
 void							gm_init(t_guimp *g_main);
@@ -155,5 +154,49 @@ void							draw_ellipse(t_guimp *g, t_vec2 start, t_vec2 end);
 void							draw_empty_ellipse(t_guimp *g, t_vec2 s, t_vec2 e);
 void							draw_rect(t_guimp *g, t_vec2 s, t_vec2 e);
 void							draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e);
+
+void 							choose_fill(void *main, void *el_v);
+void							tool_filler(t_ui_win *w, t_texture *texture, t_cvec2 color, t_vec2 coord);
+
+void 							choose_eraser(void *main, void *el_v);
+void							tool_eraser(t_ui_el *el, t_guimp *g, int x, int y);
+
+void							choose_zoom(void *main, void *el_v);
+void							tool_zoom_in(t_guimp *g, int x, int y);
+void							tool_zoom_out(t_guimp *g, int x, int y);
+
+void							choose_hand(void *main, void *el_v);
+void							tool_hand(t_guimp *g);
+
+void							choose_pipette(void *main, void *el_v);
+void							tool_pipette(t_guimp *g, t_ui_el *el);
+
+void							choose_fill_mode(void *main, void *el_v);
+void							choose_empty_mode(void *main, void *el_v);
+
+int								get_value_from_slider(t_ui_el *s, t_ui_el *c);
+void							choose_alpha(void *main, void *el_v);
+void							choose_size(void *main, void *el_v);
+void							choose_blue_color(void *main, void *el_v);
+void							choose_green_color(void *main, void *el_v);
+void							choose_red_color(void *main, void *el_v);
+
+void							choose_brush(void *main, void *el_v);
+void							tool_brush(t_ui_el *el, t_guimp *g, int x, int y);
+
+void							choose_ellipse(void *main, void *el_v);
+void							draw_ellipse(t_guimp *g, t_vec2 s, t_vec2 e);
+void							draw_empty_ellipse(t_guimp *g, t_vec2 s, t_vec2 e);
+
+void							choose_line(void *main, void *el_v);
+void							draw_line(t_guimp *g, t_vec2 start, t_vec2 end);
+
+void							choose_square(void *main, void *el_v);
+
+void							choose_rect(void *main, void *el_v);
+void							draw_rect(t_guimp *g, t_vec2 s, t_vec2 e);
+void							draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e);
+
+void							process_tmp_layer(t_guimp *g);
 
 #endif

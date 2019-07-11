@@ -161,6 +161,28 @@ static int	ui_el_from_json_event(t_ui_main *m, t_ui_el *e, t_jnode *n)
 	return (FUNCTION_SUCCESS);
 }
 
+static int	ui_el_from_json_cursor(t_ui_main *m, t_ui_el *e, t_jnode *n)
+{
+	t_jnode		*tmp;
+	t_cursor	*c;
+
+	if ((n = jtoc_node_get_by_path(n, "cursor")))
+	{
+		if (!(c = ui_cursor_init()))
+			ui_sdl_deinit(228);
+		if (!(tmp = jtoc_node_get_by_path(n, "texture_id")) || tmp->type != string ||
+			!(c->s = ui_main_get_surface_by_id(m, jtoc_get_string(tmp))) ||
+				!(tmp = jtoc_node_get_by_path(n, "hot_x")) || tmp->type != number ||
+				!(c->hot_x = jtoc_get_int(tmp)) ||
+				!(tmp = jtoc_node_get_by_path(n, "hot_y")) || tmp->type != number ||
+				!(c->hot_y = jtoc_get_int(tmp)))
+			ui_sdl_deinit(228);
+		e->data = (void *)c;
+		ui_event_add_listener(e->events->onPointerLeftButtonPressed, ui_cursor_from_el_data);
+	}
+	return (FUNCTION_SUCCESS);
+}
+
 static int	ui_el_from_json_events(t_ui_main *m, t_ui_el *e, t_jnode *n)
 {
 	t_jnode	*tmp;
@@ -175,7 +197,7 @@ static int	ui_el_from_json_events(t_ui_main *m, t_ui_el *e, t_jnode *n)
 			tmp = tmp->right;
 		}
 	}
-	return (FUNCTION_SUCCESS);
+	return (ui_el_from_json_cursor(m, e, n));
 }
 
 static int	ui_el_from_json_textures(t_ui_main *m, t_ui_el *e, t_jnode *n)

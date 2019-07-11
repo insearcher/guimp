@@ -77,4 +77,6 @@ target_sources(ft PUBLIC
         ft_strhash.c
         ft_fvec2_round.c
         get_next_line.c
-        ft_atoi_base.c)
+        ft_atoi_base.c
+        ft_strsplit_on_size.c
+        ft_minmax.c)

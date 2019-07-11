@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
+#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/08 01:32:02 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/11 18:03:16 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,15 +38,30 @@ SRC_DIR			=	./src
 OBJ_DIR			=	./obj
 
 SRC				=	main.c \
-					draw_func.c \
 					draw_main_canvas_event.c \
+					draw_with_selected_tool.c \
 					gm_init.c \
 					ui_main_fill_default_functions.c \
 					gm_generate_surfaces_id.c \
-					draw_with_selected_tool.c \
-					draw_fat_line.c
+					color_sliders.c \
+					get_value_from_slider.c \
+					process_tmp_layer.c
 
-OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+SRC_TOOLS		=	brush.c \
+					ellipse.c \
+					eraser.c \
+					filler.c \
+					hand.c \
+					line.c \
+					modes.c \
+					pipette.c \
+					rect.c \
+					square.c \
+					zoom.c
+
+
+OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o)) \
+					$(addprefix $(OBJ_DIR)/,$(SRC_TOOLS:.c=.o))
 
 ##########################################################################################################
 
@@ -113,6 +128,10 @@ $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
+	@echo "1" > $(TEMP)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/tools/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > $(TEMP)
 

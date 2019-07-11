@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/11 19:33:00 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/11 20:17:05 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,7 +568,7 @@ void				ui_set_pixel_color_to_texture_replace(SDL_Renderer *renderer,
 void				ui_el_children_set_default(void *a1, void *a2);
 
 SDL_Texture			*ui_main_merge_layers(SDL_Renderer *r, t_list *l);
-void				ui_main_save_texture(SDL_Renderer *r, SDL_Texture *t, const char *path, int type);
+void				ui_main_save_texture(t_ui_win *win, SDL_Texture *t, const char *path, int type);
 void				ui_main_open_texture(SDL_Renderer *r, t_ui_el *e, const char *path);
 
 void	ui_el_destroy(t_ui_el *e);

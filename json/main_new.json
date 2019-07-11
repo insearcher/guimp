@@ -757,7 +757,13 @@
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "choose_brush"
             }
-          ]
+          ],
+          "cursor":
+          {
+            "texture_id": "brush_icon",
+            "hot_x": 26,
+            "hot_y": 40
+          }
         },
         {
           "id": 11,
@@ -875,7 +881,13 @@
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "ui_el_children_set_default"
             }
-          ]
+          ],
+          "cursor":
+          {
+            "texture_id": "text_icon",
+            "hot_x": 23,
+            "hot_y": 27
+          }
         },
         {
           "id": 13,
@@ -938,7 +950,13 @@
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "choose_eraser"
             }
-          ]
+          ],
+          "cursor":
+          {
+            "texture_id": "eraser_icon",
+            "hot_x": 21,
+            "hot_y": 36
+          }
         },
         {
           "id": 14,
@@ -1001,7 +1019,13 @@
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "choose_zoom"
             }
-          ]
+          ],
+          "cursor":
+          {
+            "texture_id": "zoom_icon",
+            "hot_x": 23,
+            "hot_y": 23
+          }
         },
         {
           "id": 15,
@@ -1064,7 +1088,13 @@
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "choose_hand"
             }
-          ]
+          ],
+          "cursor":
+          {
+            "texture_id": "hand_icon",
+            "hot_x": 26,
+            "hot_y": 27
+          }
         },
         {
           "id": 16,
@@ -1096,12 +1126,12 @@
             },
             {
               "type": "color",
-              "color": "FF0000",
+              "color": "00FF00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "DD0000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -1127,7 +1157,13 @@
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "choose_fill"
             }
-          ]
+          ],
+          "cursor":
+          {
+            "texture_id": "fill_icon",
+            "hot_x": 14,
+            "hot_y": 39
+          }
         },
         {
           "id": 17,
@@ -1190,7 +1226,13 @@
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "choose_pipette"
             }
-          ]
+          ],
+          "cursor":
+          {
+            "texture_id": "pipette_icon",
+            "hot_x": 13,
+            "hot_y": 38
+          }
         },
         {
           "id": 2,
@@ -2750,7 +2792,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_square"
             }
           ]
         },

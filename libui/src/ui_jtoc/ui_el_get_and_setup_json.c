@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:40:39 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 04:42:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/11 19:24:46 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	ui_el_setup_by_type(t_ui_el *e, t_jnode *n)
 			(hash == ft_strhash("SCROLL_MENU") ? ui_el_setup_default_scroll_menu(e) : 0);
 			(hash == ft_strhash("HORIZONTAL_DRAGGABLE") ? ui_el_setup_horizontal_draggable(e) : 0);
 			(hash == ft_strhash("MENU_RESIZABLE") ? ui_el_setup_menu_resizable(e) : 0);
+			(hash == ft_strhash("RADIO") ? ui_el_setup_radio(e) : 0);
 			tmp = tmp->right;
 		}
 	}

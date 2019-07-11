@@ -45,4 +45,6 @@ target_sources(ui PUBLIC
         ui_el_destroy_children.c
         ui_text_destroy.c
         ui_modal_win_destroy.c
+        ui_el_setup_radio.c
+        ui_el_switch_radio.c
         )

@@ -580,4 +580,7 @@ void	ui_el_events_destroy(t_ui_el_events *ee);
 void	ui_text_destroy(t_ui_text *t);
 void	ui_modal_win_destroy(t_ui_modal_win *mw);
 
+void	ui_el_setup_radio(t_ui_el *el);
+void	ui_el_switch_radio(void *a1, void *a2);
+
 #endif

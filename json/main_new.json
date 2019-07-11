@@ -1485,7 +1485,8 @@
             "render_param": "TEXT_IS_BLENDED",
             "params":
             [
-              "TEXT_IS_REGULAR"
+              "TEXT_IS_REGULAR",
+              "TEXT_IS_INPUTTING"
             ],
             "string_len": 0,
             "font": "SansSerif"
@@ -1685,6 +1686,110 @@
               "el_id": "default"
             }
           ]
+        },
+        {
+          "id": 10099,
+          "parent": 100,
+          "type": [
+            "RADIO"
+          ],
+          "pos":
+          {
+            "x": 12,
+            "y": 396,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 20,
+            "y": 20,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "FFFFFF",
+              "el_id": "default"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "switch_fill_mode"
+            }
+          ]
+        },
+        {
+          "id": 100990,
+          "parent": 10099,
+          "params":
+          [
+            "EL_IGNOR_RAYCAST",
+            "EL_IS_HIDDEN"
+          ],
+          "pos":
+          {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "size":
+          {
+            "x": 0.8,
+            "y": 0.8
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "000000",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 100991,
+          "parent": 10099,
+          "params":
+          [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 26,
+            "y": 0,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 140,
+            "y": 20,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "text_area":
+          {
+            "text": "IS FILL MODE?",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "params": [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
+            "font": "SansSerif"
+          }
         },
         {
           "id": 101,

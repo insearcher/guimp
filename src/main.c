@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 16:54:45 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/11 19:46:22 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -577,6 +577,8 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
 
+	ui_main_add_function_by_id(g_main.ui_main, switch_fill_mode, "switch_fill_mode");
+
 
 	ui_main_add_function_by_id(g_main.ui_main, ui_save_test, "ui_save_test");
 	ui_main_add_function_by_id(g_main.ui_main, ui_open_test, "ui_open_test");
@@ -585,6 +587,7 @@ int		main()
 	ui_main_set_font_params(g_main.ui_main, "Neco", (t_font_params){0, 0, 1, 0});
 	g_main.ui_main->data = (void *)(&g_main);
 	g_main.draw_tool.brush_size = GM_BRUSH_DEF_SIZE;
+	g_main.draw_tool.tool_mode = GM_TOOL_MODE_EMPTY;
 	g_main.draw_tool.a = 255;
 	g_main.draw_tool.zoom = 1;
 	g_main.draw_tool.state = GM_TOOL_STATE_NONE;

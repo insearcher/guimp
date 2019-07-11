@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 05:38:36 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 23:39:48 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/11 20:42:20 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,4 @@ void	ui_win_setup_default(t_ui_win *w)
 	ui_event_add_listener(w->events->onClose, ui_log_window_closed);
 	ui_event_add_listener(w->events->onMoved, ui_log_window_moved);
 #endif
-	w->canvas->rect = (t_rect){0, 0, w->size.x, w->size.y};
-	w->canvas->cut_rect = w->canvas->rect;
 }

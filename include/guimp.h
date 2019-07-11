@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 16:25:43 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/11 20:16:49 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@
 # define GM_TOOL_RECT			(1 << 8)
 # define GM_TOOL_SQUARE			(1 << 9)
 
-# define GM_TOOL_MODE_FILL		(1 << 0)
-# define GM_TOOL_MODE_EMPTY		(1 << 1)
+# define GM_TOOL_MODE_EMPTY		0
+# define GM_TOOL_MODE_FILL		1
 
 # define GM_TOOL_STATE_NONE		0
 # define GM_TOOL_STATE_START	1
@@ -198,5 +198,6 @@ void							draw_rect(t_guimp *g, t_vec2 s, t_vec2 e);
 void							draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e);
 
 void							process_tmp_layer(t_guimp *g);
+void							switch_fill_mode(void *main, void *el_v);
 
 #endif

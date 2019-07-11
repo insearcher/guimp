@@ -6,7 +6,7 @@
 #    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/11 19:32:51 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/11 20:59:05 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_default.c \
 					ui_el_setup_horizontal_draggable.c \
 					ui_el_setup_menu_resizable.c \
+					ui_el_setup_radio.c \
+					ui_el_switch_radio.c \
 					ui_el_show_child.c \
 					ui_el_children_set_default.c \
 					ui_el_create_modal_ok.c \
@@ -148,6 +150,7 @@ SRC_UI_SDL		=	ui_sdl_init.c \
 SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_setup_default.c \
 					ui_win_create.c \
+					ui_win_create_modal_win.c \
 					ui_win_close.c \
 					ui_win_update_size.c \
 					ui_win_find_el_by_id.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_el_create_modal_ok.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 06:17:29 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/10 07:09:37 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/11 21:57:01 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,32 +63,24 @@ void	create_modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
 
 void    ui_el_create_modal_ok(void *a1, void *a2)
 {
-	t_ui_el     *win_el;
 	t_ui_main   *m;
 	t_ui_el     *el;
 	t_ui_win    *w;
+	int			status;
 
 	m = (t_ui_main *)a1;
 	el = (t_ui_el *)a2;
+	status = 1;
+//	while (status != 0)
+//		status = SDL_TryLockMutex(m->mutex);
+//	if (status == 0)
+//	SDL_LockMutex(m->mutex);
 	if (ui_main_find_window_by_id(m, el->modal_win->w_id))
 		return ;
-	w = ui_win_init();
-	w->id = el->modal_win->w_id;
-	w->pos = el->modal_win->pos;
-	w->size = el->modal_win->size;
-	w->title = ft_strdup(el->modal_win->title);
-	ui_win_setup_default(w);
-	ui_win_create(w);
-	win_el = ui_el_init();
-	win_el->id = 1;
-	ui_el_setup_default(win_el);
-	ui_el_add_child(w->canvas, win_el);
-	ui_el_set_pos(win_el, 0, (t_fvec2){0, 0});
-	ui_el_set_size(win_el, 0, (t_fvec2){1, 1});
-	ui_el_add_color_texture(win_el, (t_vec2){win_el->rect.w, win_el->rect.h},
-			ft_atoi_base("757575", 16), "default");
+	w = ui_win_create_modal_win(el->modal_win);
 	ui_event_add_listener(w->events->onClose, ui_main_close_window);
 	ui_event_add_listener(w->events->onKeyDown[SDL_SCANCODE_ESCAPE], ui_main_close_window);
-	create_modal_ok(m, el->modal_win, win_el);
+	create_modal_ok(m, el->modal_win, ui_win_find_el_by_id(w, 1));
 	ui_main_add_window(m, w);
+//	SDL_UnlockMutex(m->mutex);
 }

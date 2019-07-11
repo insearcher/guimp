@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/11 20:17:05 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/11 20:57:41 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -502,6 +502,7 @@ int					ui_el_update_text(t_ui_el *el, const char *text);
 # pragma endregion
 
 void				ui_win_create(t_ui_win *w);
+t_ui_win			*ui_win_create_modal_win(t_ui_modal_win *modal_win);
 void				ui_win_setup_default(t_ui_win *w);
 void				ui_win_change_text_in_focused_el(void *a1, void *a2);
 t_ui_win			*ui_win_init(void);
@@ -579,5 +580,8 @@ void	ui_event_destroy(t_ui_event *e);
 void	ui_el_events_destroy(t_ui_el_events *ee);
 void	ui_text_destroy(t_ui_text *t);
 void	ui_modal_win_destroy(t_ui_modal_win *mw);
+
+void	ui_el_setup_radio(t_ui_el *el);
+void	ui_el_switch_radio(void *a1, void *a2);
 
 #endif

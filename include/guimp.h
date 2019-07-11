@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/11 20:16:49 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/11 21:53:27 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@
 # define GM_HAND_MOVE_SPEED		1
 # define GM_HAND_MIN_DIST		3
 
-# define GM_TOOL_BRUSH			(1 << 0)
-# define GM_TOOL_ZOOM			(1 << 1)
-# define GM_TOOL_ERASER			(1 << 2)
-# define GM_TOOL_HAND			(1 << 3)
-# define GM_TOOL_PIPETTE		(1 << 4)
-# define GM_TOOL_FILL			(1 << 5)
-# define GM_TOOL_LINE			(1 << 6)
-# define GM_TOOL_ELLIPSE		(1 << 7)
-# define GM_TOOL_RECT			(1 << 8)
-# define GM_TOOL_SQUARE			(1 << 9)
+# define GM_TOOL_BRUSH			0
+# define GM_TOOL_ZOOM			1
+# define GM_TOOL_ERASER			2
+# define GM_TOOL_HAND			3
+# define GM_TOOL_PIPETTE		4
+# define GM_TOOL_FILL			5
+# define GM_TOOL_LINE			6
+# define GM_TOOL_ELLIPSE		7
+# define GM_TOOL_RECT			8
+# define GM_TOOL_SQUARE			9
 
 # define GM_TOOL_MODE_EMPTY		0
 # define GM_TOOL_MODE_FILL		1
@@ -106,9 +106,10 @@ typedef struct					s_draw_tool
 {
 	t_vec2						prew_point;
 	t_vec2						cur_point;
-	int							tool;
-	int							tool_mode;
-	int							brush_size;
+	Uint8						tool;
+	SDL_Texture					*brush;
+	Uint8						tool_mode;
+	Uint8						brush_size;
 	Uint8						r;
 	Uint8						g;
 	Uint8						b;
@@ -150,11 +151,6 @@ void							move_windows(void *a1, void *a2);
 void							start_zoom_in(void *m, void *wid);
 void							start_zoom_out(void *m, void *wid);
 
-void							draw_ellipse(t_guimp *g, t_vec2 start, t_vec2 end);
-void							draw_empty_ellipse(t_guimp *g, t_vec2 s, t_vec2 e);
-void							draw_rect(t_guimp *g, t_vec2 s, t_vec2 e);
-void							draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e);
-
 void 							choose_fill(void *main, void *el_v);
 void							tool_filler(t_ui_win *w, t_texture *texture, t_cvec2 color, t_vec2 coord);
 
@@ -185,7 +181,7 @@ void							choose_brush(void *main, void *el_v);
 void							tool_brush(t_ui_el *el, t_guimp *g, int x, int y);
 
 void							choose_ellipse(void *main, void *el_v);
-void							draw_ellipse(t_guimp *g, t_vec2 s, t_vec2 e);
+void							draw_ellipse(t_guimp *g, t_vec2 start, t_vec2 end);
 void							draw_empty_ellipse(t_guimp *g, t_vec2 s, t_vec2 e);
 
 void							choose_line(void *main, void *el_v);
@@ -199,5 +195,7 @@ void							draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e);
 
 void							process_tmp_layer(t_guimp *g);
 void							switch_fill_mode(void *main, void *el_v);
+
+void							set_brush_texture_from_el(void *main, void *el_v);
 
 #endif

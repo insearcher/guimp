@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_create_modal_window.c                        :+:      :+:    :+:   */
+/*   ui_el_create_modal_ok.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/08 04:32:18 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/10 04:43:58 by sbecker          ###   ########.fr       */
+/*   Created: 2019/07/10 06:17:29 by sbecker           #+#    #+#             */
+/*   Updated: 2019/07/10 07:09:37 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-/*static void	close_win_using_el(void *a1, void *a2)
+void	create_modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
 {
-	t_ui_main	*m;
-	t_ui_el		*el;
-	t_ui_win	*w;
-
-	m = (t_ui_main *)a1;
-	el = (t_ui_el *)a2;
-	w = ui_main_find_window_by_id(m, el->modal_win->w_id);
-	ui_main_close_window(m, w);
-}*/
-
-static void	modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
-{
-	int		i;
-	t_ui_el	*el;
-	t_ui_el	*el_text;
-	float	h;
-	float	y;
+	int     i;
+	t_ui_el *el;
+	t_ui_el *el_text;
+	float   h;
+	float   y;
 
 	i = 0;
 	el = ui_el_init();
@@ -41,7 +29,6 @@ static void	modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
 	ui_el_add_color_texture(el, (t_vec2){el->rect.w, el->rect.h},
 			ft_atoi_base("AAAAAA", 16), "default");
 	ui_el_setup_default(el);
-//	ui_event_add_listener(el->events->onPointerLeftButtonPressed, close_win_using_el);
 	el_text = ui_el_init();
 	el_text->id = 3;
 	ui_el_add_child(el, el_text);
@@ -74,15 +61,17 @@ static void	modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
 	}
 }
 
-void	ui_el_create_modal_window(void *a1, void *a2)
+void    ui_el_create_modal_ok(void *a1, void *a2)
 {
 	t_ui_el     *win_el;
-	t_ui_main	*m;
+	t_ui_main   *m;
 	t_ui_el     *el;
 	t_ui_win    *w;
 
 	m = (t_ui_main *)a1;
 	el = (t_ui_el *)a2;
+	if (ui_main_find_window_by_id(m, el->modal_win->w_id))
+		return ;
 	w = ui_win_init();
 	w->id = el->modal_win->w_id;
 	w->pos = el->modal_win->pos;
@@ -90,7 +79,6 @@ void	ui_el_create_modal_window(void *a1, void *a2)
 	w->title = ft_strdup(el->modal_win->title);
 	ui_win_setup_default(w);
 	ui_win_create(w);
-
 	win_el = ui_el_init();
 	win_el->id = 1;
 	ui_el_setup_default(win_el);
@@ -100,9 +88,7 @@ void	ui_el_create_modal_window(void *a1, void *a2)
 	ui_el_add_color_texture(win_el, (t_vec2){win_el->rect.w, win_el->rect.h},
 			ft_atoi_base("757575", 16), "default");
 	ui_event_add_listener(w->events->onClose, ui_main_close_window);
-	free(w->events->onKeyDown[SDL_SCANCODE_ESCAPE]);
-	w->events->onKeyDown[SDL_SCANCODE_ESCAPE] = w->events->onClose;
-	if (el->params & EL_MODAL_OK)
-		modal_ok(m, el->modal_win, win_el);
+	ui_event_add_listener(w->events->onKeyDown[SDL_SCANCODE_ESCAPE], ui_main_close_window);
+	create_modal_ok(m, el->modal_win, win_el);
 	ui_main_add_window(m, w);
 }

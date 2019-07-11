@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 04:42:25 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/11 19:33:00 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,7 +488,7 @@ void				ui_el_resize_elems(void *a1, void *a2);
 void				ui_el_default_resize(void *a1, void *a2);
 void				ui_el_menu_resize(void *a1, void *a2);
 void				ui_win_update_size(void *a1, void *a2);
-void				ui_el_create_modal_window(void *a1, void *a2);
+void				ui_el_create_modal_ok(void *a1, void *a2);
 
 int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 		const char *id, const char *texture_id);

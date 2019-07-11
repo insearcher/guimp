@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 20:24:48 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/10 04:05:38 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/10 06:30:06 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int ui_el_pref_modal_win(t_ui_main *m, t_ui_el *e, t_jnode *n)
 			return (FUNCTION_FAILURE);
 		if (ui_el_pref_text_modal_win(m, e, tmp) == FUNCTION_FAILURE)
 			return (FUNCTION_FAILURE);
-		ui_event_add_listener(e->events->onPointerLeftButtonPressed, ui_el_create_modal_window);
+		ui_event_add_listener(e->events->onPointerLeftButtonPressed, ui_el_create_modal_ok);
 	}
 	return (FUNCTION_SUCCESS);
 }

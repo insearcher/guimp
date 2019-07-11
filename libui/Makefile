@@ -6,7 +6,7 @@
 #    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/10 04:54:41 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/11 19:32:51 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_menu_resizable.c \
 					ui_el_show_child.c \
 					ui_el_children_set_default.c \
-					ui_el_create_modal_window.c \
+					ui_el_create_modal_ok.c \
 					ui_modal_win_destroy.c \
 					ui_text_destroy.c \
 					ui_el_destroy.c \

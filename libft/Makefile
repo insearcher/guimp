@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+         #
+#    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 23:40:02 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/10 03:36:38 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/11 18:06:31 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,8 @@ SRC		= 	ft_memset.c \
 			ft_strhash.c \
 			ft_fvec2_round.c \
 			get_next_line.c \
-			ft_atoi_base.c
+			ft_atoi_base.c \
+			ft_minmax.c
 
 OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

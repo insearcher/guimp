@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_tmp_layer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:09:45 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 16:09:45 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/12 18:09:09 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ static void	process_tool_state_draw(t_guimp *g)
 	else if (g->draw_tool.tool == GM_TOOL_LINE)
 		draw_line(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
 					  (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
+	else if (g->draw_tool.tool == GM_TOOL_TEXT)
+		draw_text(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
+					  (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
+					  ui_win_find_el_by_id(g->tool_win, 120610));
 }
 
 static void	process_tool_state_end(t_guimp *g)
@@ -51,6 +55,10 @@ static void	process_tool_state_end(t_guimp *g)
 	else if (g->draw_tool.tool == GM_TOOL_LINE)
 		draw_line(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
 					  (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y});
+	else if (g->draw_tool.tool == GM_TOOL_TEXT)
+		draw_text(g, (t_vec2){g->draw_tool.prew_point.x, g->draw_tool.prew_point.y},
+					  (t_vec2){g->draw_tool.cur_point.x, g->draw_tool.cur_point.y},
+					  ui_win_find_el_by_id(g->tool_win, 120610));
 	g->draw_tool.state = GM_TOOL_STATE_NONE;
 	SDL_SetRenderTarget(g->main_win->sdl_renderer, (t_texture *)(g->layers.current_layer->sdl_textures->content));
 	SDL_RenderCopy(g->main_win->sdl_renderer, g->layers.tmp_texture, NULL, NULL);

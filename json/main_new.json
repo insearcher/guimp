@@ -900,6 +900,10 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_text"
             }
           ],
           "cursor":
@@ -3592,6 +3596,138 @@
               "el_id": "default"
             }
           ]
+        },
+        {
+          "id": 1206,
+          "parent": 120,
+          "pos":
+          {
+            "x": 0.025,
+            "y": 0.4,
+            "params":
+            [
+              "ABS"
+            ]
+          },
+          "size":
+          {
+            "x": 0.95,
+            "y": 0.3,
+            "params":
+            [
+              "ABS"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 12060,
+          "parent": 1206,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 40,
+            "y": 20,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "text_area":
+          {
+            "text": "Text:",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "params": [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
+            "font": "SansSerif"
+          }
+        },
+        {
+          "id": 12061,
+          "parent": 1206,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 50,
+            "y": 4,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 0.77,
+            "y": 0.29,
+            "params":
+            [
+              "ABS"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "CCCCCC",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 120610,
+          "parent": 12061,
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 0.76,
+            "y": 0.29,
+            "params":
+            [
+              "ABS"
+            ]
+          },
+          "text_area":
+          {
+            "text": "TbI nUDR",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "params": [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
+            "font": "SansSerif"
+          }
         }
       ]
     }

@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/11 21:53:27 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/12 18:03:36 by edraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@
 # define GM_TOOL_ELLIPSE		7
 # define GM_TOOL_RECT			8
 # define GM_TOOL_SQUARE			9
+# define GM_TOOL_TEXT			10
 
 # define GM_TOOL_MODE_EMPTY		0
 # define GM_TOOL_MODE_FILL		1
@@ -166,6 +167,9 @@ void							tool_hand(t_guimp *g);
 
 void							choose_pipette(void *main, void *el_v);
 void							tool_pipette(t_guimp *g, t_ui_el *el);
+
+void							choose_text(void *main, void *el_v);
+void							draw_text(t_guimp *g, t_vec2 s, t_vec2 e, t_ui_el *el);
 
 void							choose_fill_mode(void *main, void *el_v);
 void							choose_empty_mode(void *main, void *el_v);

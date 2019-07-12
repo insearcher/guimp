@@ -169,10 +169,10 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	// ui_el_set_pos(tmp_el, 0,
 	// 	(t_fvec2){0.05,
 	// 		((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.27f * g->main_win->size.x / 1704 * (float)gm_generator_get_surf_count()});
-	ui_el_set_pos(tmp_el, 0,
-		(t_fvec2){0.05,
-			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.2f * layer_menu->cut_rect.x / g->main_win->size.y * (float)gm_generator_get_surf_count()});
-	ui_el_set_size(tmp_el, 0, (t_fvec2){0.9, 0.25});
+	ui_el_set_new_pos(tmp_el, 0, 0,
+		(t_fvec2){0.0,
+			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.25f * (float)gm_generator_get_surf_count()});// * layer_menu->cut_rect.x / g->main_win->size.y * (float)gm_generator_get_surf_count()});
+	ui_el_set_size(tmp_el, 0, (t_fvec2){1, 0.25});
 	tmp_el->sdl_renderer = g->main_win->sdl_renderer;
 	ui_el_add_color_texture(tmp_el, (t_vec2){1704, 800}, 0x888888, "default");
 	ui_el_add_color_texture(tmp_el, (t_vec2){1704, 800}, 0xFF5050, "onActive");
@@ -274,7 +274,7 @@ static void	test_del_layer(void *main, void *el_v)
 		{
 			next_active->id--;
 			// ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -0.27f * g->main_win->size.x / 1704});
-			ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -0.2f * ui_win_find_el_by_id(g->main_win, GM_LAYER_ID_MENU)->cut_rect.x / g->main_win->size.y});
+			ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -0.25f}); // * ui_win_find_el_by_id(g->main_win, GM_LAYER_ID_MENU)->cut_rect.x / g->main_win->size.y});
 		}
 		prev = tmp;
 		tmp = tmp->next;

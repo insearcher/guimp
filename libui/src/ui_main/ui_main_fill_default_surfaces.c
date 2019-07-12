@@ -38,6 +38,7 @@ static void	add_brushes(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/brush_rect.png", "brush_rect");
 	ui_main_add_surface_by_path(m, "images/brush_cloud.png", "brush_cloud");
 	ui_main_add_surface_by_path(m, "images/brush_star.png", "brush_star");
+    ui_main_add_surface_by_path(m, "images/brush_boom.png", "brush_boom");
 }
 
 void	ui_main_fill_default_surfaces(t_ui_main *m)

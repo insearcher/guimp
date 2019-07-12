@@ -6,22 +6,20 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/11 19:46:22 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/12 03:20:30 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void move_windows(void *a1, void *a2)
+void move_windows(t_ui_main *m, void *a)
 {
-	t_ui_main   *m;
 	t_ui_win    *w;
 	t_list      *list;
 	t_ui_win    *cur_w;
 	t_vec2      pos;
 
-	m = (t_ui_main *)a1;
-	w = (t_ui_win *)a2;
+	w = (t_ui_win *)a;
 	if (w != NULL)
 	{
 		list = m->windows;
@@ -577,6 +575,7 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
 
+	ui_main_add_function_by_id(g_main.ui_main, set_brush_texture_from_el, "set_brush_texture_from_el");
 	ui_main_add_function_by_id(g_main.ui_main, switch_fill_mode, "switch_fill_mode");
 
 
@@ -631,6 +630,22 @@ int		main()
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63001);
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, clear_layer);
 	cur_el->data = ui_el_get_texture_by_id(ui_win_find_el_by_id(g_main.main_win, 63000), "default");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 1000);
+	cur_el->data = ui_el_get_texture_by_id(
+			ui_win_find_el_by_id(g_main.main_win, 3), "brush_circle");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 1001);
+	cur_el->data = ui_el_get_texture_by_id(
+			ui_win_find_el_by_id(g_main.main_win, 3), "brush_rect");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 1002);
+	cur_el->data = ui_el_get_texture_by_id(
+			ui_win_find_el_by_id(g_main.main_win, 3), "brush_cloud");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 1003);
+	cur_el->data = ui_el_get_texture_by_id(
+			ui_win_find_el_by_id(g_main.main_win, 3), "brush_star");
 
 	// ui_set_pixel_color_to_texture(
 	// 		g_main.main_win->sdl_renderer,

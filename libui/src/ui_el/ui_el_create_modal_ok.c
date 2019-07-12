@@ -6,13 +6,13 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 06:17:29 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/11 21:57:01 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/11 22:42:08 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	create_modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
+/* static void	create_modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
 {
 	int     i;
 	t_ui_el *el;
@@ -59,13 +59,13 @@ void	create_modal_ok(t_ui_main *m, t_ui_modal_win *modal_win, t_ui_el *p)
 		ui_el_setup_default(el);
 		i++;
 	}
-}
+}*/
 
 void    ui_el_create_modal_ok(void *a1, void *a2)
 {
 	t_ui_main   *m;
 	t_ui_el     *el;
-	t_ui_win    *w;
+	// t_ui_win    *w;
 	int			status;
 
 	m = (t_ui_main *)a1;
@@ -77,10 +77,6 @@ void    ui_el_create_modal_ok(void *a1, void *a2)
 //	SDL_LockMutex(m->mutex);
 	if (ui_main_find_window_by_id(m, el->modal_win->w_id))
 		return ;
-	w = ui_win_create_modal_win(el->modal_win);
-	ui_event_add_listener(w->events->onClose, ui_main_close_window);
-	ui_event_add_listener(w->events->onKeyDown[SDL_SCANCODE_ESCAPE], ui_main_close_window);
-	create_modal_ok(m, el->modal_win, ui_win_find_el_by_id(w, 1));
-	ui_main_add_window(m, w);
+	m->modal_el = el;
 //	SDL_UnlockMutex(m->mutex);
 }

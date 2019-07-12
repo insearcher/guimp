@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 05:50:32 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/03 14:08:08 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/12 10:26:44 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	ui_el_setup_default(t_ui_el *el)
 {
 	el->current_texture = ft_strhash("default");
-	ui_event_add_listener(el->events->onRender, ui_el_draw_event);
-	ui_event_add_listener(el->events->onPointerEnter, ui_el_default_pointer_enter);
-	ui_event_add_listener(el->events->onPointerExit, ui_el_default_pointer_exit);
+	ui_event_add_listener(el->events->onRender, ui_el_event_default_draw);
+	ui_event_add_listener(el->events->onPointerEnter, ui_el_event_default_pointer_enter);
+	ui_event_add_listener(el->events->onPointerExit, ui_el_event_default_pointer_exit);
 #ifdef DEBUG_STATUS
 	ui_event_add_listener(el->events->onPointerEnter, ui_log_el_pointer_enter);
 	ui_event_add_listener(el->events->onPointerExit, ui_log_el_pointer_exit);

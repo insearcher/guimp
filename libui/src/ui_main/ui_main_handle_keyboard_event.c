@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 07:49:09 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 21:13:33 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/11 23:29:41 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	ui_main_handle_keyboard_event(t_ui_main *m)
 		m->cur_keycode = m->sdl_event->key.keysym.scancode;
 		event = win->events->onKeyDown[m->sdl_event->key.keysym.scancode];
 	}
-	else if (m->sdl_event->window.type == SDL_KEYUP)
-		event = win->events->onKeyUp[m->sdl_event->key.keysym.scancode];
+//	else if (m->sdl_event->window.type == SDL_KEYUP)
+//		event = win->events->onKeyUp[m->sdl_event->key.keysym.scancode];
 	if (event != NULL)
 		ui_event_invoke(event, m, win);
 }

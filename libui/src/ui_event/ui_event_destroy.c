@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_event_destroy.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 21:27:39 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 21:38:26 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/12 07:32:06 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ void	ui_event_destroy(t_ui_event *e)
 	{
 		free(l->content);
 		l = l->next;
+		p->next = NULL;
 		free(p);
 		p = l;
 	}
 	free(e);
 }
 
-void	ui_win_events_destroy(t_ui_win_events *we)
+void	ui_event_win_events_destroy(t_ui_win_events *we)
 {
 	int i;
 
@@ -58,7 +59,7 @@ void	ui_win_events_destroy(t_ui_win_events *we)
 	free(we);
 }
 
-void	ui_el_events_destroy(t_ui_el_events *ee)
+void	ui_event_el_events_destroy(t_ui_el_events *ee)
 {
 	ui_event_destroy(ee->onPointerEnter);
 	ui_event_destroy(ee->onPointerStay);

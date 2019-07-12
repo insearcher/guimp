@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_win_destroy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 21:07:15 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 21:10:47 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/11 23:34:08 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	ui_win_destroy(t_ui_win *w)
 	free(w->title);
 	ui_el_destroy(w->canvas);
 	ui_win_events_destroy(w->events);
+	w->events = NULL;
 	free(w);
 }

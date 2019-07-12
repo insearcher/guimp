@@ -6,13 +6,32 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 21:14:50 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 21:34:14 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/12 10:56:33 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_destroy(t_ui_el *e)
+static void	ui_el_text_destroy(t_ui_text *t)
+{
+	free(t->text);
+	free(t);
+}
+
+static void	ui_el_modal_win_destroy(t_ui_modal_win *mw)
+{
+	int i;
+
+	free(mw->text);
+	free(mw->output_text);
+	i = -1;
+	while (mw->text[++i])
+		free(mw->text[++i]);
+	free(mw->text);
+	free(mw);
+}
+
+void		ui_el_destroy(t_ui_el *e)
 {
 	t_list	*tmp;
 
@@ -28,9 +47,9 @@ void	ui_el_destroy(t_ui_el *e)
 	}
 	ui_el_destroy_children(e->children);
 	if (e->text_area)
-		ui_text_destroy(e->text_area);
+		ui_el_text_destroy(e->text_area);
 	if (e->modal_win)
-		ui_modal_win_destroy(e->modal_win);
-	ui_el_events_destroy(e->events);
+		ui_el_modal_win_destroy(e->modal_win);
+	ui_event_el_events_destroy(e->events);
 	free(e);
 }

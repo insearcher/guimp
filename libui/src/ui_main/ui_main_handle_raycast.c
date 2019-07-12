@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 00:43:05 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/08 00:09:34 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/11 22:52:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	ui_main_handle_raycast(t_ui_main *m)
 		ui_event_invoke(cur->events->onPointerEnter, m, cur);
 		m->raycaster->selected = cur;
 	}
-	if (prev == NULL && cur != NULL)
+	else if (prev == NULL && cur != NULL)
 	{
 		ui_event_invoke(cur->events->onPointerEnter, m, cur);
 		m->raycaster->selected = cur;
 	}
-	if (cur == NULL && prev != NULL)
+	else if (cur == NULL && prev != NULL)
 	{
 		ui_event_invoke(prev->events->onPointerLeftButtonReleased, m, prev);
 		ui_event_invoke(prev->events->onPointerRightButtonReleased, m, prev);

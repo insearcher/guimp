@@ -133,6 +133,22 @@
               "el_id": "brush"
             },
             {
+              "main_id": "brush_circle",
+              "el_id": "brush_circle"
+            },
+            {
+              "main_id": "brush_rect",
+              "el_id": "brush_rect"
+            },
+            {
+              "main_id": "brush_cloud",
+              "el_id": "brush_cloud"
+            },
+            {
+              "main_id": "brush_star",
+              "el_id": "brush_star"
+            },
+            {
               "type": "empty",
               "width": 1920,
               "height": 1080,
@@ -2352,6 +2368,10 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2363,8 +2383,8 @@
         ],
         "pos":
         {
-          "x": 2,
-          "y": 2,
+          "x": 6,
+          "y": 6,
           "params":
           [
             "PIXEL"
@@ -2372,8 +2392,8 @@
         },
         "size":
         {
-          "x": 56,
-          "y": 56,
+          "x": 48,
+          "y": 48,
           "params":
           [
             "PIXEL"
@@ -2382,7 +2402,7 @@
         "textures":
         [
           {
-            "main_id": "brush",
+            "main_id": "brush_circle",
             "el_id": "default"
           }
         ]
@@ -2442,7 +2462,11 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_line"
+              "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2454,8 +2478,8 @@
           ],
           "pos":
           {
-            "x": 2,
-            "y": 2,
+            "x": 6,
+            "y": 6,
             "params":
             [
               "PIXEL"
@@ -2463,8 +2487,8 @@
           },
           "size":
           {
-            "x": 56,
-            "y": 56,
+            "x": 48,
+            "y": 48,
             "params":
             [
               "PIXEL"
@@ -2473,7 +2497,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "brush_rect",
               "el_id": "default"
             }
           ]
@@ -2533,7 +2557,11 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_rect"
+              "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2564,7 +2592,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "brush_cloud",
               "el_id": "default"
             }
           ]
@@ -2624,7 +2652,11 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_ellipse"
+              "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2655,7 +2687,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "brush_star",
               "el_id": "default"
             }
           ]
@@ -2715,7 +2747,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_empty_mode"
+              "func_name": "choose_line"
             }
           ]
         },
@@ -2746,7 +2778,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "line_icon",
               "el_id": "default"
             }
           ]
@@ -2806,7 +2838,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_fill_mode"
+              "func_name": "choose_ellipse"
             }
           ]
         },
@@ -2837,7 +2869,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "circle_icon",
               "el_id": "default"
             }
           ]
@@ -2928,7 +2960,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "square_icon",
               "el_id": "default"
             }
           ]
@@ -2988,7 +3020,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_rect"
             }
           ]
         },
@@ -3019,7 +3051,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "rect_icon",
               "el_id": "default"
             }
           ]

@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 05:49:45 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/06 20:00:25 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/12 11:04:49 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	check_border(t_ui_el *el)
 	return (1);
 }
 
-static void	bfs_iter_draw(const t_list *root, const void *arg)
+static void	bfs_iter_draw(t_ui_main *m, const t_list *root)
 {
 	QUEUE   *q;
 	void    *tmp;
@@ -39,22 +39,22 @@ static void	bfs_iter_draw(const t_list *root, const void *arg)
 			if ((cur_el->params & EL_IS_DEPENDENT) && (!(check_border(cur_el))))
 				continue;
 			q_push(&q, CAST_X_TO_Y(tmp, t_ui_el *)->children);
-			ui_event_invoke(((t_ui_el *)tmp)->events->onRender, tmp, (void *)arg);
+			ui_event_invoke(((t_ui_el *)tmp)->events->onRender, m, tmp);
 		}
 	}
 }
 
-static void	bfs_iter_root_draw(const t_ui_el *root, const void *arg)
+static void	bfs_iter_root_draw(t_ui_main *m, const t_ui_el *root)
 {
 	t_list *lst;
 
 	lst = ft_lstnew(NULL, 0);
 	lst->content = CAST_X_TO_Y(root, void *);
-	bfs_iter_draw((const t_list *)lst, arg);
+	bfs_iter_draw(m, (const t_list *)lst);
 	free(lst);
 }
 
-void	ui_draw_window(t_ui_win *w, t_ui_main *m)
+void	ui_draw_window(t_ui_main *m, t_ui_win *w)
 {
-	bfs_iter_root_draw(w->canvas, (void *)m);
+	bfs_iter_root_draw(m, w->canvas);
 }

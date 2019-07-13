@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 04:32:52 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 04:32:56 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 05:52:14 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ static void	cutting_texture_and_draw(t_ui_el *el, SDL_Texture *texture)
 	SDL_RenderCopy(el->sdl_renderer, texture, &srect, &tmp_rect);
 }
 
-void	ui_el_event_default_draw(void *el_v, void *arg)
+void	ui_el_event_default_draw(t_ui_main *m, void *a2)
 {
 	t_ui_el		*el;
 	SDL_Texture	*texture;
 
-	arg = NULL;
-	el = (t_ui_el *)el_v;
+	(void)m;
+	el = (t_ui_el *)a2;
 	texture = ui_el_get_current_texture(el);
 	if (el->params & EL_IS_DEPENDENT)
 	{

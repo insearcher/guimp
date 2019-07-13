@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/12 11:17:25 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 07:28:33 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,6 +323,8 @@ typedef struct		s_text_params
 	int				render_param;
 }					t_text_params;
 
+typedef	void		(*pred_ptr_event)(t_ui_main *, void *);
+
 #pragma region		raycast functions
 t_ui_el				*ui_raycast(t_ui_main *m, t_ui_win *w);
 #pragma endregion
@@ -351,14 +353,14 @@ void				ui_main_event_scroll_down(t_ui_main *m, void *a);
 int					ui_main_add_font_by_path(t_ui_main *m, const char *path, const char *font_id);
 int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, const char *sur_id);
 int					ui_main_add_window(t_ui_main *m, t_ui_win *w);
-int					ui_main_add_function_by_id(t_ui_main *m, func_ptr f, const char *func_id);
+int					ui_main_add_function_by_id(t_ui_main *m, pred_ptr_event f, const char *func_id);
 
 t_ui_win			*ui_main_find_window_by_sdl_id(t_ui_main *m, Uint32 windowID);
 t_ui_win			*ui_main_find_window_by_id(t_ui_main *m, Uint32 windowID);
 
 TTF_Font			*ui_main_get_font_by_id(t_ui_main *m, const char *font_id);
 SDL_Surface			*ui_main_get_surface_by_id(t_ui_main *m, const char *sur_id);
-func_ptr			ui_main_get_function_by_id(t_ui_main *m, const char *func_id);
+pred_ptr_event		ui_main_get_function_by_id(t_ui_main *m, const char *func_id);
 
 void				ui_main_fill_default_surfaces(t_ui_main *m);
 void				ui_main_fill_default_fonts(t_ui_main *m);
@@ -408,8 +410,11 @@ void				bfs_iter(const t_list *root, const func_ptr f,
 		const void *arg);														////////// TODO
 void				bfs_iter_root(const t_ui_el *root, const func_ptr f,
 		const void *arg);														////////// TODO
-void				*bfs(t_ui_main *m, const t_list *root, pred_ptr p);			////////// TODO
-t_ui_el				*bfs_root(t_ui_main *m, const t_ui_el *root, pred_ptr p);	////////// TODO
+
+void				bfs_for_resize(const t_ui_el *root, t_ui_main *m);
+void				bfs_for_draw(t_ui_main *m, const t_ui_el *root);
+t_ui_el				*bfs_for_raycast(t_ui_main *m, const t_ui_el *root, pred_ptr p);
+t_ui_el				*bfs_for_find_el_by_id(const t_ui_el *root, Uint32 id);
 #pragma endregion
 
 #pragma region		draw functions
@@ -424,7 +429,6 @@ void				ui_show_windows(t_ui_main *m);
 #pragma region		elem functions
 t_ui_el				*ui_el_init(void);
 int					ui_el_add_child(t_ui_el *el, t_ui_el *child);
-void				ui_el_show_child(void *a1, void *a2);
 
 void				ui_el_destroy(t_ui_el *e);
 void				ui_el_destroy_children(t_list *c);
@@ -433,9 +437,9 @@ void				ui_el_set_pos(t_ui_el *el, int type, t_fvec2 v);
 void				ui_el_set_size(t_ui_el *el, int type, t_fvec2 v);
 void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
-void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_set_new_pos_for_children(void *a1, void *a2);
 void				ui_el_set_new_size_for_children(void *a1, void *a2);
+void				ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 void				ui_el_change_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v);
 
 SDL_Texture			*ui_el_create_texture(t_ui_el *el);
@@ -460,10 +464,6 @@ int					ui_el_add_texture_from_main_by_id(t_ui_main *m, t_ui_el *el,
 		const char *id, const char *texture_id);
 
 int					ui_el_set_current_texture_by_id(t_ui_el *el, const char *texture_id);
-void				ui_el_set_default_texture(void *a1, void *a2);
-void				ui_el_set_focused_texture(void *a1, void *a2);
-void				ui_el_set_active_texture(void *a1, void *a2);
-void				ui_el_children_set_default(void *a1, void *a2);
 
 int					ui_el_load_surface_from(t_ui_el *el, const char *path);
 
@@ -481,20 +481,30 @@ void				ui_el_setup_horizontal_draggable(t_ui_el *el);
 void				ui_el_setup_menu_resizable(t_ui_el *el);
 void				ui_el_setup_radio(t_ui_el *el);
 
-void				ui_el_event_switch_radio(t_ui_main *m, void *a);
-void				ui_el_event_default_pointer_enter(t_ui_main *m, void *a);
-void				ui_el_event_default_pointer_exit(t_ui_main *m, void *a);
-void				ui_el_event_scroll_menu_up(t_ui_main *m, void *a);
-void				ui_el_event_scroll_menu_down(t_ui_main *m, void *a);
-void				ui_el_event_scroll_child_menu_up(t_ui_main *m, void *a);
-void				ui_el_event_scroll_child_menu_down(t_ui_main *m, void *a);
-void				ui_el_event_default_draw(void *el_v, void *arg);
-void				ui_el_event_drag(t_ui_main *m, void *a);
-void				ui_el_event_hor_slider_drag(t_ui_main *m, void *a);
-void				ui_el_event_menu_resize(t_ui_main *m, void *a);
-void				ui_el_event_default_resize(t_ui_main *m, void *a);
+void				ui_el_event_switch_radio(t_ui_main *m, void *a);			//EVENT	onPointerLeftButtonPressed
+void				ui_el_event_default_pointer_enter(t_ui_main *m, void *a);	//EVENT	onPointerEnter
+void				ui_el_event_default_pointer_exit(t_ui_main *m, void *a);	//EVENT	onPointerExit
+void				ui_el_event_scroll_menu_up(t_ui_main *m, void *a);			//EVENT onScrollUp
+void				ui_el_event_scroll_menu_down(t_ui_main *m, void *a);		//EVENT onScrollDown
+void				ui_el_event_scroll_child_menu_up(t_ui_main *m, void *a);	//EVENT onScrollUp
+void				ui_el_event_scroll_child_menu_down(t_ui_main *m, void *a);	//EVENT onScrollDown
+void				ui_el_event_default_draw(t_ui_main *m, void *a);			//TODO BFS EVENT onRender
+void				ui_el_event_drag(t_ui_main *m, void *a);					//EVENT onPointerLeftButtonHold
+void				ui_el_event_hor_slider_drag(t_ui_main *m, void *a);			//EVENT onPointerLeftButtonHold
+void				ui_el_event_menu_resize(t_ui_main *m, void *a);				//TODO BFS EVENT onResize
+void				ui_el_event_default_resize(t_ui_main *m, void *a);			//TODO BFS EVENT onResize
+void				ui_el_event_children_set_default(t_ui_main *m, void *a);		//EVENT	onPointerLeftButtonPressed
+void				ui_el_event_show_child(t_ui_main *m, void *a);					//EVENT	onPointerLeftButtonPressed
+//////////////////////////////////////////////////////////////NOT USED, there is pref in json.
+void				ui_el_event_set_default_texture(t_ui_main *m, void *a);
+void				ui_el_event_set_focused_texture(t_ui_main *m, void *a);
+void				ui_el_event_set_active_texture(t_ui_main *m, void *a);
+///////////////////////////////////////////////////////////////////////
 
-void				ui_el_create_modal_ok(void *a1, void *a2); //TODO возможно фул переделать на мейн
+void				ui_el_create_modal_ok(t_ui_main *m, void *a); //TODO возможно фул переделать на мейн
+
+
+///////////////////////////////////////////////////////////////////////
 #pragma endregion
 
 #pragma region		win functions
@@ -506,10 +516,10 @@ void				ui_win_destroy(t_ui_win *w);
 
 t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);
 
-void				ui_win_event_update_size(void *a1, void *a2);
-void				ui_win_event_change_text_in_focused_el(void *a1, void *a2);
-void				ui_win_event_focus_lost(void *a1, void *a2);
-void				ui_win_event_focus_gained(void *a1, void *a2);
+void				ui_win_event_update_size(t_ui_main *m, void *a);
+void				ui_win_event_change_text_in_focused_el(t_ui_main *m, void *a);
+void				ui_win_event_focus_lost(t_ui_main *m, void *a);
+void				ui_win_event_focus_gained(t_ui_main *m, void *a);
 #pragma endregion
 
 #pragma region		sdl functions
@@ -541,8 +551,8 @@ t_ui_event			*ui_event_init(void);
 t_ui_el_events		*ui_event_el_events_init(void);
 t_ui_win_events		*ui_event_win_events_init(void);
 
-int					ui_event_add_listener(t_ui_event *e, func_ptr f);
-int					ui_event_add_listener_front(t_ui_event *e, func_ptr f);
+int					ui_event_add_listener(t_ui_event *e, pred_ptr_event f);
+int					ui_event_add_listener_front(t_ui_event *e, pred_ptr_event f);
 
 void				ui_event_invoke(t_ui_event *e, t_ui_main *m, void *a);
 void				ui_event_clear(t_ui_event *e);

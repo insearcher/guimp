@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/12 03:20:30 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 07:30:08 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,36 +57,36 @@ void move_windows(t_ui_main *m, void *a)
 //	return (res);
 //}
 
-static void	testOnPtrEnter(void *main, void *el_v)
+static void	testOnPtrEnter(t_ui_main *main, void *el_v)
 {
-	main = NULL;
+	(void)main;
 	t_ui_el *el = (t_ui_el *)el_v;
 	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "onFocus");
 }
 
-static void	testOnPtrExit(void *main, void *el_v)
+static void	testOnPtrExit(t_ui_main *main, void *el_v)
 {
-	main = NULL;
+	(void)main;
 	t_ui_el *el = (t_ui_el *)el_v;
 	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "default");
 }
 
-static void	PressedLBD(void *main, void *el_v)
+static void	PressedLBD(t_ui_main *main, void *el_v)
 {
-	main = NULL;
+	(void)main;
 	t_ui_el *el = (t_ui_el *)el_v;
 	if (el->current_texture != (size_t)ft_strhash("onActive"))
 		ui_el_set_current_texture_by_id(el, "onPressedLBM");
 }
 
-static void	testOnPtrLBD(void *main, void *el_v)
+static void	testOnPtrLBD(t_ui_main *main, void *el_v)
 {
 	t_list	*layer_elems;
 	t_guimp	*g;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	t_ui_el *el = (t_ui_el *)el_v;
 	layer_elems = el->parent->children;
 	if (el->current_texture != (size_t)ft_strhash("onActive"))
@@ -107,12 +107,12 @@ static void	testOnPtrLBD(void *main, void *el_v)
 
 }*/
 
-static void	clear_layer(void *ui_main, void *el_v)
+static void	clear_layer(t_ui_main *main, void *el_v)
 {
 	SDL_Texture	*t;
 	t_guimp		*g;
 
-	g = (t_guimp *)(((t_ui_main *)ui_main)->data);
+	g = (t_guimp *)(main->data);
 	t = (t_texture *)((t_ui_el *)el_v)->data;
 	SDL_SetRenderTarget(g->main_win->sdl_renderer, t);
 	SDL_SetRenderDrawBlendMode(g->main_win->sdl_renderer, SDL_BLENDMODE_NONE);
@@ -121,13 +121,13 @@ static void	clear_layer(void *ui_main, void *el_v)
 	SDL_SetRenderTarget(g->main_win->sdl_renderer, NULL);
 }
 
-static void	clear_all_layers(void *ui_main, void *el_v)
+static void	clear_all_layers(t_ui_main *main, void *el_v)
 {
 	SDL_Texture	*t;
 	t_list		*l;
 	t_guimp		*g;
 
-	g = (t_guimp *)(((t_ui_main *)ui_main)->data);
+	g = (t_guimp *)(main->data);
 	(void)el_v;
 	l = g->layers.layers;
 	while (l)
@@ -142,9 +142,8 @@ static void	clear_all_layers(void *ui_main, void *el_v)
 	SDL_SetRenderTarget(g->main_win->sdl_renderer, NULL);
 }
 
-static void	test_add_layer(void *ui_main, void *el_v)
+static void	test_add_layer(t_ui_main *m, void *el_v)
 {
-	t_ui_main	*m;
 	t_ui_el		*el;
 	t_ui_el		*tmp2;
 	t_ui_el		*layer_menu;
@@ -152,7 +151,6 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	t_guimp		*g;
 
 	el = (t_ui_el *)el_v;
-	m = (t_ui_main *)ui_main;
 	g = (t_guimp *)m->data;
 	layer_menu = ui_win_find_el_by_id(g->main_win, GM_LAYER_ID_MENU);
 	if (!(tmp_el = ui_el_init()))
@@ -238,7 +236,7 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	ui_event_add_listener(el->events->onPointerLeftButtonPressed, clear_layer);
 }
 
-static void	test_del_layer(void *main, void *el_v)
+static void	test_del_layer(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 	t_ui_el	*el;
@@ -246,7 +244,7 @@ static void	test_del_layer(void *main, void *el_v)
 	t_list	*tmp;
 	t_list	*prev;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	el = g->layers.current_layer->parent;
 	(void)el_v;
 	if (gm_generator_get_surf_count() == 0 || el->id == GM_LAYER_ID_DEF_LAYER)
@@ -302,18 +300,18 @@ static void	test_del_layer(void *main, void *el_v)
 	gm_generate_surf_id(ID_GENERATOR_DEL);
 }
 
-static void	ui_save_test(void *main, void *el_v)
+static void	ui_save_test(t_ui_main *main, void *el_v)
 {
 	t_guimp		*g;
 	t_texture	*t;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	(void)el_v;
 	t = ui_main_merge_layers(g->main_win->sdl_renderer, g->layers.layers);
 	ui_main_save_texture(g->main_win, t, "/Users/sbednar/Desktop/test.jpg", IMG_TYPE_JPG);
 }
 
-static void	ui_open_test(void *main, void *el_v)
+static void	ui_open_test(t_ui_main *main, void *el_v)
 {
 	t_guimp		*g;
 
@@ -322,14 +320,14 @@ static void	ui_open_test(void *main, void *el_v)
 	ui_main_open_texture(g->main_win->sdl_renderer, g->layers.current_layer, "/Users/sbednar/Desktop/test.png");
 }
 
-static void	draw_canvas_renderer(void *el_v, void *main)
+static void	draw_canvas_renderer(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 	t_ui_el	*el;
 	t_list	*layer;
 	int		tmp_flag;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	el = (t_ui_el *)el_v;
 	layer = g->layers.layers;
 	tmp_flag = 1;
@@ -346,14 +344,14 @@ static void	draw_canvas_renderer(void *el_v, void *main)
 	}
 }
 
-static void	start_draw_with_selected_tool(void *main, void *el_v)
+static void	start_draw_with_selected_tool(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 	t_ui_el	*el;
 	int		x;
 	int		y;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	el = (t_ui_el *)el_v;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
@@ -372,7 +370,7 @@ static void	start_draw_with_selected_tool(void *main, void *el_v)
 	if (g->draw_tool.tool == GM_TOOL_FILL)
 	{
 		Uint32 color1 = (g->draw_tool.r << 16) + (g->draw_tool.g << 8) + g->draw_tool.b;
-		Uint32 color2 = ui_get_pixel_color_from_texture(el->sdl_renderer,
+		Uint32 color2 = ui_util_get_pixel_color_from_texture(el->sdl_renderer,
 			(t_texture *)g->layers.current_layer->sdl_textures->content,
 			(t_vec2){x, y});
 		if (color1 != color2)
@@ -396,14 +394,14 @@ void	update_color_rect(t_guimp *gm, int r, int g, int b)
 //	el = ui_win_find_el_by_id(gm->tool_win, GM_TOOL_ID_COLOR_TEXT);
 }
 
-static void	scan_tool_position(void *main, void *el_v)
+static void	scan_tool_position(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 	t_ui_el	*el;
 	int		x;
 	int		y;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	el = (t_ui_el *)el_v;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
@@ -411,11 +409,11 @@ static void	scan_tool_position(void *main, void *el_v)
 	// printf(">>>>>>>>>>>>>>%d>>>>>>>>>>>>>>%d\n", g->draw_tool.cur_point.x, g->draw_tool.cur_point.y);
 }
 
-static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
+static void	start_draw_with_selected_tool_pointer_up(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	(void)el_v;
 	// printf("from start_draw_with_selected_tool_pointer_up in>>>>>>>>> %d\n", g->draw_tool.state);
 	if (g->draw_tool.tool >= GM_TOOL_LINE)
@@ -424,14 +422,14 @@ static void	start_draw_with_selected_tool_pointer_up(void *main, void *el_v)
 	// printf("from start_draw_with_selected_tool_pointer_up out>>>>>>>>> %d\n", g->draw_tool.state);
 }
 
-static void	start_alt_with_selected_tool(void *main, void *el_v)
+static void	start_alt_with_selected_tool(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 	t_ui_el	*el;
 	int		x;
 	int		y;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	el = (t_ui_el *)el_v;
 	x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
 	y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;
@@ -465,14 +463,14 @@ static void	start_alt_with_selected_tool(void *main, void *el_v)
 //		g->draw_tool.brush_size = res;
 //}
 
-static void	move_draw_canvas_with_zoom(void *main, void *el_v)
+static void	move_draw_canvas_with_zoom(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 	t_ui_el	*el;
 	float	x;
 	float	y;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	el = (t_ui_el *)el_v;
 	x = 0;
 	y = 0;
@@ -495,12 +493,12 @@ static void	move_draw_canvas_with_zoom(void *main, void *el_v)
 	}
 }
 
-static void	draw_color_rect(void *el_v, void *main)
+static void	draw_color_rect(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 	t_ui_el	*el;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	el = (t_ui_el *)el_v;
 	SDL_SetRenderTarget(el->sdl_renderer, ui_el_get_current_texture(el));
 	SDL_SetRenderDrawColor(el->sdl_renderer, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b, 255);
@@ -519,15 +517,15 @@ static void	ft_strjoin_free(char **to, char *what)
 	free(what);
 }
 
-static void text_test(void *elv, void *arg)
+static void text_test(t_ui_main *m, void *a)
 {
 	char	*tmp;
 	t_ui_el	*el;
 	t_ui_el	*dr;
 
-	el = (t_ui_el *)elv;
+	(void)m;
+	el = (t_ui_el *)a;
 	dr = (t_ui_el *)el->data;
-	(void)arg;
 	if (dr->params & EL_IS_PTR_INSIDE)
 	{
 		char *res = ft_strdup("(");
@@ -555,8 +553,8 @@ int		main()
 	}
 	ui_main_fill_default_surfaces(g_main.ui_main);
 	ui_main_fill_default_functions(g_main.ui_main);
-	ui_main_add_function_by_id(g_main.ui_main, ui_el_show_child, "ui_el_show_child");
-	ui_main_add_function_by_id(g_main.ui_main, ui_el_draw_event, "ui_el_draw_event");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_event_show_child, "ui_el_event_show_child");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_event_default_draw, "ui_el_event_default_draw");
 	ui_main_add_function_by_id(g_main.ui_main, draw_canvas_renderer, "draw_canvas_renderer");
 	ui_main_add_function_by_id(g_main.ui_main, draw_with_selected_tool, "draw_with_selected_tool");
 	ui_main_add_function_by_id(g_main.ui_main, start_draw_with_selected_tool, "start_draw_with_selected_tool");
@@ -566,10 +564,10 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, PressedLBD, "PressedLBD");
 	ui_main_add_function_by_id(g_main.ui_main, testOnPtrEnter, "testOnPtrEnter");
 	ui_main_add_function_by_id(g_main.ui_main, testOnPtrExit, "testOnPtrExit");
-	ui_main_add_function_by_id(g_main.ui_main, ui_el_set_default_texture, "ui_el_set_default_texture");
-	ui_main_add_function_by_id(g_main.ui_main, ui_el_set_focused_texture, "ui_el_set_focused_texture");
-	ui_main_add_function_by_id(g_main.ui_main, ui_el_set_active_texture, "ui_el_set_active_texture");
-	ui_main_add_function_by_id(g_main.ui_main, ui_el_children_set_default, "ui_el_children_set_default");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_event_set_default_texture, "ui_el_event_set_default_texture");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_event_set_focused_texture, "ui_el_event_set_focused_texture");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_event_set_active_texture, "ui_el_event_set_active_texture");
+	ui_main_add_function_by_id(g_main.ui_main, ui_el_event_children_set_default, "ui_el_event_children_set_default");
 	ui_main_add_function_by_id(g_main.ui_main, test_add_layer, "test_add_layer");
 	ui_main_add_function_by_id(g_main.ui_main, test_del_layer, "test_del_layer");
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
@@ -596,7 +594,7 @@ int		main()
 	g_main.zoom_rect.w = GM_IMAGE_SIZE_X;
 	g_main.zoom_rect.h = GM_IMAGE_SIZE_Y;
 
-	if (ui_main_from_json(g_main.ui_main, "./json/main_new.json"))
+	if (ui_jtoc_main_from_json(g_main.ui_main, "./json/main_new.json"))
 		return (0);
 
 	 g_main.main_win = ui_main_find_window_by_id(g_main.ui_main, 0);

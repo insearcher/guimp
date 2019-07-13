@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:38:55 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/05 21:52:47 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 05:56:01 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ui_el_set_new_size_for_children(void *a1, void *a2)
 	el->cut_rect.h = el->rect.h;
 }
 
-void    ui_el_set_new_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
+void	ui_el_set_new_size(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
 {
 	if ((type & PIXEL))
 	{

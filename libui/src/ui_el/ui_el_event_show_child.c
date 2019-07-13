@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_show_child.c                                 :+:      :+:    :+:   */
+/*   ui_el_event_show_child.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/24 22:13:22 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
+/*   Created: 2019/07/13 03:28:25 by sbecker           #+#    #+#             */
+/*   Updated: 2019/07/13 07:22:16 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static void	ui_el_hide_element(t_ui_el *el)
 	}
 }
 
-void	ui_el_show_child(void *a1, void *a2)
+void	ui_el_event_show_child(t_ui_main *m, void *a)
 {
 	t_list	*node;
 	t_ui_el	*el;
 
-	(void)a1;
-	el = (t_ui_el *)a2;
+	(void)m;
+	el = (t_ui_el *)a;
 	node = el->parent->children;
 	while (node)
 	{

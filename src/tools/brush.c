@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   brush.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:12:48 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/11 21:03:10 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 07:06:06 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	choose_brush(void *main, void *el_v)
+void	choose_brush(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
@@ -21,7 +21,7 @@ void	choose_brush(void *main, void *el_v)
 	g->draw_tool.tool = GM_TOOL_BRUSH;
 }
 
-void	set_brush_texture_from_el(void *main, void *el_v)
+void	set_brush_texture_from_el(t_ui_main *main, void *el_v)
 {
 	t_guimp 	*g;
 	t_ui_el 	*el;

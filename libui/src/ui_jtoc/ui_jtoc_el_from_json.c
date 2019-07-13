@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 06:43:29 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 07:04:14 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 06:13:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ static int	ui_el_from_json_event(t_ui_main *m, t_ui_el *e, t_jnode *n)
 	char		*event_name;
 	char		*func_name;
 	t_ui_event	*ev;
-	func_ptr	f;
+	pred_ptr_event	f;
 	t_jnode		*tmp;
 
 	if (n->type != object ||

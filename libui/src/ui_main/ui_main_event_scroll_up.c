@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 05:09:10 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 05:09:17 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 06:00:07 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ui_main_event_scroll_up(t_ui_main *m, void *a)
 {
-	(void)a2;
+	(void)a;
 	m->params |= MAIN_SCROLL_UP;
 }

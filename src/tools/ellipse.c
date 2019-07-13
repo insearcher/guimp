@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ellipse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:53:23 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 15:53:42 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 07:15:43 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static t_vec2	calc_el_dot(t_vec2 *d, float k)
 	return (res);
 }
 
-void	choose_ellipse(void *main, void *el_v)
+void	choose_ellipse(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_ELLIPSE;
 	g->draw_tool.state = GM_TOOL_STATE_NONE;

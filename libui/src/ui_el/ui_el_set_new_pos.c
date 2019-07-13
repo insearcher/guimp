@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:13:32 by sbecker           #+#    #+#             */
-/*   Updated: 2019/06/05 04:59:04 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 05:54:42 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ui_el_set_new_pos_for_children(void *a1, void *a2)
 	el->cut_rect.y = el->rect.y;
 }
 
-void    ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
+void	ui_el_set_new_pos(t_ui_el *el, t_ui_el *canvas, int type, t_fvec2 v)
 {
 	if ((type & ABS) && (type & PIXEL))
 	{

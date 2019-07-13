@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_with_selected_tool.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 00:41:52 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/10 16:20:28 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 07:09:04 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@
 //	SDL_SetRenderDrawBlendMode(ren, bm);
 //}
 
-void draw_with_selected_tool(void *main, void *el_v)
+void draw_with_selected_tool(t_ui_main *main, void *el_v)
 {
     t_guimp *g;
     t_ui_el *el;
     int x;
     int y;
 
-    g = (t_guimp *)(((t_ui_main *)main)->data);
+    g = (t_guimp *)(main->data);
     el = (t_ui_el *)el_v;
     x = ((float)el->ptr_rel_pos.x / (float)el->rect.w) * g->zoom_rect.w + g->zoom_rect.x;
     y = ((float)el->ptr_rel_pos.y / (float)el->rect.h) * g->zoom_rect.h + g->zoom_rect.y;

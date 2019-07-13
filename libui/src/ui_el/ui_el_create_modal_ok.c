@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 06:17:29 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/11 22:42:08 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 07:01:10 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,13 @@
 	}
 }*/
 
-void    ui_el_create_modal_ok(void *a1, void *a2)
+void    ui_el_create_modal_ok(t_ui_main *m, void *a)
 {
-	t_ui_main   *m;
 	t_ui_el     *el;
 	// t_ui_win    *w;
 	int			status;
 
-	m = (t_ui_main *)a1;
-	el = (t_ui_el *)a2;
+	el = (t_ui_el *)a;
 	status = 1;
 //	while (status != 0)
 //		status = SDL_TryLockMutex(m->mutex);

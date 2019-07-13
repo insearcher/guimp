@@ -6,13 +6,13 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:16:15 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 19:31:17 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 05:47:23 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_event_add_listener(t_ui_event *e, func_ptr f)
+int	ui_event_add_listener(t_ui_event *e, pred_ptr_event f)
 {
 	t_list	*node;
 	long	ptr;

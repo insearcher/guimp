@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_el_children_set_default.c                       :+:      :+:    :+:   */
+/*   ui_el_event_children_set_default.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/25 18:22:26 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/25 19:46:57 by sbednar          ###   ########.fr       */
+/*   Created: 2019/07/13 03:29:13 by sbecker           #+#    #+#             */
+/*   Updated: 2019/07/13 07:24:00 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_children_set_default(void *a1, void *a2)
+void	ui_el_event_children_set_default(t_ui_main *m, void *a)
 {
 	t_list	*node;
 	t_ui_el	*el;
 
-	(void)a1;
-	el = (t_ui_el *)a2;
+	(void)m;
+	el = (t_ui_el *)a;
 	node = el->parent->children;
 	while (node)
 	{

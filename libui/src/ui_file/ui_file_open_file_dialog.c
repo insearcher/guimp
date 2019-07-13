@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 08:57:57 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 08:58:03 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 06:14:51 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ int			ui_file_open_file_dialog(char **res)
 	while (--len >= 0)
 		res[0][len] = buf[len];
 	close(fd);
-	return (ui_parse_path(res));
+	return (ui_file_parse_path(res));
 }

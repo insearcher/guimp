@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 06:44:19 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 06:57:58 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 06:08:43 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-t_ui_event		*ui_win_from_json_get_event_by_name(t_ui_win *w, const char *n)
+t_ui_event		*ui_jtoc_win_from_json_get_event_by_name(t_ui_win *w, const char *n)
 {
 	int			hash;
 	t_ui_event	*res;

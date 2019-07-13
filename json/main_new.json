@@ -133,6 +133,26 @@
               "el_id": "brush"
             },
             {
+              "main_id": "brush_circle",
+              "el_id": "brush_circle"
+            },
+            {
+              "main_id": "brush_rect",
+              "el_id": "brush_rect"
+            },
+            {
+              "main_id": "brush_cloud",
+              "el_id": "brush_cloud"
+            },
+            {
+              "main_id": "brush_star",
+              "el_id": "brush_star"
+            },
+            {
+              "main_id": "brush_boom",
+              "el_id": "brush_boom"
+            },
+            {
               "type": "empty",
               "width": 1920,
               "height": 1080,
@@ -211,12 +231,12 @@
           ],
           "pos":
           {
-            "x": 0.05,
-            "y": 0.02
+            "x": 0,
+            "y": 0
           },
           "size":
           {
-            "x": 0.9,
+            "x": 1,
             "y": 0.25
           },
           "textures":
@@ -304,7 +324,7 @@
           [
             {
               "type": "color",
-              "color": "00FF00",
+              "color": "00BB00",
               "el_id": "default"
             }
           ],
@@ -721,12 +741,12 @@
             },
             {
               "type": "color",
-              "color": "FF0000",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "EE0000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -880,6 +900,10 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_text"
             }
           ],
           "cursor":
@@ -919,12 +943,12 @@
             },
             {
               "type": "color",
-              "color": "00FF00",
+              "color": "00DD00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "00DD00",
+              "color": "00BB00",
               "el_id": "onActive"
             }
           ],
@@ -988,7 +1012,7 @@
             },
             {
               "type": "color",
-              "color": "00FF00",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
@@ -1057,7 +1081,7 @@
             },
             {
               "type": "color",
-              "color": "00FF00",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
@@ -1126,7 +1150,7 @@
             },
             {
               "type": "color",
-              "color": "00FF00",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
@@ -1195,7 +1219,7 @@
             },
             {
               "type": "color",
-              "color": "00FF00",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
@@ -1352,7 +1376,7 @@
           [
             {
               "type": "gradient",
-              "color": "00FF00",
+              "color": "00BB00",
               "el_id": "default"
             }
           ],
@@ -1682,7 +1706,7 @@
           [
             {
               "type": "color",
-              "color": "FF0000",
+              "color": "757575",
               "el_id": "default"
             }
           ]
@@ -1863,7 +1887,7 @@
           [
             {
               "type": "color",
-              "color": "00FF00",
+              "color": "00BB00",
               "el_id": "default"
             }
           ]
@@ -2297,12 +2321,49 @@
           ]
         },
         {
+          "id": 10089,
+          "parent": 100,
+          "params":
+          [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 12,
+            "y": 6,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 100,
+            "y": 20,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "text_area":
+          {
+            "text": "BRUSHES:",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "params": [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
+            "font": "SansSerif"
+          }
+        },
+        {
           "id": 1000,
           "parent": 100,
           "pos":
           {
             "x": 12,
-            "y": 12,
+            "y": 32,
             "params":
             [
               "PIXEL"
@@ -2326,12 +2387,12 @@
             },
             {
               "type": "color",
-              "color": "999999",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2352,6 +2413,10 @@
             {
               "event_name": "onPointerLeftButtonPressed",
               "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2363,8 +2428,8 @@
         ],
         "pos":
         {
-          "x": 2,
-          "y": 2,
+          "x": 6,
+          "y": 6,
           "params":
           [
             "PIXEL"
@@ -2372,8 +2437,8 @@
         },
         "size":
         {
-          "x": 56,
-          "y": 56,
+          "x": 48,
+          "y": 48,
           "params":
           [
             "PIXEL"
@@ -2382,7 +2447,7 @@
         "textures":
         [
           {
-            "main_id": "brush",
+            "main_id": "brush_circle",
             "el_id": "default"
           }
         ]
@@ -2393,7 +2458,7 @@
           "pos":
           {
             "x": 84,
-            "y": 12,
+            "y": 32,
             "params":
             [
               "PIXEL"
@@ -2417,12 +2482,12 @@
             },
             {
               "type": "color",
-              "color": "999999",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2442,7 +2507,11 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_line"
+              "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2454,8 +2523,8 @@
           ],
           "pos":
           {
-            "x": 2,
-            "y": 2,
+            "x": 6,
+            "y": 6,
             "params":
             [
               "PIXEL"
@@ -2463,8 +2532,8 @@
           },
           "size":
           {
-            "x": 56,
-            "y": 56,
+            "x": 48,
+            "y": 48,
             "params":
             [
               "PIXEL"
@@ -2473,7 +2542,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "brush_rect",
               "el_id": "default"
             }
           ]
@@ -2484,7 +2553,7 @@
           "pos":
           {
             "x": 156,
-            "y": 12,
+            "y": 32,
             "params":
             [
               "PIXEL"
@@ -2508,12 +2577,12 @@
             },
             {
               "type": "color",
-              "color": "999999",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2533,7 +2602,11 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_rect"
+              "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2564,7 +2637,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "brush_cloud",
               "el_id": "default"
             }
           ]
@@ -2575,7 +2648,7 @@
           "pos":
           {
             "x": 228,
-            "y": 12,
+            "y": 32,
             "params":
             [
               "PIXEL"
@@ -2599,12 +2672,12 @@
             },
             {
               "type": "color",
-              "color": "999999",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2624,7 +2697,11 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_ellipse"
+              "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2655,7 +2732,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "brush_star",
               "el_id": "default"
             }
           ]
@@ -2666,7 +2743,7 @@
           "pos":
           {
             "x": 12,
-            "y": 84,
+            "y": 104,
             "params":
             [
               "PIXEL"
@@ -2690,12 +2767,12 @@
             },
             {
               "type": "color",
-              "color": "999999",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2715,7 +2792,11 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_empty_mode"
+              "func_name": "choose_brush"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "set_brush_texture_from_el"
             }
           ]
         },
@@ -2746,18 +2827,55 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "brush_boom",
               "el_id": "default"
             }
           ]
         },
         {
-          "id": 1005,
+          "id": 10088,
+          "parent": 100,
+          "params":
+          [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 12,
+            "y": 298,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 100,
+            "y": 20,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "text_area":
+          {
+            "text": "FIGURES:",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "params": [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
+            "font": "SansSerif"
+          }
+        },
+        {
+          "id": 100666,
           "parent": 100,
           "pos":
           {
-            "x": 84,
-            "y": 84,
+            "x": 12,
+            "y": 324,
             "params":
             [
               "PIXEL"
@@ -2781,12 +2899,12 @@
             },
             {
               "type": "color",
-              "color": "999999",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2806,13 +2924,13 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_fill_mode"
+              "func_name": "choose_line"
             }
           ]
         },
         {
-          "id": 10050,
-          "parent": 1005,
+          "id": 1006660,
+          "parent": 100666,
           "params": [
             "EL_IGNOR_RAYCAST"
           ],
@@ -2837,18 +2955,18 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "line_icon",
               "el_id": "default"
             }
           ]
         },
         {
-          "id": 1006,
+          "id": 100667,
           "parent": 100,
           "pos":
           {
-            "x": 156,
-            "y": 84,
+            "x": 84,
+            "y": 324,
             "params":
             [
               "PIXEL"
@@ -2872,12 +2990,103 @@
             },
             {
               "type": "color",
-              "color": "999999",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "00DD00",
+              "el_id": "onActive"
+            }
+          ],
+          "events":
+          [
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "ui_el_children_set_default"
+            },
+            {
+              "event_name": "onPointerEnter",
+              "func_name": "testOnPtrEnter"
+            },
+            {
+              "event_name": "onPointerExit",
+              "func_name": "testOnPtrExit"
+            },
+            {
+              "event_name": "onPointerLeftButtonPressed",
+              "func_name": "choose_ellipse"
+            }
+          ]
+        },
+        {
+          "id": 1006670,
+          "parent": 100667,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 56,
+            "y": 56,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "main_id": "circle_icon",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 100668,
+          "parent": 100,
+          "pos":
+          {
+            "x": 156,
+            "y": 324,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 60,
+            "y": 60,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            },
+            {
+              "type": "color",
+              "color": "00BB00",
+              "el_id": "onFocus"
+            },
+            {
+              "type": "color",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2902,8 +3111,8 @@
           ]
         },
         {
-          "id": 10060,
-          "parent": 1006,
+          "id": 1006680,
+          "parent": 100668,
           "params": [
             "EL_IGNOR_RAYCAST"
           ],
@@ -2928,18 +3137,18 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "square_icon",
               "el_id": "default"
             }
           ]
         },
         {
-          "id": 1007,
+          "id": 100669,
           "parent": 100,
           "pos":
           {
             "x": 228,
-            "y": 84,
+            "y": 324,
             "params":
             [
               "PIXEL"
@@ -2963,12 +3172,12 @@
             },
             {
               "type": "color",
-              "color": "999999",
+              "color": "00BB00",
               "el_id": "onFocus"
             },
             {
               "type": "color",
-              "color": "000000",
+              "color": "00DD00",
               "el_id": "onActive"
             }
           ],
@@ -2988,13 +3197,13 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "choose_brush"
+              "func_name": "choose_rect"
             }
           ]
         },
         {
-          "id": 10070,
-          "parent": 1007,
+          "id": 1006690,
+          "parent": 100669,
           "params": [
             "EL_IGNOR_RAYCAST"
           ],
@@ -3019,7 +3228,7 @@
           "textures":
           [
             {
-              "main_id": "brush",
+              "main_id": "rect_icon",
               "el_id": "default"
             }
           ]
@@ -3387,6 +3596,138 @@
               "el_id": "default"
             }
           ]
+        },
+        {
+          "id": 1206,
+          "parent": 120,
+          "pos":
+          {
+            "x": 0.025,
+            "y": 0.4,
+            "params":
+            [
+              "ABS"
+            ]
+          },
+          "size":
+          {
+            "x": 0.95,
+            "y": 0.3,
+            "params":
+            [
+              "ABS"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "AAAAAA",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 12060,
+          "parent": 1206,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 40,
+            "y": 20,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "text_area":
+          {
+            "text": "Text:",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "params": [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
+            "font": "SansSerif"
+          }
+        },
+        {
+          "id": 12061,
+          "parent": 1206,
+          "params": [
+            "EL_IGNOR_RAYCAST"
+          ],
+          "pos":
+          {
+            "x": 50,
+            "y": 4,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 0.77,
+            "y": 0.29,
+            "params":
+            [
+              "ABS"
+            ]
+          },
+          "textures":
+          [
+            {
+              "type": "color",
+              "color": "CCCCCC",
+              "el_id": "default"
+            }
+          ]
+        },
+        {
+          "id": 120610,
+          "parent": 12061,
+          "pos":
+          {
+            "x": 2,
+            "y": 2,
+            "params":
+            [
+              "PIXEL"
+            ]
+          },
+          "size":
+          {
+            "x": 0.76,
+            "y": 0.29,
+            "params":
+            [
+              "ABS"
+            ]
+          },
+          "text_area":
+          {
+            "text": "TbI nUDR",
+            "color": "000000",
+            "render_param": "TEXT_IS_BLENDED",
+            "params": [
+              "TEXT_IS_REGULAR"
+            ],
+            "string_len": 0,
+            "font": "SansSerif"
+          }
         }
       ]
     }

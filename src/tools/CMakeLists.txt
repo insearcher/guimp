@@ -14,4 +14,5 @@ target_sources(guimp_cmake PUBLIC
         ellipse.c
         modes.c
         brush.c
+        text.c
         )

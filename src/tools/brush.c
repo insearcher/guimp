@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:12:48 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 16:13:20 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/11 21:03:10 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,23 @@ void	choose_brush(void *main, void *el_v)
 	g->draw_tool.tool = GM_TOOL_BRUSH;
 }
 
+void	set_brush_texture_from_el(void *main, void *el_v)
+{
+	t_guimp 	*g;
+	t_ui_el 	*el;
+
+	g = (t_guimp *) (((t_ui_main *) main)->data);
+	el = (t_ui_el *) el_v;
+	g->draw_tool.brush = (SDL_Texture *)el->data;
+}
+
 void	tool_brush(t_ui_el *el, t_guimp *g, int x, int y)
 {
 	SDL_SetRenderTarget(el->sdl_renderer, (SDL_Texture *)(g->layers.current_layer->sdl_textures->content));
-	SDL_SetTextureColorMod(ui_el_get_texture_by_id(el, "brush"), g->draw_tool.r, g->draw_tool.g, g->draw_tool.b); //вместо ui_el_get_texture_by_id(el, "brush") нужно выбрать текстуру текущей кисти
-	SDL_SetTextureAlphaMod(ui_el_get_texture_by_id(el, "brush"), g->draw_tool.a);
-	SDL_RenderCopy(el->sdl_renderer, ui_el_get_texture_by_id(el, "brush"), NULL,
+	SDL_SetTextureColorMod(g->draw_tool.brush, g->draw_tool.r, g->draw_tool.g, g->draw_tool.b); //вместо ui_el_get_texture_by_id(el, "brush") нужно выбрать текстуру текущей кисти
+	SDL_SetTextureAlphaMod(g->draw_tool.brush, g->draw_tool.a);
+	SDL_RenderCopy(el->sdl_renderer, g->draw_tool.brush, NULL,
 				   &((t_rect){x - g->draw_tool.brush_size / 2, y - g->draw_tool.brush_size / 2,
-							  g->draw_tool.brush_size, g->draw_tool.brush_size})); //вместо ui_el_get_texture_by_id(el, "brush") нужно выбрать текстуру текущей кисти
+							g->draw_tool.brush_size, g->draw_tool.brush_size})); //вместо ui_el_get_texture_by_id(el, "brush") нужно выбрать текстуру текущей кисти
 	SDL_SetRenderTarget(el->sdl_renderer, NULL);
 }

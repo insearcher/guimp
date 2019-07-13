@@ -6,7 +6,7 @@
 #    By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 15:58:51 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/11 18:03:16 by edraugr-         ###   ########.fr        #
+#    Updated: 2019/07/12 18:03:49 by edraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRC_TOOLS		=	brush.c \
 					pipette.c \
 					rect.c \
 					square.c \
-					zoom.c
+					zoom.c \
+					text.c
 
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o)) \

@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:09:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/11 19:46:22 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/11 21:38:31 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,10 +169,10 @@ static void	test_add_layer(void *ui_main, void *el_v)
 	// ui_el_set_pos(tmp_el, 0,
 	// 	(t_fvec2){0.05,
 	// 		((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.27f * g->main_win->size.x / 1704 * (float)gm_generator_get_surf_count()});
-	ui_el_set_pos(tmp_el, 0,
-		(t_fvec2){0.05,
-			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.2f * layer_menu->cut_rect.x / g->main_win->size.y * (float)gm_generator_get_surf_count()});
-	ui_el_set_size(tmp_el, 0, (t_fvec2){0.9, 0.25});
+	ui_el_set_new_pos(tmp_el, 0, 0,
+		(t_fvec2){0.0,
+			((t_ui_el *)layer_menu->children->content)->relative_rect.y + 0.25f * (float)gm_generator_get_surf_count()});// * layer_menu->cut_rect.x / g->main_win->size.y * (float)gm_generator_get_surf_count()});
+	ui_el_set_size(tmp_el, 0, (t_fvec2){1, 0.25});
 	tmp_el->sdl_renderer = g->main_win->sdl_renderer;
 	ui_el_add_color_texture(tmp_el, (t_vec2){1704, 800}, 0x888888, "default");
 	ui_el_add_color_texture(tmp_el, (t_vec2){1704, 800}, 0xFF5050, "onActive");
@@ -274,7 +274,7 @@ static void	test_del_layer(void *main, void *el_v)
 		{
 			next_active->id--;
 			// ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -0.27f * g->main_win->size.x / 1704});
-			ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -0.2f * ui_win_find_el_by_id(g->main_win, GM_LAYER_ID_MENU)->cut_rect.x / g->main_win->size.y});
+			ui_el_change_pos(next_active, 0, 0, (t_fvec2){0, -0.25f}); // * ui_win_find_el_by_id(g->main_win, GM_LAYER_ID_MENU)->cut_rect.x / g->main_win->size.y});
 		}
 		prev = tmp;
 		tmp = tmp->next;
@@ -577,6 +577,7 @@ int		main()
 	ui_main_add_function_by_id(g_main.ui_main, draw_color_rect, "draw_color_rect");
 	ui_main_add_function_by_id(g_main.ui_main, scan_tool_position, "scan_tool_position");
 
+	ui_main_add_function_by_id(g_main.ui_main, set_brush_texture_from_el, "set_brush_texture_from_el");
 	ui_main_add_function_by_id(g_main.ui_main, switch_fill_mode, "switch_fill_mode");
 
 
@@ -631,6 +632,26 @@ int		main()
 	cur_el = ui_win_find_el_by_id(g_main.main_win, 63001);
 	ui_event_add_listener(cur_el->events->onPointerLeftButtonPressed, clear_layer);
 	cur_el->data = ui_el_get_texture_by_id(ui_win_find_el_by_id(g_main.main_win, 63000), "default");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 1000);
+	cur_el->data = ui_el_get_texture_by_id(
+			ui_win_find_el_by_id(g_main.main_win, 3), "brush_circle");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 1001);
+	cur_el->data = ui_el_get_texture_by_id(
+			ui_win_find_el_by_id(g_main.main_win, 3), "brush_rect");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 1002);
+	cur_el->data = ui_el_get_texture_by_id(
+			ui_win_find_el_by_id(g_main.main_win, 3), "brush_cloud");
+
+	cur_el = ui_win_find_el_by_id(g_main.tool_win, 1003);
+	cur_el->data = ui_el_get_texture_by_id(
+			ui_win_find_el_by_id(g_main.main_win, 3), "brush_star");
+
+    cur_el = ui_win_find_el_by_id(g_main.tool_win, 1004);
+    cur_el->data = ui_el_get_texture_by_id(
+            ui_win_find_el_by_id(g_main.main_win, 3), "brush_boom");
 
 	// ui_set_pixel_color_to_texture(
 	// 		g_main.main_win->sdl_renderer,

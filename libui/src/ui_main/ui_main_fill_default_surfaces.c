@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 05:03:28 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 19:38:18 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/11 21:27:49 by sbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ static void add_icons(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/filler.png", "filler_icon");
 	ui_main_add_surface_by_path(m, "images/question_icon.png", "question_icon");
 	ui_main_add_surface_by_path(m, "images/empty_circle_icon.png", "empty_circle_icon");
+	ui_main_add_surface_by_path(m, "images/line_icon.png", "line_icon");
+	ui_main_add_surface_by_path(m, "images/rect_icon.png", "rect_icon");
+	ui_main_add_surface_by_path(m, "images/square_icon.png", "square_icon");
+	ui_main_add_surface_by_path(m, "images/circle_icon.png", "circle_icon");
+}
+
+static void	add_brushes(t_ui_main *m)
+{
+	ui_main_add_surface_by_path(m, "images/brush_circle.png", "brush_circle");
+	ui_main_add_surface_by_path(m, "images/brush_rect.png", "brush_rect");
+	ui_main_add_surface_by_path(m, "images/brush_cloud.png", "brush_cloud");
+	ui_main_add_surface_by_path(m, "images/brush_star.png", "brush_star");
+    ui_main_add_surface_by_path(m, "images/brush_boom.png", "brush_boom");
 }
 
 void	ui_main_fill_default_surfaces(t_ui_main *m)
@@ -53,4 +66,5 @@ void	ui_main_fill_default_surfaces(t_ui_main *m)
 	ui_main_add_surface_by_path(m, "images/frolushka-meme.png", "frolushka_meme");
 	ui_main_add_surface_by_path(m, "images/background.png", "background");
 	add_icons(m);
+	add_brushes(m);
 }

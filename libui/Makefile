@@ -6,7 +6,7 @@
 #    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/11 20:59:05 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/13 13:46:40 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,9 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_modal_win_destroy.c \
 					ui_text_destroy.c \
 					ui_el_destroy.c \
-					ui_el_destroy_children.c
+					ui_el_destroy_children.c \
+					ui_el_setup_radio.c \
+					ui_el_switch_radio.c
 
 SRC_UI_DRAW_EV	=	ui_el_draw_event.c
 
@@ -89,7 +91,7 @@ SRC_UI_EVENT	=	ui_event_init.c \
 					ui_event_add_listener_front.c \
 					ui_event_clear.c \
 					ui_event_invoke.c \
-					ui_event_destroy.c 
+					ui_event_destroy.c
 
 SRC_UI_LOG		=	ui_log_mouse_motion.c \
 					ui_log_mouse_button_down.c \
@@ -150,7 +152,6 @@ SRC_UI_SDL		=	ui_sdl_init.c \
 SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_setup_default.c \
 					ui_win_create.c \
-					ui_win_create_modal_win.c \
 					ui_win_close.c \
 					ui_win_update_size.c \
 					ui_win_find_el_by_id.c \

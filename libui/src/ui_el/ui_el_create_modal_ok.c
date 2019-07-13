@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 06:17:29 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/13 07:01:10 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:28:48 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 	}
 }*/
 
-void    ui_el_create_modal_ok(t_ui_main *m, void *a)
+int	ui_el_create_modal_ok(t_ui_main *m, void *a)
 {
 	t_ui_el     *el;
 	// t_ui_win    *w;
@@ -74,7 +74,8 @@ void    ui_el_create_modal_ok(t_ui_main *m, void *a)
 //	if (status == 0)
 //	SDL_LockMutex(m->mutex);
 	if (ui_main_find_window_by_id(m, el->modal_win->w_id))
-		return ;
+		return (1);
 	m->modal_el = el;
 //	SDL_UnlockMutex(m->mutex);
+	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 03:29:13 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/13 07:24:00 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:14:29 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_event_children_set_default(t_ui_main *m, void *a)
+int	ui_el_event_children_set_default(t_ui_main *m, void *a)
 {
 	t_list	*node;
 	t_ui_el	*el;
@@ -26,4 +26,5 @@ void	ui_el_event_children_set_default(t_ui_main *m, void *a)
 		node = node->next;
 	}
 	ui_el_set_current_texture_by_id(el, "onActive");
+	return (1);
 }

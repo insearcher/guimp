@@ -6,13 +6,13 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:10:01 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/12 03:30:32 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:25:08 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_log_el_pointer_enter(t_ui_main *m, void *a)
+int	ui_log_el_pointer_enter(t_ui_main *m, void *a)
 {
 	t_ui_el		*el;
 
@@ -28,4 +28,5 @@ void	ui_log_el_pointer_enter(t_ui_main *m, void *a)
 		el->id
 //		m->raycaster->focused_win->id
 	);
+	return (1);
 }

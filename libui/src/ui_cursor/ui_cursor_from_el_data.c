@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 19:49:00 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/12 03:15:58 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:37:15 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_cursor_from_el_data(t_ui_main *m, void *a)
+int	ui_cursor_from_el_data(t_ui_main *m, void *a)
 {
 	SDL_Cursor	*current_cursor;
 	SDL_Cursor	*new_cursor;
@@ -25,6 +25,7 @@ void	ui_cursor_from_el_data(t_ui_main *m, void *a)
 		SDL_FreeCursor(current_cursor);
 	if (!(rc = (t_cursor *)el->data) ||
 		!(new_cursor = SDL_CreateColorCursor(rc->s, rc->hot_x, rc->hot_y)))
-		return ; // ПОШЛО ВСЕ НАХУЙ
+		return (1); // ПОШЛО ВСЕ НАХУЙ
 	SDL_SetCursor(new_cursor);
+	return (1);
 }

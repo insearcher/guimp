@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 03:28:25 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/13 07:22:16 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:19:50 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ui_el_hide_element(t_ui_el *el)
 	}
 }
 
-void	ui_el_event_show_child(t_ui_main *m, void *a)
+int			ui_el_event_show_child(t_ui_main *m, void *a)
 {
 	t_list	*node;
 	t_ui_el	*el;
@@ -57,4 +57,5 @@ void	ui_el_event_show_child(t_ui_main *m, void *a)
 			el->params &= ~(EL_IS_HIDDEN | EL_IGNOR_RAYCAST);
 		node = node->next;
 	}
+	return (1);
 }

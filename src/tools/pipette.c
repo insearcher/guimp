@@ -6,19 +6,20 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:49:03 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/13 07:20:54 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:16:02 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	choose_pipette(t_ui_main *main, void *el_v)
+int	choose_pipette(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
 	g = (t_guimp *)(main->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_PIPETTE;
+	return (1);
 }
 
 void	tool_pipette(t_guimp *g, t_ui_el *el)

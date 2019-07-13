@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:29:55 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/13 07:16:56 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:14:01 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,12 @@ void	tool_filler(t_ui_win *w, t_texture *texture, t_cvec2 color, t_vec2 coord)
 	SDL_FreeSurface(s);
 }
 
-void choose_fill(t_ui_main *main, void *el_v)
+int choose_fill(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
 	g = (t_guimp *)(main->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_FILL;
+	return (1);
 }

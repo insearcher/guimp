@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:04:10 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/13 07:18:11 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:54:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ typedef struct					s_guimp
 
 void							draw_dot(t_ui_main *ui_main, void *ui_el);
 void							draw_main_canvas_event(void *el_v, void *arg);
-void							draw_with_selected_tool(t_ui_main *main, void *el_v);
+int								draw_with_selected_tool(t_ui_main *main, void *el_v);
 void							update_color_rect(t_guimp *gm, int r, int g, int b);
 
 void							gm_init(t_guimp *g_main);
@@ -147,55 +147,55 @@ int								gm_generator_get_surf_id_by_num(int surf_serial_num);
 
 void							ui_main_fill_default_functions(t_ui_main *m);
 
-void							move_windows(t_ui_main *m, void *a);
-void							start_zoom_in(t_ui_main *m, void *wid);
-void							start_zoom_out(t_ui_main *m, void *wid);
+int								move_windows(t_ui_main *m, void *a);
+int								start_zoom_in(t_ui_main *m, void *wid);
+int								start_zoom_out(t_ui_main *m, void *wid);
 
-void 							choose_fill(t_ui_main *main, void *el_v);
+int	 							choose_fill(t_ui_main *main, void *el_v);
 void							tool_filler(t_ui_win *w, t_texture *texture, t_cvec2 color, t_vec2 coord);
 
-void 							choose_eraser(t_ui_main *main, void *el_v);
+int	 							choose_eraser(t_ui_main *main, void *el_v);
 void							tool_eraser(t_ui_el *el, t_guimp *g, int x, int y);
 
-void							choose_zoom(t_ui_main *main, void *el_v);
+int								choose_zoom(t_ui_main *main, void *el_v);
 void							tool_zoom_in(t_guimp *g, int x, int y);
 void							tool_zoom_out(t_guimp *g, int x, int y);
 
-void							choose_hand(t_ui_main *main, void *el_v);
+int								choose_hand(t_ui_main *main, void *el_v);
 void							tool_hand(t_guimp *g);
 
-void							choose_pipette(t_ui_main *main, void *el_v);
+int								choose_pipette(t_ui_main *main, void *el_v);
 void							tool_pipette(t_guimp *g, t_ui_el *el);
 
-void							choose_fill_mode(t_ui_main *main, void *el_v);
-void							choose_empty_mode(t_ui_main *main, void *el_v);
+int								choose_fill_mode(t_ui_main *main, void *el_v);
+int								choose_empty_mode(t_ui_main *main, void *el_v);
 
 int								get_value_from_slider(t_ui_el *s, t_ui_el *c);
-void							choose_alpha(t_ui_main *main, void *el_v);
-void							choose_size(t_ui_main *main, void *el_v);
-void							choose_blue_color(t_ui_main *main, void *el_v);
-void							choose_green_color(t_ui_main *main, void *el_v);
-void							choose_red_color(t_ui_main *main, void *el_v);
+int								choose_alpha(t_ui_main *main, void *el_v);
+int								choose_size(t_ui_main *main, void *el_v);
+int								choose_blue_color(t_ui_main *main, void *el_v);
+int								choose_green_color(t_ui_main *main, void *el_v);
+int								choose_red_color(t_ui_main *main, void *el_v);
 
-void							choose_brush(t_ui_main *main, void *el_v);
+int								choose_brush(t_ui_main *main, void *el_v);
 void							tool_brush(t_ui_el *el, t_guimp *g, int x, int y);
 
-void							choose_ellipse(t_ui_main *main, void *el_v);
+int								choose_ellipse(t_ui_main *main, void *el_v);
 void							draw_ellipse(t_guimp *g, t_vec2 start, t_vec2 end);
 void							draw_empty_ellipse(t_guimp *g, t_vec2 s, t_vec2 e);
 
-void							choose_line(t_ui_main *main, void *el_v);
+int								choose_line(t_ui_main *main, void *el_v);
 void							draw_line(t_guimp *g, t_vec2 start, t_vec2 end);
 
-void							choose_square(t_ui_main *main, void *el_v);
+int								choose_square(t_ui_main *main, void *el_v);
 
-void							choose_rect(t_ui_main *main, void *el_v);
+int								choose_rect(t_ui_main *main, void *el_v);
 void							draw_rect(t_guimp *g, t_vec2 s, t_vec2 e);
 void							draw_empty_rect(t_guimp *g, t_vec2 s, t_vec2 e);
 
 void							process_tmp_layer(t_guimp *g);
-void							switch_fill_mode(t_ui_main *main, void *el_v);
+int								switch_fill_mode(t_ui_main *main, void *el_v);
 
-void							set_brush_texture_from_el(t_ui_main *main, void *el_v);
+int								set_brush_texture_from_el(t_ui_main *main, void *el_v);
 
 #endif

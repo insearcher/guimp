@@ -6,13 +6,13 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 05:31:00 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/12 03:29:29 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:24:29 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_log_el_left_button_hold(t_ui_main *m, void *a)
+int	ui_log_el_left_button_hold(t_ui_main *m, void *a)
 {
 	t_ui_el		*el;
 
@@ -28,4 +28,5 @@ void	ui_log_el_left_button_hold(t_ui_main *m, void *a)
 		el->id
 //		m->raycaster->focused_win->id
 	);
+	return (1);
 }

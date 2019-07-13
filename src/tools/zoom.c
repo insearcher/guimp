@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:40:37 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/13 07:10:17 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:16:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@
 //	g->draw_tool.tool = pt;
 //}
 
-void	choose_zoom(t_ui_main *main, void *el_v)
+int	choose_zoom(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
 	g = (t_guimp *)(main->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_ZOOM;
+	return (1);
 }
 
 void	tool_zoom_in(t_guimp *g, int x, int y)

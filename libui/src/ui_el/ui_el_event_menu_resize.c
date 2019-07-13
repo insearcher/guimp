@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 10:04:13 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 11:01:15 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:13:56 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	get_new_pos_size_indent(t_ui_el *el, t_resize_data *data)
 	data->elem_pos.y = data->elem_pos.y - (float)el->rect.y;
 }
 
-void		ui_el_event_menu_resize(t_ui_main *m, void *a)
+int			ui_el_event_menu_resize(t_ui_main *m, void *a)
 {
 	t_resize_data	data;
 	t_list			*list;
@@ -78,4 +78,5 @@ void		ui_el_event_menu_resize(t_ui_main *m, void *a)
 			list = list->next;
 		}
 	}
+	return (1);
 }

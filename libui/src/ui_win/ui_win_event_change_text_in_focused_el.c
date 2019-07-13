@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:18:31 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 10:51:04 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:35:54 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	*join_with_other(t_ui_el *el, unsigned int keycode)
 	return(str);
 }
 
-void	ui_win_event_change_text_in_focused_el(t_ui_main *m, void *a)
+int	ui_win_event_change_text_in_focused_el(t_ui_main *m, void *a)
 {
 	t_ui_win	*w;
 	t_ui_el		*el;
@@ -77,7 +77,7 @@ void	ui_win_event_change_text_in_focused_el(t_ui_main *m, void *a)
 	w = (t_ui_win *)a;
 	el = m->focused_el;
 	if (!el || !(el->params & EL_IS_TEXT) || !(el->text_area->params & TEXT_IS_INPUTTING))
-		return ;
+		return (1);
 	if (m->cur_keycode >= SDL_SCANCODE_A && m->cur_keycode <= SDL_SCANCODE_Z)
 	{
 		new_text = join_with_letter(el, m->cur_keycode);
@@ -111,4 +111,5 @@ void	ui_win_event_change_text_in_focused_el(t_ui_main *m, void *a)
 		new_text = NULL;
 	}
 	SDL_Log("%s\n", el->text_area->text);
+	return (1);
 }

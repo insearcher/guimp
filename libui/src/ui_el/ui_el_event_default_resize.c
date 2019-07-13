@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 10:03:56 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 10:59:31 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:17:11 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_el_event_default_resize(t_ui_main *m, void *a)
+int	ui_el_event_default_resize(t_ui_main *m, void *a)
 {
 	t_ui_el *el;
 
@@ -23,4 +23,5 @@ void	ui_el_event_default_resize(t_ui_main *m, void *a)
 	el->rect.w = roundf((float)el->parent->rect.w * el->relative_rect.w);
 	el->rect.h = roundf((float)el->parent->rect.h * el->relative_rect.h);
 	el->cut_rect = el->rect;
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:53:23 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/13 07:15:43 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:08:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static t_vec2	calc_el_dot(t_vec2 *d, float k)
 	);
 	return (res);
 }
-
-void	choose_ellipse(t_ui_main *main, void *el_v)
+int	choose_ellipse(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
@@ -49,6 +48,7 @@ void	choose_ellipse(t_ui_main *main, void *el_v)
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_ELLIPSE;
 	g->draw_tool.state = GM_TOOL_STATE_NONE;
+	return (1);
 }
 
 void	draw_ellipse(t_guimp *g, t_vec2 s, t_vec2 e)

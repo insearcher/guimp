@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:09:04 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/13 07:28:33 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 11:38:07 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ** 7)
 */
 
-//# define DEBUG_STATUS
+# define DEBUG_STATUS
 
 # define KNRM				"\x1B[0m"
 # define KRED				"\x1B[31m"
@@ -323,7 +323,7 @@ typedef struct		s_text_params
 	int				render_param;
 }					t_text_params;
 
-typedef	void		(*pred_ptr_event)(t_ui_main *, void *);
+typedef	int		(*pred_ptr_event)(t_ui_main *, void *);
 
 #pragma region		raycast functions
 t_ui_el				*ui_raycast(t_ui_main *m, t_ui_win *w);
@@ -340,15 +340,15 @@ void				ui_main_handle_mouse_event(t_ui_main *m);
 void				ui_main_handle_keyboard_event(t_ui_main *m);
 void				ui_main_handle_continious_event(t_ui_main *m, t_ui_el *el);
 
-void				ui_main_event_close_window(t_ui_main *m, void *a);
-void				ui_main_event_close_program(t_ui_main *m, void *a);
-void				ui_main_event_pointer_moved(t_ui_main *m, void *a);
-void				ui_main_event_lmb_pressed(t_ui_main *m, void *a);
-void				ui_main_event_lmb_released(t_ui_main *m, void *a);
-void				ui_main_event_rmb_pressed(t_ui_main *m, void *a);
-void				ui_main_event_rmb_released(t_ui_main *m, void *a);
-void				ui_main_event_scroll_up(t_ui_main *m, void *a);
-void				ui_main_event_scroll_down(t_ui_main *m, void *a);
+int					ui_main_event_close_window(t_ui_main *m, void *a);
+int					ui_main_event_close_program(t_ui_main *m, void *a);
+int					ui_main_event_pointer_moved(t_ui_main *m, void *a);
+int					ui_main_event_lmb_pressed(t_ui_main *m, void *a);
+int					ui_main_event_lmb_released(t_ui_main *m, void *a);
+int					ui_main_event_rmb_pressed(t_ui_main *m, void *a);
+int					ui_main_event_rmb_released(t_ui_main *m, void *a);
+int					ui_main_event_scroll_up(t_ui_main *m, void *a);
+int					ui_main_event_scroll_down(t_ui_main *m, void *a);
 
 int					ui_main_add_font_by_path(t_ui_main *m, const char *path, const char *font_id);
 int					ui_main_add_surface_by_path(t_ui_main *m, const char *path, const char *sur_id);
@@ -374,32 +374,32 @@ SDL_Texture			*ui_main_merge_layers(SDL_Renderer *r, t_list *l);
 #pragma endregion
 
 #pragma region		log functions
-void				ui_log_mouse_motion(t_ui_main *m, void *a);
-void				ui_log_mouse_button_up(t_ui_main *m, void *a);
-void				ui_log_mouse_button_down(t_ui_main *m, void *a);
+int					ui_log_mouse_motion(t_ui_main *m, void *a);
+int					ui_log_mouse_button_up(t_ui_main *m, void *a);
+int					ui_log_mouse_button_down(t_ui_main *m, void *a);
 
-void				ui_log_window_focus_gained(t_ui_main *m, void *a);
-void				ui_log_window_focus_lost(t_ui_main *m, void *a);
-void				ui_log_window_closed(t_ui_main *m, void *a);
-void				ui_log_window_resized(t_ui_main *m, void *a);
-void				ui_log_window_moved(t_ui_main *m, void *a);
+int					ui_log_window_focus_gained(t_ui_main *m, void *a);
+int					ui_log_window_focus_lost(t_ui_main *m, void *a);
+int					ui_log_window_closed(t_ui_main *m, void *a);
+int					ui_log_window_resized(t_ui_main *m, void *a);
+int					ui_log_window_moved(t_ui_main *m, void *a);
 
-void				ui_log_el_pointer_enter(t_ui_main *m, void *a);
-void				ui_log_el_pointer_stay(t_ui_main *m, void *a);
-void				ui_log_el_pointer_exit(t_ui_main *m, void *a);
+int					ui_log_el_pointer_enter(t_ui_main *m, void *a);
+int					ui_log_el_pointer_stay(t_ui_main *m, void *a);
+int					ui_log_el_pointer_exit(t_ui_main *m, void *a);
 
-void				ui_log_el_scroll_up(t_ui_main *m, void *a);
-void				ui_log_el_scroll_down(t_ui_main *m, void *a);
+int					ui_log_el_scroll_up(t_ui_main *m, void *a);
+int					ui_log_el_scroll_down(t_ui_main *m, void *a);
 
-void				ui_log_el_left_button_hold(t_ui_main *m, void *a);
-void				ui_log_el_left_button_pressed(t_ui_main *m, void *a);
-void				ui_log_el_left_button_released(t_ui_main *m, void *a);
-void				ui_log_el_right_button_pressed(t_ui_main *m, void *a);
-void				ui_log_el_right_button_released(t_ui_main *m, void *a);
-void				ui_log_el_right_button_hold(t_ui_main *m, void *a);
+int					ui_log_el_left_button_hold(t_ui_main *m, void *a);
+int					ui_log_el_left_button_pressed(t_ui_main *m, void *a);
+int					ui_log_el_left_button_released(t_ui_main *m, void *a);
+int					ui_log_el_right_button_pressed(t_ui_main *m, void *a);
+int					ui_log_el_right_button_released(t_ui_main *m, void *a);
+int					ui_log_el_right_button_hold(t_ui_main *m, void *a);
 
-void				ui_log_key_pressed(t_ui_main *m, void *a);
-void				ui_log_key_released(t_ui_main *m, void *a);
+int					ui_log_key_pressed(t_ui_main *m, void *a);
+int					ui_log_key_released(t_ui_main *m, void *a);
 #pragma endregion
 
 #pragma region		bfs functions
@@ -481,27 +481,27 @@ void				ui_el_setup_horizontal_draggable(t_ui_el *el);
 void				ui_el_setup_menu_resizable(t_ui_el *el);
 void				ui_el_setup_radio(t_ui_el *el);
 
-void				ui_el_event_switch_radio(t_ui_main *m, void *a);			//EVENT	onPointerLeftButtonPressed
-void				ui_el_event_default_pointer_enter(t_ui_main *m, void *a);	//EVENT	onPointerEnter
-void				ui_el_event_default_pointer_exit(t_ui_main *m, void *a);	//EVENT	onPointerExit
-void				ui_el_event_scroll_menu_up(t_ui_main *m, void *a);			//EVENT onScrollUp
-void				ui_el_event_scroll_menu_down(t_ui_main *m, void *a);		//EVENT onScrollDown
-void				ui_el_event_scroll_child_menu_up(t_ui_main *m, void *a);	//EVENT onScrollUp
-void				ui_el_event_scroll_child_menu_down(t_ui_main *m, void *a);	//EVENT onScrollDown
-void				ui_el_event_default_draw(t_ui_main *m, void *a);			//TODO BFS EVENT onRender
-void				ui_el_event_drag(t_ui_main *m, void *a);					//EVENT onPointerLeftButtonHold
-void				ui_el_event_hor_slider_drag(t_ui_main *m, void *a);			//EVENT onPointerLeftButtonHold
-void				ui_el_event_menu_resize(t_ui_main *m, void *a);				//TODO BFS EVENT onResize
-void				ui_el_event_default_resize(t_ui_main *m, void *a);			//TODO BFS EVENT onResize
-void				ui_el_event_children_set_default(t_ui_main *m, void *a);		//EVENT	onPointerLeftButtonPressed
-void				ui_el_event_show_child(t_ui_main *m, void *a);					//EVENT	onPointerLeftButtonPressed
+int					ui_el_event_switch_radio(t_ui_main *m, void *a);			//EVENT	onPointerLeftButtonPressed
+int					ui_el_event_default_pointer_enter(t_ui_main *m, void *a);	//EVENT	onPointerEnter
+int					ui_el_event_default_pointer_exit(t_ui_main *m, void *a);	//EVENT	onPointerExit
+int					ui_el_event_scroll_menu_up(t_ui_main *m, void *a);			//EVENT onScrollUp
+int					ui_el_event_scroll_menu_down(t_ui_main *m, void *a);		//EVENT onScrollDown
+int					ui_el_event_scroll_child_menu_up(t_ui_main *m, void *a);	//EVENT onScrollUp
+int					ui_el_event_scroll_child_menu_down(t_ui_main *m, void *a);	//EVENT onScrollDown
+int					ui_el_event_default_draw(t_ui_main *m, void *a);			//TODO BFS EVENT onRender
+int					ui_el_event_drag(t_ui_main *m, void *a);					//EVENT onPointerLeftButtonHold
+int					ui_el_event_hor_slider_drag(t_ui_main *m, void *a);			//EVENT onPointerLeftButtonHold
+int					ui_el_event_menu_resize(t_ui_main *m, void *a);				//TODO BFS EVENT onResize
+int					ui_el_event_default_resize(t_ui_main *m, void *a);			//TODO BFS EVENT onResize
+int					ui_el_event_children_set_default(t_ui_main *m, void *a);	//EVENT	onPointerLeftButtonPressed
+int					ui_el_event_show_child(t_ui_main *m, void *a);				//EVENT	onPointerLeftButtonPressed
 //////////////////////////////////////////////////////////////NOT USED, there is pref in json.
-void				ui_el_event_set_default_texture(t_ui_main *m, void *a);
-void				ui_el_event_set_focused_texture(t_ui_main *m, void *a);
-void				ui_el_event_set_active_texture(t_ui_main *m, void *a);
+int					ui_el_event_set_default_texture(t_ui_main *m, void *a);
+int					ui_el_event_set_focused_texture(t_ui_main *m, void *a);
+int					ui_el_event_set_active_texture(t_ui_main *m, void *a);
 ///////////////////////////////////////////////////////////////////////
 
-void				ui_el_create_modal_ok(t_ui_main *m, void *a); //TODO возможно фул переделать на мейн
+int					ui_el_create_modal_ok(t_ui_main *m, void *a);				//TODO возможно фул переделать на мейн
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -516,10 +516,10 @@ void				ui_win_destroy(t_ui_win *w);
 
 t_ui_el				*ui_win_find_el_by_id(t_ui_win *w, Uint32 id);
 
-void				ui_win_event_update_size(t_ui_main *m, void *a);
-void				ui_win_event_change_text_in_focused_el(t_ui_main *m, void *a);
-void				ui_win_event_focus_lost(t_ui_main *m, void *a);
-void				ui_win_event_focus_gained(t_ui_main *m, void *a);
+int					ui_win_event_update_size(t_ui_main *m, void *a);
+int					ui_win_event_change_text_in_focused_el(t_ui_main *m, void *a);
+int					ui_win_event_focus_lost(t_ui_main *m, void *a);
+int					ui_win_event_focus_gained(t_ui_main *m, void *a);
 #pragma endregion
 
 #pragma region		sdl functions
@@ -577,7 +577,7 @@ t_cursor			*ui_cursor_init(void);
 
 void				ui_cursor_to_default(t_ui_main *m, void *a);
 
-void				ui_cursor_from_el_data(t_ui_main *m, void *a);
+int					ui_cursor_from_el_data(t_ui_main *m, void *a);
 void				ui_cursor_from(t_cursor *c);
 #pragma endregion
 

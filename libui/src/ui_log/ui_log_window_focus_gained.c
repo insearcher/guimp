@@ -6,13 +6,13 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:44:42 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/12 11:06:50 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:33:12 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_log_window_focus_gained(t_ui_main *m, void *a)
+int	ui_log_window_focus_gained(t_ui_main *m, void *a)
 {
 	t_ui_win	*w;
 
@@ -27,4 +27,5 @@ void	ui_log_window_focus_gained(t_ui_main *m, void *a)
 			w->id
 		);
 	}
+	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 04:14:00 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/12 03:30:49 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:25:21 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_log_el_pointer_exit(t_ui_main *m, void *a)
+int	ui_log_el_pointer_exit(t_ui_main *m, void *a)
 {
 	t_ui_el		*el;
 
@@ -28,4 +28,5 @@ void	ui_log_el_pointer_exit(t_ui_main *m, void *a)
 		el->id
 //		m->raycaster->focused_win->id
 	);
+	return (1);
 }

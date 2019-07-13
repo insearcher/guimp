@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 05:57:22 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/13 05:39:20 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:34:50 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void		ui_win_event_update_size(t_ui_main *m, void *a)
+int	ui_win_event_update_size(t_ui_main *m, void *a)
 {
 	t_ui_win	*w;
 
@@ -36,4 +36,5 @@ void		ui_win_event_update_size(t_ui_main *m, void *a)
 		w->canvas->cut_rect = w->canvas->rect;
 		bfs_for_resize(w->canvas, m);
 	}
+	return (1);
 }

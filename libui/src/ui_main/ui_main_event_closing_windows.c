@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 05:12:51 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 11:15:13 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 11:32:45 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 	free(tmp);
 }*/
 
-void	ui_main_event_close_window(t_ui_main *m, void *a)
+int		ui_main_event_close_window(t_ui_main *m, void *a)
 {
 	t_ui_win	*w;
 	t_ui_win	*cur_w;
@@ -39,8 +39,6 @@ void	ui_main_event_close_window(t_ui_main *m, void *a)
 		cur_w = (t_ui_win *)(cur->content);
 		if (w->id == cur_w->id)
 		{
-			if (m->raycaster->focused_win && m->raycaster->focused_win->id == cur_w->id)
-				m->raycaster->focused_win = NULL;
 			ui_win_destroy(cur_w);
 			if (prev == NULL)
 				m->windows = cur->next;
@@ -49,18 +47,25 @@ void	ui_main_event_close_window(t_ui_main *m, void *a)
 			free(cur);
 //			ft_lstdelones_without_cont(&cur);
 			m->params |= HUITA;
+			if (m->raycaster->focused_win && m->raycaster->focused_win->id == cur_w->id)
+			{
+				m->raycaster->focused_win = NULL;
+				m->raycaster->selected = NULL;
+			}
 			SDL_UnlockMutex(m->mutex);
-			return ;
+			return (0);
 		}
 		prev = cur;
 		cur = cur->next;
 	}
 	SDL_UnlockMutex(m->mutex);
+	return (1);
 }
 
-void	ui_main_event_close_program(t_ui_main *m, void *a)
+int		ui_main_event_close_program(t_ui_main *m, void *a)
 {
 	(void)a;
 	m->params |= MAIN_ON_QUIT;
 	ui_sdl_deinit(EXIT_SUCCESS);
+	return (0);
 }

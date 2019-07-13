@@ -6,13 +6,13 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:52:59 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/13 07:18:58 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:09:37 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	choose_rect(t_ui_main *main, void *el_v)
+int	choose_rect(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
@@ -20,6 +20,7 @@ void	choose_rect(t_ui_main *main, void *el_v)
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_RECT;
 	g->draw_tool.state = GM_TOOL_STATE_NONE;
+	return (1);
 }
 
 void	draw_rect(t_guimp *g, t_vec2 s, t_vec2 e)

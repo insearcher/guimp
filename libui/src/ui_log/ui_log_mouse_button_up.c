@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 00:41:33 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/12 03:34:08 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:31:48 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void	ui_log_mouse_button_up(t_ui_main *m, void *a)
+int	ui_log_mouse_button_up(t_ui_main *m, void *a)
 {
 	t_ui_win	*w;
 
@@ -25,4 +25,5 @@ void	ui_log_mouse_button_up(t_ui_main *m, void *a)
 				m->ptr_pos.y,
 				w->id);
 	}
+	return (1);
 }

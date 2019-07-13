@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 00:41:52 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/13 07:09:04 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:17:41 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@
 //	SDL_SetRenderDrawBlendMode(ren, bm);
 //}
 
-void draw_with_selected_tool(t_ui_main *main, void *el_v)
+int draw_with_selected_tool(t_ui_main *main, void *el_v)
 {
     t_guimp *g;
     t_ui_el *el;
@@ -94,4 +94,5 @@ void draw_with_selected_tool(t_ui_main *main, void *el_v)
         tool_pipette(g, el);
     else if (g->draw_tool.tool == GM_TOOL_ERASER)
 		tool_eraser(el, g, x, y);
+	return (1);
 }

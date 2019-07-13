@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 03:40:52 by sbecker           #+#    #+#             */
-/*   Updated: 2019/07/12 11:07:54 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/07/13 09:33:39 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-void    ui_log_window_moved(t_ui_main *m, void *a)
+int	ui_log_window_moved(t_ui_main *m, void *a)
 {
 	t_ui_win    *w;
 
@@ -27,4 +27,5 @@ void    ui_log_window_moved(t_ui_main *m, void *a)
 				w->id
 			   );
 	}
+	return (1);
 }

@@ -26,11 +26,11 @@
         },
         {
           "event_name": "onResize",
-          "func_name": "ui_win_update_size"
+          "func_name": "ui_win_event_update_size"
         },
         {
           "event_name": "onClose",
-          "func_name": "ui_main_close_program"
+          "func_name": "ui_main_event_close_program"
         }
       ],
       "elements":
@@ -669,7 +669,7 @@
         },
         {
           "event_name": "onClose",
-          "func_name": "ui_main_close_program"
+          "func_name": "ui_main_event_close_program"
         }
       ],
       "elements":
@@ -755,7 +755,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerEnter",
@@ -767,11 +767,11 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerLeftButtonPressed",
@@ -828,7 +828,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerEnter",
@@ -840,7 +840,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             }
           ]
         },
@@ -887,7 +887,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerEnter",
@@ -899,7 +899,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerLeftButtonPressed",
@@ -956,7 +956,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerEnter",
@@ -968,7 +968,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerLeftButtonPressed",
@@ -1025,7 +1025,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerEnter",
@@ -1037,7 +1037,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerLeftButtonPressed",
@@ -1094,7 +1094,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerEnter",
@@ -1106,7 +1106,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerLeftButtonPressed",
@@ -1163,7 +1163,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerEnter",
@@ -1175,7 +1175,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerLeftButtonPressed",
@@ -1232,7 +1232,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_show_child"
+              "func_name": "ui_el_event_show_child"
             },
             {
               "event_name": "onPointerEnter",
@@ -1244,7 +1244,7 @@
             },
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerLeftButtonPressed",
@@ -2400,7 +2400,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -2495,7 +2495,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -2590,7 +2590,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -2685,7 +2685,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -2780,7 +2780,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -2912,7 +2912,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -3003,7 +3003,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -3094,7 +3094,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -3185,7 +3185,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -3276,7 +3276,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -3367,7 +3367,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -3458,7 +3458,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",
@@ -3549,7 +3549,7 @@
           [
             {
               "event_name": "onPointerLeftButtonPressed",
-              "func_name": "ui_el_children_set_default"
+              "func_name": "ui_el_event_children_set_default"
             },
             {
               "event_name": "onPointerEnter",

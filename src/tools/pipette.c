@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   pipette.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:49:03 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 15:49:03 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:16:02 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	choose_pipette(void *main, void *el_v)
+int	choose_pipette(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_PIPETTE;
+	return (1);
 }
 
 void	tool_pipette(t_guimp *g, t_ui_el *el)
 {
-	int color = ui_get_pixel_color_from_el(el->sdl_renderer, el, (t_vec2){el->ptr_rel_pos.x, el->ptr_rel_pos.y});
+	int color = ui_util_get_pixel_color_from_el(el->sdl_renderer, el, (t_vec2){el->ptr_rel_pos.x, el->ptr_rel_pos.y});
 	g->draw_tool.r = (color & 0xFF0000) >> 16;
 	g->draw_tool.g = (color & 0x00FF00) >> 8;
 	g->draw_tool.b = color & 0x0000FF;

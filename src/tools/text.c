@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 17:49:44 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/07/12 18:06:34 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/13 13:59:09 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	choose_text(void *main, void *el_v)
+int	choose_text(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_TEXT;
 	g->draw_tool.state = GM_TOOL_STATE_NONE;
+	return (1);
 }
 
 void	draw_text(t_guimp *g, t_vec2 s, t_vec2 e, t_ui_el *el)

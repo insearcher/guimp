@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:52:48 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 16:25:43 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:15:38 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	choose_line(void *main, void *el_v)
+int	choose_line(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_LINE;
 	g->draw_tool.state = GM_TOOL_STATE_NONE;
+	return (1);
 }
 
 static t_fvec2	get_normal(int x1, int y1, int x2, int y2)

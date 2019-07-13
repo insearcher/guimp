@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:13:44 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/09 20:01:00 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/12 07:35:22 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_ui_event	*ui_event_init(void)
 	return (e);
 }
 
-t_ui_el_events	*ui_el_events_init(void)
+t_ui_el_events	*ui_event_el_events_init(void)
 {
 	t_ui_el_events *e;
 
@@ -46,7 +46,7 @@ t_ui_el_events	*ui_el_events_init(void)
 	return (e);
 }
 
-t_ui_win_events	*ui_win_events_init(void)
+t_ui_win_events	*ui_event_win_events_init(void)
 {
 	t_ui_win_events	*w;
 	int				i;

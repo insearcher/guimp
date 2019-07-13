@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   brush.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:12:48 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/11 21:03:10 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 14:01:06 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	choose_brush(void *main, void *el_v)
+int	choose_brush(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
 	g = (t_guimp *)(((t_ui_main *)main)->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_BRUSH;
+	return (1);
 }
 
-void	set_brush_texture_from_el(void *main, void *el_v)
+int	set_brush_texture_from_el(t_ui_main *main, void *el_v)
 {
 	t_guimp 	*g;
 	t_ui_el 	*el;
@@ -29,6 +30,7 @@ void	set_brush_texture_from_el(void *main, void *el_v)
 	g = (t_guimp *) (((t_ui_main *) main)->data);
 	el = (t_ui_el *) el_v;
 	g->draw_tool.brush = (SDL_Texture *)el->data;
+	return (1);
 }
 
 void	tool_brush(t_ui_el *el, t_guimp *g, int x, int y)

@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   hand.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:45:54 by sbednar           #+#    #+#             */
-/*   Updated: 2019/07/10 15:45:54 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 10:14:35 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
 
-void	choose_hand(void *main, void *el_v)
+int	choose_hand(t_ui_main *main, void *el_v)
 {
 	t_guimp	*g;
 
-	g = (t_guimp *)(((t_ui_main *)main)->data);
+	g = (t_guimp *)(main->data);
 	(void)el_v;
 	g->draw_tool.tool = GM_TOOL_HAND;
+	return (1);
 }
 
 void	tool_hand(t_guimp *g)

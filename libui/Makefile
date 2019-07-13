@@ -6,7 +6,7 @@
 #    By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 16:14:32 by sbednar           #+#    #+#              #
-#    Updated: 2019/07/13 13:55:01 by sbecker          ###   ########.fr        #
+#    Updated: 2019/07/13 14:07:36 by sbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ OBJ_DIR			=	./obj
 INC_DIR			=	./include
 
 SRC_BFS			=	bfs_iter.c \
+					bfs_for_draw.c \
+					bfs_for_find_el_by_id.c \
+					bfs_for_raycast.c \
 					bfs_for_resize.c \
 					queue.c
 
@@ -39,13 +42,8 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_create_texture.c \
 					ui_el_create_texture_from_surface.c \
 					ui_el_get_current_texture.c \
-					ui_el_default_pointer_enter.c \
-					ui_el_default_pointer_exit.c \
-					ui_el_resize_elems.c \
 					ui_el_get_texture_by_id.c \
-					ui_el_drag.c \
-					ui_el_scroll_menu.c \
-					ui_el_set_texture.c \
+					ui_el_event_set_texture.c \
 					ui_el_set_text.c \
 					ui_el_update_text.c \
 					ui_el_change_pos.c \
@@ -53,8 +51,6 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_add_texture_from_main_by_id.c \
 					ui_el_set_pos.c \
 					ui_el_set_size.c \
-					ui_el_default_resize.c \
-					ui_el_menu_resize.c \
 					ui_el_set_new_pos.c \
 					ui_el_set_new_size.c \
 					ui_el_add_texture_from_file_dialog.c \
@@ -66,21 +62,21 @@ SRC_UI_EL		=	ui_el_add_child.c \
 					ui_el_setup_horizontal_draggable.c \
 					ui_el_setup_menu_resizable.c \
 					ui_el_setup_radio.c \
-					ui_el_switch_radio.c \
-					ui_el_show_child.c \
-					ui_el_children_set_default.c \
 					ui_el_create_modal_ok.c \
-					ui_modal_win_destroy.c \
-					ui_text_destroy.c \
 					ui_el_destroy.c \
 					ui_el_destroy_children.c \
-					ui_el_setup_radio.c \
-					ui_el_switch_radio.c
-
-SRC_UI_DRAW_EV	=	ui_el_draw_event.c
+					ui_el_event_children_set_default.c \
+					ui_el_event_show_child.c \
+					ui_el_event_switch_radio.c \
+					ui_el_event_default_draw.c \
+					ui_el_event_default_resize.c \
+					ui_el_event_menu_resize.c \
+					ui_el_event_scroll_menu.c \
+					ui_el_event_default_pointer_enter.c \
+					ui_el_event_default_pointer_exit.c \
+					ui_el_event_drag.c 
 
 SRC_UI_DRAW		=	ui_draw.c \
-					ui_draw_window.c \
 					ui_draw_windows.c \
 					ui_clear_windows.c \
 					ui_show_window.c \
@@ -118,7 +114,6 @@ SRC_UI_LOG		=	ui_log_mouse_motion.c \
 SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_init.c \
 					ui_main_add_window.c \
-					ui_main_closing_windows.c \
 					ui_main_handle_event.c \
 					ui_main_handle_mouse_event.c \
 					ui_main_handle_window_event.c \
@@ -126,13 +121,6 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_handle_keyboard_event.c \
 					ui_main_handle_raycast.c \
 					ui_main_handle_continious_event.c \
-					ui_main_lmb_pressed.c \
-					ui_main_lmb_released.c \
-					ui_main_rmb_pressed.c \
-					ui_main_rmb_released.c \
-					ui_main_scroll_up.c \
-					ui_main_scroll_down.c \
-					ui_main_pointer_moved.c \
 					ui_main_add_font_by_path.c \
 					ui_main_add_surface_by_path.c \
 					ui_main_get_font_by_id.c \
@@ -144,7 +132,15 @@ SRC_UI_MAIN		=	ui_main_loop.c \
 					ui_main_get_function_by_id.c \
 					ui_main_merge_layers.c \
 					ui_main_save_texture.c \
-					ui_main_open_texture.c
+					ui_main_open_texture.c \
+					ui_main_event_lmb_pressed.c \
+					ui_main_event_lmb_released.c \
+					ui_main_event_rmb_pressed.c \
+					ui_main_event_rmb_released.c \
+					ui_main_event_scroll_up.c \
+					ui_main_event_scroll_down.c \
+					ui_main_event_pointer_moved.c \
+					ui_main_event_closing_windows.c
 
 SRC_UI_SDL		=	ui_sdl_init.c \
 					ui_sdl_deinit.c
@@ -153,42 +149,39 @@ SRC_UI_WIN		=	ui_win_init.c \
 					ui_win_setup_default.c \
 					ui_win_create.c \
 					ui_win_create_modal_win.c \
-					ui_win_close.c \
-					ui_win_update_size.c \
 					ui_win_find_el_by_id.c \
-					ui_win_focus.c \
-					ui_win_change_text_in_focused_el.c \
-					ui_win_destroy.c
+					ui_win_destroy.c \
+					ui_win_event_update_size.c \
+					ui_win_event_focus.c \
+					ui_win_event_change_text_in_focused_el.c
 
-SRC_UI_RAYCAST	=	ui_raycast.c \
-					ui_el_is_pointer_inside.c
+SRC_UI_RAYCAST	=	ui_raycast.c
 
 SRC_UI_PREFAB	=	ui_prefab_scroll_menu.c \
 					ui_prefab_get_pixel_pos.c \
 					ui_prefab_get_pixel_size.c
 
-SRC_UTILITS		=	ui_get_rect_from_frect.c \
-					ui_get_pixel_color_from_texture.c \
-					ui_get_pixel_color_from_el.c \
-					ui_set_pixel_color_to_texture.c
+SRC_UTILITS		=	ui_util_get_rect_from_frect.c \
+					ui_util_get_pixel_color_from_texture.c \
+					ui_util_get_pixel_color_from_el.c \
+					ui_util_set_pixel_color_to_texture.c
 
-SRC_UI_JTOC		=	ui_main_from_json.c \
-					ui_win_from_json.c \
-					ui_el_from_json.c \
-					ui_el_get_and_setup_json.c \
-					ui_el_pref_text.c \
-					ui_el_pref_modal_win.c \
+SRC_UI_JTOC		=	ui_jtoc_main_from_json.c \
+					ui_jtoc_win_from_json.c \
+					ui_jtoc_el_from_json.c \
+					ui_jtoc_el_get_and_setup_json.c \
+					ui_jtoc_el_pref_text.c \
+					ui_jtoc_el_pref_modal_win.c \
 					ui_jtoc_utils.c
 
-SRC_UI_FILE		=	ui_open_file_dialog.c \
-					ui_save_file_dialog.c \
-					ui_parse_path.c \
-					ui_find_last_slash.c
+SRC_UI_FILE		=	ui_file_open_file_dialog.c \
+					ui_file_save_file_dialog.c \
+					ui_file_parse_path.c \
+					ui_file_find_last_slash.c
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(SRC_BFS:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_CURSOR:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EL:.c=.o)) \
-					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW_EV:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_DRAW:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_EVENT:.c=.o)) \
 					$(addprefix $(OBJ_DIR)/,$(SRC_UI_LOG:.c=.o)) \
@@ -220,10 +213,6 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/bfs/%.c
-	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
-	@echo "1" > ../$(TEMP)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/ui_draw_events/%.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 	@echo "1" > ../$(TEMP)
 

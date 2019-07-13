@@ -6,7 +6,7 @@
 /*   By: sbednar <sbednar@student.fr.42>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 20:57:36 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 01:55:20 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 06:01:30 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ui_win	*ui_win_init(void)
 	ft_bzero(win, sizeof(t_ui_win));
 	if (!(win->canvas = ui_el_init()))
 		ui_sdl_deinit(228);
-	if (!(win->events = ui_win_events_init()))
+	if (!(win->events = ui_event_win_events_init()))
 		ui_sdl_deinit(228);
 	return (win);
 }

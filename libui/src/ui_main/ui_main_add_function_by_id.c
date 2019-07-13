@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 17:10:19 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/19 17:14:46 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/13 06:49:34 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_main_add_function_by_id(t_ui_main *m, func_ptr f, const char *func_id)
+int	ui_main_add_function_by_id(t_ui_main *m, pred_ptr_event f, const char *func_id)
 {
 	long		ptr;
 	t_list		*node;

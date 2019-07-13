@@ -6,7 +6,7 @@
 /*   By: edraugr- <edraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 06:06:48 by edraugr-          #+#    #+#             */
-/*   Updated: 2019/06/04 15:55:03 by edraugr-         ###   ########.fr       */
+/*   Updated: 2019/07/13 02:57:16 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ui_draw_windows(t_ui_main *m)
 	node = m->windows;
 	while (node)
 	{
-		ui_draw_window((t_ui_win *)node->content, m);
+		bfs_for_draw(m, ((t_ui_win *)node->content)->canvas);
 		node = node->next;
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: sbednar <sbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 20:05:37 by sbednar           #+#    #+#             */
-/*   Updated: 2019/06/20 20:23:41 by sbednar          ###   ########.fr       */
+/*   Updated: 2019/07/12 06:57:09 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int	ui_sdl_log_error(const char *p, const int id)
+int	ui_jtoc_sdl_log_error(const char *p, const int id)
 {
 	SDL_Log("%s ----> ERROR <---- %s", KRED, KNRM);
 	SDL_Log("INCORRECT: %s%s%s%s%s",
